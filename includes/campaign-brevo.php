@@ -44,6 +44,7 @@ function campaign_brevo_attributes(array $values, array $schema): array {
     foreach($values as $name=>$value){
         if($value==='' || !isset($schema[$name]))continue; // Do not erase an existing contact with empty optional fields.
         $definition=$schema[$name];$type=$definition['type']??'';
+        if ($type === 'float') $type = 'number';
         if($type==='category' || ($definition['category']??'')==='category'){
             $choices=[$value];
             if($name==='SERVICIO_INTERES' && $value==='Redes sociales')$choices[]='Redes';
@@ -65,6 +66,6 @@ function campaign_brevo_validate_schema(array $schema): void {
         if (!isset($schema[$required])) throw new RuntimeException('Brevo attribute missing: '.$required);
     }
     foreach (['PUNTUACION'=>'number','RGPD_ACEPTADO'=>'boolean','FECHA_RGPD'=>'date','FECHA_ALTA_LEAD'=>'date'] as $name=>$type) {
-        if (($schema[$name]['type'] ?? '') !== $type || ($schema[$name]['category'] ?? '') === 'category') throw new RuntimeException('Brevo attribute type needs configuration: '.$name);
+        if (!in_array($schema[$name]['type'] ?? '', $type === 'number' ? ['number','float'] : [$type], true) || ($schema[$name]['category'] ?? '') === 'category') throw new RuntimeException('Brevo attribute type needs configuration: '.$name);
     }
 }
