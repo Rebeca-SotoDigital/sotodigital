@@ -91,3 +91,20 @@ putenv('CAMPAIGN_PHONE_REQUIRED=true');
 try {campaign_validate(array_replace($valid,['phone'=>'']));throw new RuntimeException('Required phone accepted');} catch(InvalidArgumentException $e){}
 putenv('CAMPAIGN_PHONE_REQUIRED=false');
 echo "PASS: agreed scores 0/3/4/6/7/10 and optional/required phone switch\n";
+// Never accept an apparently valid JSON when the provider reports truncation/refusal.
+$aiDb=new PDO('sqlite::memory:');$aiDb->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);campaign_migrate($aiDb);
+campaign_store($aiDb,'ai-budget-check','google-ads',campaign_validate($valid),[]);
+$aiRow=$aiDb->query('SELECT * FROM leads')->fetch(PDO::FETCH_ASSOC);
+$partial=static function($url,$headers,$payload){
+ check($payload['max_tokens']>=1000&&$payload['max_tokens']<=1500,'Unsafe summary output limit');
+ check(($payload['output_config']['effort']??'')==='low','Summary effort not bounded');
+ return ['status'=>200,'body'=>['stop_reason'=>'max_tokens','content'=>[['type'=>'text','text'=>'{"resumen":"No aceptar truncado","siguiente_paso":"No aceptar"}']]]];
+};
+campaign_enrich($aiDb,$aiRow,$partial);
+check($aiDb->query('SELECT ai_status FROM leads')->fetchColumn()==='pending','Truncated answer accepted');
+$aiRow=$aiDb->query('SELECT * FROM leads')->fetch(PDO::FETCH_ASSOC);
+campaign_enrich($aiDb,$aiRow,static function(){return ['status'=>200,'body'=>['stop_reason'=>'end_turn','content'=>[['type'=>'thinking','thinking'=>'No guardar razonamiento'],['type'=>'text','text'=>'{"resumen":"Resumen válido","siguiente_paso":"Revisión humana","score":0}']]]];});
+$aiAfter=$aiDb->query('SELECT * FROM leads')->fetch(PDO::FETCH_ASSOC);
+check($aiAfter['ai_status']==='complete'&&$aiAfter['ai_summary']==='Resumen válido','Valid summary not stored');
+check(campaign_stored_score(json_decode($aiAfter['payload'],true))['score']===10,'AI overwrote PHP score');
+echo "PASS: bounded AI output, truncated response rejection, text-block selection and PHP score unchanged\n";

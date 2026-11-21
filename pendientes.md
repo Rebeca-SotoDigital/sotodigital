@@ -111,7 +111,8 @@ Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web
 
 ## 4. Ampliaciones independientes de la integración básica de Brevo
 
-- [ ] **Claude:** cuenta API, clave privada, facturación/límite y modelo accesible; probar resumen y siguiente paso con revisión humana. La puntuación permanece en PHP y el modelo no recibe contacto ni texto libre. No bloquea Brevo mientras sea opcional.
+- [x] **Claude en local:** clave privada aceptada y modelo claude-haiku-5-5 disponible. Prueba sintética y dos solicitudes internas completadas: resumen y siguiente paso sincronizados en Brevo, ESTADO_IA=complete y puntuación PHP intacta. Peticiones sin nombre, email, móvil, empresa, URL, texto libre, IP ni atribución. Ver `docs/prueba-real-claude.md`.
+- [ ] **Claude — operación:** confirmar límite mensual/facturación en Anthropic, revisar calidad de los resúmenes y siguientes pasos con una persona y repetir la integración en el entorno definitivo cuando se apruebe publicar. El límite de tokens por llamada no sustituye un límite mensual de gasto.
 - [ ] **Dealfront/Leadfeeder:** cuenta/plan, código, contratos, consentimiento específico, filtros y cobertura real, si se decide activar. No identifica a cada persona visitante.
 - [ ] **CRM comercial:** segmentos, responsable, IDs del pipeline/etapas y prueba del esqueleto de tratos; `BREVO_CREATE_DEALS` sigue desactivado por defecto.
 - [ ] **Conversiones offline:** aprobar hito, valor real, permisos, formato e importación. Actualmente están diseñadas, no implementadas ni importadas.

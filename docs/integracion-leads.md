@@ -96,6 +96,8 @@ Máximo 10. Caliente 7–10, templado 4–6, frio 0–3. Revisar siempre por una
 
 ## Claude
 
+**Validado en local:** acceso real a Haiku 5.5, prueba sintética y dos solicitudes de prueba con resumen/siguiente paso completos en Brevo. Se usan 1200 tokens como máximo por petición y effort=low para ese modelo; se rechazan respuestas marcadas como truncadas o refusal. Ver `docs/prueba-real-claude.md`. Pendiente confirmar límite mensual en la cuenta y revisión humana de calidad.
+
 Solo redacta resumen y siguiente paso: no decide ni modifica categoría. Se envían sector, objetivo, inversión, urgencia, existencia de web, servicio y puntuación. No se mandan nombre, email, móvil, URL, texto libre, identificadores de campaña ni IP.
 
 La respuesta debe ser JSON con `resumen` y `siguiente_paso`; se valida y limita longitud. Tres intentos máximos por solicitud. Si falla o no hay clave, el lead y su puntuación siguen guardados, Brevo puede recibirlo sin resumen y el email informa «No disponible». Una recuperación posterior puede actualizar el resumen en Brevo sin reenviar emails ya entregados. Para reactivar una IA agotada es necesaria revisión técnica; no hay botón público.

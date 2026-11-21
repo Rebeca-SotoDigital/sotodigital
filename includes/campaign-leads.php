@@ -131,12 +131,16 @@ function campaign_enrich(PDO $db, array $row, ?callable $http = null): void {
     // No name, email, phone, URL, message, attribution or IP is sent to the model.
     $context = array_merge(array_intersect_key($data, array_flip(['sector', 'objective', 'budget', 'urgency', 'has_website'])), $score, ['service' => $row['service']]);
     $db->prepare('UPDATE leads SET ai_attempts=ai_attempts+1 WHERE id=?')->execute([$row['id']]);
-    $result = $http('https://api.anthropic.com/v1/messages', ['x-api-key: ' . campaign_config('ANTHROPIC_API_KEY'), 'anthropic-version: 2023-06-01'], [
-        'model' => campaign_config('ANTHROPIC_MODEL', 'claude-haiku-5-5'), 'max_tokens' => 350,
+    $model=campaign_config('ANTHROPIC_MODEL', 'claude-haiku-5-5');
+    $request = [
+        'model' => $model, 'max_tokens' => 1200,
         'system' => 'Eres un asistente interno de Soto Digital. La puntuación y categoría son definitivas, calculadas en PHP: no las cambies. Resume únicamente los datos observados, sin inventar resultados, precios, contactos ni garantías. No realices acciones. Devuelve solo JSON con dos strings: resumen (máximo 600 caracteres) y siguiente_paso (máximo 300 caracteres). Redacta en español. La prioridad requiere revisión humana.',
         'messages' => [['role' => 'user', 'content' => json_encode($context, JSON_UNESCAPED_UNICODE)]],
-    ]);
-    if ($result['status'] < 200 || $result['status'] >= 300) return;
+    ];
+    // Haiku 5.5 thinks by default; keep this short summarization task low effort.
+    if ($model === 'claude-haiku-5-5') $request['output_config']=['effort'=>'low'];
+    $result = $http('https://api.anthropic.com/v1/messages', ['x-api-key: ' . campaign_config('ANTHROPIC_API_KEY'), 'anthropic-version: 2023-06-01'], $request);
+    if ($result['status'] < 200 || $result['status'] >= 300 || in_array($result['body']['stop_reason']??'', ['max_tokens','refusal','model_context_window_exceeded'], true)) return;
     $text = '';
     foreach (($result['body']['content'] ?? []) as $block) if (($block['type'] ?? '') === 'text') $text .= $block['text'] ?? '';
     $text = preg_replace('/\A\s*```(?:json)?\s*|\s*```\s*\z/', '', $text);
