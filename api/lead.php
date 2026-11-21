@@ -32,8 +32,8 @@ if (!campaign_ready()) lead_response(false, 'La solicitud online todavía no est
 try {
     $db = campaign_db();
     // Forwarded addresses are accepted only from explicitly trusted proxy CIDRs.
-    if (!campaign_rate_allow($db, campaign_client_ip($_SERVER))) { header('Retry-After: 3600'); lead_response(false, 'Has alcanzado el límite de solicitudes. Inténtalo más tarde o vuelve a intentarlo más tarde.', 429); }
-} catch (Throwable $e) { error_log('Campaign storage or rate limiter unavailable'); campaign_alert(null,'almacenamiento o limitador no disponible'); lead_response(false, 'No podemos guardar tu solicitud ahora. Inténtalo más tarde o vuelve a intentarlo más tarde.', 503); }
+    if (!campaign_rate_allow($db, campaign_client_ip($_SERVER))) { header('Retry-After: 3600'); lead_response(false, 'Has alcanzado el límite de solicitudes. Inténtalo de nuevo más tarde.', 429); }
+} catch (Throwable $e) { error_log('Campaign storage or rate limiter unavailable'); campaign_alert(null,'almacenamiento o limitador no disponible'); lead_response(false, 'No podemos guardar tu solicitud ahora. Inténtalo de nuevo más tarde.', 503); }
 $screened = !empty($_POST['company_fax']) || campaign_screened($_POST);
 if (!$screened) {
     try { $data = campaign_validate($_POST); } catch (InvalidArgumentException $e) { lead_response(false, $e->getMessage(), 422); }
@@ -53,7 +53,7 @@ if ($screened) {
 $attributionToken = is_string($_POST['attribution_token'] ?? null) ? $_POST['attribution_token'] : '';
 $attribution = $_SESSION['campaign_attribution'][$attributionToken] ?? [];
 try { campaign_store($db, $submission, $slug, $data, $attribution); }
-catch (Throwable $e) { error_log('Campaign lead storage failed'); campaign_alert($db,'fallo al guardar una solicitud'); lead_response(false, 'No hemos podido guardar tu solicitud. Inténtalo de nuevo o vuelve a intentarlo más tarde.', 503); }
+catch (Throwable $e) { error_log('Campaign lead storage failed'); campaign_alert($db,'fallo al guardar una solicitud'); lead_response(false, 'No hemos podido guardar tu solicitud. Inténtalo de nuevo más tarde.', 503); }
 $_SESSION['campaign_received'] = $submission;
 $_SESSION['campaign_conversion'] = ['id' => $submission, 'service' => $slug];
 unset($_SESSION['campaign_screened'], $_SESSION['campaign_old'], $_SESSION['campaign_submission'], $_SESSION['campaign_attribution'][$attributionToken]);
