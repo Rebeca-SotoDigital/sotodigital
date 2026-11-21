@@ -100,3 +100,4 @@ body{padding-top:94px}section{padding:96px 0;scroll-margin-top:100px}.container{
 
 /* Keep content fully readable regardless of scroll/entrance animation timing. */
 .reveal-pending{opacity:1!important;transform:none!important;transition:none!important}.section-subtitle{color:#00658b}.contact-section .section-subtitle{color:#fff}.footer-bottom{font-size:.8125rem}.service-row p,.process-grid p{font-size:1rem}
+.solution-blue p{color:#fff;opacity:1}.solution-card p{font-size:1rem}.process-grid p{color:#4b5b6c}.process-section .process-grid p{color:#d4e3ea}
