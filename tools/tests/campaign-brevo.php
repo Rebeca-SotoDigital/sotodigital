@@ -47,3 +47,21 @@ brevo_assert($db->query("SELECT brevo_synced FROM leads WHERE id='new'")->fetchC
 brevo_assert($db->query("SELECT COUNT(*) FROM leads")->fetchColumn()==1,'Schema failure lost lead');
 brevo_assert(campaign_brevo_phone('0034600000000')==='+34600000000'&&campaign_brevo_phone('1234567')==='','Phone format');
 echo "PASS: Brevo schema/category IDs, PHP-only score, attribution, phone retry, existing stage/empty preservation and recoverable schema failure\n";
+require __DIR__.'/../../includes/campaign-brevo-check.php';
+putenv('CAMPAIGN_MAIL_FROM=ads@soto-digital.com');
+$preflightCalls=[];
+$preflight=static function($url,$headers,$payload,$timeout=12,$method='POST')use(&$preflightCalls){
+    brevo_assert($method==='GET' && $payload===[],'Preflight attempted a write');$preflightCalls[]=$url;
+    if(str_ends_with($url,'/account'))return ['status'=>200,'body'=>[]];
+    if(str_contains($url,'/contacts/lists/'))return ['status'=>200,'body'=>['id'=>123]];
+    if(str_ends_with($url,'/attributes'))return ['status'=>200,'body'=>['attributes'=>campaign_brevo_test_schema()]];
+    if(str_ends_with($url,'/senders'))return ['status'=>200,'body'=>['senders'=>[['email'=>'ads@soto-digital.com','active'=>true]]]];
+    if(str_contains($url,'/senders/domains/'))return ['status'=>200,'body'=>['authenticated'=>true]];
+    throw new RuntimeException('Unexpected preflight request');
+};
+$preflightResult=campaign_brevo_check($preflight);brevo_assert($preflightResult['ok']&&count($preflightCalls)===5,'Read-only preflight failed');
+brevo_assert(!str_contains(json_encode($preflightResult),campaign_config('BREVO_API_KEY')),'API key exposed');
+$invalid=campaign_brevo_check(static function(){return ['status'=>401,'body'=>['message'=>'private provider body']];});
+brevo_assert(!$invalid['ok']&&!str_contains(json_encode($invalid),'private provider body'),'Authentication failure exposed provider data');
+putenv('BREVO_API_KEY');$unconfigured=campaign_brevo_check(static function(){throw new RuntimeException('Missing key triggered network');});brevo_assert(!$unconfigured['ok'],'Missing key accepted');
+echo "PASS: read-only Brevo preflight, authentication failure and secret-safe output\n";

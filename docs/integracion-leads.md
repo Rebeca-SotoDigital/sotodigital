@@ -170,3 +170,9 @@ Copias consistentes `VACUUM INTO`, permisos 0600, carpeta privada `backups`, 14 
 `purge --dry-run` revisa recuentos; `purge` elimina fila, payload, IA y atribución tras 12 meses desde última comunicación (creación si no existe). `contact ID --commercial-active` registra comunicación y protege relación comercial; `contact ID` registra comunicación y libera esa protección. Mantener ese estado también al cerrar clientes: no hay sincronización de fechas ni contratos desde Brevo. Los backups conservan datos hasta rotación (14 copias) y requieren procedimiento de supresión/restauración. `CAMPAIGN_PURGE_BREVO=false` por defecto: el borrado remoto elimina todo el contacto, revisar primero otras finalidades y bases jurídicas. Si existe otra solicitud local del mismo email no se borra el contacto compartido; un fallo remoto conserva la referencia local para revisión.
 
 Consultar `docs/siguiente-etapa-crm.md` para CRM y diseño offline. No hay propuestas, firmas, pagos ni encargos a freelancers implementados.
+
+## Comprobar Brevo antes de activar
+
+Con SOTO_CONFIG_FILE apuntando al archivo privado, ejecutar `php bin/campaign-leads.php brevo-check`. Consulta únicamente cuenta, lista, atributos, remitente y dominio: no crea contactos, no manda emails y no abre SQLite. Devuelve checks y código de salida 0 si todo es compatible; no muestra claves ni respuestas completas del proveedor. Un resultado correcto no valida entregabilidad, automatizaciones de la cuenta ni cron: probar después con un lead propio y envío expresamente autorizado.
+
+Referencia de las comprobaciones: [cuenta](https://developers.brevo.com/reference/get-account), [remitentes](https://developers.brevo.com/reference/get-senders), [dominio](https://developers.brevo.com/reference/get-domain-configuration).

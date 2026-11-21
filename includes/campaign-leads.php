@@ -155,12 +155,7 @@ function campaign_brevo_sync(PDO $db, array $row, ?callable $http = null): void 
     $headers = ['api-key: ' . campaign_config('BREVO_API_KEY')];
     $schema = campaign_brevo_schema($http, $headers);
     if ($schema === null) return;
-    foreach (['FIRSTNAME','EMPRESA','WEB_CLIENTE','SERVICIO_INTERES','MENSAJE_LEAD','ORIGEN','LANDING','UTM_CAMPAIGN','FECHA_ALTA_LEAD','RGPD_ACEPTADO','FECHA_RGPD','ESTADO_LEAD','PUNTUACION','POTENCIAL','VERSION_PUNTUACION','IA_NECESIDADES','SIGUIENTE_PASO_IA','ESTADO_IA'] as $required) {
-        if (!isset($schema[$required])) throw new RuntimeException('Brevo attribute missing: '.$required);
-    }
-    foreach (['PUNTUACION'=>'number','RGPD_ACEPTADO'=>'boolean','FECHA_RGPD'=>'date','FECHA_ALTA_LEAD'=>'date'] as $name=>$type) {
-        if (($schema[$name]['type'] ?? '') !== $type || ($schema[$name]['category'] ?? '') === 'category') throw new RuntimeException('Brevo attribute type needs configuration: '.$name);
-    }
+    campaign_brevo_validate_schema($schema);
     $existing = $http('https://api.brevo.com/v3/contacts/'.rawurlencode($data['email']), $headers, [], 12, 'GET');
     if ($existing['status'] !== 404 && $existing['status'] !== 200) return;
     $values = campaign_brevo_values($row, $data, $attr);

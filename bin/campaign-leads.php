@@ -4,8 +4,14 @@ require __DIR__ . '/../includes/campaign-leads.php';
 require __DIR__ . '/../includes/campaign-operations.php';
 require __DIR__ . '/../includes/campaign-next-stage.php';
 $command = $argv[1] ?? '';
+if ($command === 'brevo-check') {
+    require __DIR__.'/../includes/campaign-brevo-check.php';
+    try { $result=campaign_brevo_check(); } catch (Throwable $e) { $result=['ok'=>false,'checks'=>['configuration'=>['ok'=>false,'detail'=>'No se ha podido cargar la configuración privada.']]]; }
+    echo json_encode($result,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE).PHP_EOL;
+    exit($result['ok']?0:1);
+}
 if ($command === 'health') { $health=campaign_health(); echo json_encode($health).PHP_EOL; exit($health['ok']?0:1); }
-if (!in_array($command, ['export', 'retry', 'status', 'backup', 'purge', 'contact', 'report'], true)) exit("Usage: php tools/campaign-leads.php export|retry|status\n");
+if (!in_array($command, ['export', 'retry', 'status', 'backup', 'purge', 'contact', 'report'], true)) exit("Usage: php bin/campaign-leads.php brevo-check|health|export|retry|status|backup|purge|contact|report\n");
 try { $db = campaign_db(); } catch (Throwable $e) { campaign_alert(null,'almacenamiento no disponible'); fwrite(STDERR, "Storage unavailable\n"); exit(1); }
 if ($command === 'report') {echo json_encode(campaign_weekly_report($db),JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE).PHP_EOL;exit;}
 if ($command === 'contact') {
