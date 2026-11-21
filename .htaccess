@@ -32,6 +32,14 @@ Options -Indexes
 </IfModule>
 
 <IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+    # Enable only after production HTTPS and redirects have been verified:
+    # Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
+    Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://sc.lftracker.com; connect-src 'self' https://challenges.cloudflare.com https://*.google-analytics.com https://*.analytics.google.com https://*.googleadservices.com https://googleads.g.doubleclick.net https://*.lftracker.com; img-src 'self' data: https://*.google-analytics.com https://*.google.com https://*.google.es https://*.googleadservices.com https://googleads.g.doubleclick.net https://*.lftracker.com; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src https://challenges.cloudflare.com https://www.googletagmanager.com; base-uri 'self'; object-src 'none'; form-action 'self'; frame-ancestors 'self'"
+
     # Ordinary static resources can change: keep their lifetime moderate.
     <FilesMatch "\.(?:css|js|png|jpe?g|webp|avif|gif|svg|ico|woff2)$">
         Header set Cache-Control "public, max-age=2592000"
