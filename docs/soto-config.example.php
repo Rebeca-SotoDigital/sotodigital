@@ -16,6 +16,9 @@ return [
     'CAMPAIGN_TRUSTED_PROXIES' => '', // Comma-separated CIDRs; proxies must overwrite forwarded headers.
     'CAMPAIGN_RATE_SECRET' => '', // Optional independent random secret; fallback is Turnstile secret.
     'BREVO_API_KEY' => '',
+    'BREVO_CREATE_DEALS' => false,
+    'BREVO_PIPELINE_ID' => '',
+    'BREVO_NEW_STAGE_ID' => '',
     'BREVO_LIST_ID' => 0,
     'CAMPAIGN_MAIL_FROM' => 'ads@soto-digital.com', // Must be authorized by Brevo.
     'CAMPAIGN_MAIL_TO' => 'ads@soto-digital.com',

@@ -75,7 +75,7 @@ function campaign_migrate(PDO $db): void {
     try {
     $db->exec('CREATE TABLE IF NOT EXISTS leads (id TEXT PRIMARY KEY, created_at TEXT NOT NULL, service TEXT NOT NULL, payload TEXT NOT NULL, attribution TEXT NOT NULL, consent_version TEXT NOT NULL, admin_sent INTEGER NOT NULL DEFAULT 0, confirmation_sent INTEGER NOT NULL DEFAULT 0)');
     $columns = array_column($db->query('PRAGMA table_info(leads)')->fetchAll(PDO::FETCH_ASSOC), 'name');
-    foreach (['last_contact_at'=>'TEXT', 'commercial_active'=>'INTEGER NOT NULL DEFAULT 0', 'processed_at' => 'INTEGER NOT NULL DEFAULT 0', 'brevo_synced' => 'INTEGER NOT NULL DEFAULT 0', 'ai_attempts' => 'INTEGER NOT NULL DEFAULT 0', 'ai_status' => "TEXT NOT NULL DEFAULT 'pending'", 'ai_summary' => "TEXT NOT NULL DEFAULT ''", 'ai_next_step' => "TEXT NOT NULL DEFAULT ''", 'admin_state' => "TEXT NOT NULL DEFAULT 'pending'", 'confirmation_state' => "TEXT NOT NULL DEFAULT 'pending'"] as $name => $type) {
+    foreach (['brevo_contact_id'=>'INTEGER', 'brevo_deal_id'=>'TEXT', 'deal_state'=>"TEXT NOT NULL DEFAULT 'pending'", 'last_contact_at'=>'TEXT', 'commercial_active'=>'INTEGER NOT NULL DEFAULT 0', 'processed_at' => 'INTEGER NOT NULL DEFAULT 0', 'brevo_synced' => 'INTEGER NOT NULL DEFAULT 0', 'ai_attempts' => 'INTEGER NOT NULL DEFAULT 0', 'ai_status' => "TEXT NOT NULL DEFAULT 'pending'", 'ai_summary' => "TEXT NOT NULL DEFAULT ''", 'ai_next_step' => "TEXT NOT NULL DEFAULT ''", 'admin_state' => "TEXT NOT NULL DEFAULT 'pending'", 'confirmation_state' => "TEXT NOT NULL DEFAULT 'pending'"] as $name => $type) {
         if (!in_array($name, $columns, true)) $db->exec('ALTER TABLE leads ADD COLUMN ' . $name . ' ' . $type);
     }
     $db->exec('CREATE TABLE IF NOT EXISTS rate_limits (fingerprint TEXT PRIMARY KEY, attempts INTEGER NOT NULL, expires_at INTEGER NOT NULL)');
@@ -161,7 +161,7 @@ function campaign_brevo_sync(PDO $db, array $row, ?callable $http = null): void 
     ];
     $result = $http('https://api.brevo.com/v3/contacts', ['api-key: ' . campaign_config('BREVO_API_KEY')], ['email' => $data['email'], 'attributes' => $attributes, 'listIds' => [(int)campaign_config('BREVO_LIST_ID')], 'updateEnabled' => true]);
     // Do not change marketing blacklist/subscription status, trigger campaigns or subscribe to newsletter lists.
-    if ($result['status'] >= 200 && $result['status'] < 300) $db->prepare('UPDATE leads SET brevo_synced=1 WHERE id=?')->execute([$row['id']]);
+    if ($result['status'] >= 200 && $result['status'] < 300) $db->prepare('UPDATE leads SET brevo_synced=1,brevo_contact_id=COALESCE(?,brevo_contact_id) WHERE id=?')->execute([$result['body']['id']??null,$row['id']]);
 }
 function campaign_uuid(string $seed): string {
     $hex = hash('sha256', $seed);
@@ -210,5 +210,7 @@ function campaign_process(PDO $db, string $id, ?callable $http = null, ?callable
     try { campaign_enrich($db, $row, $http); } catch (Throwable $e) { error_log('Campaign AI pending'); }
     $stmt->execute([$id]); $row = $stmt->fetch(PDO::FETCH_ASSOC);
     try { campaign_brevo_sync($db, $row, $http); } catch (Throwable $e) { error_log('Campaign CRM pending'); }
+    $stmt->execute([$id]); $row=$stmt->fetch(PDO::FETCH_ASSOC);
+    if (function_exists('campaign_create_deal')) campaign_create_deal($db,$row,$http);
     campaign_deliver($db, $id, $sender);
 }

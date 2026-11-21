@@ -29,14 +29,20 @@ $backupDir=sys_get_temp_dir().'/soto-backup-test-'.bin2hex(random_bytes(4));
 $backup=campaign_backup($db,$backupDir,1);
 $copy=new PDO('sqlite:'.$backup);audit_check((int)$copy->query('SELECT COUNT(*) FROM leads')->fetchColumn()===1,'Inconsistent backup');$copy=null;
 audit_check((fileperms($backup)&0777)===0600,'Public backup permissions');
-$backup2=campaign_backup($db,$backupDir,1);audit_check(count(glob($backupDir.'/*.sqlite'))===1,'Backup rotation');
+$backup2=campaign_backup($db,$backupDir,1);audit_check(is_file($backup2),'Newest backup missing');audit_check(count(glob($backupDir.'/*.sqlite'))===1,'Backup rotation');
 foreach(glob($backupDir.'/*') as $file)unlink($file);rmdir($backupDir);
 echo "PASS: consistent private SQLite backup and rotation\n";
 $purgeDb=new PDO('sqlite::memory:');$purgeDb->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);campaign_migrate($purgeDb);
-foreach(['old','active','recent-contact','fresh'] as $id){$purgeDb->prepare('INSERT INTO leads(id,created_at,service,payload,attribution,consent_version) VALUES(?,?,?,?,?,?)')->execute([$id,$id==='fresh'?gmdate('c',$now):gmdate('c',$now-400*86400),'google-ads','{"email":"audit@example.com"}','{"gclid":"private"}','test']);}
+foreach(['old','active','recent-contact','fresh'] as $id){$purgeDb->prepare('INSERT INTO leads(id,created_at,service,payload,attribution,consent_version) VALUES(?,?,?,?,?,?)')->execute([$id,$id==='fresh'?gmdate('c',$now):gmdate('c',$now-400*86400),'google-ads',json_encode(['email'=>$id.'@example.com']),'{"gclid":"private"}','test']);}
 $purgeDb->exec("UPDATE leads SET commercial_active=1 WHERE id='active'");$purgeDb->prepare("UPDATE leads SET last_contact_at=? WHERE id='recent-contact'")->execute([gmdate('c',$now)]);
 audit_check(campaign_purge($purgeDb,12,true,$now)['eligible']===1,'Purge dry-run selection');
 audit_check(campaign_purge($purgeDb,12,false,$now,static function(){return false;})['remote_failed']===1,'Failed remote deletion lost local reference');
 audit_check(campaign_purge($purgeDb,12,false,$now)['deleted']===1,'Purge count');
 audit_check((int)$purgeDb->query('SELECT COUNT(*) FROM leads')->fetchColumn()===3,'Commercial/recent lead removed');
 echo "PASS: retention, dry-run, commercial holds, last contact and failed remote cleanup\n";
+require __DIR__.'/../../includes/campaign-next-stage.php';
+$report=campaign_weekly_report($purgeDb,$now);
+audit_check(strpos(json_encode($report),'@example.com')===false && strpos(json_encode($report),'private')===false,'Report personal data');
+$lead=$purgeDb->query('SELECT * FROM leads LIMIT 1')->fetch(PDO::FETCH_ASSOC);
+campaign_create_deal($purgeDb,$lead,static function(){throw new RuntimeException('Disabled CRM called');});
+echo "PASS: aggregate-only report and CRM disabled by default\n";

@@ -2,10 +2,12 @@
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 require __DIR__ . '/../includes/campaign-leads.php';
 require __DIR__ . '/../includes/campaign-operations.php';
+require __DIR__ . '/../includes/campaign-next-stage.php';
 $command = $argv[1] ?? '';
 if ($command === 'health') { $health=campaign_health(); echo json_encode($health).PHP_EOL; exit($health['ok']?0:1); }
-if (!in_array($command, ['export', 'retry', 'status', 'backup', 'purge', 'contact'], true)) exit("Usage: php tools/campaign-leads.php export|retry|status\n");
+if (!in_array($command, ['export', 'retry', 'status', 'backup', 'purge', 'contact', 'report'], true)) exit("Usage: php tools/campaign-leads.php export|retry|status\n");
 try { $db = campaign_db(); } catch (Throwable $e) { campaign_alert(null,'almacenamiento no disponible'); fwrite(STDERR, "Storage unavailable\n"); exit(1); }
+if ($command === 'report') {echo json_encode(campaign_weekly_report($db),JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE).PHP_EOL;exit;}
 if ($command === 'contact') {
     $id=$argv[2]??'';if(!preg_match('/^[a-f0-9]{32}$/',$id))exit("Valid lead ID required\n");
     $active=in_array('--commercial-active',$argv,true)?1:0;
@@ -34,6 +36,7 @@ if ($command === 'retry') {
     if (campaign_config('BREVO_API_KEY') && (int)campaign_config('BREVO_LIST_ID') > 0) $conditions[] = 'brevo_synced=0';
     if (campaign_config('BREVO_API_KEY') && campaign_config('CAMPAIGN_MAIL_FROM')) $conditions[] = "(admin_sent=0 AND admin_state='pending') OR (confirmation_sent=0 AND confirmation_state='pending')";
     if (campaign_config('ANTHROPIC_API_KEY')) $conditions[] = "(ai_status<>'complete' AND ai_attempts<3)";
+    if(filter_var(campaign_config('BREVO_CREATE_DEALS',false),FILTER_VALIDATE_BOOLEAN))$conditions[]="(deal_state='pending' AND brevo_synced=1 AND json_extract(payload,'$.category')='caliente')";
     $ids = $conditions ? $db->query('SELECT id FROM leads WHERE ' . implode(' OR ', $conditions) . ' ORDER BY processed_at ASC, created_at ASC, rowid ASC LIMIT 50')->fetchAll(PDO::FETCH_COLUMN) : [];
     foreach ($ids as $id) {
         try { campaign_process($db, $id); } catch (Throwable $e) { error_log('Campaign worker item pending'); }
