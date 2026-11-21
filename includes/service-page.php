@@ -15,6 +15,8 @@ $serviceLinks = [
     'email-marketing' => 'Email marketing',
     'marketing-contenidos' => 'Marketing de contenidos',
     'seo-sem' => 'SEO y SEM',
+    'google-ads' => 'Google Ads',
+    'meta-ads' => 'Instagram y Meta Ads',
     'pantalla-led-raos' => 'Pantalla LED en Raos',
 ];
 $returnSections = [
@@ -24,6 +26,8 @@ $returnSections = [
     'email-marketing' => 'servicio-email-marketing',
     'marketing-contenidos' => 'servicio-marketing-contenidos',
     'seo-sem' => 'servicio-seo-sem',
+    'google-ads' => 'servicio-seo-sem',
+    'meta-ads' => 'servicio-publicidad',
     'pantalla-led-raos' => 'pantalla',
 ];
 $returnUrl = './#' . $returnSections[$service['slug']];
