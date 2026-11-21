@@ -13,6 +13,7 @@ $stylesheet = $siteAssets[!empty($serviceStyles) ? 'css/site-services.css' : 'cs
     <base href="../">
     <meta name="robots" content="noindex, nofollow">
     <?php endif; ?>
+    <?php if (!empty($pageDraft) && empty($campaignLanding)): ?><meta name="robots" content="noindex, nofollow"><?php endif; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#142b53">
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
