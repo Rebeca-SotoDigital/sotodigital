@@ -1,7 +1,7 @@
 <?php
 $service = [
 'slug' => 'redes-sociales',
-'title' => 'Gestión de redes sociales para empresas y negocios | Soto Digital',
+'title' => 'Gestión de redes sociales para empresas | Soto Digital',
 'description' => 'Estrategia, gestión de redes sociales, reels, fotografía y textos para empresas y negocios. Planificación y comunicación directa con Soto Digital.',
 'label' => 'ESTRATEGIA Y CONTENIDO',
 'heading' => 'Gestión de redes sociales para empresas y negocios',

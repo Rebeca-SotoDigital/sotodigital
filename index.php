@@ -2,7 +2,7 @@
 require __DIR__ . '/includes/campaign-context.php';
 $slug = 'estrategia-digital';
 $pageTitle = 'Agencia de marketing digital para empresas | Soto Digital';
-$pageDescription = 'Diseño web, redes sociales, email marketing, marketing de contenidos, SEO, SEM, branding y publicidad para empresas y negocios. Impulsa tu negocio con Soto Digital.';
+$pageDescription = 'Diseño web, redes sociales, SEO, publicidad, email marketing y contenidos para empresas. Empieza con una mini-auditoría gratuita de Soto Digital.';
 $canonicalPath = '/';
 $includeLocalBusiness = true;
 include 'includes/header.php';

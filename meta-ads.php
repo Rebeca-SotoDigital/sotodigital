@@ -2,7 +2,7 @@
 $service = [
 'slug'=>'meta-ads','draft'=>true,
 'title'=>'Publicidad en Instagram y Meta Ads | Soto Digital',
-'description'=>'Publicidad en Instagram y Meta para presentar tu negocio, comunicar novedades y apoyar lanzamientos. Estrategia, creatividad y seguimiento con Soto Digital.',
+'description'=>'Publicidad en Instagram y Meta para presentar tu negocio y apoyar lanzamientos. Estrategia, creatividad y seguimiento con Soto Digital.',
 'label'=>'PUBLICIDAD EN INSTAGRAM Y META',
 'heading'=>'Meta Ads para dar a conocer tu propuesta',
 'intro'=>'En Instagram y Meta el anuncio debe captar el interés y explicar por qué tu oferta importa. Damos una dirección común al objetivo, al mensaje y al contenido para que la campaña tenga sentido dentro de tu comunicación.',
