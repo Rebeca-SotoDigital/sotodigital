@@ -97,7 +97,7 @@ function campaign_db(): PDO {
 }
 function campaign_rate_allow(PDO $db, string $ip, ?int $now = null): bool {
     $now = $now ?? time();
-    $secret = campaign_config('CAMPAIGN_RATE_SECRET', campaign_config('TURNSTILE_SECRET_KEY'));
+    $secret = campaign_config('CAMPAIGN_RATE_SECRET') ?: campaign_config('TURNSTILE_SECRET_KEY');
     if (!$secret) throw new RuntimeException('Rate limit secret unavailable');
     $fingerprint = hash_hmac('sha256', $ip, $secret);
     $db->exec('BEGIN IMMEDIATE');

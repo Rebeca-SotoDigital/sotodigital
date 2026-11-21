@@ -29,6 +29,15 @@ for ($i=0; $i<5; $i++) check(campaign_rate_allow($db, '192.0.2.1', 1000), 'Rate 
 check(!campaign_rate_allow($db, '192.0.2.1', 1001), 'Sixth attempt accepted');
 check(campaign_rate_allow($db, '192.0.2.2', 1001), 'Independent visitor blocked');
 check(campaign_rate_allow($db, '192.0.2.1', 4600), 'Window not expired');
+// Reproduce the real private-file case: an explicitly empty optional secret.
+$privateFixture=tempnam(sys_get_temp_dir(),'soto-rate-');
+file_put_contents($privateFixture,"<?php return ['CAMPAIGN_RATE_SECRET'=>'','TURNSTILE_SECRET_KEY'=>'test-turnstile-fallback'];");
+$child='putenv("SOTO_CONFIG_FILE=".$argv[1]);putenv("CAMPAIGN_RATE_SECRET");putenv("TURNSTILE_SECRET_KEY");require $argv[2];$db=new PDO("sqlite::memory:");campaign_migrate($db);exit(campaign_rate_allow($db,"192.0.2.99",4600)?0:1);';
+$process=proc_open([PHP_BINARY,'-r',$child,$privateFixture,__DIR__.'/../../includes/campaign-leads.php'],[1=>['pipe','w'],2=>['pipe','w']],$pipes);
+check(is_resource($process),'Cannot run isolated rate-secret regression');
+$childOutput=stream_get_contents($pipes[1]).stream_get_contents($pipes[2]);fclose($pipes[1]);fclose($pipes[2]);
+$childStatus=proc_close($process);unlink($privateFixture);
+check($childStatus===0,'Empty optional private rate secret did not fall back to Turnstile: '.$childOutput);
 check(strpos(json_encode($db->query('SELECT * FROM rate_limits')->fetchAll()), '192.0.2') === false, 'Raw IP stored');
 campaign_store($db, 'test-id', 'google-ads', campaign_validate($valid), ['utm_source' => 'google', 'gclid' => 'click-test']);
 campaign_store($db, 'test-id', 'google-ads', campaign_validate($valid), []);
