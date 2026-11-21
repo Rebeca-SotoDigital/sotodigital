@@ -8,7 +8,7 @@ Home y landings → cuestionario de cinco pasos → `api/lead.php` → guardado 
 
 El navegador no espera a las APIs externas. El éxito significa que se ha guardado la solicitud localmente, no que todos los proveedores ya la hayan procesado. La tarea programada es necesaria para que lleguen los emails y se sincronice Brevo. La caída de un proveedor no debe impedir los otros caminos. La configuración de captura requiere almacenamiento y Turnstile; no depende de que Claude esté disponible.
 
-Pasos: sector, objetivo, inversión mensual orientativa, urgencia y contacto. Nombre, email y aceptación son obligatorios; el móvil es opcional por defecto (`CAMPAIGN_PHONE_REQUIRED=false`, «Si prefieres que te llamemos»); web y contexto adicional, opcionales. «Tiene web» se calcula a partir del campo URL, sin un paso extra. Sin JavaScript todas las preguntas se muestran juntas, pero el envío protegido necesita JavaScript para Turnstile y los tokens. El aviso `noscript` lo explica. No se considera cumplido el envío completo sin JS: queda pendiente decidir una alternativa antispam accesible.
+Pasos: sector, objetivo, inversión mensual orientativa, urgencia y contacto. Nombre, email y aceptación son obligatorios; el móvil es opcional por defecto (`CAMPAIGN_PHONE_REQUIRED=false`, «Si prefieres que te llamemos»); empresa, web y contexto adicional, opcionales. «Tiene web» se calcula a partir del campo URL, sin un paso extra. Sin JavaScript todas las preguntas se muestran juntas, pero el envío protegido necesita JavaScript para Turnstile y los tokens. El aviso `noscript` lo explica. No se considera cumplido el envío completo sin JS: queda pendiente decidir una alternativa antispam accesible.
 
 ## Configuración privada
 
@@ -23,25 +23,62 @@ Copiar `docs/soto-config.example.php` fuera del directorio público, con el nomb
 
 Se necesita PHP con cURL, mbstring, PDO SQLite y funciones JSON de SQLite. El almacenamiento debe estar fuera del directorio público, con permisos restringidos. Se mantiene el historial local de solicitudes, incluso si varios leads comparten email. Brevo refleja los atributos de la solicitud más reciente de ese email; no es un historial de oportunidades completo.
 
-## Brevo: lista y atributos
+## Brevo: atributos adaptados al contexto aportado
 
-Crear una lista exclusiva **Leads web**, sin automatizaciones de newsletters ni campañas promocionales. Copiar su ID numérico. Crear estos atributos antes de sincronizar; los nombres y tipos deben coincidir:
+El archivo `lead.php` de referencia se ha integrado en el circuito existente, sin sustituir el guardado privado, la cola, CSRF, Turnstile ni idempotencia. No hay un segundo endpoint ni otra configuración privada. El límite vigente sigue siendo 5 intentos/hora, no el límite de 10 minutos del ejemplo.
 
-| Tipo Brevo | Atributos |
-| --- | --- |
-| Texto | NOMBRE_COMPLETO, MOVIL_CONTACTO, WEB_NEGOCIO, SERVICIO, SECTOR, OBJETIVO, PRESUPUESTO, URGENCIA |
-| Número | PUNTUACION |
-| Texto | POTENCIAL, VERSION_PUNTUACION, RESUMEN_IA, SIGUIENTE_PASO_IA, ESTADO_IA |
-| Booleano | TIENE_WEB |
-| Texto | UTM_SOURCE, UTM_MEDIUM, UTM_CAMPAIGN, UTM_CONTENT, UTM_TERM, GCLID, GBRAID, WBRAID |
-| Fecha | FECHA_SOLICITUD |
-| Texto | ID_SOLICITUD, VERSION_PRIVACIDAD |
+Crear/verificar lista **Leads web**, sin automatizaciones de newsletters. El contacto se crea/actualiza por email con `updateEnabled=true`. Leer RGPD no es consentimiento para campañas. No se cambian listas de bloqueo ni se envían SMS.
 
-El email es el identificador del contacto y no necesita atributo personalizado. MOVIL_CONTACTO se usa como texto, no como alta en SMS. Los valores de sector, objetivo, presupuesto y urgencia son las claves del cuestionario; consultar `includes/campaign-questionnaire.php` para las etiquetas. POTENCIAL usa caliente, templado o frio.
+### Atributos ya indicados como creados
 
-El contacto se crea/actualiza con `updateEnabled=true`. No se cambian las listas de bloqueo de marketing, no se añade a listas de newsletters ni se dispara una campaña. Revisar las automatizaciones de la propia cuenta: añadir un contacto a una lista podría activar un flujo que ya existiera allí.
+| Atributo exacto | Tipo | Dato enviado |
+| --- | --- | --- |
+| EMPRESA | Texto | Campo opcional empresa/negocio |
+| WEB_CLIENTE | Texto | Web indicada |
+| SERVICIO_INTERES | Texto o categoría | Google Ads, SEO, Redes sociales, Diseño web, Marca, Email marketing u Otro |
+| MENSAJE_LEAD | Texto | Contexto libre; nunca se envía a Claude |
+| ORIGEN | Texto o categoría | Google Ads o Web |
+| LANDING | Texto | Ruta de página donde se inicia formulario, sin query ni fragmento |
+| UTM_CAMPAIGN | Texto | Campaña recibida |
+| FECHA_ALTA_LEAD | Fecha | YYYY-MM-DD UTC de solicitud |
+| RGPD_ACEPTADO | Booleano | true: información leída para esta solicitud, no alta promocional |
+| FECHA_RGPD | Fecha | YYYY-MM-DD UTC de solicitud |
+| ESTADO_LEAD | Texto o categoría | Nuevo, solo si no existe un estado informado |
+| IA_NECESIDADES | Texto | Resumen de Claude, basado solo en categorías no identificativas |
 
-Dar de alta/verificar el remitente y dominio para email transaccional, siguiendo las instrucciones DNS de Brevo sin romper el correo existente. El aviso va a ads@soto-digital.com y la respuesta del interesado vuelve a esa dirección. ai@soto-digital.com se publica como contacto para temas de IA; no recibe copia automática de cada lead.
+FIRSTNAME y SMS son atributos estándar. FIRSTNAME recibe el nombre completo del campo actual: no se inventan ni separan apellidos, LASTNAME no se modifica. SMS recibe número internacional si es válido (móviles españoles de 9 cifras → +34, prefijo 00 → +). Si el formato no es reconocible, se conserva el teléfono en SQLite/aviso pero no se fuerza su formato en Brevo. Conflicto `duplicate_parameter` con SMS: un reintento sin SMS, conservando datos locales. No se añade a ninguna campaña SMS.
+
+Servicios sin opción específica (Meta Ads, SEM, contenidos, LED y estrategia) se envían como Otro. Si existe el atributo técnico opcional SERVICIO, también recibe la clave exacta. Para no perder el detalle visible del servicio, se puede crear ese atributo de texto; ampliar categorías requiere acordar sus nombres y mapeo. Se acepta la etiqueta Redes si esa es la que se creó en lugar de Redes sociales.
+
+### Nuevos atributos necesarios por calcular la puntuación nosotros
+
+| Crear/verificar | Tipo | Valor |
+| --- | --- | --- |
+| PUNTUACION | Número | 0–10 calculado en PHP |
+| POTENCIAL | Texto recomendado o categoría | caliente, templado, frio |
+| VERSION_PUNTUACION | Texto | v1-acordada-2026-11-21 |
+| SIGUIENTE_PASO_IA | Texto | Sugerencia revisable, nunca ejecutada automáticamente |
+| ESTADO_IA | Texto | pending o complete |
+
+Los campos heredados **IA_PUNTUACION, IA_CATEGORIA e IA_POTENCIAL no se escriben**: la IA no valora ni puntúa. No eliminarlos automáticamente de la cuenta; revisar antes automatizaciones y valores antiguos. RESUMEN_IA, si ya existe, recibe el mismo resumen que IA_NECESIDADES para compatibilidad.
+
+PRESUPUESTO_ESTIMADO queda sin rellenar: hay un rango declarado, no una cifra estimada por IA. FECHA_PROPUESTA, IMPORTE_SETUP, IMPORTE_MENSUAL, CONTRATO_FIRMADO y ENLACE_PAGO quedan sin modificar; no se han implementado propuestas, contratos ni cobros.
+
+### Atribución y campos técnicos opcionales
+
+Crear **GCLID**, **GBRAID**, **WBRAID**, **UTM_SOURCE**, **UTM_MEDIUM**, **UTM_CONTENT**, **UTM_TERM** como Texto si se quieren sincronizar; la BD privada los conserva aunque no existan en Brevo. Igualmente, opcionales de texto: SERVICIO (clave exacta), SECTOR, OBJETIVO, PRESUPUESTO, URGENCIA, ID_SOLICITUD, VERSION_PRIVACIDAD. Estos conservan la información del cuestionario y trazabilidad. Una nueva solicitud no vacía valores opcionales ya existentes.
+
+Google Ads se infiere por gclid/gbraid/wbraid o utm_source=google junto con medio cpc/ppc/paid/paidsearch. Google sin medio de pago se considera Web; no se confunde una visita orgánica con Ads. Los parámetros son atribución declarada, no prueba autenticada de un clic publicitario. LANDING guarda la ruta actual verificada contra entradas PHP existentes; no se sigue a la persona ni se conserva query/fragmento. No representa necesariamente la primera página de toda su navegación.
+
+### Comprobación y conservación de estados
+
+El worker lee `/contacts/attributes` una vez por proceso/transporte y resuelve las categorías con la enumeración real (incluido valueStr). Verifica tipos esenciales y exige los atributos de captación y valoración anteriores. Si falta alguno o no hay opción compatible, el lead queda guardado localmente y pendiente de sincronizar: no se marca una falsa sincronización. Revisar logs privados y configurar el atributo/opción; el worker lo reintentará. La caída de esta consulta no pierde el lead ni impide los emails.
+
+Consulta el contacto existente antes de sincronizar: conserva ESTADO_LEAD ya informado, incluso al completar posteriormente la IA. No se reinicia una propuesta/contrato a Nuevo. Brevo representa la solicitud más reciente de un email, mientras SQLite conserva el historial. Vacíos opcionales no borran datos anteriores, por lo que un campo de contacto puede corresponder a una solicitud previa; ID_SOLICITUD y ESTADO_IA ayudan a distinguirlo si se crean.
+
+Dar de alta/verificar remitente y dominio transaccional según las instrucciones DNS de la cuenta. Aviso y respuesta a ads@soto-digital.com; ai@soto-digital.com no recibe copia automática. **No se ha consultado ni modificado vuestra cuenta real**.
+
+Fuentes comprobadas: [atributos de Brevo](https://developers.brevo.com/reference/get-attributes), [crear/actualizar contacto](https://developers.brevo.com/reference/create-contact), [cambio valueStr en enumeraciones](https://developers.brevo.com/changelog/2026/5/1).
 
 ## Puntuación acordada
 

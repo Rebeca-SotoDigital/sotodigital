@@ -3,7 +3,7 @@ from pathlib import Path
 import subprocess,os,re,html,json,hashlib,xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[2];PHP=os.environ.get('SOTO_PHP','php');NODE=os.environ.get('SOTO_AUDIT_NODE','node')
 outputs=[]
-for command in [[PHP,'tools/tests/site-paths.php'],[PHP,'tools/tests/campaign-leads.php'],[PHP,'tools/tests/campaign-audit.php'],[NODE,'tools/tests/campaign-frontend.js']]:
+for command in [[PHP,'tools/tests/campaign-brevo.php'],[PHP,'tools/tests/site-paths.php'],[PHP,'tools/tests/campaign-leads.php'],[PHP,'tools/tests/campaign-audit.php'],[NODE,'tools/tests/campaign-frontend.js']]:
  r=subprocess.run(command,cwd=ROOT,capture_output=True,text=True);outputs.append(r.stdout+r.stderr)
  if r.returncode:raise RuntimeError(outputs[-1])
 files=list(ROOT.rglob('*.php'))

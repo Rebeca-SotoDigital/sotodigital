@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded',function(){
         if(tokens)return tokens;
         const origin=new URL(location.href);const attribution={};
         ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','gbraid','wbraid'].forEach(key=>{if(origin.searchParams.has(key))attribution[key]=origin.searchParams.get(key);});
-        tokens=fetch(new URL(form.dataset.tokenUrl,document.baseURI),{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-Soto-Form':'1','Accept':'application/json'},body:JSON.stringify({service:form.elements.service.value,attribution,variant:origin.searchParams.get('v')||''})}).then(async response=>{
+        tokens=fetch(new URL(form.dataset.tokenUrl,document.baseURI),{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-Soto-Form':'1','Accept':'application/json'},body:JSON.stringify({landing:origin.pathname,service:form.elements.service.value,attribution,variant:origin.searchParams.get('v')||''})}).then(async response=>{
             const data=await response.json();if(!response.ok||!data.ok)throw new Error('No se ha podido preparar el formulario. Recarga la página e inténtalo de nuevo.');
             ['csrf','submission','attribution_token'].forEach(key=>{form.elements[key].value=data[key];});
         }).catch(error=>{tokens=null;throw error;});

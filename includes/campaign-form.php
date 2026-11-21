@@ -19,6 +19,7 @@
 <label>Nombre y apellidos<input required name="name" autocomplete="name" maxlength="150" value="<?= $escape($old['name'] ?? '') ?>"></label>
 <div class="campaign-form-pair"><label>Email<input required type="email" name="email" autocomplete="email" maxlength="254" value="<?= $escape($old['email'] ?? '') ?>"></label><label>Móvil<?= campaign_phone_required() ? '' : ' (opcional)' ?><input <?= campaign_phone_required() ? 'required' : '' ?> type="tel" name="phone" autocomplete="tel" maxlength="30" value="<?= $escape($old['phone'] ?? '') ?>"></label></div>
 <p class="campaign-small">Si prefieres que te llamemos, deja tu móvil. También podemos responder por email.</p>
+<label>Empresa o negocio (opcional)<input name="company" autocomplete="organization" maxlength="150" value="<?= $escape($old['company'] ?? '') ?>"></label>
 <label>Web del negocio (opcional)<input type="url" name="website" placeholder="https://tunegocio.com" maxlength="500" value="<?= $escape($old['website'] ?? '') ?>"></label>
 <label>¿Algo más que debamos saber? (opcional)<textarea name="message" rows="3" maxlength="5000" placeholder="Cuéntanos lo que te gustaría mejorar."><?= $escape($old['message'] ?? '') ?></textarea></label>
 <label class="campaign-check"><input required type="checkbox" name="privacy" value="1"><span>He leído la <a href="/privacidad.php#solicitudes-propuesta" target="_blank" rel="noopener">política de privacidad</a> sobre la gestión de mi solicitud.</span></label>

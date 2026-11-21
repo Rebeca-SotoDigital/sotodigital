@@ -129,3 +129,9 @@ Detalle y comandos en [publicación y recuperación](publicar-rendimiento.md) e 
 ## Corrección posterior: CSS en XAMPP por subcarpeta
 
 La revisión original usó un virtualhost en raíz y no detectó la regresión de `localhost/sotodigital/`: los enlaces `/css/...` apuntaban fuera del proyecto. Se añade detección del prefijo desde SCRIPT_FILENAME/SCRIPT_NAME y adaptación de recursos, navegación, srcset, endpoint y redirección JSON. En producción raíz permanece igual. Se corrige además el atributo de acción Turnstile a `proposal`, sin barra. HTTP real de XAMPP: home/campaña enlazan a `/sotodigital/css/...`, ambas hojas responden 200 text/css; JS/formulario también conservan prefijo. Pruebas nuevas para raíz y subcarpeta. No hubo pestaña de navegador conectada disponible para esta corrección.
+
+## Adaptación posterior de leads al contexto Brevo
+
+Se incorporan EMPRESA opcional, WEB_CLIENTE, SERVICIO_INTERES, MENSAJE_LEAD, ORIGEN, LANDING, RGPD/fechas y estado comercial del esquema aportado. Puntuación acordada 0–10 sigue en PHP; IA_NECESIDADES y SIGUIENTE_PASO_IA se basan exclusivamente en categorías y puntuación, sin datos personales ni texto libre. Es necesario crear/verificar los cinco campos nuevos detallados en `integracion-leads.md`; los IA_* de puntuación y los de cobro no se escriben.
+
+La integración descubre tipos y enumeraciones de atributos por API, evita borrar vacíos opcionales/reiniciar estado comercial y reintenta sin SMS ante conflicto de número. Si falta esquema, el lead queda guardado y pendiente, sin bloquear los emails. Verificado con mocks de categorías valueStr, alta existente, fallo de esquema y móvil duplicado. Prueba HTTP en servidor aislado: token → envío sintético con empresa/landing → guardado con puntuación 10 pese a score=0 enviado por cliente → worker → CRM/IA/dos emails simulados correctos. Ninguna llamada a la cuenta real ni email real. Tests y lint actualizados en `auditoria-2026-11/final-tests.txt`.

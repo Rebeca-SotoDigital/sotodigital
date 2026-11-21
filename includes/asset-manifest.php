@@ -8,6 +8,6 @@ return [
     "js/main.js" => "js/main.5e9c0cad74ce.js",
     "js/cookies.js" => "js/cookies.be26cb687e45.js",
     "js/campaign.js" => "js/campaign.349da5951e74.js",
-    "js/campaign-bootstrap.js" => "js/campaign-bootstrap.3d33c46e21c7.js",
+    "js/campaign-bootstrap.js" => "js/campaign-bootstrap.eb261717d749.js",
     "js/tracking.js" => "js/tracking.a0edf5b4b738.js",
 ];

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/campaign-config.php';
 require_once __DIR__ . '/campaign-network.php';
+require_once __DIR__ . '/campaign-brevo.php';
 function campaign_session(): void {
     if (session_status() === PHP_SESSION_NONE) {
         session_name('soto_campaign');
@@ -16,11 +17,11 @@ function campaign_ready(): bool {
 function campaign_options(): array { static $options; return $options ?? ($options = require __DIR__ . '/campaign-questionnaire.php'); }
 function campaign_phone_required(): bool { return filter_var(campaign_config('CAMPAIGN_PHONE_REQUIRED', false), FILTER_VALIDATE_BOOLEAN); }
 function campaign_validate(array $input): array {
-    $limits = ['name' => 150, 'email' => 254, 'phone' => 30, 'website' => 500, 'message' => 5000];
+    $limits = ['name' => 150, 'email' => 254, 'phone' => 30, 'website' => 500, 'message' => 5000, 'company' => 150];
     $clean = [];
     foreach ($limits as $key => $max) {
         $value = $input[$key] ?? '';
-        if (!is_string($value) || strlen(trim($value)) > $max || (!in_array($key, campaign_phone_required() ? ['website','message'] : ['website','message','phone'], true) && trim($value) === '')) throw new InvalidArgumentException('Revisa los campos obligatorios y su longitud.');
+        if (!is_string($value) || strlen(trim($value)) > $max || (!in_array($key, campaign_phone_required() ? ['website','message','company'] : ['website','message','company','phone'], true) && trim($value) === '')) throw new InvalidArgumentException('Revisa los campos obligatorios y su longitud.');
         if (!mb_check_encoding($value, 'UTF-8')) throw new InvalidArgumentException('Revisa los caracteres introducidos.');
         $clean[$key] = trim($value);
     }
@@ -112,7 +113,7 @@ function campaign_rate_allow(PDO $db, string $ip, ?int $now = null): bool {
 function campaign_store(PDO $db, string $id, string $service, array $data, array $attribution): void {
     $data = array_merge($data, campaign_score($data));
     $stmt = $db->prepare('INSERT OR IGNORE INTO leads (id,created_at,service,payload,attribution,consent_version) VALUES (?,?,?,?,?,?)');
-    $stmt->execute([$id, gmdate('c'), $service, json_encode($data, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), json_encode($attribution, JSON_THROW_ON_ERROR), 'campaign-2026-11-21-legal-v2']);
+    $stmt->execute([$id, gmdate('c'), $service, json_encode($data, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), json_encode($attribution, JSON_THROW_ON_ERROR), 'campaign-2026-11-21-legal-v3']);
 }
 function campaign_http(string $url, array $headers, array $payload, int $timeout = 12, string $method = 'POST'): array {
     if (defined('CAMPAIGN_TEST_HARNESS') && CAMPAIGN_TEST_HARNESS === true && isset($GLOBALS['campaign_test_http'])) return ($GLOBALS['campaign_test_http'])($url, $headers, $payload);
@@ -151,16 +152,29 @@ function campaign_brevo_sync(PDO $db, array $row, ?callable $http = null): void 
     if ($latest->fetchColumn() !== $row['id']) {
         $db->prepare('UPDATE leads SET brevo_synced=1 WHERE id=?')->execute([$row['id']]); return;
     }
-    $score = campaign_stored_score($data);
-    $attributes = [
-      'NOMBRE_COMPLETO' => $data['name'], 'MOVIL_CONTACTO' => $data['phone'], 'WEB_NEGOCIO' => $data['website'], 'TIENE_WEB' => $data['website'] !== '',
-      'SERVICIO' => $row['service'], 'SECTOR' => $data['sector'] ?? '', 'OBJETIVO' => $data['objective'] ?? '', 'PRESUPUESTO' => $data['budget'] ?? '', 'URGENCIA' => $data['urgency'] ?? '',
-      'PUNTUACION' => $score['score'], 'POTENCIAL' => $score['category'], 'VERSION_PUNTUACION' => $score['score_version'],
-      'RESUMEN_IA' => $row['ai_summary'], 'SIGUIENTE_PASO_IA' => $row['ai_next_step'], 'ESTADO_IA' => $row['ai_status'],
-      'UTM_SOURCE' => $attr['utm_source'] ?? '', 'UTM_MEDIUM' => $attr['utm_medium'] ?? '', 'UTM_CAMPAIGN' => $attr['utm_campaign'] ?? '', 'UTM_CONTENT' => $attr['utm_content'] ?? '', 'UTM_TERM' => $attr['utm_term'] ?? '',
-      'GCLID' => $attr['gclid'] ?? '', 'GBRAID' => $attr['gbraid'] ?? '', 'WBRAID' => $attr['wbraid'] ?? '', 'FECHA_SOLICITUD' => substr($row['created_at'], 0, 10), 'ID_SOLICITUD' => $row['id'], 'VERSION_PRIVACIDAD' => $row['consent_version'],
-    ];
-    $result = $http('https://api.brevo.com/v3/contacts', ['api-key: ' . campaign_config('BREVO_API_KEY')], ['email' => $data['email'], 'attributes' => $attributes, 'listIds' => [(int)campaign_config('BREVO_LIST_ID')], 'updateEnabled' => true]);
+    $headers = ['api-key: ' . campaign_config('BREVO_API_KEY')];
+    $schema = campaign_brevo_schema($http, $headers);
+    if ($schema === null) return;
+    foreach (['FIRSTNAME','EMPRESA','WEB_CLIENTE','SERVICIO_INTERES','MENSAJE_LEAD','ORIGEN','LANDING','UTM_CAMPAIGN','FECHA_ALTA_LEAD','RGPD_ACEPTADO','FECHA_RGPD','ESTADO_LEAD','PUNTUACION','POTENCIAL','VERSION_PUNTUACION','IA_NECESIDADES','SIGUIENTE_PASO_IA','ESTADO_IA'] as $required) {
+        if (!isset($schema[$required])) throw new RuntimeException('Brevo attribute missing: '.$required);
+    }
+    foreach (['PUNTUACION'=>'number','RGPD_ACEPTADO'=>'boolean','FECHA_RGPD'=>'date','FECHA_ALTA_LEAD'=>'date'] as $name=>$type) {
+        if (($schema[$name]['type'] ?? '') !== $type || ($schema[$name]['category'] ?? '') === 'category') throw new RuntimeException('Brevo attribute type needs configuration: '.$name);
+    }
+    $existing = $http('https://api.brevo.com/v3/contacts/'.rawurlencode($data['email']), $headers, [], 12, 'GET');
+    if ($existing['status'] !== 404 && $existing['status'] !== 200) return;
+    $values = campaign_brevo_values($row, $data, $attr);
+    // Re-enrichment must not send a qualified contact back to the start of the pipeline.
+    if (isset($existing['body']['attributes']['ESTADO_LEAD']) && $existing['body']['attributes']['ESTADO_LEAD'] !== '') unset($values['ESTADO_LEAD']);
+    $attributes = campaign_brevo_attributes($values, $schema);
+    $phone = campaign_brevo_phone($data['phone']);
+    if ($phone !== '') $attributes['SMS'] = $phone;
+    $payload = ['email'=>$data['email'], 'attributes'=>$attributes, 'listIds'=>[(int)campaign_config('BREVO_LIST_ID')], 'updateEnabled'=>true];
+    $result = $http('https://api.brevo.com/v3/contacts', $headers, $payload);
+    if ($result['status'] === 400 && ($result['body']['code'] ?? '') === 'duplicate_parameter' && isset($payload['attributes']['SMS'])) {
+        unset($payload['attributes']['SMS']);
+        $result = $http('https://api.brevo.com/v3/contacts', $headers, $payload);
+    }
     // Do not change marketing blacklist/subscription status, trigger campaigns or subscribe to newsletter lists.
     if ($result['status'] >= 200 && $result['status'] < 300) $db->prepare('UPDATE leads SET brevo_synced=1,brevo_contact_id=COALESCE(?,brevo_contact_id) WHERE id=?')->execute([$result['body']['id']??null,$row['id']]);
 }
@@ -185,7 +199,7 @@ function campaign_deliver(PDO $db, string $id, ?callable $sender = null): void {
     $data = json_decode($row['payload'], true); $score = campaign_stored_score($data);
     $admin = campaign_config('CAMPAIGN_MAIL_TO', 'ads@soto-digital.com');
     $options = campaign_options();
-    $text = 'Servicio: ' . $row['service'] . "\nNombre: " . $data['name'] . "\nEmail: " . $data['email'] . "\nMóvil: " . $data['phone'] . "\nWeb: " . ($data['website'] ?: 'No indicada') . "\n";
+    $text = 'Servicio: ' . $row['service'] . "\nNombre: " . $data['name'] . "\nEmpresa: " . ($data['company'] ?? 'No indicada') . "\nEmail: " . $data['email'] . "\nMóvil: " . $data['phone'] . "\nWeb: " . ($data['website'] ?: 'No indicada') . "\n";
     foreach (['sector', 'objective', 'budget', 'urgency'] as $key) $text .= $options[$key]['label'] . ': ' . ($options[$key]['options'][$data[$key] ?? ''] ?? 'No indicado') . "\n";
     $text .= 'Puntuación: ' . $score['score'] . '/10 | ' . $score['category'] . ' (' . $score['score_version'] . ")\nResumen IA (revisar): " . ($row['ai_summary'] ?: 'No disponible') . "\nSiguiente paso IA (revisar): " . ($row['ai_next_step'] ?: 'Revisar y contactar') . "\n\n" . $data['message'];
     $messages = [
@@ -210,7 +224,10 @@ function campaign_process(PDO $db, string $id, ?callable $http = null, ?callable
     $stmt->execute([$id]); $row = $stmt->fetch(PDO::FETCH_ASSOC); if (!$row) return;
     try { campaign_enrich($db, $row, $http); } catch (Throwable $e) { error_log('Campaign AI pending'); }
     $stmt->execute([$id]); $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    try { campaign_brevo_sync($db, $row, $http); } catch (Throwable $e) { error_log('Campaign CRM pending'); }
+    try { campaign_brevo_sync($db, $row, $http); } catch (Throwable $e) {
+        $detail = preg_match('/^Brevo (?:attribute missing|attribute type needs configuration|category needs configuration): [A-Z_]+$/D', $e->getMessage()) ? ': '.$e->getMessage() : '';
+        error_log('Campaign CRM pending'.$detail);
+    }
     $stmt->execute([$id]); $row=$stmt->fetch(PDO::FETCH_ASSOC);
     try { if (function_exists('campaign_create_deal')) campaign_create_deal($db,$row,$http); } catch (Throwable $e) { error_log('Campaign deal requires review'); }
     campaign_deliver($db, $id, $sender);

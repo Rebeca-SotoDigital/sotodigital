@@ -1,3 +1,5 @@
+PASS: Brevo schema/category IDs, PHP-only score, attribution, phone retry, existing stage/empty preservation and recoverable schema failure
+
 PASS: root and subdirectory asset, navigation, form and image paths; external URLs unchanged
 
 PASS: validation, optional website, screening, score boundaries, migration, persistent 5/hour rate, PII minimization, CRM upsert, duplicate protection, provider failures and email recovery
@@ -12,7 +14,7 @@ PASS: simulated hot-lead CRM association and duplicate prevention
 
 PASS: 5-step wizard, validation, back navigation, API errors, success redirect, consent signals, category separation, consent migration, blocked storage, conversions, deduplication
 
-PASS: PHP lint 66 files
+PASS: PHP lint 69 files
 PASS: manifest hashes and maximum two versions
 PASS: title/description limits, unique H1, no phone/chat CTAs or base tag
 PASS: sitemap 14 unique public pages

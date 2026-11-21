@@ -1,13 +1,15 @@
 <?php
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 require __DIR__ . '/../../includes/campaign-leads.php';
+require __DIR__ . '/brevo-schema-fixture.php';
 function check($condition, $message) { if (!$condition) throw new RuntimeException($message); }
-$valid = ['name' => 'Persona de prueba', 'email' => 'test@example.com', 'phone' => '+34 600 000 000', 'website' => 'https://example.com', 'message' => 'Prueba local sin envío real', 'privacy' => '1', 'sector' => 'servicios', 'objective' => 'consultas', 'budget' => '1000-3000', 'urgency' => 'este-mes'];
+$valid = ['name' => 'Persona de prueba', 'company'=>'Empresa privada de prueba', 'email' => 'test@example.com', 'phone' => '+34 600 000 000', 'website' => 'https://example.com', 'message' => 'Prueba local sin envío real', 'privacy' => '1', 'sector' => 'servicios', 'objective' => 'consultas', 'budget' => '1000-3000', 'urgency' => 'este-mes'];
 check(campaign_validate($valid)['has_website'], 'Website flag');
 check(!campaign_validate(array_replace($valid, ['website' => '', 'message' => '']))['has_website'], 'Optional website/message');
-foreach (['email' => "x@example.com\r\nBcc: x@example.org", 'phone' => 'x', 'website' => 'javascript:alert(1)', 'privacy' => '', 'name' => ['array'], 'message' => str_repeat('x', 5001), 'sector' => 'invalid', 'objective' => 'invalid', 'budget' => ['array'], 'urgency' => 'invalid'] as $field => $value) {
+foreach (['email' => "x@example.com\r\nBcc: x@example.org", 'phone' => 'x', 'website' => 'javascript:alert(1)', 'privacy' => '', 'name' => ['array'], 'company' => ['array'], 'message' => str_repeat('x', 5001), 'sector' => 'invalid', 'objective' => 'invalid', 'budget' => ['array'], 'urgency' => 'invalid'] as $field => $value) {
     try { campaign_validate(array_replace($valid, [$field => $value])); throw new RuntimeException('Invalid ' . $field . ' accepted'); } catch (InvalidArgumentException $e) {}
 }
+try { campaign_validate(array_replace($valid, ['company'=>str_repeat('x',151)])); throw new RuntimeException('Long company accepted'); } catch (InvalidArgumentException $e) {}
 check(campaign_screened(['name' => '12345', 'email' => 'valid@example.com']), 'Numeric name');
 check(campaign_screened(['name' => 'Persona', 'email' => 'test@sub.yopmail.com']), 'Temporary email subdomain');
 check(!campaign_screened(['name' => 'José María', 'email' => 'test@notyopmail.com']), 'False-positive domain or accented name');
@@ -32,7 +34,7 @@ campaign_store($db, 'test-id', 'google-ads', campaign_validate($valid), ['utm_so
 campaign_store($db, 'test-id', 'google-ads', campaign_validate($valid), []);
 check($db->query('SELECT COUNT(*) FROM leads')->fetchColumn() == 1, 'Duplicate submission');
 $calls=[];
-campaign_deliver($db, 'test-id', function ($message, $key) use (&$calls) { $calls[]=$key; check(strpos($message['text'], 'próximo mes') !== false || strpos($key, 'confirmation') !== false, 'Urgency missing'); return strpos($key, 'admin_sent') !== false; });
+campaign_deliver($db, 'test-id', function ($message, $key) use (&$calls) { $calls[]=$key; check(stripos($message['text'], 'esta semana o este mes') !== false || strpos($key, 'confirmation') !== false, 'Urgency missing'); return strpos($key, 'admin_sent') !== false; });
 $row=$db->query('SELECT * FROM leads')->fetch(PDO::FETCH_ASSOC);
 check($row['admin_sent']==1 && $row['confirmation_sent']==0 && $row['confirmation_state']==='pending', 'Partial delivery state');
 campaign_deliver($db, 'test-id', function ($message, $key) use (&$calls) { $calls[]=$key; check($message['to']===['test@example.com'], 'Wrong recipient'); return true; });
@@ -44,9 +46,11 @@ $http=function ($url,$headers,$payload) use (&$requests) {
     $requests[]=['url'=>$url,'payload'=>$payload];
     if (strpos($url,'anthropic.com')!==false) {
         $input=$payload['messages'][0]['content'];
-        foreach (['test@example.com','Persona de prueba','600 000','https://example.com','Prueba local','click-test'] as $private) check(strpos($input,$private)===false, 'Unnecessary PII sent to model');
+        foreach (['Empresa privada de prueba','test@example.com','Persona de prueba','600 000','https://example.com','Prueba local','click-test'] as $private) check(strpos($input,$private)===false, 'Unnecessary PII sent to model');
         return ['status'=>200,'body'=>['content'=>[['type'=>'text','text'=>'{"resumen":"Empresa de servicios interesada en consultas.","siguiente_paso":"Acordar la mini-auditoría."}']]]];
     }
+    if (str_ends_with($url,'/contacts/attributes')) return ['status'=>200,'body'=>['attributes'=>campaign_brevo_test_schema()]];
+    if (str_contains($url,'/contacts/')) return ['status'=>404,'body'=>[]];
     check($payload['listIds']===[123] && $payload['updateEnabled']===true, 'CRM upsert');
     check(!isset($payload['emailBlacklisted']) && !isset($payload['smtpBlacklistSender']), 'Subscription state altered');
     check($payload['attributes']['URGENCIA']==='este-mes' && $payload['attributes']['PUNTUACION']===10, 'CRM scoring/urgency');

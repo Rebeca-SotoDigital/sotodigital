@@ -1,5 +1,6 @@
 <?php
 require __DIR__.'/../includes/campaign-leads.php';
+require_once __DIR__.'/../includes/site-paths.php';
 header('Cache-Control: private, no-store');header('X-Robots-Tag: noindex, nofollow');header('Content-Type: application/json; charset=UTF-8');
 if(($_SERVER['REQUEST_METHOD']??'')!=='POST'){http_response_code(405);header('Allow: POST');exit('{"ok":false}');}
 if(($_SERVER['HTTP_X_SOTO_FORM']??'')!=='1' || ($_SERVER['HTTP_SEC_FETCH_SITE']??'same-origin')==='cross-site'){http_response_code(403);exit('{"ok":false}');}
@@ -17,6 +18,14 @@ if($attribution)$_SESSION['campaign_last_attribution']=['data'=>$attribution,'ti
 elseif(time()-($_SESSION['campaign_last_attribution']['time']??0)<1800)$attribution=$_SESSION['campaign_last_attribution']['data'];
 $variant=$input['variant']??'';
 if(is_string($variant)&&isset($services[$service][5][$variant]))$attribution['variant']=$variant;
+// Persist only a known entry path: never a query string, fragment or arbitrary URL.
+$landing=$input['landing']??'';$base=soto_base_path();
+if(is_string($landing)){
+    $path=$base!=='' && str_starts_with($landing,$base.'/') ? substr($landing,strlen($base)) : $landing;
+    if($path==='/')$path='/index.php';
+    if($path==='/campanas/')$path='/campanas/index.php';
+    if(preg_match('~^/(?:[a-z0-9-]+\.php|campanas/(?:[a-z0-9-]+\.php)?)$~D',$path) && is_file(__DIR__.'/..'.$path)) $attribution['landing']=$path==='/index.php'?'/':$path;
+}
 $token=bin2hex(random_bytes(12));$_SESSION['campaign_attribution'][$token]=$attribution;
 if(count($_SESSION['campaign_attribution'])>10)array_shift($_SESSION['campaign_attribution']);
 echo json_encode(['ok'=>true,'csrf'=>$_SESSION['campaign_csrf'],'submission'=>$_SESSION['campaign_submission'],'attribution_token'=>$token]);
