@@ -34,3 +34,7 @@ Esta fase no ejecuta el worker de la cola real ni configura el cron. La aceptaci
 ## Sincronización real posterior solicitada por el usuario
 
 Al indicar el usuario que aún no veía el lead, se comprobó una solicitud pendiente y se ejecutó manualmente el worker con la configuración privada real. Consulta posterior: brevo_synced=true, contacto ID 101 con PUNTUACION=5 y POTENCIAL=templado, pertenencia a la lista correcta. Al compartir email con la primera prueba se actualiza ese contacto en vez de duplicarlo, conservando la solicitud local. Brevo acepta aviso y confirmación (ambos estados sent); en esta comprobación no se consultan eventos de entrega. IA sigue pending: no se da por probada ni configurada. La ejecución manual no configura el cron ni automatiza futuros envíos.
+
+## Automatización local posterior
+
+A petición del usuario se instala com.sotodigital.leads-worker como LaunchAgent de su usuario, cada 300 segundos y al cargar/iniciar sesión. Primera ejecución automática verificada: exit code 0, heartbeat reciente y cero contactos/emails pendientes. No se crea cron en Arsys ni se generan leads adicionales. El Mac debe estar despierto y la sesión abierta; ver `worker-local.md`.
