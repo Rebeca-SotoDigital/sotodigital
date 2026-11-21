@@ -23,7 +23,7 @@
 <label>¿Algo más que debamos saber? (opcional)<textarea name="message" rows="3" maxlength="5000" placeholder="Cuéntanos lo que te gustaría mejorar."><?= $escape($old['message'] ?? '') ?></textarea></label>
 <label class="campaign-check"><input required type="checkbox" name="privacy" value="1"><span>He leído la <a href="/privacidad.php#solicitudes-propuesta" target="_blank" rel="noopener">política de privacidad</a> sobre la gestión de mi solicitud.</span></label>
 <p class="campaign-small">Responsable: Soto Digital S.L. (NIF B05897236). Finalidad: atender tu solicitud y preparar la revisión o propuesta; base jurídica: medidas precontractuales y, cuando corresponda, contacto profesional. Tus respuestas se puntúan para revisión humana. Proveedores previstos: Arsys, Brevo, Cloudflare y Claude con datos limitados, según la política enlazada. No te suscribimos a newsletters. Derechos: rebeca@soto-digital.com.</p>
-<?php if ($ready): ?><div data-turnstile-container data-sitekey="<?= $escape(campaign_config('TURNSTILE_SITE_KEY')) ?>" data-action="/proposal" data-language="es"></div><?php endif; ?>
+<?php if ($ready): ?><div data-turnstile-container data-sitekey="<?= $escape(campaign_config('TURNSTILE_SITE_KEY')) ?>" data-action="proposal" data-language="es"></div><?php endif; ?>
 </fieldset>
 <?php if (!$ready): ?><p class="campaign-form-status">Estamos preparando la solicitud online. Vuelve a intentarlo más adelante.</p><?php endif; ?>
 <div class="campaign-form-actions"><button type="button" class="text-link" data-previous hidden>← Volver</button><button type="button" class="btn" data-next hidden>Continuar →</button><button class="btn" type="submit" data-submit <?= !$ready ? 'disabled' : '' ?>>Pedir mini-auditoría gratuita ↗</button></div>

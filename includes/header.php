@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/site-paths.php';
+if (soto_base_path() !== '') ob_start('soto_html_paths');
 $pageTitle = $pageTitle ?? 'Soto Digital | Diseño web y marketing para empresas';
 $pageDescription = $pageDescription ?? 'Diseño web, redes sociales, email marketing, marketing de contenidos, SEO, SEM, branding y publicidad para empresas y negocios con Soto Digital.';
 $canonicalUrl = 'https://soto-digital.com' . ($canonicalPath ?? '/');

@@ -4,7 +4,7 @@ Auditoría local del 21/11/2026. No se ha publicado ni cambiado producción. Inf
 
 ## Antes de subir
 
-1. Identificar versión PHP y módulos `pdo_sqlite`, `curl`, `mbstring`, soporte JSON de SQLite y Apache con rewrite/headers. Usar un virtualhost con esta web en la raíz: las rutas públicas parten de `/`, no de una subcarpeta. Comprobar HTTPS estable antes de activar HSTS (comentado).
+1. Identificar versión PHP y módulos `pdo_sqlite`, `curl`, `mbstring`, soporte JSON de SQLite y Apache con rewrite/headers. El dominio final se publica en raíz. La vista local también admite subcarpetas: PHP detecta el prefijo y adapta recursos, enlaces y formulario. Comprobar HTTPS estable antes de activar HSTS (comentado).
 2. Hacer copia completa del sitio, reglas y configuración privada; `php bin/campaign-leads.php backup` para copia consistente de leads. Verificar integridad y restauración, permisos 0600 y copia fuera del servidor. No subir esa copia al directorio público.
 3. Copiar `docs/soto-config.example.php` **fuera** de la carpeta pública, completar valores reales y apuntar `SOTO_CONFIG_FILE` a esa ruta. Definir la misma variable para PHP web y CLI/cron. No publicar ni versionar claves.
 4. Completar cuentas/atributos/DNS descritos en `docs/integracion-leads.md`; elegir remitente, plazo de respuesta y proxies de confianza solo si existen. No activar tratos ni purga remota Brevo todavía. Monitor protegido con token largo y alertas por una vía independiente de Brevo/worker.

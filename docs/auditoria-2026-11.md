@@ -125,3 +125,7 @@ El listado operativo vigente está al principio de `pendientes.md`; los apartado
 5. Si falla: detener anuncios, pausar escrituras/cron y recuperar el paquete anterior. No restaurar BD vieja sobre leads nuevos: conservar la actual y reconciliar primero. Restaurar SQLite solo si hace falta, con conexiones detenidas, integridad/permisos verificados y reaplicando supresiones. Repetir captación y health antes de reanudar.
 
 Detalle y comandos en [publicación y recuperación](publicar-rendimiento.md) e [integración de leads](integracion-leads.md).
+
+## Corrección posterior: CSS en XAMPP por subcarpeta
+
+La revisión original usó un virtualhost en raíz y no detectó la regresión de `localhost/sotodigital/`: los enlaces `/css/...` apuntaban fuera del proyecto. Se añade detección del prefijo desde SCRIPT_FILENAME/SCRIPT_NAME y adaptación de recursos, navegación, srcset, endpoint y redirección JSON. En producción raíz permanece igual. Se corrige además el atributo de acción Turnstile a `proposal`, sin barra. HTTP real de XAMPP: home/campaña enlazan a `/sotodigital/css/...`, ambas hojas responden 200 text/css; JS/formulario también conservan prefijo. Pruebas nuevas para raíz y subcarpeta. No hubo pestaña de navegador conectada disponible para esta corrección.
