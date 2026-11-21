@@ -17,6 +17,8 @@ function trackingTest() {
         sessionStorage: {getItem: key => stored.get(key), setItem: (key, value) => stored.set(key, value)}, URL, Date, Set
     };
     vm.runInNewContext(fs.readFileSync(path.join(root, 'js/tracking.js'), 'utf8'), context);
+    context.window.sotoTracking.event('lead_form_start', {email:'private'});
+    check(!context.window.dataLayer.some(e=>e[1]==='lead_form_start'),'Funnel before consent');
     context.window.sotoTracking.apply({analytics: false, advertising: false});
     check(added.length === 0, 'Google loaded before consent');
     context.window.sotoTracking.apply({analytics: false, advertising: true});
@@ -29,6 +31,9 @@ function trackingTest() {
     context.window.sotoTracking.apply({analytics: true, advertising: true});
     events = context.window.dataLayer.map(args => Array.from(args));
     check(events.filter(e => e[1] === 'generate_lead').length === 1, 'GA lead duplicate');
+    context.window.sotoTracking.event('lead_form_step',{step:2,email:'private',type:'network'});
+    const funnel=context.window.dataLayer.find(e=>e[1]==='lead_form_step');
+    check(funnel && funnel[2].step===2 && !('email' in funnel[2]),'Funnel allowlist');
     check(!JSON.stringify(events).includes('email=private'), 'PII query in tracking');
     check(events.filter(e => e[0] === 'consent').every(e => e[2].ad_personalization === 'denied'), 'Ad personalization enabled');
     listeners.click({target: {closest: () => ({href: 'https://wa.me/34659625857?text=private-message'})}});
