@@ -2,3 +2,4 @@
 @media(max-width:767px){.service-intro{padding:36px 0 50px}.service-breadcrumb{margin-bottom:28px}.service-lead{font-size:.95rem}.service-page .contact-section h2{font-size:2.4rem}.service-related nav{align-items:stretch;flex-direction:column;gap:8px}.service-page .btn{width:100%;justify-content:space-between}}
 
 .service-page .service-return{display:inline-flex;align-items:center;gap:8px;width:fit-content;max-width:100%;min-height:44px;padding:6px 0;margin-bottom:18px;background:transparent;border:0;border-radius:0;box-shadow:none;color:#254b60;font-size:.82rem;font-weight:600;line-height:1.4;text-decoration:none}.service-page .service-return:hover{color:#005c80;text-decoration:underline;text-underline-offset:4px}.service-page .service-return:focus-visible{outline:2px solid #007baa;outline-offset:4px;border-radius:3px}
+.service-page .process-grid article>span{color:#1858b9;font-size:.8125rem}
