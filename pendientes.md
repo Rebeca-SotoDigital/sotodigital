@@ -4,6 +4,17 @@ Actualizado: **21 de noviembre de 2026**.
 
 Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web actualizada aún no se ha publicado en Arsys.** Las pruebas locales no sustituyen las comprobaciones en el servidor definitivo.
 
+**Criterio vigente del equipo:** continuar en local hasta que todo esté preparado y revisado. No publicar ni modificar Arsys sin autorización posterior. El apartado de producción es preparación para esa fase, no una orden de despliegue.
+
+## Próximo bloque de trabajo en local: atención de las solicitudes
+
+- [ ] Definir quién se hace responsable de atender cada lead y cómo se evita que ambos respondan por duplicado.
+- [ ] Aprobar el plazo real de primera respuesta, expresado en días u horas laborables.
+- [ ] Concretar qué incluye la mini-auditoría gratuita, qué se entrega y qué información adicional se pide.
+- [ ] Ajustar emails y página de gracias al proceso y plazo aprobados, sin promesas inventadas.
+- [ ] Acordar el seguimiento comercial: estados, responsable y recordatorio de solicitudes sin atender. Definirlo antes de activar ampliaciones del CRM.
+
+
 ## 1. Completado y comprobado en local
 
 ### Brevo y captación
@@ -113,7 +124,8 @@ Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web
 
 - [x] **Claude en local:** clave privada aceptada y modelo claude-haiku-5-5 disponible. Prueba sintética y dos solicitudes internas completadas: resumen y siguiente paso sincronizados en Brevo, ESTADO_IA=complete y puntuación PHP intacta. Peticiones sin nombre, email, móvil, empresa, URL, texto libre, IP ni atribución. Ver `docs/prueba-real-claude.md`.
 - [x] **Claude — límite mensual:** el usuario confirma haber fijado 100 USD/mes en el panel de límites de Anthropic el 21/11/2026. Confirmación del usuario; no se ha verificado por API el importe ni su alcance de organización/workspace. Es un tope de consumo, no un cargo mensual fijo.
-- [ ] **Claude — revisión:** estilo breve y orientado a acciones ya aplicado y verificado en los contactos internos 101/103, con límites de 240/180 caracteres. Confirmar con el equipo la utilidad final de resúmenes y siguientes pasos y, cuando se autorice publicar, repetir la integración en el servidor definitivo. El límite de tokens por llamada no sustituye el límite mensual del proveedor.
+- [x] **Claude — estilo breve:** ajuste solicitado completado y revisado en los contactos internos 101/103. Resumen de una frase (máximo 240 caracteres) y siguiente paso concreto (máximo 180), sin repetir puntuación ni metodología; inicio del cliente separado del plazo de resultados. El usuario confirma la revisión en Brevo.
+- [ ] **Claude — seguimiento:** revisar calidad con nuevos casos y vigilar consumo y errores. La prueba en Arsys queda para cuando se autorice publicar; los límites por petición no sustituyen el límite mensual del proveedor.
 - [ ] **Dealfront/Leadfeeder:** cuenta/plan, código, contratos, consentimiento específico, filtros y cobertura real, si se decide activar. No identifica a cada persona visitante.
 - [ ] **CRM comercial:** segmentos, responsable, IDs del pipeline/etapas y prueba del esqueleto de tratos; `BREVO_CREATE_DEALS` sigue desactivado por defecto.
 - [ ] **Conversiones offline:** aprobar hito, valor real, permisos, formato e importación. Actualmente están diseñadas, no implementadas ni importadas.
@@ -124,6 +136,7 @@ Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web
 - [Siete comprobaciones locales de Brevo](docs/comprobaciones-locales-brevo.md).
 - [Integración y atributos](docs/integracion-leads.md).
 - [Prueba real de Brevo y emails](docs/prueba-real-brevo.md).
+- [Claude: conexión real y estilo breve](docs/prueba-real-claude.md).
 - [Formulario local y corrección del destinatario](docs/prueba-formulario-local.md).
 - [Worker local](docs/worker-local.md).
 - [DNS de Brevo verificados](docs/brevo-dns.md).
