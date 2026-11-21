@@ -14,6 +14,12 @@ $stylesheet = $siteAssets[!empty($serviceStyles) ? 'css/site-services.css' : 'cs
     <meta name="robots" content="noindex, nofollow">
     <?php endif; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#142b53">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://soto-digital.com/img/og-soto-digital-1200x630.jpg">
     <meta name="color-scheme" content="light only">
     <meta name="supported-color-schemes" content="light">
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
@@ -25,7 +31,7 @@ $stylesheet = $siteAssets[!empty($serviceStyles) ? 'css/site-services.css' : 'cs
     <meta property="og:title" content="<?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?>">
     <meta property="og:description" content="<?= htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8') ?>">
     <meta property="og:url" content="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
-    <meta property="og:image" content="https://soto-digital.com/img/soto-digital-logo.png">
+    <meta property="og:image" content="https://soto-digital.com/img/og-soto-digital-1200x630.jpg">
     <meta property="og:image:alt" content="Soto Digital">
     <?php if (!empty($pageStructuredData)): ?>
     <script type="application/ld+json"><?= json_encode($pageStructuredData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>

@@ -17,7 +17,8 @@ def publish(source, data):
     path = Path(source)
     digest = hashlib.sha256(data).hexdigest()[:12]
     output = path.with_name(f'{path.stem}.{digest}{path.suffix}')
-    (ROOT / output).write_bytes(data)
+    if not (ROOT / output).exists() or (ROOT / output).read_bytes() != data:
+        (ROOT / output).write_bytes(data)
     manifest[source] = output.as_posix()
     return output.as_posix()
 
@@ -66,3 +67,15 @@ lines.append('];')
 (ROOT / 'includes/asset-manifest.php').write_text('\n'.join(lines) + '\n')
 for name, path in manifest.items():
     print(f'{name} -> {path} ({(ROOT / path).stat().st_size} bytes)')
+
+# Keep current and one previous version; remove orphaned versioned assets.
+for directory in ['css','js','fonts']:
+    for file in (ROOT/directory).iterdir():
+        if not re.match(r'^.+\.[a-f0-9]{12}\.(css|js|woff2)$',file.name): continue
+        source=re.sub(r'\.[a-f0-9]{12}(?=\.)','',file.name)
+        if directory+'/'+source not in manifest: file.unlink()
+for source,current in manifest.items():
+    path=Path(source)
+    candidates=[p for p in (ROOT/path.parent).glob(path.stem+'.*'+path.suffix) if re.match(r'^'+re.escape(path.stem)+r'\.[a-f0-9]{12}'+re.escape(path.suffix)+r'$',p.name) and p.as_posix()!=(ROOT/current).as_posix()]
+    candidates.sort(key=lambda p:p.stat().st_mtime,reverse=True)
+    for stale in candidates[1:]: stale.unlink()

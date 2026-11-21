@@ -62,7 +62,7 @@ include __DIR__ . '/header.php';
         <div class="container">
             <div class="section-heading"><div><span class="section-subtitle">QUÉ PODEMOS HACER POR TI</span><h2><?= $escape($service['section']) ?></h2></div><p><?= $escape($service['body']) ?></p></div>
             <?php if ($service['slug'] === 'pantalla-led-raos'): ?>
-                <figure class="service-location"><img src="img/optimized/pantalla-led-recreacion.jpg" width="693" height="595" alt="Recreación de la pantalla LED de Soto Digital frente a la ITV de Raos" loading="lazy"><figcaption>Recreación de la pantalla LED en Raos, Maliaño, Cantabria.</figcaption></figure>
+                <figure class="service-location"><img src="img/optimized/pantalla-led-recreacion-693.webp" srcset="img/optimized/pantalla-led-recreacion-420.webp 420w, img/optimized/pantalla-led-recreacion-693.webp 693w" sizes="(max-width: 800px) 100vw, 50vw" width="693" height="595" alt="Recreación de la pantalla LED de Soto Digital frente a la ITV de Raos" loading="lazy"><figcaption>Recreación de la pantalla LED en Raos, Maliaño, Cantabria.</figcaption></figure>
             <?php endif; ?>
             <div class="process-grid">
                 <?php foreach ($service['items'] as $item): ?>

@@ -45,7 +45,7 @@ include 'includes/header.php';
 </section>
 <section id="pantalla">
     <div class="container led-layout">
-        <div class="led-photo led-recreation"><img src="img/optimized/pantalla-led-recreacion.jpg" alt="Recreación de cómo quedará la pantalla LED de Soto Digital frente a la ITV de Raos" width="693" height="595" loading="lazy"><span class="photo-label">RAOS · MALIAÑO · CANTABRIA</span></div>
+        <div class="led-photo led-recreation"><img src="img/optimized/pantalla-led-recreacion-693.webp" srcset="img/optimized/pantalla-led-recreacion-420.webp 420w, img/optimized/pantalla-led-recreacion-693.webp 693w" sizes="(max-width: 800px) 100vw, 50vw" alt="Recreación de cómo quedará la pantalla LED de Soto Digital frente a la ITV de Raos" width="693" height="595" loading="lazy"><span class="photo-label">RAOS · MALIAÑO · CANTABRIA</span></div>
         <div class="led-copy"><span class="section-subtitle">VISIBILIDAD A GRAN FORMATO</span><h2>Tu negocio.<br>En grande.<br><span class="blue-heading">Muy en grande.</span></h2><p>Lleva tu marca a la calle con nuestra pantalla LED de <strong>6 × 3 metros</strong>, en el Polígono de Raos, en Maliaño, Cantabria, frente a la ITV.</p><p>Un espacio para dar a conocer tu negocio, anunciar novedades y reforzar tu presencia local. También diseñamos tu anuncio.</p><p><a class="text-link" href="pantalla-led-raos.php">Conoce la publicidad en nuestra pantalla LED <span aria-hidden="true">↗</span></a></p><a href="#diagnostico" class="btn">Quiero aparecer aquí <span aria-hidden="true">↗</span></a></div>
     </div>
 </section>
