@@ -5,6 +5,12 @@ $services = require __DIR__ . '/campaign-services.php';
 $slug = $campaignSlug ?? 'estrategia-digital';
 if (!isset($services[$slug])) { http_response_code(404); exit; }
 $service = $services[$slug];
+$variantKey = is_string($_GET['v'] ?? null) ? $_GET['v'] : '';
+$campaignVariant = $service[5][$variantKey] ?? null;
+if ($campaignVariant) {
+    $service[1]=$campaignVariant['heading'];$service[2]=$campaignVariant['intro'];
+    $_SESSION['campaign_attribution'][$attributionToken]['variant']=$variantKey;
+}
 $content = require __DIR__ . '/campaign-content.php';
 $campaignSelf = 'campanas/' . ($slug === 'estrategia-digital' ? 'index.php' : $slug . '.php');
 $campaignLanding = true;
@@ -16,7 +22,7 @@ include __DIR__ . '/header.php';
 <main id="contenido">
 <section class="campaign-hero"><div class="container campaign-split">
  <div><span class="eyebrow"><?= $escape($service[0]) ?> · SOTO DIGITAL</span><h1><?= $escape($service[1]) ?></h1><p class="campaign-lead"><?= $escape($service[2]) ?></p><a class="btn" href="<?= $escape($campaignSelf) ?>#propuesta">Pedir mini-auditoría gratuita</a><p class="campaign-micro">Desde Cantabria. Contigo, estés donde estés.</p>
- <?php if (in_array($slug,['google-ads','sem'],true)): ?><div class="campaign-ad"><small>Ejemplo ilustrativo · No es un resultado real de Google</small><h2>Tu servicio, ante quien lo busca.</h2><p>Un anuncio claro y una página que facilita pedir información.</p></div><?php endif; ?>
+ <?php if (in_array($slug,['google-ads','sem'],true)): ?><div class="campaign-ad"><small>Ejemplo ilustrativo · No es un resultado real de Google</small><h2><?= $escape($campaignVariant['example'] ?? 'Tu servicio, ante quien lo busca.') ?></h2><p>Un anuncio claro y una página que facilita pedir información.</p></div><?php endif; ?>
  </div>
  <div id="propuesta"><?php include __DIR__ . '/campaign-form.php'; ?></div>
 </div></section>

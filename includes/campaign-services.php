@@ -1,5 +1,5 @@
 <?php
-return [
+$definitions = [
  'estrategia-digital' => ['Marketing digital', 'Webs y campañas para recibir más consultas.', 'Una estrategia que conecta tu web, tus contenidos y tus campañas para convertir el interés en conversaciones sobre tu negocio.', ['Auditoría de tu presencia digital', 'Selección de canales según tu objetivo', 'Plan de acción y seguimiento'], ['agencia marketing digital', 'agencia marketing digital Cantabria']],
  'google-ads' => ['Agencia de Google Ads', 'Google Ads para que tu negocio reciba más consultas.', 'Campañas de Google Ads con búsquedas relevantes, anuncios claros y una landing que facilita el contacto. Hablemos de tus objetivos antes de invertir.', ['Búsquedas con intención de contratar', 'Control del presupuesto y de las zonas', 'Medición de consultas y mejora de campañas'], ['agencia Google Ads', 'gestión Google Ads Cantabria']],
  'diseno-web' => ['Diseño web', 'Una web que abra la puerta a nuevas consultas.', 'Presenta lo que haces con claridad y facilita que tus futuros clientes den el siguiente paso. Diseño, desarrollo y acompañamiento para tu negocio.', ['Una propuesta de valor fácil de entender', 'Experiencia adaptada al móvil', 'Contacto visible y recorrido sencillo'], ['diseño web Cantabria', 'presupuesto página web empresa']],
@@ -12,3 +12,13 @@ return [
  'sem' => ['Agencia SEM', 'De una búsqueda a una oportunidad para tu negocio.', 'Publicidad en buscadores para conectar con personas que están buscando tus servicios. Planificamos la inversión y medimos lo que ocurre después del clic.', ['Segmentación por búsquedas y ubicación', 'Presupuesto acordado contigo', 'Anuncios y landing con un mismo mensaje'], ['agencia SEM', 'publicidad buscadores Cantabria']],
  'pantalla-led' => ['Pantalla LED en Raos', 'Tu negocio, en grande y en el lugar adecuado.', 'Da visibilidad local a tu marca en nuestra pantalla LED de 6 × 3 metros, frente a la ITV de Raos, en Maliaño. También damos forma a tu anuncio.', ['18 m² de presencia de marca', 'Ubicación en el Polígono de Raos', 'Creatividad conectada con tu campaña digital'], ['publicidad pantalla LED Cantabria', 'anunciarse pantalla Raos']],
 ];
+
+foreach ($definitions as $key => &$definition) {
+    if ($key === 'pantalla-led') continue;
+    $definition[5] = [
+        'cantabria' => ['heading'=>$definition[0].' para negocios en Cantabria', 'intro'=>$definition[2], 'example'=>'Tu servicio en Cantabria, ante quien lo busca.'],
+        'empresas' => ['heading'=>$definition[0].' para empresas y pymes', 'intro'=>$definition[2], 'example'=>'Tu negocio, ante las personas adecuadas.'],
+    ];
+}
+unset($definition);
+return $definitions;
