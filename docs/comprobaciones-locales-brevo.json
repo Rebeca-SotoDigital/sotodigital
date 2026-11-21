@@ -1,0 +1,42 @@
+{
+  "tag": "SOTO-QA-e791ade2",
+  "started_at": "2026-11-21T17:29:27+00:00",
+  "contacts_checked": 2,
+  "traceability_verified": 2,
+  "requester_test_accepted": true,
+  "alert_test_accepted": true,
+  "alert_deduplication_ok": true,
+  "delivery": {
+    "rebeca@soto-digital.com": {
+      "http": 200,
+      "events": [
+        {
+          "event": "delivered",
+          "date": "2026-11-21T18:29:30.000+01:00"
+        },
+        {
+          "event": "requests",
+          "date": "2026-11-21T18:29:29.590+01:00"
+        }
+      ]
+    },
+    "ads@soto-digital.com": {
+      "http": 200,
+      "events": [
+        {
+          "event": "delivered",
+          "date": "2026-11-21T18:29:31.000+01:00"
+        },
+        {
+          "event": "requests",
+          "date": "2026-11-21T18:29:29.721+01:00"
+        }
+      ]
+    }
+  },
+  "health_http": {
+    "unauthorized_status": 401,
+    "authorized_status": 200,
+    "ok": true
+  }
+}

@@ -20,9 +20,9 @@ function campaign_health(?PDO $db = null): array {
     $configured=[
       'turnstile'=>(bool)(campaign_config('TURNSTILE_SITE_KEY') && campaign_config('TURNSTILE_SECRET_KEY')),
       'brevo'=>(bool)(campaign_config('BREVO_API_KEY') && (int)campaign_config('BREVO_LIST_ID')>0 && filter_var(campaign_config('CAMPAIGN_MAIL_FROM'),FILTER_VALIDATE_EMAIL)),
-      'anthropic'=>(bool)campaign_config('ANTHROPIC_API_KEY'),
+      'anthropic'=>!filter_var(campaign_config('CAMPAIGN_REQUIRE_AI',false),FILTER_VALIDATE_BOOLEAN) || (bool)campaign_config('ANTHROPIC_API_KEY'),
     ];
-    try { return campaign_health_snapshot($db ?? campaign_db(),$configured,time()); }
+    try { $health=campaign_health_snapshot($db ?? campaign_db(),$configured,time()); $health['warnings']=campaign_config('ANTHROPIC_API_KEY')?[]:['IA no configurada; no bloquea captación/Brevo salvo CAMPAIGN_REQUIRE_AI=true.']; return $health; }
     catch(Throwable $e) {return ['ok'=>false,'checks'=>array_merge($configured,['database'=>false,'worker'=>false,'queue'=>false])];}
 }
 function campaign_alert(?PDO $db, string $reason, ?callable $sender=null): bool {

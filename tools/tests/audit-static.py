@@ -3,10 +3,11 @@ from pathlib import Path
 import subprocess,os,re,html,json,hashlib,xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[2];PHP=os.environ.get('SOTO_PHP','php');NODE=os.environ.get('SOTO_AUDIT_NODE','node')
 outputs=[]
-for command in [[PHP,'tools/tests/campaign-brevo.php'],[PHP,'tools/tests/site-paths.php'],[PHP,'tools/tests/campaign-leads.php'],[PHP,'tools/tests/campaign-audit.php'],[NODE,'tools/tests/campaign-frontend.js']]:
+tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode().split('\0'))
+for command in [[PHP,'tools/tests/campaign-emails.php'],[PHP,'tools/tests/campaign-brevo.php'],[PHP,'tools/tests/site-paths.php'],[PHP,'tools/tests/campaign-leads.php'],[PHP,'tools/tests/campaign-audit.php'],[NODE,'tools/tests/campaign-frontend.js']]:
  r=subprocess.run(command,cwd=ROOT,capture_output=True,text=True);outputs.append(r.stdout+r.stderr)
  if r.returncode:raise RuntimeError(outputs[-1])
-files=list(ROOT.rglob('*.php'))
+files=sorted({ROOT/name for name in tracked if name.endswith('.php') and (ROOT/name).is_file()} | set((ROOT/'tools/tests').glob('*.php')))
 for file in files:
  r=subprocess.run([PHP,'-l',str(file)],capture_output=True,text=True)
  if r.returncode:raise RuntimeError(r.stdout+r.stderr)
@@ -20,7 +21,7 @@ for source,current in manifest.items():
  assert len(versions)<=2,(source,len(versions))
 outputs.append('PASS: manifest hashes and maximum two versions')
 for page in ROOT.glob('*.php'):
- if page.name=='404.php':continue
+ if page.name=='404.php' or page.name not in tracked:continue
  r=subprocess.run([PHP,str(page)],cwd=ROOT,capture_output=True,text=True,check=True);assert not r.stderr,r.stderr
  title=html.unescape(re.search(r'<title>(.*?)</title>',r.stdout).group(1));desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"',r.stdout).group(1))
  assert len(title)<=60 and len(desc)<=155,(page.name,len(title),len(desc))

@@ -13,3 +13,4 @@ __MACOSX/
 soto-config.php
 node_modules/
 .audit-local/
+dist/

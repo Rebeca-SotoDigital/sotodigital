@@ -29,3 +29,9 @@ Configurar cron con PHP CLI y rutas absolutas del servidor: retry cada 5 minutos
 ## Vuelta atrás
 
 Detener publicidad si la captación falla. Pausar cron y escrituras durante la recuperación. Conservar la BD actual y restaurar el paquete completo anterior con su manifiesto/recursos/reglas. Las migraciones son aditivas, pero comprobar compatibilidad antes de cambiar código. **No sobrescribir la BD con una copia anterior si hay leads nuevos**: preservar y recuperar esos registros primero. Restaurar BD únicamente si es necesario, con conexiones cerradas, integridad verificada y propietario/permisos correctos; gestionar WAL/SHM con todas las conexiones detenidas. Reaplicar supresiones realizadas desde la copia. Reanudar cron, health y una prueba de captación; luego publicidad.
+
+## Paquete preparado tras las siete comprobaciones
+
+Ejecutar `python3 tools/build-release.py`. El directorio dist contiene ZIP web, checksum SHA256, manifiesto de archivos, ejemplo de configuración privada sin claves e instrucciones LEEME. No se publica nada. El empaquetado toma archivos versionados y excluye datos privados, herramientas y trabajo no versionado; el trabajo independiente de WhatsApp requiere su propia revisión antes de incorporarlo. dist devuelve 404 por HTTP.
+
+Antes de publicar: autorizar la IP saliente de Arsys en Brevo y configurar un widget Turnstile que admita el dominio publicado. El ejemplo privado debe completarse fuera de public_html y el cron usar las rutas del servidor; no copiar LaunchAgents ni rutas del Mac. Revisar `docs/comprobaciones-locales-brevo.md` para resultados y límites de las pruebas locales.

@@ -1,3 +1,6 @@
+PASS: email recipients, HTML escaping, responsive structure and separation of internal scoring
+PASS: HTML email transport and reply-to, no real sends
+
 PASS: Brevo schema/category IDs, PHP-only score, attribution, phone retry, existing stage/empty preservation and recoverable schema failure
 PASS: read-only Brevo preflight, authentication failure and secret-safe output
 
@@ -12,10 +15,11 @@ PASS: consistent private SQLite backup and rotation
 PASS: retention, dry-run, commercial holds, last contact and failed remote cleanup
 PASS: aggregate-only report and CRM disabled by default
 PASS: simulated hot-lead CRM association and duplicate prevention
+PASS: optional AI warning and explicitly required AI health failure
 
 PASS: 5-step wizard, validation, back navigation, API errors, success redirect, consent signals, category separation, consent migration, blocked storage, conversions, deduplication
 
-PASS: PHP lint 71 files
+PASS: PHP lint 72 files
 PASS: manifest hashes and maximum two versions
 PASS: title/description limits, unique H1, no phone/chat CTAs or base tag
 PASS: sitemap 14 unique public pages

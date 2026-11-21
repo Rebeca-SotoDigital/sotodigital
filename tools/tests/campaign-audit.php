@@ -54,3 +54,9 @@ $dealCalls=0;$transport=static function($url,$headers,$payload)use(&$dealCalls){
 foreach([1,2] as $attempt){$row=$purgeDb->query("SELECT * FROM leads WHERE id='hot-deal'")->fetch(PDO::FETCH_ASSOC);campaign_create_deal($purgeDb,$row,$transport);}
 audit_check($dealCalls===1,'Repeated deal created');putenv('BREVO_CREATE_DEALS');putenv('BREVO_API_KEY');putenv('BREVO_PIPELINE_ID');putenv('BREVO_NEW_STAGE_ID');
 echo "PASS: simulated hot-lead CRM association and duplicate prevention\n";
+$healthDb=new PDO('sqlite::memory:');$healthDb->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);campaign_migrate($healthDb);campaign_operation($healthDb,'worker_last_run',(string)time());
+putenv('TURNSTILE_SITE_KEY=test');putenv('TURNSTILE_SECRET_KEY=test');putenv('BREVO_API_KEY=xkeysib-audit');putenv('BREVO_LIST_ID=123');putenv('CAMPAIGN_MAIL_FROM=ads@soto-digital.com');putenv('ANTHROPIC_API_KEY');putenv('CAMPAIGN_REQUIRE_AI');
+audit_check(campaign_health($healthDb)['ok'],'Optional unconfigured AI blocked Brevo health');
+putenv('CAMPAIGN_REQUIRE_AI=true');audit_check(!campaign_health($healthDb)['ok'],'Required AI missing but health passed');
+foreach(['TURNSTILE_SITE_KEY','TURNSTILE_SECRET_KEY','BREVO_API_KEY','BREVO_LIST_ID','CAMPAIGN_MAIL_FROM','CAMPAIGN_REQUIRE_AI'] as $key)putenv($key);
+echo "PASS: optional AI warning and explicitly required AI health failure\n";

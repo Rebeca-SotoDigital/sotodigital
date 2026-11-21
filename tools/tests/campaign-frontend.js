@@ -86,7 +86,7 @@ async function wizardTest() {
     await events.submit({preventDefault() {}});
     check(requestCount===0 && controls['[data-form-error]'].textContent.includes('casilla'),'Missing privacy failure was silent');
     steps[4].field.valid=true;
-    await events.submit({preventDefault() {}});
+    await Promise.all([events.submit({preventDefault() {}}),events.submit({preventDefault() {}})]);
     check(requestCount === 1 && reset === 1 && controls['[data-form-error]'].textContent === 'Error de prueba' && !navigated, 'Submission failure handling');
     succeeds = true; await events.submit({preventDefault() {}});
     check(navigated === 'https://soto-digital.com/campanas/gracias.php', 'Success redirect');

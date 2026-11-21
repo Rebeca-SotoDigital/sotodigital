@@ -2,6 +2,7 @@
 require_once __DIR__ . '/campaign-config.php';
 require_once __DIR__ . '/campaign-network.php';
 require_once __DIR__ . '/campaign-brevo.php';
+require_once __DIR__ . '/campaign-emails.php';
 function campaign_session(): void {
     if (session_status() === PHP_SESSION_NONE) {
         session_name('soto_campaign');
@@ -179,11 +180,14 @@ function campaign_uuid(string $seed): string {
 }
 function campaign_send(array $message, string $key): ?bool {
     if (!campaign_config('BREVO_API_KEY') || !campaign_config('CAMPAIGN_MAIL_FROM')) return false;
-    $result = campaign_http('https://api.brevo.com/v3/smtp/email', ['api-key: ' . campaign_config('BREVO_API_KEY')], [
+    $payload = [
       'sender' => ['email' => campaign_config('CAMPAIGN_MAIL_FROM'), 'name' => 'Soto Digital'],
       'to' => array_map(static function ($email) { return ['email' => $email]; }, $message['to']),
-      'replyTo' => ['email' => $message['reply_to']], 'subject' => $message['subject'], 'textContent' => $message['text'], 'headers' => ['idempotencyKey' => campaign_uuid($key)],
-    ]);
+      'replyTo' => ['email' => $message['reply_to']], 'subject' => $message['subject'], 'headers' => ['idempotencyKey' => campaign_uuid($key)],
+    ];
+    if (!empty($message['html'])) $payload['htmlContent'] = $message['html'];
+    else $payload['textContent'] = $message['text'];
+    $result = campaign_http('https://api.brevo.com/v3/smtp/email', ['api-key: ' . campaign_config('BREVO_API_KEY')], $payload);
     if ($result['status'] === 0 || $result['status'] >= 500) return null;
     return $result['status'] >= 200 && $result['status'] < 300;
 }
@@ -193,14 +197,7 @@ function campaign_deliver(PDO $db, string $id, ?callable $sender = null): void {
     $stmt = $db->prepare('SELECT * FROM leads WHERE id=?'); $stmt->execute([$id]); $row = $stmt->fetch(PDO::FETCH_ASSOC); if (!$row) return;
     $data = json_decode($row['payload'], true); $score = campaign_stored_score($data);
     $admin = campaign_config('CAMPAIGN_MAIL_TO', 'ads@soto-digital.com');
-    $options = campaign_options();
-    $text = 'Servicio: ' . $row['service'] . "\nNombre: " . $data['name'] . "\nEmpresa: " . ($data['company'] ?? 'No indicada') . "\nEmail: " . $data['email'] . "\nMóvil: " . $data['phone'] . "\nWeb: " . ($data['website'] ?: 'No indicada') . "\n";
-    foreach (['sector', 'objective', 'budget', 'urgency'] as $key) $text .= $options[$key]['label'] . ': ' . ($options[$key]['options'][$data[$key] ?? ''] ?? 'No indicado') . "\n";
-    $text .= 'Puntuación: ' . $score['score'] . '/10 | ' . $score['category'] . ' (' . $score['score_version'] . ")\nResumen IA (revisar): " . ($row['ai_summary'] ?: 'No disponible') . "\nSiguiente paso IA (revisar): " . ($row['ai_next_step'] ?: 'Revisar y contactar') . "\n\n" . $data['message'];
-    $messages = [
-      'admin_sent' => ['to' => [$admin], 'reply_to' => $data['email'], 'subject' => 'Nueva mini-auditoría | Soto Digital', 'text' => $text],
-      'confirmation_sent' => ['to' => [$data['email']], 'reply_to' => $admin, 'subject' => 'Hemos recibido tu solicitud | Soto Digital', 'text' => 'Hola ' . $data['name'] . ",\n\nGracias por contarnos tu proyecto. Hemos recibido tu solicitud de mini-auditoría inicial gratuita. Nos pondremos en contacto contigo lo antes posible por teléfono o email para conocer tu negocio y acordar el alcance de la revisión. Si necesitas ayuda antes, responde a este correo.\n\nEl equipo de Soto Digital\n659 625 857\n" . $admin],
-    ];
+    $messages = campaign_email_messages($row, $data, $score, $admin);
     foreach ($messages as $column => $message) {
         $state = $column === 'admin_sent' ? 'admin_state' : 'confirmation_state';
         if ($row[$column] || $row[$state] === 'sending') continue;

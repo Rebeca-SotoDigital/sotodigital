@@ -6,3 +6,4 @@ soto-config.php
 .htaccess.local*
 node_modules/
 .audit-local/
+dist/

@@ -176,3 +176,7 @@ Consultar `docs/siguiente-etapa-crm.md` para CRM y diseño offline. No hay propu
 Con SOTO_CONFIG_FILE apuntando al archivo privado, ejecutar `php bin/campaign-leads.php brevo-check`. Consulta únicamente cuenta, lista, atributos, remitente y dominio: no crea contactos, no manda emails y no abre SQLite. Devuelve checks y código de salida 0 si todo es compatible; no muestra claves ni respuestas completas del proveedor. Un resultado correcto no valida entregabilidad, automatizaciones de la cuenta ni cron: probar después con un lead propio y envío expresamente autorizado.
 
 Referencia de las comprobaciones: [cuenta](https://developers.brevo.com/reference/get-account), [remitentes](https://developers.brevo.com/reference/get-senders), [dominio](https://developers.brevo.com/reference/get-domain-configuration).
+
+## Comprobaciones y paquete local posteriores
+
+Ver `docs/comprobaciones-locales-brevo.md`: atributos opcionales completados, mensajes HTML revisados, pruebas de errores/copia/restauración/conservación y entrega real de muestras. CAMPAIGN_REQUIRE_AI=false mantiene la IA opcional para el health, con aviso si falta clave; true la exige. El token de health se conserva solo en configuración privada. Para construir el paquete: `python3 tools/build-release.py`; salida dist (no pública, no desplegada). No se incluyen archivos no versionados ni configuración del Mac. La revisión de workflows se basa en la confirmación del equipo de que no hay activos; no hubo acceso al panel por el navegador.

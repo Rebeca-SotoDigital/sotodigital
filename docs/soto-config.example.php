@@ -24,6 +24,7 @@ return [
     'BREVO_LIST_ID' => 0,
     'CAMPAIGN_MAIL_FROM' => 'ads@soto-digital.com', // Must be authorized by Brevo.
     'CAMPAIGN_MAIL_TO' => 'ads@soto-digital.com',
+    'CAMPAIGN_REQUIRE_AI' => false, // Optional AI must not fail Brevo/capture health.
     'ANTHROPIC_API_KEY' => '',
     'ANTHROPIC_MODEL' => 'claude-haiku-5-5',
     'GOOGLE_ANALYTICS_ID' => '', // G-...
