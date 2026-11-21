@@ -7,7 +7,8 @@ return [
     "css/campaign.css" => "css/campaign.0d827459d992.css",
     "js/main.js" => "js/main.5e9c0cad74ce.js",
     "js/cookies.js" => "js/cookies.0851384a885a.js",
-    "js/campaign.js" => "js/campaign.05dcdf1da341.js",
+    "js/campaign.js" => "js/campaign.349da5951e74.js",
+    "js/campaign-bootstrap.js" => "js/campaign-bootstrap.3d33c46e21c7.js",
     "js/tracking.js" => "js/tracking.d59f1a13598e.js",
     "js/campaign-whatsapp.js" => "js/campaign-whatsapp.5e1356dadeee.js",
 ];

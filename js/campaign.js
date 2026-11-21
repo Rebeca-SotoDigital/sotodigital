@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
         bar.hidden = false;
         progress.textContent = 'Paso ' + (current + 1) + ' de ' + steps.length;
         bar.value = current + 1;
+        if (typeof CustomEvent !== 'undefined') form.dispatchEvent(new CustomEvent('soto:step',{detail:{step:current+1}}));
         if (started) track('lead_form_step', {step: current + 1});
         if (focus) {
             const legend = steps[current].querySelector('legend');
@@ -90,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const label = submit.textContent;
         submit.textContent = 'Enviando…';
         try {
+            if (window.sotoLeadForm) await window.sotoLeadForm.prepare();
             const response = await fetch(form.action, {method: 'POST', body: new FormData(form), headers: {'Accept': 'application/json'}, credentials: 'same-origin'});
             const result = await response.json();
             if (!response.ok || !result.ok) { const failure = new Error(result.error || 'No se ha podido enviar. Inténtalo de nuevo.'); failure.kind = response.status === 429 ? 'limit' : (response.status === 403 ? 'session' : 'api'); throw failure; }

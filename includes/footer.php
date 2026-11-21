@@ -101,6 +101,6 @@
 <script src="<?= htmlspecialchars($siteAssets['js/tracking.js'], ENT_QUOTES, 'UTF-8') ?>" defer></script>
 <script src="<?= htmlspecialchars($siteAssets['js/cookies.js'], ENT_QUOTES, 'UTF-8') ?>" defer></script>
 <script src="<?= htmlspecialchars($siteAssets['js/main.js'], ENT_QUOTES, 'UTF-8') ?>" defer></script>
-<?php if (!empty($leadForm)): ?><script src="<?= htmlspecialchars($siteAssets['js/campaign.js'], ENT_QUOTES, 'UTF-8') ?>" defer></script><?php endif; ?>
+<?php if (!empty($leadForm)): ?><script src="<?= htmlspecialchars($siteAssets['js/campaign-bootstrap.js'], ENT_QUOTES, 'UTF-8') ?>" defer></script><script src="<?= htmlspecialchars($siteAssets['js/campaign.js'], ENT_QUOTES, 'UTF-8') ?>" defer></script><?php endif; ?>
 </body>
 </html>

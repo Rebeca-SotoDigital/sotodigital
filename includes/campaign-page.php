@@ -9,7 +9,7 @@ $variantKey = is_string($_GET['v'] ?? null) ? $_GET['v'] : '';
 $campaignVariant = $service[5][$variantKey] ?? null;
 if ($campaignVariant) {
     $service[1]=$campaignVariant['heading'];$service[2]=$campaignVariant['intro'];
-    $_SESSION['campaign_attribution'][$attributionToken]['variant']=$variantKey;
+
 }
 $content = require __DIR__ . '/campaign-content.php';
 $campaignSelf = 'campanas/' . ($slug === 'estrategia-digital' ? 'index.php' : $slug . '.php');
