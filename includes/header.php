@@ -43,9 +43,9 @@ $stylesheet = $siteAssets[!empty($serviceStyles) ? 'css/site-services.css' : 'cs
 <a href="<?= !empty($campaignLanding) ? htmlspecialchars(($campaignSelf ?? 'campanas/index.php') . '#contenido', ENT_QUOTES, 'UTF-8') : '#contenido' ?>" class="skip-link">Saltar al contenido</a>
 <header>
     <div class="container nav-container">
-        <a href="./" class="logo">
+        <?php if (!empty($campaignLanding)): ?><span class="logo" aria-label="Soto Digital"><?php else: ?><a href="./" class="logo"><?php endif; ?>
             <img src="img/optimized/logo-480.png" srcset="img/optimized/logo-240.png 240w, img/optimized/logo-480.png 480w" sizes="(max-width: 700px) 205px, (max-width: 992px) 218px, (max-width: 1150px) 205px, 240px" width="480" height="136" alt="SOTO DIGITAL Logo">
-        </a>
+        <?php if (!empty($campaignLanding)): ?></span><?php else: ?></a><?php endif; ?>
 
         <?php if (!empty($campaignLanding)): ?>
         <a class="btn btn-nav" href="<?= htmlspecialchars($campaignSelf ?? 'campanas/', ENT_QUOTES, 'UTF-8') ?>#propuesta">Mini-auditoría gratis ↗</a>

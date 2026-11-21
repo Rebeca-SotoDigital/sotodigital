@@ -1,5 +1,6 @@
 <footer>
     <div class="container">
+<?php if (empty($campaignLanding)): ?>
         <div class="footer-top">
             <div class="footer-col">
                 <h2>SOTO DIGITAL</h2>
@@ -27,6 +28,7 @@
 
         </div>
 
+<?php endif; ?>
         <div class="footer-bottom">
             <p>&copy; <?php echo date("Y"); ?> SOTO DIGITAL. Todos los derechos reservados.</p>
             <div class="legal-links">
