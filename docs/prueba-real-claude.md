@@ -15,9 +15,15 @@ Se mantiene el criterio del usuario: trabajo local, sin despliegue en Arsys.
 ## Límites y siguientes pasos
 
 - Tres intentos automáticos máximos por solicitud; captura, Brevo y emails siguen siendo independientes de la disponibilidad del modelo.
-- Resumen máximo de 600 caracteres y siguiente paso de 300, para revisión humana; no se ejecutan acciones propuestas por el modelo.
+- Resumen máximo de 240 caracteres y siguiente paso de 180, para revisión humana; no se ejecutan acciones propuestas por el modelo.
 - El límite por petición no es un límite mensual ni una garantía de coste. El usuario confirma haber fijado 100 USD/mes en el panel de límites el 21/11/2026. No se ha verificado por API su importe ni el alcance organización/workspace.
 - Revisión humana de calidad y prueba en el servidor definitivo pendientes. No se han configurado permisos de administrador de Anthropic ni un límite de gasto mediante esta API key.
 - El paquete local se regenera con el cambio de código; no se publica.
 
 Referencia técnica consultada: [migración Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide). La respuesta de la API real se usó para validar compatibilidad y acceso; no se incluyen claves ni payloads identificativos en este informe.
+
+## Ajuste de estilo solicitado por el equipo
+
+Resumen de una frase con lo necesario para entender la solicitud; siguiente paso con una acción concreta que comienza en infinitivo. Se omiten puntuación, categoría, versión de reglas y explicaciones del método porque ya están en sus campos propios. Se distingue cuándo quiere empezar de cualquier plazo de resultados; la inversión declarada no se presenta como tarifa de Soto Digital.
+
+Máximos: 240 caracteres para resumen y 180 para siguiente paso. Una respuesta demasiado larga se rechaza para reintentar, sin cortar una frase por la mitad. Verificado en tests y en los contactos internos 101 y 103: textos de 147/151 y 139/144 caracteres, respectivamente; guardados en Brevo y puntuaciones intactas. No se reenviaron emails. Los textos anteriores se conservaron hasta obtener una respuesta nueva válida. Evidencia: `docs/claude-resumen-breve-prueba.json`.

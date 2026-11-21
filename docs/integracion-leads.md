@@ -100,7 +100,7 @@ Máximo 10. Caliente 7–10, templado 4–6, frio 0–3. Revisar siempre por una
 
 Solo redacta resumen y siguiente paso: no decide ni modifica categoría. Se envían sector, objetivo, inversión, urgencia, existencia de web, servicio y puntuación. No se mandan nombre, email, móvil, URL, texto libre, identificadores de campaña ni IP.
 
-La respuesta debe ser JSON con `resumen` y `siguiente_paso`; se valida y limita longitud. Tres intentos máximos por solicitud. Si falla o no hay clave, el lead y su puntuación siguen guardados, Brevo puede recibirlo sin resumen y el email informa «No disponible». Una recuperación posterior puede actualizar el resumen en Brevo sin reenviar emails ya entregados. Para reactivar una IA agotada es necesaria revisión técnica; no hay botón público.
+La respuesta debe ser JSON con `resumen` y `siguiente_paso`: una frase de resumen (máximo 240 caracteres) y una acción concreta (máximo 180). No repite puntuación ni metodología. Los plazos describen cuándo quiere empezar el cliente, no resultados garantizados. Se rechaza una respuesta demasiado larga en vez de cortar frases. Tres intentos máximos por solicitud. Si falla o no hay clave, el lead y su puntuación siguen guardados, Brevo puede recibirlo sin resumen y el email informa «No disponible». Una recuperación posterior puede actualizar el resumen en Brevo sin reenviar emails ya entregados. Para reactivar una IA agotada es necesaria revisión técnica; no hay botón público.
 
 ## Cola y emails
 

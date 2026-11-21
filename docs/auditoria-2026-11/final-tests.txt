@@ -9,6 +9,7 @@ PASS: root and subdirectory asset, navigation, form and image paths; external UR
 PASS: validation, optional website, screening, score boundaries, migration, persistent 5/hour rate, PII minimization, CRM upsert, duplicate protection, provider failures and email recovery
 PASS: agreed scores 0/3/4/6/7/10 and optional/required phone switch
 PASS: bounded AI output, truncated response rejection, text-block selection and PHP score unchanged
+PASS: concise AI limits without cutting sentences
 
 PASS: trusted proxies, spoof protection, CIDR IPv4/IPv6
 PASS: stopped worker, stale queue/Brevo failure, throttled alert and read-only storage

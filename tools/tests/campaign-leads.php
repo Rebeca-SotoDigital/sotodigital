@@ -108,3 +108,10 @@ $aiAfter=$aiDb->query('SELECT * FROM leads')->fetch(PDO::FETCH_ASSOC);
 check($aiAfter['ai_status']==='complete'&&$aiAfter['ai_summary']==='Resumen válido','Valid summary not stored');
 check(campaign_stored_score(json_decode($aiAfter['payload'],true))['score']===10,'AI overwrote PHP score');
 echo "PASS: bounded AI output, truncated response rejection, text-block selection and PHP score unchanged\n";
+
+campaign_store($aiDb,'ai-long-check','google-ads',campaign_validate($valid),[]);
+$longRow=$aiDb->query("SELECT * FROM leads WHERE id='ai-long-check'")->fetch(PDO::FETCH_ASSOC);
+campaign_enrich($aiDb,$longRow,static function(){return ['status'=>200,'body'=>['stop_reason'=>'end_turn','content'=>[['type'=>'text','text'=>json_encode(['resumen'=>str_repeat('x',241),'siguiente_paso'=>'Concretar el objetivo.'])]]]];});
+check($aiDb->query("SELECT ai_status FROM leads WHERE id='ai-long-check'")->fetchColumn()==='pending','Overlong summary accepted or silently cut');
+echo "PASS: concise AI limits without cutting sentences
+";

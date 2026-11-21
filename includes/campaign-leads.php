@@ -134,7 +134,7 @@ function campaign_enrich(PDO $db, array $row, ?callable $http = null): void {
     $model=campaign_config('ANTHROPIC_MODEL', 'claude-haiku-5-5');
     $request = [
         'model' => $model, 'max_tokens' => 1200,
-        'system' => 'Eres un asistente interno de Soto Digital. La puntuación y categoría son definitivas, calculadas en PHP: no las cambies. Resume únicamente los datos observados, sin inventar resultados, precios, contactos ni garantías. No realices acciones. Devuelve solo JSON con dos strings: resumen (máximo 600 caracteres) y siguiente_paso (máximo 300 caracteres). Redacta en español. La prioridad requiere revisión humana.',
+        'system' => 'Ayudas al equipo de Soto Digital a decidir cómo continuar con una solicitud. Devuelve únicamente JSON con dos strings. resumen: una sola frase, máximo 35 palabras y 240 caracteres, que diga servicio u objetivo y solo el presupuesto/plazo relevante aportado. siguiente_paso: una sola acción concreta para el equipo, máximo 25 palabras y 180 caracteres; comienza con un verbo en infinitivo y concreta qué preguntar o revisar primero. Prioriza aclarar el dato que falta para preparar la mini-auditoría, no una lista de tareas. Escribe en español de España, con palabras sencillas. No repitas puntuación, categoría, versión de reglas ni advertencias de revisión humana: ya se muestran aparte. No uses preámbulos ni expliques el método. La puntuación PHP es definitiva, no la cambies ni descartes solicitudes por ella. No inventes hechos, resultados, contactos, precios ni plazos de respuesta. El presupuesto es inversión orientativa del cliente, no nuestra tarifa. urgency indica cuándo quiere empezar; no es un plazo para obtener resultados. Di empezar en ese plazo y no lo conviertas en duración de una campaña. No realices acciones.',
         'messages' => [['role' => 'user', 'content' => json_encode($context, JSON_UNESCAPED_UNICODE)]],
     ];
     // Haiku 5.5 thinks by default; keep this short summarization task low effort.
@@ -146,7 +146,11 @@ function campaign_enrich(PDO $db, array $row, ?callable $http = null): void {
     $text = preg_replace('/\A\s*```(?:json)?\s*|\s*```\s*\z/', '', $text);
     $parsed = json_decode($text, true);
     if (!is_array($parsed) || !is_string($parsed['resumen'] ?? null) || !is_string($parsed['siguiente_paso'] ?? null) || trim($parsed['resumen']) === '' || trim($parsed['siguiente_paso']) === '') return;
-    $db->prepare("UPDATE leads SET ai_status='complete',ai_summary=?,ai_next_step=?,brevo_synced=0 WHERE id=?")->execute([mb_substr($parsed['resumen'], 0, 600), mb_substr($parsed['siguiente_paso'], 0, 300), $row['id']]);
+    $summary=trim(preg_replace('/\s+/u',' ',$parsed['resumen']));
+    $next=trim(preg_replace('/\s+/u',' ',$parsed['siguiente_paso']));
+    // Do not cut a sentence in half: retry an overlong answer instead.
+    if (mb_strlen($summary)>240 || mb_strlen($next)>180) return;
+    $db->prepare("UPDATE leads SET ai_status='complete',ai_summary=?,ai_next_step=?,brevo_synced=0 WHERE id=?")->execute([$summary, $next, $row['id']]);
 }
 function campaign_brevo_sync(PDO $db, array $row, ?callable $http = null): void {
     if ($row['brevo_synced'] || !campaign_config('BREVO_API_KEY') || (int)campaign_config('BREVO_LIST_ID') < 1) return;
