@@ -19,7 +19,7 @@ function campaign_config(string $key, $default = '') {
     }
     $value = getenv($key);
     $resolved = $value !== false && $value !== '' ? $value : ($private[$key] ?? $default);
-    // User-supplied dummy value must never be sent to Brevo.
-    if ($key === 'BREVO_API_KEY' && in_array($resolved, ['contrasenasoto', 'CLAVEAPISOTO'], true)) return '';
+    // Reject placeholders without sending them to the provider.
+    if ($key === 'BREVO_API_KEY' && !preg_match('/\Axkeysib-[A-Za-z0-9_-]+\z/', (string)$resolved)) return '';
     return $resolved;
 }

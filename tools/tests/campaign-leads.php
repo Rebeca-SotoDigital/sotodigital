@@ -38,7 +38,7 @@ check($row['admin_sent']==1 && $row['confirmation_sent']==0 && $row['confirmatio
 campaign_deliver($db, 'test-id', function ($message, $key) use (&$calls) { $calls[]=$key; check($message['to']===['test@example.com'], 'Wrong recipient'); return true; });
 check(count($calls)===3, 'Delivered email retried');
 campaign_deliver($db, 'test-id', function () { throw new RuntimeException('Duplicate email'); });
-putenv('ANTHROPIC_API_KEY=test-not-a-real-key'); putenv('BREVO_API_KEY=test-not-a-real-key'); putenv('BREVO_LIST_ID=123');
+putenv('ANTHROPIC_API_KEY=test-not-a-real-key'); putenv('BREVO_API_KEY=xkeysib-test-not-a-real-key'); putenv('BREVO_LIST_ID=123');
 $requests=[];
 $http=function ($url,$headers,$payload) use (&$requests) {
     $requests[]=['url'=>$url,'payload'=>$payload];
