@@ -1,6 +1,6 @@
 # Prueba del formulario local — 21/11/2026
 
-Estado: configuración lista; prueba negativa superada; envío válido pendiente del usuario.
+Estado: prueba local completa superada. Turnstile real, guardado y página de gracias verificados.
 
 - Entorno: XAMPP, http://localhost/sotodigital/.
 - El usuario creó el widget e incorporó las claves reales; no se publican ni se versionan.
@@ -14,10 +14,19 @@ Estado: configuración lista; prueba negativa superada; envío válido pendiente
 - La primera prueba falló con 503 antes de corregir el secreto y pudo activar el aviso operativo configurado. No representa un lead aceptado.
 - Navegador compartido no disponible para el agente. Se pide al usuario completar una solicitud identificada como PRUEBA FORMULARIO con el buzón propio ads@soto-digital.com y confirmar si llega a gracias.
 
-## Pendiente de verificar tras el envío válido
+## Envío válido comprobado
 
-1. Registro local realmente guardado y puntuación PHP correcta.
-2. Navegación a gracias; no duplicar al recargar.
-3. Datos rechazados no generan leads ni conversión.
+El usuario completa el formulario en su navegador el 21/11/2026 a las 17:44:40 (Europe/Madrid):
+
+- POST /sotodigital/api/lead.php → 200.
+- GET /sotodigital/campanas/gracias.php → 200; el usuario confirma que ve gracias.
+- Consulta SQLite de solo lectura: un lead guardado, servicio estrategia-digital, landing /, puntuación PHP 5/10, potencial templado, versión v1-acordada-2026-11-21 y privacidad legal-v3.
+- Validación Turnstile real superada por el endpoint: no se simuló el token ni se deshabilitó el antispam.
+- El lead queda en cola: Brevo y ambos emails aún pendientes del worker, según el alcance de esta fase.
+- No se ha probado recargar gracias en este envío real; la deduplicación cuenta con pruebas automatizadas anteriores.
+
+## Corrección de mensajes durante la prueba
+
+El primer intento del usuario no generaba POST al endpoint; se refuerzan los mensajes de validación del navegador y se sitúa el aviso junto al botón. Se explica el formato de URL y la casilla de privacidad. La preparación del formulario consulta getResponse del widget, con fallback al campo oculto, y rechaza respuestas caducadas. No se atribuye el bloqueo a un campo concreto, porque el navegador compartido no estuvo disponible. Tras recargar con estos cambios, el usuario sí envió y llegó a gracias. Pruebas automatizadas de campos inválidos, error API y navegación correctas.
 
 Esta fase no ejecuta el worker de la cola real ni configura el cron. La aceptación del formulario acredita el guardado local; la prueba directa de Brevo ya está documentada por separado. La operación automática en Arsys sigue pendiente.

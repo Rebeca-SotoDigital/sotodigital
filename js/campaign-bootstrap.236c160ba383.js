@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded',function(){
         if(tokens)return tokens;
         const origin=new URL(location.href);const attribution={};
         ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','gbraid','wbraid'].forEach(key=>{if(origin.searchParams.has(key))attribution[key]=origin.searchParams.get(key);});
-        tokens=fetch(new URL(form.dataset.tokenUrl,document.baseURI),{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-Soto-Form':'1','Accept':'application/json'},body:JSON.stringify({service:form.elements.service.value,attribution,variant:origin.searchParams.get('v')||''})}).then(async response=>{
+        tokens=fetch(new URL(form.dataset.tokenUrl,document.baseURI),{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-Soto-Form':'1','Accept':'application/json'},body:JSON.stringify({landing:origin.pathname,service:form.elements.service.value,attribution,variant:origin.searchParams.get('v')||''})}).then(async response=>{
             const data=await response.json();if(!response.ok||!data.ok)throw new Error('No se ha podido preparar el formulario. Recarga la página e inténtalo de nuevo.');
             ['csrf','submission','attribution_token'].forEach(key=>{form.elements[key].value=data[key];});
         }).catch(error=>{tokens=null;throw error;});
@@ -32,7 +32,10 @@ document.addEventListener('DOMContentLoaded',function(){
     form.addEventListener('focusin',warm,{once:true});form.addEventListener('soto:step',()=>{warm();render();});
     window.sotoLeadForm={prepare:async function(){
         await issueTokens();await loadChallenge();render();
-        const token=form.querySelector('[name="cf-turnstile-response"]');
-        if(!token || !token.value){const error=new Error('Completa la verificación de seguridad antes de enviar.');error.kind='validation';throw error;}
+        let token=form.querySelector('[name="cf-turnstile-response"]');
+        const response=typeof window.turnstile.getResponse==='function' && widget!==null ? window.turnstile.getResponse(widget) : (token && token.value);
+        if(!response){const error=new Error('Completa la verificación de seguridad antes de enviar. Si había caducado, espera a que termine de nuevo.');error.kind='validation';throw error;}
+        if(!token){token=document.createElement('input');token.type='hidden';token.name='cf-turnstile-response';form.appendChild(token);}
+        token.value=response;
     }};
 });

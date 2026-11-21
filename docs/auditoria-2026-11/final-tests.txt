@@ -15,7 +15,7 @@ PASS: simulated hot-lead CRM association and duplicate prevention
 
 PASS: 5-step wizard, validation, back navigation, API errors, success redirect, consent signals, category separation, consent migration, blocked storage, conversions, deduplication
 
-PASS: PHP lint 70 files
+PASS: PHP lint 71 files
 PASS: manifest hashes and maximum two versions
 PASS: title/description limits, unique H1, no phone/chat CTAs or base tag
 PASS: sitemap 14 unique public pages

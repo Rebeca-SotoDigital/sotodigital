@@ -75,9 +75,17 @@ async function wizardTest() {
     vm.runInNewContext(fs.readFileSync(path.join(root, 'js/campaign.js'), 'utf8'), context);
     check(!steps[0].hidden && steps[4].hidden && controls['[data-submit]'].hidden, 'Wizard initial step');
     steps[0].field.valid = false; controls['[data-next]'].click(); check(reported === 1 && !steps[0].hidden, 'Invalid step advanced');
+    check(!controls['[data-form-error]'].hidden && controls['[data-form-error]'].textContent==='Elige una opción para continuar.','Missing option failure was silent');
     steps[0].field.valid = true; events.change({target:{matches:()=>true}}); await new Promise(resolve=>setTimeout(resolve,275)); check(!steps[1].hidden,'Radio auto advance'); controls['[data-previous]'].click(); check(!steps[0].hidden, 'Back button');
     for(let i=0;i<4;i++) controls['[data-next]'].click();
     check(!steps[4].hidden && !controls['[data-submit]'].hidden, 'Contact step');
+    steps[4].field.name='website';steps[4].field.valid=false;
+    await events.submit({preventDefault() {}});
+    check(requestCount===0 && controls['[data-form-error]'].textContent.includes('https://'),'Invalid website did not explain how to fix it');
+    steps[4].field.name='privacy';
+    await events.submit({preventDefault() {}});
+    check(requestCount===0 && controls['[data-form-error]'].textContent.includes('casilla'),'Missing privacy failure was silent');
+    steps[4].field.valid=true;
     await events.submit({preventDefault() {}});
     check(requestCount === 1 && reset === 1 && controls['[data-form-error]'].textContent === 'Error de prueba' && !navigated, 'Submission failure handling');
     succeeds = true; await events.submit({preventDefault() {}});

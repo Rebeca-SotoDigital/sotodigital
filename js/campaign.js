@@ -53,11 +53,22 @@ document.addEventListener('DOMContentLoaded', function () {
             legend.focus();
         }
     }
+    function showError(message) {
+        error.textContent = message;
+        error.hidden = false;
+        error.scrollIntoView({block: 'nearest'});
+    }
     function validStep(index) {
         const fields = Array.from(steps[index].querySelectorAll('input, textarea'));
         const invalid = fields.find(function (field) { return !field.checkValidity(); });
         if (!invalid) return true;
         show(index, false);
+        const labels = {name:'nombre y apellidos',email:'email',phone:'móvil',company:'empresa',website:'web del negocio',message:'información adicional',privacy:'lectura de la política de privacidad'};
+        const fieldName = labels[invalid.name];
+        let message = index < 4 ? 'Elige una opción para continuar.' : 'Revisa el campo ' + (fieldName || 'señalado') + '.';
+        if (invalid.name === 'website') message = 'La web debe incluir https://, por ejemplo https://tunegocio.com. También puedes dejarla vacía.';
+        if (invalid.name === 'privacy') message = 'Marca la casilla de lectura de la política de privacidad para enviar la solicitud.';
+        showError(message);
         invalid.reportValidity();
         track('lead_form_error', {type:'validation', step:index+1});
         return false;
@@ -99,10 +110,8 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.assign(new URL(result.next, document.baseURI).href);
         } catch (failure) {
             track('lead_form_error', {type:failure.kind || 'network', step:current+1});
-            error.textContent = failure.message || 'No se ha podido enviar. Inténtalo de nuevo.';
-            error.hidden = false;
+            showError(failure.message || 'No se ha podido enviar. Inténtalo de nuevo.');
             if (window.turnstile) window.turnstile.reset();
-            error.scrollIntoView({block: 'nearest'});
         } finally {
             pending = false;
             submit.disabled = !canSubmit;

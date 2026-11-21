@@ -7,7 +7,7 @@ return [
     "css/campaign.css" => "css/campaign.62f3b8482de8.css",
     "js/main.js" => "js/main.5e9c0cad74ce.js",
     "js/cookies.js" => "js/cookies.be26cb687e45.js",
-    "js/campaign.js" => "js/campaign.349da5951e74.js",
-    "js/campaign-bootstrap.js" => "js/campaign-bootstrap.eb261717d749.js",
+    "js/campaign.js" => "js/campaign.89a65cafbce8.js",
+    "js/campaign-bootstrap.js" => "js/campaign-bootstrap.236c160ba383.js",
     "js/tracking.js" => "js/tracking.a0edf5b4b738.js",
 ];

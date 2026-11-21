@@ -5,7 +5,6 @@
 <h3>¿Qué necesita tu negocio?</h3>
 <p class="campaign-progress" data-progress hidden aria-live="polite">Paso 1 de 5</p>
 <progress data-progress-bar max="5" value="1" hidden aria-label="Progreso del cuestionario"></progress>
-<p class="campaign-error" data-form-error role="alert" <?= !$error ? 'hidden' : '' ?>><?= $escape($error) ?></p>
 <input type="hidden" name="csrf" value="<?= $escape($formCsrf) ?>"><input type="hidden" name="service" value="<?= $escape($slug) ?>"><input type="hidden" name="submission" value="<?= $escape($formSubmission) ?>"><input type="hidden" name="attribution_token" value="<?= $escape($attributionToken) ?>">
 <div class="campaign-honey" aria-hidden="true"><label>No rellenar este campo<input name="company_fax" tabindex="-1" autocomplete="off"></label></div>
 <?php foreach (['sector', 'objective', 'budget', 'urgency'] as $step => $key): ?>
@@ -27,6 +26,7 @@
 <?php if ($ready): ?><div data-turnstile-container data-sitekey="<?= $escape(campaign_config('TURNSTILE_SITE_KEY')) ?>" data-action="proposal" data-language="es"></div><?php endif; ?>
 </fieldset>
 <?php if (!$ready): ?><p class="campaign-form-status">Estamos preparando la solicitud online. Vuelve a intentarlo más adelante.</p><?php endif; ?>
+<p class="campaign-error" data-form-error role="alert" <?= !$error ? 'hidden' : '' ?>><?= $escape($error) ?></p>
 <div class="campaign-form-actions"><button type="button" class="text-link" data-previous hidden>← Volver</button><button type="button" class="btn" data-next hidden>Continuar →</button><button class="btn" type="submit" data-submit <?= !$ready ? 'disabled' : '' ?>>Pedir mini-auditoría gratuita ↗</button></div>
 <p class="campaign-small">Sin compromiso de contratación. Acordaremos contigo el alcance de la revisión inicial.</p>
 </form>
