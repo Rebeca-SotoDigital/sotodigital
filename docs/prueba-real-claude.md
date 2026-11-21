@@ -16,7 +16,7 @@ Se mantiene el criterio del usuario: trabajo local, sin despliegue en Arsys.
 
 - Tres intentos automáticos máximos por solicitud; captura, Brevo y emails siguen siendo independientes de la disponibilidad del modelo.
 - Resumen máximo de 600 caracteres y siguiente paso de 300, para revisión humana; no se ejecutan acciones propuestas por el modelo.
-- El límite por petición no es un límite mensual ni una garantía de coste. Falta confirmar la configuración de gasto en la cuenta Anthropic.
+- El límite por petición no es un límite mensual ni una garantía de coste. El usuario confirma haber fijado 100 USD/mes en el panel de límites el 21/11/2026. No se ha verificado por API su importe ni el alcance organización/workspace.
 - Revisión humana de calidad y prueba en el servidor definitivo pendientes. No se han configurado permisos de administrador de Anthropic ni un límite de gasto mediante esta API key.
 - El paquete local se regenera con el cambio de código; no se publica.
 
