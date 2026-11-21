@@ -11,7 +11,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const canSubmit = !submit.disabled;
     let current = 0;
     let pending = false;
+    let advanceTimer;
+    let generation = 0;
     function show(index, focus) {
+        clearTimeout(advanceTimer);
+        generation++;
         current = index;
         steps.forEach(function (step, i) { step.hidden = i !== current; });
         previous.hidden = current === 0;
@@ -39,6 +43,14 @@ document.addEventListener('DOMContentLoaded', function () {
     form.noValidate = true;
     show(0, false);
     next.addEventListener('click', function () { if (validStep(current)) show(current + 1, true); });
+    form.addEventListener('change', function (event) {
+        if (pending || current >= 4 || !event.target.matches('input[type=radio]')) return;
+        clearTimeout(advanceTimer);
+        const selectedGeneration = generation;
+        advanceTimer = setTimeout(function () {
+            if (generation === selectedGeneration && validStep(current)) show(current + 1, true);
+        }, 250);
+    });
     previous.addEventListener('click', function () { if (!pending) show(current - 1, true); });
     form.addEventListener('submit', async function (event) {
         event.preventDefault();

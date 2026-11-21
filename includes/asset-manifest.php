@@ -7,7 +7,7 @@ return [
     "css/campaign.css" => "css/campaign.046245a60de3.css",
     "js/main.js" => "js/main.5e9c0cad74ce.js",
     "js/cookies.js" => "js/cookies.0851384a885a.js",
-    "js/campaign.js" => "js/campaign.56709b7dacc7.js",
+    "js/campaign.js" => "js/campaign.ab65c196aae2.js",
     "js/tracking.js" => "js/tracking.6c16cd9bc4c0.js",
     "js/campaign-whatsapp.js" => "js/campaign-whatsapp.5e1356dadeee.js",
 ];

@@ -84,11 +84,11 @@ async function wizardTest() {
     }
     ['[data-previous]', '[data-next]', '[data-submit]', '[data-progress]', '[data-progress-bar]', '[data-form-error]'].forEach(selector => controls[selector] = {hidden: false, disabled: false, textContent: 'Submit', addEventListener: (name, fn) => controls[selector][name] = fn, scrollIntoView() {}});
     const form = {action: 'https://soto-digital.com/api/lead.php', querySelectorAll: () => steps, querySelector: selector => controls[selector], addEventListener: (name, fn) => events[name] = fn};
-    const context = {document: {querySelector: () => form, baseURI: 'https://soto-digital.com/', addEventListener: (name, fn) => fn()}, window: {location: {assign: url => navigated = url}, turnstile: {reset: () => reset++}}, FormData: class {}, URL, fetch: async () => {requestCount++; return {ok: succeeds, json: async () => succeeds ? {ok: true, next: 'campanas/gracias.php'} : {ok: false, error: 'Error de prueba'}};}};
+    const context = {document: {querySelector: () => form, baseURI: 'https://soto-digital.com/', addEventListener: (name, fn) => fn()}, window: {location: {assign: url => navigated = url}, turnstile: {reset: () => reset++}}, FormData: class {}, URL, setTimeout, clearTimeout, fetch: async () => {requestCount++; return {ok: succeeds, json: async () => succeeds ? {ok: true, next: 'campanas/gracias.php'} : {ok: false, error: 'Error de prueba'}};}};
     vm.runInNewContext(fs.readFileSync(path.join(root, 'js/campaign.js'), 'utf8'), context);
     check(!steps[0].hidden && steps[4].hidden && controls['[data-submit]'].hidden, 'Wizard initial step');
     steps[0].field.valid = false; controls['[data-next]'].click(); check(reported === 1 && !steps[0].hidden, 'Invalid step advanced');
-    steps[0].field.valid = true; controls['[data-next]'].click(); controls['[data-previous]'].click(); check(!steps[0].hidden, 'Back button');
+    steps[0].field.valid = true; events.change({target:{matches:()=>true}}); await new Promise(resolve=>setTimeout(resolve,275)); check(!steps[1].hidden,'Radio auto advance'); controls['[data-previous]'].click(); check(!steps[0].hidden, 'Back button');
     for(let i=0;i<4;i++) controls['[data-next]'].click();
     check(!steps[4].hidden && !controls['[data-submit]'].hidden, 'Contact step');
     await events.submit({preventDefault() {}});
