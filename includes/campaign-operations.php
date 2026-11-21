@@ -47,3 +47,15 @@ function campaign_backup(PDO $db, string $directory, int $keep = 14): string {
     foreach(array_slice($files,max(1,$keep)) as $old) if(is_file($old) && !is_link($old)) unlink($old);
     return $target;
 }
+function campaign_purge(PDO $db, int $months = 12, bool $dryRun = false, ?int $now = null, ?callable $remoteDelete = null): array {
+    $cutoff=(new DateTimeImmutable('@'.($now??time())))->modify('-'.max(1,$months).' months')->format('Y-m-d\TH:i:s\Z');
+    $stmt=$db->prepare('SELECT id,payload FROM leads WHERE commercial_active=0 AND COALESCE(last_contact_at,created_at) < ?');$stmt->execute([$cutoff]);$rows=$stmt->fetchAll(PDO::FETCH_ASSOC);
+    $count=0;$remoteFailed=0;
+    foreach($rows as $row){
+        if($dryRun){$count++;continue;}
+        if($remoteDelete){$email=json_decode($row['payload'],true)['email']??'';if(!$remoteDelete($email)){$remoteFailed++;continue;}}
+        $db->prepare('DELETE FROM leads WHERE id=?')->execute([$row['id']]);$count++;
+    }
+    if(!$dryRun)campaign_operation($db,'last_purge',json_encode(['at'=>gmdate('c',$now??time()),'deleted'=>$count,'remote_failed'=>$remoteFailed]));
+    return ['dry_run'=>$dryRun,'eligible'=>count($rows),'deleted'=>$dryRun?0:$count,'remote_failed'=>$remoteFailed];
+}

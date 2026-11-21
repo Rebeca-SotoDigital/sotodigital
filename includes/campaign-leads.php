@@ -75,7 +75,7 @@ function campaign_migrate(PDO $db): void {
     try {
     $db->exec('CREATE TABLE IF NOT EXISTS leads (id TEXT PRIMARY KEY, created_at TEXT NOT NULL, service TEXT NOT NULL, payload TEXT NOT NULL, attribution TEXT NOT NULL, consent_version TEXT NOT NULL, admin_sent INTEGER NOT NULL DEFAULT 0, confirmation_sent INTEGER NOT NULL DEFAULT 0)');
     $columns = array_column($db->query('PRAGMA table_info(leads)')->fetchAll(PDO::FETCH_ASSOC), 'name');
-    foreach (['processed_at' => 'INTEGER NOT NULL DEFAULT 0', 'brevo_synced' => 'INTEGER NOT NULL DEFAULT 0', 'ai_attempts' => 'INTEGER NOT NULL DEFAULT 0', 'ai_status' => "TEXT NOT NULL DEFAULT 'pending'", 'ai_summary' => "TEXT NOT NULL DEFAULT ''", 'ai_next_step' => "TEXT NOT NULL DEFAULT ''", 'admin_state' => "TEXT NOT NULL DEFAULT 'pending'", 'confirmation_state' => "TEXT NOT NULL DEFAULT 'pending'"] as $name => $type) {
+    foreach (['last_contact_at'=>'TEXT', 'commercial_active'=>'INTEGER NOT NULL DEFAULT 0', 'processed_at' => 'INTEGER NOT NULL DEFAULT 0', 'brevo_synced' => 'INTEGER NOT NULL DEFAULT 0', 'ai_attempts' => 'INTEGER NOT NULL DEFAULT 0', 'ai_status' => "TEXT NOT NULL DEFAULT 'pending'", 'ai_summary' => "TEXT NOT NULL DEFAULT ''", 'ai_next_step' => "TEXT NOT NULL DEFAULT ''", 'admin_state' => "TEXT NOT NULL DEFAULT 'pending'", 'confirmation_state' => "TEXT NOT NULL DEFAULT 'pending'"] as $name => $type) {
         if (!in_array($name, $columns, true)) $db->exec('ALTER TABLE leads ADD COLUMN ' . $name . ' ' . $type);
     }
     $db->exec('CREATE TABLE IF NOT EXISTS rate_limits (fingerprint TEXT PRIMARY KEY, attempts INTEGER NOT NULL, expires_at INTEGER NOT NULL)');
@@ -114,10 +114,10 @@ function campaign_store(PDO $db, string $id, string $service, array $data, array
     $stmt = $db->prepare('INSERT OR IGNORE INTO leads (id,created_at,service,payload,attribution,consent_version) VALUES (?,?,?,?,?,?)');
     $stmt->execute([$id, gmdate('c'), $service, json_encode($data, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), json_encode($attribution, JSON_THROW_ON_ERROR), 'campaign-2026-11-21-legal-v2']);
 }
-function campaign_http(string $url, array $headers, array $payload, int $timeout = 12): array {
+function campaign_http(string $url, array $headers, array $payload, int $timeout = 12, string $method = 'POST'): array {
     if (defined('CAMPAIGN_TEST_HARNESS') && CAMPAIGN_TEST_HARNESS === true && isset($GLOBALS['campaign_test_http'])) return ($GLOBALS['campaign_test_http'])($url, $headers, $payload);
     $curl = curl_init($url);
-    curl_setopt_array($curl, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => json_encode($payload, JSON_THROW_ON_ERROR), CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 4, CURLOPT_TIMEOUT => $timeout, CURLOPT_HTTPHEADER => array_merge(['Content-Type: application/json', 'Accept: application/json'], $headers)]);
+    curl_setopt_array($curl, [CURLOPT_CUSTOMREQUEST => $method, CURLOPT_POSTFIELDS => json_encode($payload, JSON_THROW_ON_ERROR), CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 4, CURLOPT_TIMEOUT => $timeout, CURLOPT_HTTPHEADER => array_merge(['Content-Type: application/json', 'Accept: application/json'], $headers)]);
     $body = curl_exec($curl); $status = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE); curl_close($curl);
     return ['status' => $status, 'body' => $body === false ? [] : (json_decode($body, true) ?: [])];
 }

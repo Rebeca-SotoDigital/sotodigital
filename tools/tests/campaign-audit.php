@@ -32,3 +32,11 @@ audit_check((fileperms($backup)&0777)===0600,'Public backup permissions');
 $backup2=campaign_backup($db,$backupDir,1);audit_check(count(glob($backupDir.'/*.sqlite'))===1,'Backup rotation');
 foreach(glob($backupDir.'/*') as $file)unlink($file);rmdir($backupDir);
 echo "PASS: consistent private SQLite backup and rotation\n";
+$purgeDb=new PDO('sqlite::memory:');$purgeDb->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);campaign_migrate($purgeDb);
+foreach(['old','active','recent-contact','fresh'] as $id){$purgeDb->prepare('INSERT INTO leads(id,created_at,service,payload,attribution,consent_version) VALUES(?,?,?,?,?,?)')->execute([$id,$id==='fresh'?gmdate('c',$now):gmdate('c',$now-400*86400),'google-ads','{"email":"audit@example.com"}','{"gclid":"private"}','test']);}
+$purgeDb->exec("UPDATE leads SET commercial_active=1 WHERE id='active'");$purgeDb->prepare("UPDATE leads SET last_contact_at=? WHERE id='recent-contact'")->execute([gmdate('c',$now)]);
+audit_check(campaign_purge($purgeDb,12,true,$now)['eligible']===1,'Purge dry-run selection');
+audit_check(campaign_purge($purgeDb,12,false,$now,static function(){return false;})['remote_failed']===1,'Failed remote deletion lost local reference');
+audit_check(campaign_purge($purgeDb,12,false,$now)['deleted']===1,'Purge count');
+audit_check((int)$purgeDb->query('SELECT COUNT(*) FROM leads')->fetchColumn()===3,'Commercial/recent lead removed');
+echo "PASS: retention, dry-run, commercial holds, last contact and failed remote cleanup\n";

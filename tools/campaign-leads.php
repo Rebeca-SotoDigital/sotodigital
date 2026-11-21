@@ -4,8 +4,22 @@ require __DIR__ . '/../includes/campaign-leads.php';
 require __DIR__ . '/../includes/campaign-operations.php';
 $command = $argv[1] ?? '';
 if ($command === 'health') { $health=campaign_health(); echo json_encode($health).PHP_EOL; exit($health['ok']?0:1); }
-if (!in_array($command, ['export', 'retry', 'status', 'backup'], true)) exit("Usage: php tools/campaign-leads.php export|retry|status\n");
+if (!in_array($command, ['export', 'retry', 'status', 'backup', 'purge', 'contact'], true)) exit("Usage: php tools/campaign-leads.php export|retry|status\n");
 try { $db = campaign_db(); } catch (Throwable $e) { campaign_alert(null,'almacenamiento no disponible'); fwrite(STDERR, "Storage unavailable\n"); exit(1); }
+if ($command === 'contact') {
+    $id=$argv[2]??'';if(!preg_match('/^[a-f0-9]{32}$/',$id))exit("Valid lead ID required\n");
+    $active=in_array('--commercial-active',$argv,true)?1:0;
+    $db->prepare('UPDATE leads SET last_contact_at=?, commercial_active=? WHERE id=?')->execute([gmdate('c'),$active,$id]);
+    exit("Contact timestamp updated\n");
+}
+if ($command === 'purge') {
+    $remote=null;
+    if(filter_var(campaign_config('CAMPAIGN_PURGE_BREVO',false),FILTER_VALIDATE_BOOLEAN)){
+        if(!campaign_config('BREVO_API_KEY'))exit("Brevo key required for remote purge\n");
+        $remote=static function($email){if(!$email)return true;$result=campaign_http('https://api.brevo.com/v3/contacts/'.rawurlencode($email),['api-key: '.campaign_config('BREVO_API_KEY')],[],12,'DELETE');return ($result['status']>=200&&$result['status']<300)||$result['status']===404;};
+    }
+    echo json_encode(campaign_purge($db,(int)campaign_config('CAMPAIGN_RETENTION_MONTHS',12),in_array('--dry-run',$argv,true),null,$remote)).PHP_EOL;exit;
+}
 if ($command === 'backup') { echo campaign_backup($db, realpath(campaign_config('CAMPAIGN_DATA_DIR')).'/backups', (int)campaign_config('CAMPAIGN_BACKUP_KEEP',14)).PHP_EOL; exit; }
 if ($command === 'status') {
     foreach ($db->query("SELECT COUNT(*) AS leads, SUM(brevo_synced=0) AS crm_pending, SUM(ai_status<>'complete') AS ai_pending, SUM(admin_state='sending' OR confirmation_state='sending') AS email_review FROM leads") as $row) echo json_encode($row) . "\n";

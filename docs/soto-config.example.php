@@ -3,6 +3,8 @@
 // Point SOTO_CONFIG_FILE to that absolute path. Do not enter real secrets here.
 return [
     'CAMPAIGN_DATA_DIR' => '/absolute/private/soto-leads',
+    'CAMPAIGN_RETENTION_MONTHS' => 12,
+    'CAMPAIGN_PURGE_BREVO' => false, // Requires separate review: deletes a whole Brevo contact.
     'CAMPAIGN_HEALTH_TOKEN' => '', // Long random token; send only via Authorization header.
     'CAMPAIGN_ALERT_TO' => 'ads@soto-digital.com',
     'TURNSTILE_SITE_KEY' => '',
