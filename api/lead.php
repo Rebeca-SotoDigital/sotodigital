@@ -10,7 +10,7 @@ function lead_response(bool $ok, string $message, int $status = 200, ?string $re
         http_response_code($status); header('Content-Type: application/json; charset=UTF-8');
         $body = ['ok' => $ok];
         if (!$ok) $body['error'] = $message;
-        if ($ok) $body['next'] = 'campanas/gracias.php';
+        if ($ok) $body['next'] = '/campanas/gracias.php';
         echo json_encode($body); exit;
     }
     if ($ok) { header('Location: ../campanas/gracias.php', true, 303); exit; }
