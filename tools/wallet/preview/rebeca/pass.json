@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "pass.com.soto-digital.tarjetas",
+  "teamIdentifier": "PENDIENTE",
+  "serialNumber": "soto-digital-rebeca-v1",
+  "organizationName": "Soto Digital",
+  "description": "Tarjeta de visita de Rebeca Muñoz Herreros",
+  "backgroundColor": "rgb(255, 255, 255)",
+  "foregroundColor": "rgb(7, 27, 61)",
+  "labelColor": "rgb(120, 84, 30)",
+  "barcodes": [
+    {
+      "format": "PKBarcodeFormatQR",
+      "message": "https://soto-digital.com/tarjeta/rebeca/",
+      "messageEncoding": "iso-8859-1",
+      "altText": "Ver tarjeta digital"
+    }
+  ],
+  "generic": {
+    "primaryFields": [
+      {
+        "key": "name",
+        "label": "TARJETA DE VISITA",
+        "value": "Rebeca Muñoz Herreros"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "role",
+        "label": "SOTO DIGITAL",
+        "value": "CEO & Co-fundadora"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "phone",
+        "label": "TELÉFONO",
+        "value": "+34 659 625 857"
+      }
+    ],
+    "backFields": [
+      {
+        "key": "email",
+        "label": "Email",
+        "value": "rebeca@soto-digital.com"
+      },
+      {
+        "key": "web",
+        "label": "Tarjeta digital",
+        "value": "https://soto-digital.com/tarjeta/rebeca/"
+      },
+      {
+        "key": "address",
+        "label": "Dirección",
+        "value": "Polígono de Raos · Calle Galera, 41\n39600 Maliaño, Cantabria"
+      }
+    ]
+  }
+}

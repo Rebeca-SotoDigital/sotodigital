@@ -1,0 +1,1 @@
+PASS: validation, optional website, screening, score boundaries, migration, persistent 5/hour rate, PII minimization, CRM upsert, duplicate protection, provider failures and email recovery

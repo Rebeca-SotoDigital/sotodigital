@@ -1,0 +1,49 @@
+# Local XAMPP configuration only. Production must define its own private path.
+<IfModule mod_setenvif.c>
+    SetEnvIf Host "^(localhost|127[.]0[.]0[.]1)(:[0-9]+)?$" SOTO_CONFIG_FILE=/Applications/XAMPP/xamppfiles/sotodigital-private/soto-config.php
+</IfModule>
+
+# Canonical production domain. Local development hosts are unaffected.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^(?:www\.)?soto-digital\.com(?::[0-9]+)?$ [NC]
+    RewriteCond %{THE_REQUEST} "\s/+index\.php(?:[?\s])" [NC]
+    RewriteRule ^index\.php$ https://soto-digital.com/ [R=301,L]
+
+    RewriteCond %{HTTP_HOST} ^(?:www\.)?soto-digital\.com(?::[0-9]+)?$ [NC]
+    RewriteCond %{HTTPS} !=on [OR]
+    RewriteCond %{HTTP_HOST} ^www\.soto-digital\.com [NC]
+    RewriteRule ^ https://soto-digital.com%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# Text compression. These guards allow hosts without optional modules to keep
+# serving the site; check Content-Encoding on the production host after upload.
+<IfModule mod_deflate.c>
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/x-javascript application/json application/ld+json application/xml text/xml image/svg+xml
+    </IfModule>
+</IfModule>
+
+<IfModule mod_mime.c>
+    AddType font/woff2 .woff2
+    AddType image/svg+xml .svg
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Ordinary static resources can change: keep their lifetime moderate.
+    <FilesMatch "\.(?:css|js|png|jpe?g|webp|avif|gif|svg|ico|woff2)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+    # Generated content hashes change automatically when their contents change.
+    <FilesMatch "\.[a-f0-9]{12}\.(?:css|js|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    # The home now contains a session-bound lead form; never share/cache its tokens.
+    <Files "index.php">
+        Header always set Cache-Control "private, no-store"
+    </Files>
+    # Revalidate documents so new deployments and asset URLs are discovered.
+    <FilesMatch "\.(?:php|html?|xml|txt)$">
+        Header set Cache-Control "no-cache"
+    </FilesMatch>
+</IfModule>

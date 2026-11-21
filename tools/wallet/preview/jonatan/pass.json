@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "pass.com.soto-digital.tarjetas",
+  "teamIdentifier": "PENDIENTE",
+  "serialNumber": "soto-digital-jonatan-v1",
+  "organizationName": "Soto Digital",
+  "description": "Tarjeta de visita de Jónatan Domingo Lobejón",
+  "backgroundColor": "rgb(255, 255, 255)",
+  "foregroundColor": "rgb(7, 27, 61)",
+  "labelColor": "rgb(120, 84, 30)",
+  "barcodes": [
+    {
+      "format": "PKBarcodeFormatQR",
+      "message": "https://soto-digital.com/tarjeta/jonatan/",
+      "messageEncoding": "iso-8859-1",
+      "altText": "Ver tarjeta digital"
+    }
+  ],
+  "generic": {
+    "primaryFields": [
+      {
+        "key": "name",
+        "label": "TARJETA DE VISITA",
+        "value": "Jónatan Domingo Lobejón"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "role",
+        "label": "SOTO DIGITAL",
+        "value": "CCO & Co-fundador"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "phone",
+        "label": "TELÉFONO",
+        "value": "+34 693 420 125"
+      }
+    ],
+    "backFields": [
+      {
+        "key": "email",
+        "label": "Email",
+        "value": "jonatan@soto-digital.com"
+      },
+      {
+        "key": "web",
+        "label": "Tarjeta digital",
+        "value": "https://soto-digital.com/tarjeta/jonatan/"
+      },
+      {
+        "key": "address",
+        "label": "Dirección",
+        "value": "Polígono de Raos · Calle Galera, 41\n39600 Maliaño, Cantabria"
+      }
+    ]
+  }
+}

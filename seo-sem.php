@@ -1,0 +1,17 @@
+<?php
+$service = [
+'slug' => 'seo-sem',
+'title' => 'SEO y SEM para empresas | Soto Digital',
+'description' => 'Posicionamiento SEO y campañas SEM para mejorar tu visibilidad en buscadores. Atrae visitas relevantes y mide tus campañas con Soto Digital.',
+'label' => 'POSICIONAMIENTO Y PUBLICIDAD EN BUSCADORES',
+'heading' => 'SEO y SEM para que encuentren tu negocio',
+'intro' => 'Cuando alguien busca lo que ofreces, tu negocio tiene una oportunidad de conectar. En Soto Digital trabajamos el posicionamiento SEO y las campañas SEM para mejorar tu presencia en buscadores y atraer visitas con interés en tus servicios. Acompañamos a negocios de cualquier lugar, con coordinación a distancia y comunicación directa.',
+'cta' => 'Hablemos de tu visibilidad en buscadores',
+'message' => 'Hola, quiero información sobre SEO y SEM para mi negocio.',
+'section' => 'Más visibilidad, más oportunidades de contacto',
+'body' => 'Combinamos mejoras en tu web y sus contenidos con publicidad en buscadores según tus objetivos. El SEO construye presencia orgánica de forma progresiva; el SEM permite activar anuncios para búsquedas concretas y ajustar el presupuesto de las campañas.',
+'items' => [['SEO: presencia a largo plazo', 'Mejoramos la estructura, los contenidos y los aspectos técnicos de tu web para facilitar que los buscadores la comprendan. Su ventaja es atraer visitas orgánicas relevantes sin pagar por cada clic, con un trabajo continuo que puede consolidarse con el tiempo.'], ['SEM: visibilidad en el momento de la búsqueda', 'Creamos campañas de anuncios en buscadores dirigidas a personas que buscan tus productos o servicios. Permite ganar visibilidad mientras la campaña está activa, orientar los anuncios por búsquedas y ubicación y controlar el presupuesto.'], ['Medición para decidir mejor', 'Revisamos el tráfico y las acciones de contacto que se puedan medir con la configuración acordada. Esto ayuda a identificar qué búsquedas y campañas aportan oportunidades y a orientar las siguientes mejoras.']],
+'steps' => [['Revisamos tu punto de partida', 'Conocemos tu negocio, tu web, tu público y tus objetivos para definir las búsquedas y zonas que tienen sentido para ti.'], ['Preparamos la estrategia', 'Priorizamos las mejoras SEO y, si contratas SEM, definimos los anuncios, las páginas de destino y el presupuesto de campaña.'], ['Medimos y ajustamos', 'Revisamos los resultados disponibles y proponemos cambios en contenidos, anuncios o inversión según el alcance contratado.']],
+'faqs' => [['¿Qué diferencia hay entre SEO y SEM?', 'El SEO trabaja la presencia en los resultados orgánicos mediante mejoras en la web y sus contenidos. En este servicio, SEM se refiere a campañas de anuncios de pago en buscadores. Pueden combinarse para cubrir objetivos y plazos distintos.'], ['¿Cuándo empezaré a ver resultados?', 'El SEO requiere tiempo y continuidad; su evolución depende del punto de partida y de la competencia. Los anuncios SEM pueden aportar visibilidad una vez aprobados y activados, aunque conseguir contactos depende también de la oferta, la web y la campaña.'], ['¿Podéis garantizar la primera posición?', 'No garantizamos posiciones ni un número de ventas. Trabajamos con objetivos y seguimiento para valorar la evolución y ajustar las acciones.'], ['¿La inversión en anuncios está incluida?', 'La propuesta detalla el trabajo de gestión y el presupuesto publicitario por separado. Acordamos contigo la inversión antes de activar las campañas.']]
+];
+require __DIR__ . '/includes/service-page.php';

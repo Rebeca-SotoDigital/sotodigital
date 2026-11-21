@@ -1,0 +1,1 @@
+PASS: 5-step wizard, validation, back navigation, API errors, success redirect, consent signals, category separation, consent migration, blocked storage, conversions, deduplication and WhatsApp

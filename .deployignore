@@ -1,0 +1,15 @@
+.git/
+.gitignore
+.deployignore
+.htaccess.local*
+docs/
+tools/
+pendientes.md
+__MACOSX/
+.DS_Store
+*.sqlite*
+*.log
+*.bak
+soto-config.php
+node_modules/
+.audit-local/

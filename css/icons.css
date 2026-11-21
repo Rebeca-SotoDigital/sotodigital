@@ -1,0 +1,10 @@
+/* Local SVG icons from Font Awesome Free 6.4.0 (CC BY 4.0).
+   Attribution and full license: ../img/icons/LICENSE.txt */
+.icon{display:inline-block;flex-shrink:0;width:1em;height:1em;vertical-align:-.125em;background-color:currentColor;-webkit-mask:var(--icon) center / contain no-repeat;mask:var(--icon) center / contain no-repeat}
+.icon-whatsapp{--icon:url("../img/icons/whatsapp.svg")}
+.icon-instagram{--icon:url("../img/icons/instagram.svg")}
+.icon-bars{--icon:url("../img/icons/bars.svg")}
+.icon-location-dot{--icon:url("../img/icons/location-dot.svg")}
+.icon-phone{--icon:url("../img/icons/phone.svg")}
+.icon-envelope{--icon:url("../img/icons/envelope.svg")}
+.icon-up-right-from-square{--icon:url("../img/icons/up-right-from-square.svg")}
