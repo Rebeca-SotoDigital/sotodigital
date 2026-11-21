@@ -10,6 +10,8 @@ Este documento reúne los pasos para terminar, activar y publicar los servicios 
 
 ## Pendientes vigentes tras la auditoría
 
+**Confirmación del solicitante resuelta:** el usuario confirmó ai@soto-digital.com. Corregida la dirección de esa solicitud (con historial privado en su payload), contacto sincronizado y confirmación entregada según Brevo el 21/11/2026 a las 18:09:06 Europe/Madrid. El aviso al equipo ya estaba entregado a ads@soto-digital.com y no se duplicó. El rebote anterior fue por ia@soto-digital.com inexistente, no por ausencia de envío.
+
 **Estado real de Brevo comprobado el 21/11/2026:** clave aceptada, IP autorizada y lista configurada válida. Creados y validados PUNTUACION (número, tipo API float), POTENCIAL, VERSION_PUNTUACION, SIGUIENTE_PASO_IA y ESTADO_IA (texto). Remitente ads@soto-digital.com activo; dominio soto-digital.com verificado y autenticado. Brevo confirma ambos DKIM, código TXT y DMARC; DMARC también coincide en los dos servidores DNS autoritativos. `brevo-check` devuelve ok=true. Prueba real posterior autorizada completada: contacto técnico ID 101 creado, puntuación PHP 9/10 caliente y dos emails entregados a ads@soto-digital.com (17:05 Europe/Madrid). No se sobrescribieron contactos existentes. Detalle en `docs/prueba-real-brevo.md`. Formulario local y worker local comprobados; pendiente configuración y prueba del circuito en Arsys. No confundir la cuenta Brevo configurada con todo el circuito de producción activado.
 
 Este listado sustituye los apartados históricos inferiores. Implementación y pruebas locales realizadas; **no se ha publicado ni verificado ninguna cuenta real**. Informe y evidencias: `docs/auditoria-2026-11.md`.

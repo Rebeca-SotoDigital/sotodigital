@@ -38,3 +38,11 @@ Al indicar el usuario que aún no veía el lead, se comprobó una solicitud pend
 ## Automatización local posterior
 
 A petición del usuario se instala com.sotodigital.leads-worker como LaunchAgent de su usuario, cada 300 segundos y al cargar/iniciar sesión. Primera ejecución automática verificada: exit code 0, heartbeat reciente y cero contactos/emails pendientes. No se crea cron en Arsys ni se generan leads adicionales. El Mac debe estar despierto y la sesión abierta; ver `worker-local.md`.
+
+## Diagnóstico de confirmación no recibida — 21/11/2026
+
+En una prueba posterior el solicitante indicó ia@soto-digital.com. El worker registró aceptación de ambos envíos por la API, pero los eventos reales de Brevo muestran: aviso entregado a ads@soto-digital.com y confirmación rebotada con 550 5.1.1 (usuario desconocido). Por tanto, sent/confirmation_sent significan aceptado por Brevo, no entrega al destinatario. No es un bloqueo del formulario ni ausencia de plantilla. Se solicita confirmar el destinatario correcto, ya que el buzón comunicado originalmente por el usuario era ai@soto-digital.com. No se reenvía a una dirección inferida ni se desbloquea una dirección rebotada automáticamente.
+
+### Resolución de la dirección del solicitante
+
+El usuario confirma ai@soto-digital.com. Se adquiere el mismo bloqueo exclusivo del worker, se corrige la dirección de la solicitud correspondiente y se conserva la dirección anterior/fecha en su payload privado (sujeto a su misma retención). Se sincroniza el contacto corregido y se reenvía únicamente la confirmación con clave de idempotencia diferenciada. El aviso al equipo no se duplica. Brevo confirma delivered el 21/11/2026 a las 18:09:06 +01:00. Con esto quedan verificadas entrega del aviso al equipo y de la confirmación al solicitante. No se borra ni se desbloquea automáticamente el contacto de prueba con dirección incorrecta.
