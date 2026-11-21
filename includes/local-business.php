@@ -1,30 +1,12 @@
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": "https://soto-digital.com/#negocio",
-    "name": "Soto Digital",
-    "url": "https://soto-digital.com/",
-    "logo": "https://soto-digital.com/img/soto-digital-logo-sin-fondo.png",
-    "image": "https://soto-digital.com/img/soto-digital-logo-sin-fondo.png",
-    "description": "Diseño web, redes sociales, email marketing, marketing de contenidos, SEO, SEM, branding y publicidad desde Maliaño, Cantabria, para negocios de cualquier lugar. Pantalla LED publicitaria en el Polígono de Raos.",
-    "email": "rebeca@soto-digital.com",
-    "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Calle Galera 41, Polígono de Raos",
-        "postalCode": "39600",
-        "addressLocality": "Maliaño",
-        "addressRegion": "Cantabria",
-        "addressCountry": "ES"
-    },
-    "openingHoursSpecification": [
-        {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "08:00",
-            "closes": "17:00"
-        }
-    ],
-    "sameAs": ["https://instagram.com/sotodigital"]
-}
-</script>
+<?php
+$organizationId='https://soto-digital.com/#organizacion';
+$schema=[
+ '@context'=>'https://schema.org',
+ '@graph'=>[
+  ['@type'=>'Organization','@id'=>$organizationId,'name'=>'Soto Digital','legalName'=>'Soto Digital S.L.','url'=>'https://soto-digital.com/','logo'=>'https://soto-digital.com/img/optimized/logo-480.png','sameAs'=>['https://www.instagram.com/sotodigital/']],
+  ['@type'=>'ProfessionalService','@id'=>'https://soto-digital.com/#negocio','name'=>'Soto Digital','url'=>'https://soto-digital.com/','parentOrganization'=>['@id'=>$organizationId],'description'=>'Diseño web, redes sociales, branding, contenidos y campañas para empresas y negocios.','areaServed'=>[['@type'=>'Country','name'=>'España'],['@type'=>'AdministrativeArea','name'=>'Cantabria']]],
+  ['@type'=>'WebSite','@id'=>'https://soto-digital.com/#web','url'=>'https://soto-digital.com/','name'=>'Soto Digital','inLanguage'=>'es-ES','publisher'=>['@id'=>$organizationId]],
+ ],
+];
+?>
+<script type="application/ld+json"><?= json_encode($schema,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT) ?></script>

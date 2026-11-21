@@ -34,7 +34,7 @@ $pageStructuredData = [
             'name' => $service['heading'],
             'description' => $pageDescription,
             'url' => 'https://soto-digital.com' . $canonicalPath,
-            'provider' => ['@type' => 'LocalBusiness', '@id' => 'https://soto-digital.com/#negocio', 'name' => 'Soto Digital', 'url' => 'https://soto-digital.com/'],
+            'provider' => ['@type' => 'ProfessionalService', '@id' => 'https://soto-digital.com/#negocio', 'name' => 'Soto Digital', 'url' => 'https://soto-digital.com/'],
         ],
         [
             '@type' => 'BreadcrumbList',
