@@ -35,3 +35,15 @@ function campaign_alert(?PDO $db, string $reason, ?callable $sender=null): bool 
     if(!$sent) error_log('Campaign operational alert pending: check external health monitoring');
     return $sent;
 }
+function campaign_backup(PDO $db, string $directory, int $keep = 14): string {
+    $parent=realpath(dirname($directory));
+    if(!$parent) throw new RuntimeException('Backup parent unavailable');
+    foreach(array_filter([realpath(__DIR__.'/..'),realpath($_SERVER['DOCUMENT_ROOT']??'')]) as $public) if($parent===$public || strpos($parent,$public.DIRECTORY_SEPARATOR)===0) throw new RuntimeException('Backups must be private');
+    if(!is_dir($directory) && !mkdir($directory,0700,true)) throw new RuntimeException('Cannot create backup directory');
+    $target=$directory.'/leads-'.gmdate('Ymd-His').'-'.bin2hex(random_bytes(4)).'.sqlite';
+    $oldMask=umask(0077);
+    try {$db->exec('VACUUM INTO '.$db->quote($target));chmod($target,0600);} finally {umask($oldMask);}
+    $files=glob($directory.'/leads-????????-??????-????????.sqlite')?:[];rsort($files,SORT_STRING);
+    foreach(array_slice($files,max(1,$keep)) as $old) if(is_file($old) && !is_link($old)) unlink($old);
+    return $target;
+}

@@ -4,8 +4,9 @@ require __DIR__ . '/../includes/campaign-leads.php';
 require __DIR__ . '/../includes/campaign-operations.php';
 $command = $argv[1] ?? '';
 if ($command === 'health') { $health=campaign_health(); echo json_encode($health).PHP_EOL; exit($health['ok']?0:1); }
-if (!in_array($command, ['export', 'retry', 'status'], true)) exit("Usage: php tools/campaign-leads.php export|retry|status\n");
+if (!in_array($command, ['export', 'retry', 'status', 'backup'], true)) exit("Usage: php tools/campaign-leads.php export|retry|status\n");
 try { $db = campaign_db(); } catch (Throwable $e) { campaign_alert(null,'almacenamiento no disponible'); fwrite(STDERR, "Storage unavailable\n"); exit(1); }
+if ($command === 'backup') { echo campaign_backup($db, realpath(campaign_config('CAMPAIGN_DATA_DIR')).'/backups', (int)campaign_config('CAMPAIGN_BACKUP_KEEP',14)).PHP_EOL; exit; }
 if ($command === 'status') {
     foreach ($db->query("SELECT COUNT(*) AS leads, SUM(brevo_synced=0) AS crm_pending, SUM(ai_status<>'complete') AS ai_pending, SUM(admin_state='sending' OR confirmation_state='sending') AS email_review FROM leads") as $row) echo json_encode($row) . "\n";
     exit;
