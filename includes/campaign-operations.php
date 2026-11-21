@@ -43,7 +43,7 @@ function campaign_backup(PDO $db, string $directory, int $keep = 14): string {
     $target=$directory.'/leads-'.gmdate('Ymd-His').'-'.bin2hex(random_bytes(4)).'.sqlite';
     $oldMask=umask(0077);
     try {$db->exec('VACUUM INTO '.$db->quote($target));chmod($target,0600);} finally {umask($oldMask);}
-    $files=glob($directory.'/leads-????????-??????-????????.sqlite')?:[];rsort($files,SORT_STRING);
+    $files=glob($directory.'/leads-????????-??????-????????.sqlite')?:[];usort($files,static function($a,$b)use($target){if($a===$target)return -1;if($b===$target)return 1;return filemtime($b)<=>filemtime($a);});
     foreach(array_slice($files,max(1,$keep)) as $old) if(is_file($old) && !is_link($old)) unlink($old);
     return $target;
 }
@@ -53,7 +53,7 @@ function campaign_purge(PDO $db, int $months = 12, bool $dryRun = false, ?int $n
     $count=0;$remoteFailed=0;
     foreach($rows as $row){
         if($dryRun){$count++;continue;}
-        if($remoteDelete){$email=json_decode($row['payload'],true)['email']??'';if(!$remoteDelete($email)){$remoteFailed++;continue;}}
+        if($remoteDelete){$email=json_decode($row['payload'],true)['email']??'';$other=$db->prepare("SELECT COUNT(*) FROM leads WHERE id<>? AND lower(json_extract(payload,'$.email'))=lower(?)");$other->execute([$row['id'],$email]);if((int)$other->fetchColumn()===0 && !$remoteDelete($email)){$remoteFailed++;continue;}}
         $db->prepare('DELETE FROM leads WHERE id=?')->execute([$row['id']]);$count++;
     }
     if(!$dryRun)campaign_operation($db,'last_purge',json_encode(['at'=>gmdate('c',$now??time()),'deleted'=>$count,'remote_failed'=>$remoteFailed]));
