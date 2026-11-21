@@ -15,12 +15,10 @@ include __DIR__ . '/header.php';
 ?>
 <main id="contenido">
 <section class="campaign-hero"><div class="container campaign-split">
- <div><span class="eyebrow"><span class="status-dot"></span> <?= $escape($service[0]) ?> · SOTO DIGITAL</span><h1><?= $escape($service[1]) ?></h1><p class="campaign-lead"><?= $escape($service[2]) ?></p><a class="btn" href="<?= $escape($campaignSelf) ?>#propuesta">Pedir mini-auditoría gratuita ↗</a><p class="campaign-micro">Desde Cantabria. Contigo, estés donde estés.</p></div>
- <?php if ($slug === 'google-ads' || $slug === 'sem'): ?>
- <aside class="campaign-ad-preview" aria-label="Ejemplo ilustrativo de anuncio, no es un resultado real de Google"><span class="section-subtitle">DE LA BÚSQUEDA A LA CONSULTA</span><div class="campaign-search">Tu servicio + tu zona <span aria-hidden="true">⌕</span></div><div class="campaign-ad"><small>Ejemplo ilustrativo · Anuncio</small><span class="campaign-ad-domain">Tu negocio · tunegocio.com</span><h2>Lo que buscan.<br>Lo que tú ofreces.</h2><p>Un mensaje claro, una oferta relevante y una página que facilita el contacto.</p></div><p class="campaign-small">Representación de una búsqueda y un anuncio. No muestra posiciones, clics ni resultados obtenidos.</p></aside>
- <?php else: ?>
- <aside class="campaign-summary"><span class="section-subtitle">EL FOCO, EN TU NEGOCIO</span><h2>Una dirección clara.<br><span>Un equipo contigo.</span></h2><ol><?php foreach ($service[3] as $benefit): ?><li><?= $escape($benefit) ?></li><?php endforeach; ?></ol><div class="campaign-summary-end">Estrategia + creatividad + seguimiento <span>↗</span></div></aside>
- <?php endif; ?>
+ <div><span class="eyebrow"><?= $escape($service[0]) ?> · SOTO DIGITAL</span><h1><?= $escape($service[1]) ?></h1><p class="campaign-lead"><?= $escape($service[2]) ?></p><a class="btn" href="<?= $escape($campaignSelf) ?>#propuesta">Pedir mini-auditoría gratuita</a><p class="campaign-micro">Desde Cantabria. Contigo, estés donde estés.</p>
+ <?php if (in_array($slug,['google-ads','sem'],true)): ?><div class="campaign-ad"><small>Ejemplo ilustrativo · No es un resultado real de Google</small><h2>Tu servicio, ante quien lo busca.</h2><p>Un anuncio claro y una página que facilita pedir información.</p></div><?php endif; ?>
+ </div>
+ <div id="propuesta"><?php include __DIR__ . '/campaign-form.php'; ?></div>
 </div></section>
 <div class="campaign-strip"><div class="container">Tu objetivo marca el plan. <span>Tu negocio · Tus clientes · Los canales adecuados</span></div></div>
 <?php $video = $content['videos'][$slug] ?? ''; if ($video && preg_match('~\Aimg/videos/[a-zA-Z0-9_-]+\.mp4\z~', $video) && is_file(__DIR__ . '/../' . $video)): ?>
@@ -47,8 +45,8 @@ include __DIR__ . '/header.php';
 <details><summary>¿Cuánto cuesta el servicio?<span aria-hidden="true">+</span></summary><p>Preparamos un presupuesto según el alcance y tus objetivos. La inversión que indiques en el cuestionario es orientativa, no una tarifa. En publicidad distinguimos los honorarios de la inversión en anuncios.</p></details>
 <details><summary>¿Podéis garantizar resultados?<span aria-hidden="true">+</span></summary><p>No garantizamos ventas ni posiciones. Planteamos escenarios con supuestos claros y revisamos los resultados para ajustar el trabajo.</p></details>
 </div></div></section>
-<section id="propuesta" class="campaign-contact"><div class="container campaign-split"><div><span class="section-subtitle">EL SIGUIENTE PASO EMPIEZA AQUÍ</span><h2>Tu negocio, con un plan.<br><span>Empecemos por revisarlo.</span></h2><p>Revisaremos tu solicitud y te llamaremos o escribiremos para conocer tus objetivos y preparar los siguientes pasos.</p></div>
-<?php include __DIR__ . '/campaign-form.php'; ?></div></section>
+<section class="campaign-contact"><div class="container"><span class="section-subtitle">EL SIGUIENTE PASO EMPIEZA AQUÍ</span><h2>Tu negocio, con un plan.</h2><p>Cuéntanos qué necesitas y revisamos contigo por dónde empezar.</p><a class="btn" href="<?= $escape($campaignSelf) ?>#propuesta">Pedir mini-auditoría gratuita</a></div></section>
 <?php if ($slug === 'estrategia-digital' && $content['featured_clients']): ?><section><div class="container"><span class="section-subtitle">CLIENTES CON LOS QUE AVANZAMOS</span><h2>Clientes con proyectos que puedes conocer.</h2><div class="campaign-channels"><?php foreach ($content['featured_clients'] as $client): ?><article class="campaign-client"><h3><?= $escape($client['name']) ?></h3><p><?= $escape($client['evidence']) ?></p></article><?php endforeach; ?></div></div></section><?php endif; ?>
 </main>
+<a class="campaign-sticky" data-form-sticky href="<?= $escape($campaignSelf) ?>#propuesta" hidden>Pedir mini-auditoría gratuita</a>
 <?php include __DIR__ . '/footer.php'; ?>

@@ -4,10 +4,10 @@ return [
     "fonts/montserrat-latin.woff2" => "fonts/montserrat-latin.6438d7b8ea9c.woff2",
     "css/site.css" => "css/site.16054f91f9b6.css",
     "css/site-services.css" => "css/site-services.2f032d2e2f9a.css",
-    "css/campaign.css" => "css/campaign.046245a60de3.css",
+    "css/campaign.css" => "css/campaign.e1ea53a3eb03.css",
     "js/main.js" => "js/main.5e9c0cad74ce.js",
     "js/cookies.js" => "js/cookies.0851384a885a.js",
-    "js/campaign.js" => "js/campaign.af2c767d7f9b.js",
+    "js/campaign.js" => "js/campaign.05dcdf1da341.js",
     "js/tracking.js" => "js/tracking.d59f1a13598e.js",
     "js/campaign-whatsapp.js" => "js/campaign-whatsapp.5e1356dadeee.js",
 ];

@@ -1,6 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('[data-lead-form]');
     if (!form) return;
+    const sticky = document.querySelector('[data-form-sticky]');
+    if (sticky && window.IntersectionObserver) {
+        const mobile = window.matchMedia('(max-width: 800px)');
+        function updateSticky() {
+            const rect=form.getBoundingClientRect();
+            sticky.hidden=!mobile.matches || (rect.top<window.innerHeight && rect.bottom>0);
+        }
+        const observer=new window.IntersectionObserver(updateSticky,{threshold:0});
+        observer.observe(form);
+        window.addEventListener('resize',updateSticky,{passive:true});
+        updateSticky();
+    }
     const steps = Array.from(form.querySelectorAll('[data-question-step]'));
     const previous = form.querySelector('[data-previous]');
     const next = form.querySelector('[data-next]');
