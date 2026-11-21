@@ -40,20 +40,17 @@ Options -Indexes
     # Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
     Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://sc.lftracker.com; connect-src 'self' https://challenges.cloudflare.com https://*.google-analytics.com https://*.analytics.google.com https://*.googleadservices.com https://googleads.g.doubleclick.net https://*.lftracker.com; img-src 'self' data: https://*.google-analytics.com https://*.google.com https://*.google.es https://*.googleadservices.com https://googleads.g.doubleclick.net https://*.lftracker.com; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src https://challenges.cloudflare.com https://www.googletagmanager.com; base-uri 'self'; object-src 'none'; form-action 'self'; frame-ancestors 'self'"
 
-    # Ordinary static resources can change: keep their lifetime moderate.
+    # Clear both Apache header tables before setting one final policy.
+    Header unset Cache-Control
+    Header always unset Cache-Control
+    Header always set Cache-Control "no-cache"
     <FilesMatch "\.(?:css|js|png|jpe?g|webp|avif|gif|svg|ico|woff2)$">
-        Header set Cache-Control "public, max-age=2592000"
+        Header always set Cache-Control "public, max-age=2592000"
     </FilesMatch>
-    # Generated content hashes change automatically when their contents change.
     <FilesMatch "\.[a-f0-9]{12}\.(?:css|js|woff2)$">
-        Header set Cache-Control "public, max-age=31536000, immutable"
+        Header always set Cache-Control "public, max-age=31536000, immutable"
     </FilesMatch>
-    # The home now contains a session-bound lead form; never share/cache its tokens.
-    <Files "index.php">
+    <FilesMatch "^(?:index|gracias|enviar|lead)\.php$">
         Header always set Cache-Control "private, no-store"
-    </Files>
-    # Revalidate documents so new deployments and asset URLs are discovered.
-    <FilesMatch "\.(?:php|html?|xml|txt)$">
-        Header set Cache-Control "no-cache"
     </FilesMatch>
 </IfModule>
