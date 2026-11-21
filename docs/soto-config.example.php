@@ -6,6 +6,7 @@ return [
     'TURNSTILE_SITE_KEY' => '',
     'TURNSTILE_SECRET_KEY' => '',
     'CAMPAIGN_ALLOWED_HOSTS' => 'soto-digital.com,www.soto-digital.com',
+    'CAMPAIGN_TRUSTED_PROXIES' => '', // Comma-separated CIDRs; proxies must overwrite forwarded headers.
     'CAMPAIGN_RATE_SECRET' => '', // Optional independent random secret; fallback is Turnstile secret.
     'BREVO_API_KEY' => '',
     'BREVO_LIST_ID' => 0,

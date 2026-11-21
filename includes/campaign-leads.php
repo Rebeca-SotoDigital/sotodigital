@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/campaign-config.php';
+require_once __DIR__ . '/campaign-network.php';
 function campaign_session(): void {
     if (session_status() === PHP_SESSION_NONE) {
         session_name('soto_campaign');

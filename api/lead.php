@@ -30,8 +30,8 @@ if (empty($_SESSION['campaign_submission']) || !hash_equals($_SESSION['campaign_
 if (!campaign_ready()) lead_response(false, 'La solicitud online todavía no está disponible. Vuelve a intentarlo más adelante.', 503);
 try {
     $db = campaign_db();
-    // REMOTE_ADDR only: do not trust visitor-controlled X-Forwarded-For headers.
-    if (!campaign_rate_allow($db, $_SERVER['REMOTE_ADDR'] ?? 'unknown')) { header('Retry-After: 3600'); lead_response(false, 'Has alcanzado el límite de solicitudes. Inténtalo más tarde o vuelve a intentarlo más tarde.', 429); }
+    // Forwarded addresses are accepted only from explicitly trusted proxy CIDRs.
+    if (!campaign_rate_allow($db, campaign_client_ip($_SERVER))) { header('Retry-After: 3600'); lead_response(false, 'Has alcanzado el límite de solicitudes. Inténtalo más tarde o vuelve a intentarlo más tarde.', 429); }
 } catch (Throwable $e) { error_log('Campaign storage or rate limiter unavailable'); lead_response(false, 'No podemos guardar tu solicitud ahora. Inténtalo más tarde o vuelve a intentarlo más tarde.', 503); }
 $screened = !empty($_POST['company_fax']) || campaign_screened($_POST);
 if (!$screened) {
