@@ -14,17 +14,18 @@ function campaign_ready(): bool {
     return (bool)(campaign_config('TURNSTILE_SITE_KEY') && campaign_config('TURNSTILE_SECRET_KEY') && campaign_config('CAMPAIGN_DATA_DIR'));
 }
 function campaign_options(): array { static $options; return $options ?? ($options = require __DIR__ . '/campaign-questionnaire.php'); }
+function campaign_phone_required(): bool { return filter_var(campaign_config('CAMPAIGN_PHONE_REQUIRED', false), FILTER_VALIDATE_BOOLEAN); }
 function campaign_validate(array $input): array {
     $limits = ['name' => 150, 'email' => 254, 'phone' => 30, 'website' => 500, 'message' => 5000];
     $clean = [];
     foreach ($limits as $key => $max) {
         $value = $input[$key] ?? '';
-        if (!is_string($value) || strlen(trim($value)) > $max || (!in_array($key, ['website', 'message'], true) && trim($value) === '')) throw new InvalidArgumentException('Revisa los campos obligatorios y su longitud.');
+        if (!is_string($value) || strlen(trim($value)) > $max || (!in_array($key, campaign_phone_required() ? ['website','message'] : ['website','message','phone'], true) && trim($value) === '')) throw new InvalidArgumentException('Revisa los campos obligatorios y su longitud.');
         if (!mb_check_encoding($value, 'UTF-8')) throw new InvalidArgumentException('Revisa los caracteres introducidos.');
         $clean[$key] = trim($value);
     }
     if (!filter_var($clean['email'], FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n]/', $clean['email'])) throw new InvalidArgumentException('Introduce un email válido.');
-    if (!preg_match('/^[+0-9 ().-]{7,30}$/', $clean['phone']) || strlen(preg_replace('/\D/', '', $clean['phone'])) < 7) throw new InvalidArgumentException('Introduce un teléfono válido.');
+    if ($clean['phone'] !== '' && (!preg_match('/^[+0-9 ().-]{7,30}$/', $clean['phone']) || strlen(preg_replace('/\D/', '', $clean['phone'])) < 7)) throw new InvalidArgumentException('Introduce un teléfono válido.');
     if ($clean['website'] !== '') {
         $url = parse_url($clean['website']);
         if (!filter_var($clean['website'], FILTER_VALIDATE_URL) || !in_array($url['scheme'] ?? '', ['http', 'https'], true) || empty($url['host'])) throw new InvalidArgumentException('Introduce la URL con https:// o déjala vacía si no tienes web.');
@@ -44,8 +45,13 @@ function campaign_screened(array $input): bool {
     if (is_string($name) && !preg_match('/\p{L}/u', $name)) return true;
     if (!is_string($email)) return false;
     $domain = strtolower(substr(strrchr(trim($email), '@') ?: '', 1));
-    $blocked = ['mailinator.com', 'yopmail.com', 'yopmail.fr', 'yopmail.net', 'guerrillamail.com', 'guerrillamail.net', 'sharklasers.com', 'tempmail.com', '10minutemail.com', 'dispostable.com', 'getnada.com', 'trashmail.com'];
+    $blocked = campaign_config('CAMPAIGN_DISPOSABLE_DOMAINS', ['mailinator.com', 'yopmail.com', 'yopmail.fr', 'yopmail.net', 'guerrillamail.com', 'guerrillamail.net', 'sharklasers.com', 'tempmail.com', '10minutemail.com', 'dispostable.com', 'getnada.com', 'trashmail.com']);
+    if (is_string($blocked)) $blocked = array_filter(array_map('trim', explode(',', $blocked)));
+    if (!is_array($blocked)) $blocked = [];
+
     foreach ($blocked as $host) {
+        if (!is_string($host) || trim($host) === '') continue;
+        $host = strtolower(trim($host));
         if ($domain === $host || substr($domain, -strlen('.' . $host)) === '.' . $host) return true;
     }
     return false;
@@ -53,6 +59,8 @@ function campaign_screened(array $input): bool {
 function campaign_score(array $data): array {
     $rules = campaign_options()['scoring']; $score = 0;
     foreach (['budget', 'urgency', 'objective'] as $key) $score += $rules[$key][$data[$key] ?? ''] ?? 0;
+    $score += !empty($data['website']) ? 1 : 0;
+    $score += !empty($data['phone']) ? 1 : 0;
     $score = max(0, min(10, $score));
     return ['score' => $score, 'category' => $score >= 7 ? 'caliente' : ($score >= 4 ? 'templado' : 'frio'), 'score_version' => $rules['version']];
 }

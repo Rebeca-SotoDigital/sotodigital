@@ -2,7 +2,7 @@
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 require __DIR__ . '/../../includes/campaign-leads.php';
 function check($condition, $message) { if (!$condition) throw new RuntimeException($message); }
-$valid = ['name' => 'Persona de prueba', 'email' => 'test@example.com', 'phone' => '+34 600 000 000', 'website' => 'https://example.com', 'message' => 'Prueba local sin envío real', 'privacy' => '1', 'sector' => 'servicios', 'objective' => 'consultas', 'budget' => '600-1500', 'urgency' => 'este-mes'];
+$valid = ['name' => 'Persona de prueba', 'email' => 'test@example.com', 'phone' => '+34 600 000 000', 'website' => 'https://example.com', 'message' => 'Prueba local sin envío real', 'privacy' => '1', 'sector' => 'servicios', 'objective' => 'consultas', 'budget' => '1000-3000', 'urgency' => 'este-mes'];
 check(campaign_validate($valid)['has_website'], 'Website flag');
 check(!campaign_validate(array_replace($valid, ['website' => '', 'message' => '']))['has_website'], 'Optional website/message');
 foreach (['email' => "x@example.com\r\nBcc: x@example.org", 'phone' => 'x', 'website' => 'javascript:alert(1)', 'privacy' => '', 'name' => ['array'], 'message' => str_repeat('x', 5001), 'sector' => 'invalid', 'objective' => 'invalid', 'budget' => ['array'], 'urgency' => 'invalid'] as $field => $value) {
@@ -12,10 +12,10 @@ check(campaign_screened(['name' => '12345', 'email' => 'valid@example.com']), 'N
 check(campaign_screened(['name' => 'Persona', 'email' => 'test@sub.yopmail.com']), 'Temporary email subdomain');
 check(!campaign_screened(['name' => 'José María', 'email' => 'test@notyopmail.com']), 'False-positive domain or accented name');
 check(campaign_stored_score(array_merge($valid, ['score'=>4,'category'=>'templado','score_version'=>'previous']))['score']===4, 'Historical score recomputed');
-check(campaign_score($valid)['score'] === 8 && campaign_score($valid)['category'] === 'caliente', 'Score hot');
-check(campaign_score(array_replace($valid, ['budget' => 'por-definir', 'urgency' => '1-3-meses']))['category'] === 'templado', 'Score warm boundary 4');
-check(campaign_score(array_replace($valid, ['budget' => 'por-definir', 'urgency' => 'explorando']))['category'] === 'frio', 'Score cold boundary 3');
-check(campaign_score(array_replace($valid, ['budget' => 'mas-1500', 'urgency' => 'ahora']))['score'] === 10, 'Score maximum');
+check(campaign_score($valid)['score'] === 10 && campaign_score($valid)['category'] === 'caliente', 'Score hot');
+check(campaign_score(array_replace($valid, ['budget'=>'300-1000','urgency'=>'explorando','website'=>'','phone'=>'']))['category'] === 'templado', 'Score warm boundary 4');
+check(campaign_score(array_replace($valid, ['budget'=>'menos-300','urgency'=>'explorando','website'=>'','phone'=>'']))['category'] === 'frio', 'Score cold boundary 3');
+check(campaign_score(array_replace($valid, ['budget' => 'mas-3000', 'urgency' => 'ahora']))['score'] === 10, 'Score maximum');
 putenv('CAMPAIGN_DATA_DIR=' . realpath(__DIR__ . '/../..'));
 try { campaign_db(); throw new RuntimeException('Public storage accepted'); } catch (RuntimeException $e) { check(strpos($e->getMessage(), 'Storage') !== false, 'Wrong failure'); }
 $db = new PDO('sqlite::memory:'); $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -49,7 +49,7 @@ $http=function ($url,$headers,$payload) use (&$requests) {
     }
     check($payload['listIds']===[123] && $payload['updateEnabled']===true, 'CRM upsert');
     check(!isset($payload['emailBlacklisted']) && !isset($payload['smtpBlacklistSender']), 'Subscription state altered');
-    check($payload['attributes']['URGENCIA']==='este-mes' && $payload['attributes']['PUNTUACION']===8, 'CRM scoring/urgency');
+    check($payload['attributes']['URGENCIA']==='este-mes' && $payload['attributes']['PUNTUACION']===10, 'CRM scoring/urgency');
     return ['status'=>201,'body'=>['id'=>1]];
 };
 campaign_process($db,'test-id',$http);
@@ -67,3 +67,14 @@ campaign_deliver($db,'ambiguous',function(){throw new RuntimeException('Ambiguou
 $row=$db->query("SELECT * FROM leads WHERE id='ambiguous'")->fetch(PDO::FETCH_ASSOC);
 check($row['admin_state']==='sending' && $row['admin_sent']==0, 'Ambiguous state lost');
 echo "PASS: validation, optional website, screening, score boundaries, migration, persistent 5/hour rate, PII minimization, CRM upsert, duplicate protection, provider failures and email recovery\n";
+
+$low=array_replace($valid,['budget'=>'por-definir','urgency'=>'explorando','objective'=>'orientacion','website'=>'','phone'=>'']);
+check(campaign_score($low)['score']===0,'Score minimum');
+$six=array_replace($valid,['budget'=>'300-1000','urgency'=>'1-3-meses','phone'=>'']);
+check(campaign_score($six)['score']===6 && campaign_score($six)['category']==='templado','Score boundary six');
+check(campaign_score(array_replace($six,['phone'=>'+34600000000']))['category']==='caliente','Score boundary seven');
+check(campaign_validate(array_replace($valid,['phone'=>'']))['phone']==='','Optional phone');
+putenv('CAMPAIGN_PHONE_REQUIRED=true');
+try {campaign_validate(array_replace($valid,['phone'=>'']));throw new RuntimeException('Required phone accepted');} catch(InvalidArgumentException $e){}
+putenv('CAMPAIGN_PHONE_REQUIRED=false');
+echo "PASS: agreed scores 0/3/4/6/7/10 and optional/required phone switch\n";
