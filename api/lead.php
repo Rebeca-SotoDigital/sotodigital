@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/campaign-leads.php';
+require_once __DIR__ . '/../includes/campaign-operations.php';
 campaign_session();
 header('X-Robots-Tag: noindex, nofollow');
 $json = strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false;
@@ -39,10 +40,8 @@ if (!$screened) {
 }
 $token = $_POST['cf-turnstile-response'] ?? '';
 if (!is_string($token) || strlen($token) > 2048 || !$token) lead_response(false, 'Completa la verificación antispam.', 422);
-$curl = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
-curl_setopt_array($curl, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => http_build_query(['secret' => campaign_config('TURNSTILE_SECRET_KEY'), 'response' => $token]), CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 4, CURLOPT_TIMEOUT => 10]);
-$response = curl_exec($curl); $status = curl_getinfo($curl, CURLINFO_HTTP_CODE); curl_close($curl);
-$verification = $response ? json_decode($response, true) : null;
+$challenge = campaign_http('https://challenges.cloudflare.com/turnstile/v0/siteverify', [], ['secret'=>campaign_config('TURNSTILE_SECRET_KEY'),'response'=>$token], 10);
+$status = $challenge['status']; $verification = $challenge['body'];
 $hosts = array_filter(array_map('trim', explode(',', campaign_config('CAMPAIGN_ALLOWED_HOSTS', 'soto-digital.com,www.soto-digital.com'))));
 if ($status !== 200 || empty($verification['success']) || ($verification['action'] ?? '') !== 'proposal' || !in_array($verification['hostname'] ?? '', $hosts, true)) lead_response(false, 'No hemos podido verificar la solicitud. Repite la verificación antispam.', 422);
 if ($screened) {
@@ -54,7 +53,7 @@ if ($screened) {
 $attributionToken = is_string($_POST['attribution_token'] ?? null) ? $_POST['attribution_token'] : '';
 $attribution = $_SESSION['campaign_attribution'][$attributionToken] ?? [];
 try { campaign_store($db, $submission, $slug, $data, $attribution); }
-catch (Throwable $e) { error_log('Campaign lead storage failed'); lead_response(false, 'No hemos podido guardar tu solicitud. Inténtalo de nuevo o vuelve a intentarlo más tarde.', 503); }
+catch (Throwable $e) { error_log('Campaign lead storage failed'); campaign_alert($db,'fallo al guardar una solicitud'); lead_response(false, 'No hemos podido guardar tu solicitud. Inténtalo de nuevo o vuelve a intentarlo más tarde.', 503); }
 $_SESSION['campaign_received'] = $submission;
 $_SESSION['campaign_conversion'] = ['id' => $submission, 'service' => $slug];
 unset($_SESSION['campaign_screened'], $_SESSION['campaign_old'], $_SESSION['campaign_submission'], $_SESSION['campaign_attribution'][$attributionToken]);

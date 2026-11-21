@@ -1,9 +1,11 @@
 <?php
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 require __DIR__ . '/../includes/campaign-leads.php';
+require __DIR__ . '/../includes/campaign-operations.php';
 $command = $argv[1] ?? '';
+if ($command === 'health') { $health=campaign_health(); echo json_encode($health).PHP_EOL; exit($health['ok']?0:1); }
 if (!in_array($command, ['export', 'retry', 'status'], true)) exit("Usage: php tools/campaign-leads.php export|retry|status\n");
-$db = campaign_db();
+try { $db = campaign_db(); } catch (Throwable $e) { campaign_alert(null,'almacenamiento no disponible'); fwrite(STDERR, "Storage unavailable\n"); exit(1); }
 if ($command === 'status') {
     foreach ($db->query("SELECT COUNT(*) AS leads, SUM(brevo_synced=0) AS crm_pending, SUM(ai_status<>'complete') AS ai_pending, SUM(admin_state='sending' OR confirmation_state='sending') AS email_review FROM leads") as $row) echo json_encode($row) . "\n";
     exit;
@@ -22,6 +24,9 @@ if ($command === 'retry') {
         try { campaign_process($db, $id); } catch (Throwable $e) { error_log('Campaign worker item pending'); }
         finally { $db->prepare('UPDATE leads SET processed_at=? WHERE id=?')->execute([time(), $id]); }
     }
+    campaign_operation($db,'worker_last_run',(string)time());
+    $health=campaign_health($db);
+    if (!$health['checks']['queue']) campaign_alert($db,'solicitudes pendientes durante más de 30 minutos');
     flock($lock, LOCK_UN); fclose($lock);
     exit("Queue processed; inspect status and provider delivery logs\n");
 }

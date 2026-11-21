@@ -71,6 +71,7 @@ function campaign_migrate(PDO $db): void {
         if (!in_array($name, $columns, true)) $db->exec('ALTER TABLE leads ADD COLUMN ' . $name . ' ' . $type);
     }
     $db->exec('CREATE TABLE IF NOT EXISTS rate_limits (fingerprint TEXT PRIMARY KEY, attempts INTEGER NOT NULL, expires_at INTEGER NOT NULL)');
+    $db->exec('CREATE TABLE IF NOT EXISTS operations (name TEXT PRIMARY KEY, value TEXT NOT NULL)');
     $db->exec('COMMIT');
     } catch (Throwable $e) { $db->exec('ROLLBACK'); throw $e; }
 }
@@ -106,6 +107,7 @@ function campaign_store(PDO $db, string $id, string $service, array $data, array
     $stmt->execute([$id, gmdate('c'), $service, json_encode($data, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), json_encode($attribution, JSON_THROW_ON_ERROR), 'campaign-2026-11-21-legal-v2']);
 }
 function campaign_http(string $url, array $headers, array $payload, int $timeout = 12): array {
+    if (defined('CAMPAIGN_TEST_HARNESS') && CAMPAIGN_TEST_HARNESS === true && isset($GLOBALS['campaign_test_http'])) return ($GLOBALS['campaign_test_http'])($url, $headers, $payload);
     $curl = curl_init($url);
     curl_setopt_array($curl, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => json_encode($payload, JSON_THROW_ON_ERROR), CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 4, CURLOPT_TIMEOUT => $timeout, CURLOPT_HTTPHEADER => array_merge(['Content-Type: application/json', 'Accept: application/json'], $headers)]);
     $body = curl_exec($curl); $status = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE); curl_close($curl);
