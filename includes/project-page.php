@@ -25,8 +25,8 @@ include __DIR__ . '/header.php';
 <main id="contenido" class="service-page project-page">
     <section class="service-intro">
         <div class="container">
-            <a class="service-return" href="./#proyectos">← Volver a proyectos</a>
-            <nav class="service-breadcrumb" aria-label="Ruta de navegación"><a href="./">Inicio</a><span aria-hidden="true">/</span><a href="./#proyectos">Proyectos</a><span aria-hidden="true">/</span><span aria-current="page"><?= $escape($project['name']) ?></span></nav>
+            <a class="service-return" href="/#proyectos">← Volver a proyectos</a>
+            <nav class="service-breadcrumb" aria-label="Ruta de navegación"><a href="/">Inicio</a><span aria-hidden="true">/</span><a href="/#proyectos">Proyectos</a><span aria-hidden="true">/</span><span aria-current="page"><?= $escape($project['name']) ?></span></nav>
             <span class="section-subtitle"><?= $escape($project['kind']) ?> / <?= $escape($project['sector']) ?></span>
             <h1><?= $escape($detail['heading']) ?></h1>
             <p class="service-lead"><?= $escape($detail['intro']) ?></p>
@@ -35,7 +35,7 @@ include __DIR__ . '/header.php';
     </section>
     <section><div class="container"><div class="section-heading"><div><span class="section-subtitle">EL NEGOCIO Y SU WEB</span><h2>Una presentación adaptada a su actividad</h2></div><p><?= $escape($detail['context']) ?></p></div><div class="process-grid"><?php foreach ($detail['work'] as $item): ?><article><h3><?= $escape($item[0]) ?></h3><p><?= $escape($item[1]) ?></p></article><?php endforeach; ?></div></div></section>
     <section class="bg-soft service-related"><div class="container"><span class="section-subtitle">SERVICIOS DEL PROYECTO</span><h2>Qué podemos hacer por tu negocio</h2><nav aria-label="Servicios relacionados con el proyecto"><?php foreach ($project['services'] as $key): ?><a class="text-link" href="<?= $escape($relatedServices[$key][0]) ?>"><?= $escape($relatedServices[$key][1]) ?> <span aria-hidden="true">↗</span></a><?php endforeach; ?></nav></div></section>
-    <section class="contact-section"><div class="container"><span class="section-subtitle">HABLEMOS DE TU PROYECTO</span><h2>¿Qué necesita tu negocio?</h2><p>Cuéntanos tu actividad y qué quieres mejorar. Prepararemos una propuesta con el alcance y los servicios adecuados.</p><a class="btn btn-accent" href="./#diagnostico">Pedir una propuesta <span aria-hidden="true">↗</span></a></div></section>
+    <section class="contact-section"><div class="container"><span class="section-subtitle">HABLEMOS DE TU PROYECTO</span><h2>¿Qué necesita tu negocio?</h2><p>Cuéntanos tu actividad y qué quieres mejorar. Prepararemos una propuesta con el alcance y los servicios adecuados.</p><a class="btn btn-accent" href="/#diagnostico">Pedir una propuesta <span aria-hidden="true">↗</span></a></div></section>
     <section class="service-related"><div class="container"><h2>Otros proyectos</h2><nav aria-label="Otros proyectos"><?php foreach ($details as $theme => $other): ?><?php if ($theme !== $projectTheme): ?><a class="text-link" href="<?= $escape($other['slug']) ?>.php"><?= $escape($other['heading']) ?> <span aria-hidden="true">↗</span></a><?php endif; ?><?php endforeach; ?></nav></div></section>
 </main>
 <?php include __DIR__ . '/footer.php'; ?>

@@ -63,17 +63,39 @@ document.addEventListener("DOMContentLoaded", function () {
         document.head.appendChild(script);
     }
 
+    let returnFocus;
+    function focusPanel(panel) {
+        if (!panel.querySelector) return;
+        returnFocus = document.activeElement;
+        const first=panel.querySelector('button, input:not([disabled]), a[href]');
+        if(first && first.focus)first.focus();
+    }
+    document.addEventListener('keydown',function(event){
+        if(!event)return;
+        const panel=settingsPanel.style.display==='flex'?settingsPanel:(banner.style.display==='flex'?banner:null);
+        if(!panel || !panel.querySelectorAll)return;
+        if(event.key==='Escape') {event.preventDefault(); if(readPreferences())hideAll();else showBanner(); return;}
+        if(event.key!=='Tab')return;
+        const fields=Array.from(panel.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), [tabindex="0"]'));
+        if(!fields.length)return;
+        const first=fields[0],last=fields[fields.length-1];
+        if(event.shiftKey && document.activeElement===first){event.preventDefault();last.focus();}
+        else if(!event.shiftKey && document.activeElement===last){event.preventDefault();first.focus();}
+    });
     function showBanner() {
         banner.style.display = "flex";
         settingsPanel.style.display = "none";
+        focusPanel(banner);
     }
 
     function showSettings() {
         banner.style.display = "none";
         settingsPanel.style.display = "flex";
+        focusPanel(settingsPanel);
     }
 
     function hideAll() {
+        if(returnFocus && returnFocus.isConnected && returnFocus.focus)returnFocus.focus();
         banner.style.display = "none";
         settingsPanel.style.display = "none";
     }

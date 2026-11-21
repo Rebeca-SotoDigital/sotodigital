@@ -7,7 +7,7 @@ require __DIR__.'/campaign-context.php';
 $slug = ['seo-sem'=>'sem','pantalla-led-raos'=>'pantalla-led'][$service['slug']] ?? $service['slug'];
 $pageDraft = !empty($service['draft']);
 $escape = static function ($value) { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); };
-$contactUrl = $service['slug'].'.php#solicitud';
+$contactUrl = '/' . $service['slug'].'.php#solicitud';
 $serviceLinks = [
     'diseno-web' => 'Diseño web',
     'redes-sociales' => 'Redes sociales',
@@ -30,7 +30,7 @@ $returnSections = [
     'meta-ads' => 'servicio-publicidad',
     'pantalla-led-raos' => 'pantalla',
 ];
-$returnUrl = './#' . $returnSections[$service['slug']];
+$returnUrl = '/#' . $returnSections[$service['slug']];
 $returnLabel = $service['slug'] === 'pantalla-led-raos' ? 'Volver a la pantalla LED' : 'Volver a servicios';
 $pageStructuredData = [
     '@context' => 'https://schema.org',
@@ -58,7 +58,7 @@ include __DIR__ . '/header.php';
     <section class="service-intro">
         <div class="container">
             <a class="service-return" href="<?= $escape($returnUrl) ?>"><span aria-hidden="true">←</span> <?= $escape($returnLabel) ?></a>
-            <nav class="service-breadcrumb" aria-label="Ruta de navegación"><a href="./">Inicio</a><span aria-hidden="true"> / </span><span aria-current="page"><?= $escape($serviceLinks[$service['slug']]) ?></span></nav>
+            <nav class="service-breadcrumb" aria-label="Ruta de navegación"><a href="/">Inicio</a><span aria-hidden="true"> / </span><span aria-current="page"><?= $escape($serviceLinks[$service['slug']]) ?></span></nav>
             <span class="section-subtitle"><?= $escape($service['label']) ?></span>
             <h1><?= $escape($service['heading']) ?></h1>
             <p class="service-lead"><?= $escape($service['intro']) ?></p>
@@ -69,7 +69,7 @@ include __DIR__ . '/header.php';
         <div class="container">
             <div class="section-heading"><div><span class="section-subtitle">QUÉ PODEMOS HACER POR TI</span><h2><?= $escape($service['section']) ?></h2></div><p><?= $escape($service['body']) ?></p></div>
             <?php if ($service['slug'] === 'pantalla-led-raos'): ?>
-                <figure class="service-location"><img src="img/optimized/pantalla-led-recreacion-693.webp" srcset="img/optimized/pantalla-led-recreacion-420.webp 420w, img/optimized/pantalla-led-recreacion-693.webp 693w" sizes="(max-width: 800px) 100vw, 50vw" width="693" height="595" alt="Recreación de la pantalla LED de Soto Digital frente a la ITV de Raos" loading="lazy"><figcaption>Recreación de la pantalla LED en Raos, Maliaño, Cantabria.</figcaption></figure>
+                <figure class="service-location"><img src="/img/optimized/pantalla-led-recreacion-693.webp" srcset="/img/optimized/pantalla-led-recreacion-420.webp 420w, /img/optimized/pantalla-led-recreacion-693.webp 693w" sizes="(max-width: 800px) 100vw, 50vw" width="693" height="595" alt="Recreación de la pantalla LED de Soto Digital frente a la ITV de Raos" loading="lazy"><figcaption>Recreación de la pantalla LED en Raos, Maliaño, Cantabria.</figcaption></figure>
             <?php endif; ?>
             <div class="process-grid">
                 <?php foreach ($service['items'] as $item): ?>
@@ -110,7 +110,7 @@ include __DIR__ . '/header.php';
     <section class="service-related">
         <div class="container"><a class="service-return" href="<?= $escape($returnUrl) ?>"><span aria-hidden="true">←</span> <?= $escape($returnLabel) ?></a><h2>Más soluciones para tu negocio</h2><nav aria-label="Otros servicios">
             <?php foreach ($serviceLinks as $slug => $label): ?>
-                <?php if ($slug !== $service['slug']): ?><a class="text-link" href="<?= $escape($slug) ?>.php"><?= $escape($label) ?> <span aria-hidden="true">↗</span></a><?php endif; ?>
+                <?php if ($slug !== $service['slug']): ?><a class="text-link" href="/<?= $escape($slug) ?>.php"><?= $escape($label) ?> <span aria-hidden="true">↗</span></a><?php endif; ?>
             <?php endforeach; ?>
         </nav></div>
     </section>

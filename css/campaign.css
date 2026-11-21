@@ -6,3 +6,5 @@
 .campaign-sticky{display:none}.campaign-sticky[hidden],[data-form-sticky][hidden]{display:none!important}.campaign-hero #propuesta{scroll-margin-top:24px}.campaign-hero .campaign-form{position:relative}.campaign-body .campaign-ad{margin-top:32px}.campaign-body .campaign-ad h2{font-size:1.45rem!important}@media(max-width:800px){.campaign-sticky{position:fixed;bottom:0;left:0;right:0;z-index:1001;display:flex;align-items:center;justify-content:center;min-height:56px;padding:14px 18px calc(14px + env(safe-area-inset-bottom));background:#ffe44d;color:#142b53;font-weight:800;font-size:1rem;box-shadow:0 -3px 18px #142b5320;text-decoration:none}.campaign-body{padding-bottom:76px}}
 
 .thanks-steps{text-align:left;line-height:1.8;padding-left:24px}.thanks-steps li{margin:18px 0}.thanks-steps strong{display:block}
+
+.campaign-form label{font-size:.9rem}.campaign-small{font-size:.8125rem}.campaign-micro{font-size:.8125rem}

@@ -42,6 +42,6 @@ $projectHeading = $projectFilter === 'social' ? 'Marcas cuyas redes gestionamos'
                 </article>
             <?php endforeach; ?>
         </div>
-        <?php if ($projectFilter === 'all'): ?><div class="project-more"><a class="text-link" href="diseno-web.php#proyectos">Ver ejemplos de webs <span aria-hidden="true">↗</span></a><a class="text-link" href="redes-sociales.php#proyectos">Ver ejemplos de redes sociales <span aria-hidden="true">↗</span></a></div><?php endif; ?>
+        <?php if ($projectFilter === 'all'): ?><div class="project-more"><a class="text-link" href="/diseno-web.php#proyectos">Ver ejemplos de webs <span aria-hidden="true">↗</span></a><a class="text-link" href="/redes-sociales.php#proyectos">Ver ejemplos de redes sociales <span aria-hidden="true">↗</span></a></div><?php endif; ?>
     </div>
 </section>

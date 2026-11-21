@@ -12,11 +12,11 @@ if ($campaignVariant) {
 
 }
 $content = require __DIR__ . '/campaign-content.php';
-$campaignSelf = 'campanas/' . ($slug === 'estrategia-digital' ? 'index.php' : $slug . '.php');
+$campaignSelf = '/campanas/' . ($slug === 'estrategia-digital' ? 'index.php' : $slug . '.php');
 $campaignLanding = true;
 $pageTitle = $service[0] . ' | Mini-auditoría gratuita | Soto Digital';
 $pageDescription = $service[2];
-$canonicalPath = '/' . $campaignSelf;
+$canonicalPath = $campaignSelf;
 include __DIR__ . '/header.php';
 ?>
 <main id="contenido">
@@ -28,7 +28,7 @@ include __DIR__ . '/header.php';
 </div></section>
 <div class="campaign-strip"><div class="container">Tu objetivo marca el plan. <span>Tu negocio · Tus clientes · Los canales adecuados</span></div></div>
 <?php $video = $content['videos'][$slug] ?? ''; if ($video && preg_match('~\Aimg/videos/[a-zA-Z0-9_-]+\.mp4\z~', $video) && is_file(__DIR__ . '/../' . $video)): ?>
-<section><div class="container campaign-split"><div><span class="section-subtitle">TE LO CONTAMOS NOSOTROS</span><h2>Las preguntas que importan.<br>Una conversación con el equipo.</h2><p>Conoce cómo abordamos <?= $escape(mb_strtolower($service[0])) ?> y qué necesitamos saber de tu negocio.</p></div><video controls preload="none" aria-label="Entrevista al equipo de Soto Digital sobre <?= $escape($service[0]) ?>"><source src="<?= $escape($video) ?>" type="video/mp4"><track kind="captions" src="<?= $escape(substr($video, 0, -4)) ?>.vtt" srclang="es" label="Español" default></video></div></section>
+<section><div class="container campaign-split"><div><span class="section-subtitle">TE LO CONTAMOS NOSOTROS</span><h2>Las preguntas que importan.<br>Una conversación con el equipo.</h2><p>Conoce cómo abordamos <?= $escape(mb_strtolower($service[0])) ?> y qué necesitamos saber de tu negocio.</p></div><video controls preload="none" aria-label="Entrevista al equipo de Soto Digital sobre <?= $escape($service[0]) ?>"><source src="/<?= $escape($video) ?>" type="video/mp4"><track kind="captions" src="/<?= $escape(substr($video, 0, -4)) ?>.vtt" srclang="es" label="Español" default></video></div></section>
 <?php endif; ?>
 <section id="plan"><div class="container"><div class="section-heading"><div><span class="section-subtitle">DE LA PRIMERA CONVERSACIÓN AL PLAN</span><h2>Antes de hacer,<br>entendemos tu negocio.</h2></div><p>Te explicamos qué proponemos, por qué y cómo valoraremos su evolución. Empezamos con una mini-auditoría inicial gratuita, sin compromiso de contratación. Acordamos contigo su alcance.</p></div><div class="process-grid campaign-process">
 <article><span>01 / AUDITORÍA</span><h3>Tu punto de partida.</h3><p>Revisamos tu presencia digital, tu oferta y las oportunidades que encajan con el público al que quieres llegar. Acordamos el alcance de la revisión.</p></article>
@@ -40,7 +40,7 @@ include __DIR__ . '/header.php';
 <section><div class="container"><span class="section-subtitle">SITUACIONES EN LAS QUE PUEDES RECONOCERTE</span><h2>Del reto a lo que<br>hicimos realidad.</h2><div class="campaign-case-grid"><?php foreach ($cases as $case): ?><article class="campaign-case"><span><?= $escape($case['sector']) ?></span><h3><?= $escape($case['situation']) ?></h3><p><?= $escape($case['work']) ?></p><strong>Qué entregamos</strong><p><?= $escape($case['result']) ?></p></article><?php endforeach; ?></div></div></section>
 <?php endif; ?>
 <?php if ($slug === 'estrategia-digital'): ?>
-<section class="bg-soft"><div class="container"><span class="section-subtitle">UN PLAN, DISTINTAS SOLUCIONES</span><h2>Empezamos por lo que necesitas.</h2><nav class="campaign-service-links" aria-label="Servicios para tu estrategia"><?php foreach ($services as $key => $item): if ($key === $slug) continue; ?><a href="campanas/<?= $escape($key) ?>.php"><?= $escape($item[0]) ?> <span>↗</span></a><?php endforeach; ?></nav></div></section>
+<section class="bg-soft"><div class="container"><span class="section-subtitle">UN PLAN, DISTINTAS SOLUCIONES</span><h2>Empezamos por lo que necesitas.</h2><nav class="campaign-service-links" aria-label="Servicios para tu estrategia"><?php foreach ($services as $key => $item): if ($key === $slug) continue; ?><a href="/campanas/<?= $escape($key) ?>.php"><?= $escape($item[0]) ?> <span>↗</span></a><?php endforeach; ?></nav></div></section>
 <?php endif; ?>
 <?php $testimonials = array_filter($content['testimonials'] ?? [], static function ($item) use ($slug) { return ($item['approved'] ?? false) === true && in_array($slug, $item['services'] ?? [], true); }); if ($testimonials): ?>
 <section><div class="container"><span class="section-subtitle">EN PALABRAS DE NUESTROS CLIENTES</span><h2>Su experiencia,<br>contada por ellos.</h2><div class="campaign-case-grid"><?php foreach ($testimonials as $item): ?><figure class="campaign-case"><blockquote><p>«<?= $escape($item['quote']) ?>»</p></blockquote><figcaption><?= $escape($item['author']) ?> · <?= $escape($item['company']) ?></figcaption></figure><?php endforeach; ?></div></div></section>
