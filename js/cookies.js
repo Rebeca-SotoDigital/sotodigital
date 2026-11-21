@@ -22,7 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function readPreferences() {
         try {
             const prefs = JSON.parse(localStorage.getItem("cookiePreferences"));
-            return prefs && prefs.version === consentVersion ? prefs : null;
+            const timestamp=prefs && Date.parse(prefs.updatedAt);
+            const fresh=Number.isFinite(timestamp) && timestamp<=Date.now() && Date.now()-timestamp<180*24*60*60*1000;
+            return prefs && prefs.version === consentVersion && fresh ? prefs : null;
         } catch (_) {
             return null;
         }

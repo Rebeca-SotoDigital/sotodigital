@@ -13,7 +13,7 @@ include 'includes/header.php';
 <h2>Almacenamiento técnico y preferencias</h2>
 <div class="company-data-box"><ul>
 <li><strong>soto_campaign:</strong> cookie propia de sesión para validar solicitudes y evitar duplicados. No tiene una fecha de caducidad persistente configurada en el navegador; la sesión del servidor se conserva según la configuración del hosting.</li>
-<li><strong>cookiePreferences:</strong> clave de almacenamiento local propio para recordar las categorías elegidas y su fecha. Permanece hasta que borres el almacenamiento, cambies las preferencias o la web solicite una nueva elección. No equivale a una cookie publicitaria.</li>
+<li><strong>cookiePreferences:</strong> clave de almacenamiento local propio para recordar las categorías elegidas y su fecha. La elección se revisa a los 180 días y se vuelve a solicitar al caducar, borrar el almacenamiento o cambiar la versión de preferencias. No equivale a una cookie publicitaria.</li>
 </ul></div>
 <p>Las referencias de origen de campaña pueden conservarse temporalmente en la sesión durante el recorrido del formulario; su recuperación entre páginas se limita a 30 minutos. El identificador antispam derivado de la IP se almacena en el servidor, no como una cookie del navegador.</p>
 <h2>Analíticas: Google Analytics</h2>
@@ -32,7 +32,7 @@ include 'includes/header.php';
 <p>Puedes aceptar todas las categorías opcionales, rechazarlas o elegir por categoría desde el aviso de cookies. «Configurar Cookies», en el pie de página, permite modificar la elección. Rechazar medición o identificación empresarial no impide enviar el formulario.</p>
 <p>Al retirar una categoría que ya había cargado su rastreador, la web elimina las cookies accesibles previstas por la integración y recarga la página para detener su ejecución. También puedes borrar cookies y almacenamiento local desde tu navegador; en ese caso se volverá a pedir tu elección cuando corresponda.</p>
 <h2>Más información</h2>
-<p>Consulta la <a href="privacidad.php">política de privacidad</a> para conocer finalidades, destinatarios, conservación, transferencias y tus derechos. La web incluye enlaces externos, como Instagram; acceder a esos servicios queda sujeto a sus propias políticas y no implica que su contenido esté incrustado aquí.</p>
+<p>Consulta la <a href="/privacidad.php">política de privacidad</a> para conocer finalidades, destinatarios, conservación, transferencias y tus derechos. La web incluye enlaces externos, como Instagram; acceder a esos servicios queda sujeto a sus propias políticas y no implica que su contenido esté incrustado aquí.</p>
 <ul class="policy-links">
 <li><a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener noreferrer">Cookies de Google</a></li>
 <li><a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Privacidad de Cloudflare</a></li>

@@ -47,7 +47,7 @@
         <p>Utilizamos cookies para mejorar tu experiencia. Puedes aceptarlas todas, rechazarlas o configurar tus preferencias, incluida la identificación de empresas visitantes con Leadfeeder/Dealfront.</p>
         <div class="cookie-buttons">
             <button id="accept-all" class="btn-cookie" type="button">Aceptar todas</button>
-            <button id="reject-all" class="btn-cookie btn-outline" type="button">Rechazar todas</button>
+            <button id="reject-all" class="btn-cookie" type="button">Rechazar todas</button>
             <button id="open-cookie-panel" class="btn-link" type="button">Configurar</button>
         </div>
     </div>
@@ -91,8 +91,8 @@
 
         <div class="cookie-buttons">
             <button id="save-settings" class="btn-cookie" type="button">Guardar configuración</button>
-            <button id="accept-all-settings" class="btn-cookie btn-outline" type="button">Aceptar todas</button>
-            <button id="reject-all-settings" class="btn-cookie btn-outline" type="button">Rechazar todas</button>
+            <button id="accept-all-settings" class="btn-cookie" type="button">Aceptar todas</button>
+            <button id="reject-all-settings" class="btn-cookie" type="button">Rechazar todas</button>
         </div>
     </div>
 </div>
