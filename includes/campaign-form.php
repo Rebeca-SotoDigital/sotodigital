@@ -28,5 +28,6 @@
 <?php if (!$ready): ?><p class="campaign-form-status">Estamos preparando la solicitud online. Vuelve a intentarlo más adelante.</p><?php endif; ?>
 <p class="campaign-error" data-form-error role="alert" <?= !$error ? 'hidden' : '' ?>><?= $escape($error) ?></p>
 <div class="campaign-form-actions"><button type="button" class="text-link" data-previous hidden>← Volver</button><button type="button" class="btn" data-next hidden>Continuar →</button><button class="btn" type="submit" data-submit <?= !$ready ? 'disabled' : '' ?>>Pedir mini-auditoría gratuita ↗</button></div>
-<p class="campaign-small">Sin compromiso de contratación. Acordaremos contigo el alcance de la revisión inicial.</p>
+<p class="campaign-small">Revisaremos tus datos y, según tus necesidades, te llamaremos si has dejado móvil o te enviaremos una propuesta por email. Sin compromiso de contratación.</p>
+<p class="campaign-small">Primera respuesta en un máximo de <?= $escape(campaign_response_time()) ?>.</p>
 </form>

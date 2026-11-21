@@ -182,3 +182,7 @@ Referencia de las comprobaciones: [cuenta](https://developers.brevo.com/referenc
 ## Comprobaciones y paquete local posteriores
 
 Ver `docs/comprobaciones-locales-brevo.md`: atributos opcionales completados, mensajes HTML revisados, pruebas de errores/copia/restauración/conservación y entrega real de muestras. CAMPAIGN_REQUIRE_AI=false mantiene la IA opcional para el health, con aviso si falta clave; true la exige. El token de health se conserva solo en configuración privada. Para construir el paquete: `python3 tools/build-release.py`; salida dist (no pública, no desplegada). No se incluyen archivos no versionados ni configuración del Mac. La revisión de workflows se basa en la confirmación del equipo de que no hay activos; no hubo acceso al panel por el navegador.
+
+## Proceso de atención aprobado por el equipo
+
+Jónatan y Rebeca atenderán las solicitudes. Primera respuesta: máximo 2 días laborables, no plazo de entrega de una propuesta completa. La revisión gratuita parte de los datos que facilita el interesado; según las necesidades se contacta por llamada (si deja móvil) o propuesta por email. No se promete un documento de auditoría independiente. Formulario, gracias, textos de revisión y emails están alineados. `CAMPAIGN_RESPONSE_TIME` expresa la duración; si está ausente o vacío se usa el plazo aprobado. La regla para asignarse cada solicitud y evitar respuestas duplicadas sigue pendiente; no hay asignación automática implementada.

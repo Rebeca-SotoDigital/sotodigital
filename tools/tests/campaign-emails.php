@@ -12,6 +12,8 @@ foreach($messages as $message){email_assert(!str_contains($message['html'],'<scr
 email_assert(str_contains($messages['admin_sent']['html'],'&lt;img'),'Context not escaped');
 email_assert(str_contains($messages['confirmation_sent']['text'],'no te hemos suscrito'),'Newsletter clarification');
 email_assert(!str_contains($messages['confirmation_sent']['text'],'659 625'),'Unrequested public phone');
+email_assert(str_contains($messages['confirmation_sent']['html'],'2 días laborables')&&str_contains($messages['confirmation_sent']['text'],'2 días laborables'),'Approved first-response deadline missing');
+email_assert(str_contains($messages['confirmation_sent']['text'],'por email con una propuesta')&&!str_contains($messages['confirmation_sent']['text'],'te llamaremos'),'No-phone confirmation promises a call');
 echo "PASS: email recipients, HTML escaping, responsive structure and separation of internal scoring\n";
 define('CAMPAIGN_TEST_HARNESS',true);putenv('BREVO_API_KEY=xkeysib-test-only');putenv('CAMPAIGN_MAIL_FROM=ads@soto-digital.com');
 $GLOBALS['campaign_test_http']=static function($url,$headers,$payload){

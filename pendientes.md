@@ -8,10 +8,11 @@ Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web
 
 ## Próximo bloque de trabajo en local: atención de las solicitudes
 
-- [ ] Definir quién se hace responsable de atender cada lead y cómo se evita que ambos respondan por duplicado.
-- [ ] Aprobar el plazo real de primera respuesta, expresado en días u horas laborables.
-- [ ] Concretar qué incluye la mini-auditoría gratuita, qué se entrega y qué información adicional se pide.
-- [ ] Ajustar emails y página de gracias al proceso y plazo aprobados, sin promesas inventadas.
+- [x] Responsables de atender solicitudes: Jónatan y Rebeca, ambos confirmados por el equipo.
+- [ ] Acordar quién asume cada solicitud y cómo lo indica al otro para evitar respuestas duplicadas.
+- [x] Primera respuesta en un máximo de **2 días laborables**, aprobada por el equipo. No implica entregar una propuesta completa en ese plazo.
+- [x] Revisión inicial: examinar los datos aportados y, según las necesidades, llamar si hay móvil o enviar una propuesta por email. No se promete un informe independiente ni una llamada si no se facilita teléfono.
+- [x] Emails, formulario, página de gracias y textos de revisión inicial actualizados con ese proceso y plazo.
 - [ ] Acordar el seguimiento comercial: estados, responsable y recordatorio de solicitudes sin atender. Definirlo antes de activar ampliaciones del CRM.
 
 
@@ -104,8 +105,9 @@ Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web
 
 ### Oferta, equipo y pruebas sociales
 
-- [ ] Concretar alcance y entrega de la mini-auditoría gratuita, plazo real de respuesta y precios si se quieren publicar. No hay tarifas aprobadas; los rangos del formulario no son precios.
-- [ ] Completar `CAMPAIGN_RESPONSE_TIME` solo con un plazo aprobado y sostenible.
+- [x] Alcance de revisión inicial y primera respuesta definidos: revisar datos aportados, valorar necesidades y contactar por llamada o propuesta por email; máximo 2 días laborables para responder.
+- [ ] Aprobar precios si se quieren publicar. No hay tarifas aprobadas; los rangos del formulario no son precios.
+- [x] Plazo aprobado aplicado mediante `campaign_response_time()`: `CAMPAIGN_RESPONSE_TIME` configurable con predeterminado de 2 días laborables, también si el valor privado está vacío.
 - [ ] Confirmar estado operativo, disponibilidad y condiciones reales de la pantalla LED antes de vender publicidad. Mantener identificada cualquier recreación y no prometer audiencias sin datos.
 - [ ] Entregar fotos autorizadas de Jónatan y Rebeca y aprobar su presentación.
 - [ ] Reunir permisos de proyectos/logos, testimonios auténticos y resultados verificables. Distinguir entregables, resultados medidos y negocios propios.

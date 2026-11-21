@@ -103,7 +103,7 @@ include __DIR__ . '/header.php';
         </div>
     </section>
     <section id="solicitud" class="campaign-contact">
-        <div class="container campaign-split"><div><span class="section-subtitle">EL SIGUIENTE PASO</span><h2>Cuéntanos qué necesitas.</h2><p>Empieza con una mini-auditoría inicial gratuita. Revisaremos tus respuestas y acordaremos contigo el alcance antes de preparar la propuesta.</p></div>
+        <div class="container campaign-split"><div><span class="section-subtitle">EL SIGUIENTE PASO</span><h2>Cuéntanos qué necesitas.</h2><p>Empieza con una mini-auditoría inicial gratuita. Revisaremos los datos que nos aportes y, según tus necesidades, te llamaremos si has dejado móvil o te enviaremos una propuesta por email.</p></div>
         <?php include __DIR__.'/campaign-form.php'; ?>
         </div>
     </section>
