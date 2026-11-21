@@ -1,0 +1,5 @@
+# Local XAMPP configuration only. Production must define its own private path.
+<IfModule mod_setenvif.c>
+    SetEnvIf Host "^(localhost|127[.]0[.]0[.]1)(:[0-9]+)?$" SOTO_CONFIG_FILE=/Applications/XAMPP/xamppfiles/sotodigital-private/soto-config.php
+</IfModule>
+

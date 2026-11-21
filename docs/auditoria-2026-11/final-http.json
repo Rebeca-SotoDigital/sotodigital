@@ -1,0 +1,170 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "cache": [
+      "no-cache"
+    ],
+    "cookie": false,
+    "robots": null,
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/campanas/google-ads.php",
+    "status": 200,
+    "cache": [
+      "no-cache"
+    ],
+    "cookie": false,
+    "robots": "noindex, nofollow",
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/api/lead.php",
+    "status": 405,
+    "cache": [
+      "private, no-store"
+    ],
+    "cookie": true,
+    "robots": "noindex, nofollow",
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/api/token.php",
+    "status": 405,
+    "cache": [
+      "private, no-store"
+    ],
+    "cookie": false,
+    "robots": "noindex, nofollow",
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/api/health.php",
+    "status": 401,
+    "cache": [
+      "private, no-store"
+    ],
+    "cookie": false,
+    "robots": "noindex, nofollow",
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/pendientes.md",
+    "status": 404,
+    "cache": [
+      "no-cache"
+    ],
+    "cookie": false,
+    "robots": "noindex, nofollow",
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/docs/integracion-leads.md",
+    "status": 404,
+    "cache": [
+      "no-cache"
+    ],
+    "cookie": false,
+    "robots": "noindex, nofollow",
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/includes/campaign-leads.php",
+    "status": 404,
+    "cache": [
+      "no-cache"
+    ],
+    "cookie": false,
+    "robots": "noindex, nofollow",
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/tools/build-assets.py",
+    "status": 404,
+    "cache": [
+      "no-cache"
+    ],
+    "cookie": false,
+    "robots": "noindex, nofollow",
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/bin/campaign-leads.php",
+    "status": 404,
+    "cache": [
+      "no-cache"
+    ],
+    "cookie": false,
+    "robots": "noindex, nofollow",
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/.git/config",
+    "status": 404,
+    "cache": [
+      "no-cache"
+    ],
+    "cookie": false,
+    "robots": "noindex, nofollow",
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/tarjeta/jonatan/jonatan-domingo-lobejon.vcf",
+    "status": 200,
+    "cache": [
+      "no-cache"
+    ],
+    "cookie": false,
+    "robots": null,
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/img/og-soto-digital-1200x630.jpg",
+    "status": 200,
+    "cache": [
+      "public, max-age=2592000"
+    ],
+    "cookie": false,
+    "robots": null,
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  },
+  {
+    "path": "/css/site.426c3e00c252.css",
+    "status": 200,
+    "cache": [
+      "public, max-age=31536000, immutable"
+    ],
+    "cookie": false,
+    "robots": null,
+    "nosniff": "nosniff",
+    "frame": "SAMEORIGIN",
+    "csp_report_only": true
+  }
+]

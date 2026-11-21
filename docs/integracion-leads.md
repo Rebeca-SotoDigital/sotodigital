@@ -8,7 +8,7 @@ Home y landings → cuestionario de cinco pasos → `api/lead.php` → guardado 
 
 El navegador no espera a las APIs externas. El éxito significa que se ha guardado la solicitud localmente, no que todos los proveedores ya la hayan procesado. La tarea programada es necesaria para que lleguen los emails y se sincronice Brevo. La caída de un proveedor no debe impedir los otros caminos. La configuración de captura requiere almacenamiento y Turnstile; no depende de que Claude esté disponible.
 
-Pasos: sector, objetivo, inversión mensual orientativa, urgencia y contacto. Nombre, email, móvil y aceptación son obligatorios; web y contexto adicional, opcionales. «Tiene web» se calcula a partir del campo URL, sin un paso extra. Sin JavaScript todas las preguntas se muestran juntas y el envío normal sigue disponible.
+Pasos: sector, objetivo, inversión mensual orientativa, urgencia y contacto. Nombre, email y aceptación son obligatorios; el móvil es opcional por defecto (`CAMPAIGN_PHONE_REQUIRED=false`, «Si prefieres que te llamemos»); web y contexto adicional, opcionales. «Tiene web» se calcula a partir del campo URL, sin un paso extra. Sin JavaScript todas las preguntas se muestran juntas, pero el envío protegido necesita JavaScript para Turnstile y los tokens. El aviso `noscript` lo explica. No se considera cumplido el envío completo sin JS: queda pendiente decidir una alternativa antispam accesible.
 
 ## Configuración privada
 
@@ -19,7 +19,7 @@ Copiar `docs/soto-config.example.php` fuera del directorio público, con el nomb
 - CRM: `BREVO_API_KEY`, `BREVO_LIST_ID` (número de la lista Leads web).
 - Emails: la misma clave Brevo, `CAMPAIGN_MAIL_FROM` autorizado en Brevo y `CAMPAIGN_MAIL_TO` (por defecto ads@soto-digital.com).
 - IA: `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` (por defecto claude-haiku-5-5, configurable).
-- Medición: `GOOGLE_ANALYTICS_ID`, `GOOGLE_ADS_ID`, `GOOGLE_ADS_LEAD_LABEL` y `GOOGLE_ADS_WHATSAPP_LABEL`.
+- Medición: `GOOGLE_ANALYTICS_ID`, `GOOGLE_ADS_ID`, `GOOGLE_ADS_LEAD_LABEL`.
 
 Se necesita PHP con cURL, mbstring, PDO SQLite y funciones JSON de SQLite. El almacenamiento debe estar fuera del directorio público, con permisos restringidos. Se mantiene el historial local de solicitudes, incluso si varios leads comparten email. Brevo refleja los atributos de la solicitud más reciente de ese email; no es un historial de oportunidades completo.
 
@@ -43,25 +43,19 @@ El contacto se crea/actualiza con `updateEnabled=true`. No se cambian las listas
 
 Dar de alta/verificar el remitente y dominio para email transaccional, siguiendo las instrucciones DNS de Brevo sin romper el correo existente. El aviso va a ads@soto-digital.com y la respuesta del interesado vuelve a esa dirección. ai@soto-digital.com se publica como contacto para temas de IA; no recibe copia automática de cada lead.
 
-## Puntuación determinista provisional
+## Puntuación acordada
 
-No se ha facilitado la tabla original acordada con Claude. Se incluye esta tabla editable en `includes/campaign-questionnaire.php`, pendiente de aprobación:
+Versión `v1-acordada-2026-11-21`. PHP calcula y guarda la puntuación; los históricos conservan su versión y puntuación. Los tramos son cualificación, no precios.
 
-| Criterio | Respuesta | Puntos |
-| --- | --- | --- |
-| Inversión | Menos de 300 € / por definir | 0 |
-| Inversión | 300–600 € | 2 |
-| Inversión | 600–1.500 € | 3 |
-| Inversión | Más de 1.500 € | 4 |
-| Urgencia | Lo antes posible | 3 |
-| Urgencia | Próximo mes | 2 |
-| Urgencia | 1–3 meses | 1 |
-| Urgencia | Explorando | 0 |
-| Objetivo | Consultas / ventas | 3 |
-| Objetivo | Visibilidad | 1 |
-| Objetivo | Orientación | 0 |
+| Dato | Puntos |
+| --- | --- |
+| Inversión ≥ 1.000 € / 300–1.000 € / < 300 € / por definir | 3 / 2 / 1 / 0 |
+| Consultas, ventas o visibilidad / necesita orientación | 2 / 0 |
+| Ahora o este mes / 1–3 meses / explorando | 3 / 1 / 0 |
+| Web indicada | 1 |
+| Móvil indicado | 1 |
 
-Total 0–10: caliente 7–10, templado 4–6, frio 0–3. Sector, nombre, existencia de web y datos personales no suman puntos. Se guarda la versión de reglas junto a la puntuación. Los rangos de inversión son respuestas de cualificación, no precios de Soto Digital. La puntuación orienta revisión humana y no rechaza automáticamente por presupuesto.
+Máximo 10. Caliente 7–10, templado 4–6, frio 0–3. Revisar siempre por una persona; no hay rechazo por potencial. Valores `PRESUPUESTO` de texto en Brevo: `menos-300`, `300-1000`, `1000-3000`, `mas-3000`, `por-definir`. El punto de corte de 1.000 € corresponde al tramo `1000-3000`.
 
 ## Claude
 
@@ -74,9 +68,9 @@ La respuesta debe ser JSON con `resumen` y `siguiente_paso`; se valida y limita 
 Configurar cron cada cinco minutos (o la frecuencia elegida) con PHP CLI y el mismo SOTO_CONFIG_FILE/variables que PHP web:
 
 ```sh
-php tools/campaign-leads.php retry
-php tools/campaign-leads.php status
-php tools/campaign-leads.php export
+php bin/campaign-leads.php retry
+php bin/campaign-leads.php status
+php bin/campaign-leads.php export
 ```
 
 `retry` tiene bloqueo de fichero para evitar dos trabajadores simultáneos; procesa hasta 50 pendientes por ejecución, según los proveedores configurados, rotando los intentos para que fallos antiguos no bloqueen solicitudes nuevas. `status` muestra recuentos, sin contactos. `export` escribe CSV en stdout: solo guardar en un destino privado. No existe panel público ni endpoint de exportación.
@@ -87,7 +81,7 @@ Los emails salen por Brevo, no mail() ni Resend. Hay una clave de idempotencia d
 
 - CSRF y token de solicitud de sesión; reenviar la misma solicitud aceptada devuelve la misma referencia.
 - Límite persistente: cinco intentos por conexión/IP en una ventana de una hora, con HMAC y sin IP en claro en esa tabla. Incluye intentos inválidos después de validar la sesión.
-- No se confía en X-Forwarded-For enviado por el visitante. Si hay proxy/CDN, configurar correctamente REMOTE_ADDR en el servidor solo desde proxies de confianza; si no, diferentes visitantes podrían compartir el límite.
+- `CAMPAIGN_TRUSTED_PROXIES` es una lista CIDR vacía por defecto. Solo para conexiones desde esos proxies se utiliza CF-Connecting-IP o el primer X-Forwarded-For válido. El proxy debe sustituir las cabeceras del visitante. Mantener la lista vigente: no confiar globalmente en todas las IP.
 - Turnstile se comprueba en servidor: acción proposal y hostname autorizado.
 - Campo trampa, nombres sin letras y dominios temporales conocidos se descartan sin guardar el contacto ni generar conversión. El listado local no detecta todos los dominios temporales.
 - El éxito silencioso usa la misma respuesta pública y pantalla de agradecimiento, pero no emite un recibo de conversión real.
@@ -97,7 +91,7 @@ Los emails salen por Brevo, no mail() ni Resend. Hay una clave de idempotencia d
 
 Consent Mode v2 básico, con las cuatro señales denegadas al inicio; la librería de Google no se carga hasta aceptar una categoría configurada. Analíticas concede analytics_storage; Publicitarias concede ad_storage y ad_user_data. ad_personalization permanece denegado. La nueva versión 3 de preferencias pide una elección nueva a preferencias antiguas.
 
-GA4 recibe `generate_lead` solo en gracias con un recibo de una solicitud realmente guardada; Google Ads recibe su conversión directa si existe ID/label y permiso publicitario. El marcador se consume en el servidor y hay deduplicación por sesión y transaction_id. No se emite conversión por clic en Enviar ni por spam descartado. Google no recibe el formulario ni la puntuación. WhatsApp usa evento GA4 `whatsapp_click` y label Ads propio; tratarlo como acción separada/secundaria, porque no demuestra que se haya enviado un mensaje.
+GA4 recibe `generate_lead` solo en gracias con un recibo de una solicitud realmente guardada; Google Ads recibe su conversión directa si existe ID/label y permiso publicitario. El marcador se consume en el servidor y hay deduplicación por sesión y transaction_id. No se emite conversión por clic en Enviar ni por spam descartado. Google no recibe el formulario ni la puntuación. La captación es exclusivamente por formulario; se ha eliminado el código de WhatsApp.
 
 Elegir una fuente de conversión principal: no importar además generate_lead como conversión principal si ya se utiliza la etiqueta directa. Verificar con Tag Assistant y con consentimiento aceptado, rechazado y retirado. En modo básico es normal no medir todas las solicitudes sin permiso. Medir leads reales también desde SQLite/Brevo.
 
@@ -105,7 +99,7 @@ La atribución se mantiene durante 30 minutos en la sesión para navegar entre l
 
 ## Pendientes de activación
 
-Cuentas y claves, lista/atributos Brevo, remitente/DNS, almacenamiento privado, cron, IDs/labels Google, privacidad definitiva, revisión visual y prueba real controlada. También aprobación de la tabla provisional y alcance de la mini-auditoría, vídeos y testimonios auténticos. Todo ello se detalla en `pendientes.md`.
+Cuentas y claves, lista/atributos Brevo, remitente/DNS, almacenamiento privado, cron, IDs/labels Google, contratos y privacidad definitiva, revisión visual del equipo y prueba real controlada en el hosting. También alcance de la mini-auditoría, vídeos y testimonios auténticos. Todo ello se detalla en `pendientes.md`.
 
 Fuentes de implementación:
 
@@ -113,3 +107,29 @@ Fuentes de implementación:
 - [Email transaccional Brevo](https://developers.brevo.com/reference/send-transac-email).
 - [Modelos de Claude](https://platform.claude.com/docs/en/models/overview).
 - [Consent Mode de Google](https://developers.google.com/tag-platform/security/guides/consent).
+
+## Tokens, carga y atribución
+
+HTML inicial sin sesión ni Set-Cookie, con `no-cache`. `api/token.php` se solicita por POST del mismo origen con `X-Soto-Form: 1` cuando el formulario se aproxima o recibe foco: devuelve tokens y sesión privada `no-store`. Turnstile se carga entonces y se renderiza en el paso de contacto. El envío conserva CSRF, firma de atribución, idempotencia y validación de servidor. Variantes cerradas `?v=cantabria` y `?v=empresas`, nunca texto libre en titulares. La atribución de sesión caduca en 30 minutos; la persistida se elimina con el lead.
+
+Eventos analíticos: `lead_form_start`, `lead_form_step` (step 1–5), `lead_form_error` (tipo enumerado), `generate_lead`. Solo con consentimiento analítico, sin contenido de campos ni puntuación. Marcar `generate_lead` como evento clave; los pasos sirven para analizar abandonos. Las preferencias caducan a los 180 días. Dealfront requiere su propia activación y consentimiento; no obtiene el contacto personal de cada visitante.
+
+## Operación, alertas y conservación
+
+Configurar cron con rutas absolutas de **ese hosting** y `SOTO_CONFIG_FILE` privado. No copiar las rutas del ordenador de desarrollo.
+
+| Frecuencia | Comando desde la raíz privada del proyecto |
+| --- | --- |
+| Cada 5 minutos | `php bin/campaign-leads.php retry` |
+| Cada 5 minutos, monitor independiente | `php bin/campaign-leads.php health` |
+| Diaria, antes de purgar | `php bin/campaign-leads.php backup` |
+| Diaria, tras validar selección | `php bin/campaign-leads.php purge` |
+| Semanal | `php bin/campaign-leads.php report --week` |
+
+`health` devuelve comprobaciones sin llamar a proveedores: configuración, escritura SQLite, cola de más de 30 minutos y heartbeat worker de más de 15 minutos. `api/health.php` requiere `Authorization: Bearer <CAMPAIGN_HEALTH_TOKEN>` y devuelve solo ok/fail, sin datos. Configurar en un monitor que permita cabecera secreta, sin token en URL ni logs. Sin token configurado responde 404. Las alertas del worker se envían a `CAMPAIGN_ALERT_TO` (ads por defecto), limitadas a una por hora cuando la BD está disponible. **Un worker parado no puede alertar de sí mismo, ni Brevo enviar un aviso si Brevo falla**: el monitor externo debe avisar por una vía independiente. Esto sigue pendiente de alta, no está resuelto solo por código.
+
+Copias consistentes `VACUUM INTO`, permisos 0600, carpeta privada `backups`, 14 copias por defecto (`CAMPAIGN_BACKUP_KEEP`). Configurar una copia diaria; ejecutar más veces acorta el historial en días. No son copias cifradas: el equipo debe decidir cifrado y copia externa. Restauración: detener cron y escrituras web, conservar BD actual, verificar copia con `PRAGMA integrity_check`, sustituir BD y retirar WAL/SHM solo con conexiones detenidas, ajustar propietario/permisos, probar y reanudar. No recuperar una copia vieja sin reaplicar eliminaciones.
+
+`purge --dry-run` revisa recuentos; `purge` elimina fila, payload, IA y atribución tras 12 meses desde última comunicación (creación si no existe). `contact ID --commercial-active` registra comunicación y protege relación comercial; `contact ID` registra comunicación y libera esa protección. Mantener ese estado también al cerrar clientes: no hay sincronización de fechas ni contratos desde Brevo. Los backups conservan datos hasta rotación (14 copias) y requieren procedimiento de supresión/restauración. `CAMPAIGN_PURGE_BREVO=false` por defecto: el borrado remoto elimina todo el contacto, revisar primero otras finalidades y bases jurídicas. Si existe otra solicitud local del mismo email no se borra el contacto compartido; un fallo remoto conserva la referencia local para revisión.
+
+Consultar `docs/siguiente-etapa-crm.md` para CRM y diseño offline. No hay propuestas, firmas, pagos ni encargos a freelancers implementados.

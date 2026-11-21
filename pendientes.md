@@ -8,27 +8,27 @@ Actualizado: 21 de noviembre de 2026.
 Este documento reúne los pasos para terminar, activar y publicar los servicios nuevos, las landings de Google Ads, la captación mediante formulario y la identificación empresarial. Las casillas vacías son tareas pendientes. Los responsables propuestos son **Soto Digital** —decisiones, contenidos y cuentas— y **Desarrollo/hosting** —configuración, código, pruebas y publicación—. Una misma persona puede asumir ambos roles.
 
 
-## Pendientes vigentes — resumen por orden
+## Pendientes vigentes tras la auditoría
 
-Este resumen prevalece sobre los apartados históricos. No se consideran verificadas las cuentas ni claves que el usuario haya podido configurar fuera de esta conversación. La captación pública se concentra en el formulario; no hay tareas pendientes para reactivar WhatsApp.
+Este listado sustituye los apartados históricos inferiores. Implementación y pruebas locales realizadas; **no se ha publicado ni verificado ninguna cuenta real**. Informe y evidencias: `docs/auditoria-2026-11.md`.
 
-1. **Cerrar privacidad:** aportar datos del Registro Mercantil y aclarar si se ofrecerán newsletters; hasta entonces no hay suscripción automática. Revisar contratos de proveedores y transferencias, completar inventario/duración de cookies y definir caducidad de preferencias. Implantar registro de última comunicación y eliminación efectiva a los 12 meses. Los datos societarios, NIF, domicilio, Arsys, email y acceso solo de Soto Digital ya están confirmados.
-2. **Activar Brevo:** sustituir el marcador CLAVEAPISOTO por una clave API real en el archivo privado, completar BREVO_LIST_ID, crear los atributos y verificar remitente/DNS. Probar recepción y respuesta en ads@soto-digital.com. La sustitución local del marcador está preparada; no se ha validado una clave real.
-3. **Configurar Turnstile:** cuenta/widget, claves, hostnames y prueba de verificación en servidor.
-4. **Configurar Claude API:** clave, facturación/límite y modelo autorizado; probar resumen y fallo controlado. La revisión humana ya está confirmada.
-5. **Preparar Arsys:** comprobar PHP/extensiones y HTTPS, carpeta privada, archivo de configuración fuera del directorio público, copias de seguridad y cron del worker con sus variables. La configuración local de XAMPP no sustituye la de producción.
-6. **Ajustar puntuación:** adaptar cuestionario y reglas a la tabla original recibida en la conversación completa con Claude; dejar de utilizar la tabla provisional y comprobar los nuevos umbrales y versiones históricas.
-7. **Concretar la oferta:** alcance/entrega de la mini-auditoría gratuita, plazo de respuesta, propuesta y honorarios. La gratuidad está confirmada; no hay precios cerrados.
-8. **Organizar Brevo comercialmente:** segmentos por potencial, pipeline, responsable y recordatorios; hoy el código integra contactos, no un proceso comercial completo de tratos y tareas.
-9. **Grabar e incorporar vídeos:** entrevista de Google Ads primero y después servicios anunciados, con MP4 optimizado, subtítulos y revisión.
-10. **Completar prueba social:** solicitar testimonios auténticos, permisos y resultados verificables; distinguir negocios propios de clientes externos. Los borradores de solicitud están preparados, sin enviar.
-11. **Preparar campañas:** investigación real en el Planificador, zonas, grupos, palabras negativas, anuncios, destinos y presupuesto aprobado. No hay campañas creadas ni lanzadas desde aquí.
-12. **Activar medición:** IDs/labels de Google, comprobación con Tag Assistant y prueba de consentimiento y conversión única del formulario. No configurar WhatsApp como objetivo vigente porque se han retirado sus accesos.
-13. **Activar identificación empresarial:** cuenta/plan y código de Leadfeeder/Dealfront, filtros, condiciones y prueba bajo consentimiento. No identifica a cada persona ni crea automáticamente leads personales.
-14. **Prueba completa y revisión visual:** móvil/escritorio, errores y éxito del formulario, almacenamiento, cola, Brevo, IA, aviso al equipo, agradecimiento y conversión; comprobar que no hay contacto alternativo a WhatsApp/teléfono ni regresiones.
-15. **Publicar:** copia previa, despliegue conjunto de PHP/recursos/manifiesto/reglas, comprobación del sitemap/robots/noindex y prueba posterior en el dominio. Lanzar publicidad solo después de verificar el circuito.
+1. **Arsys y lanzamiento (equipo/hosting):** comprobar PHP y extensiones PDO SQLite/cURL/mbstring, Apache/rewrite/headers, HTTPS, rutas desde raíz, carpeta privada y permisos. Configurar cron worker cada 5 minutos, copia diaria, purga y monitor externo protegido con aviso independiente. Probar restauración y preparar rollback antes de activar anuncios.
+2. **Brevo (equipo):** clave API real privada, lista Leads web y atributos de `docs/integracion-leads.md`, remitente ads verificado, SPF/DKIM/DMARC según cuenta, prueba de entrega y respuesta. Ninguna newsletter automática. Revisar cualquier automatización preexistente en la lista.
+3. **Turnstile (equipo):** dar de alta widget, dominios y claves privadas; probar éxito, token inválido y caducado en servidor real. La simulación local no valida Cloudflare real.
+4. **Claude (equipo):** cuenta, clave, facturación/límite y acceso al modelo; verificar resumen y recuperación. Solo recibe categorías y puntuación, sin datos personales ni texto libre.
+5. **Medición (equipo/desarrollo):** IDs GA4/Ads y label del formulario, Tag Assistant, aceptar/rechazar/retirar permisos y conversión única. Elegir una sola conversión principal para evitar duplicar etiqueta directa e importación GA4. Ads sin personalización. Revisar proveedores bloqueados y CSP report-only en dominio real antes de endurecerla.
+6. **Privacidad (equipo):** datos registrales, contratos y transferencias de Arsys/Brevo/Cloudflare/Anthropic, inventario final de cookies/proveedores, política de copias y responsables de última comunicación/relación comercial. Revisar técnicamente y jurídicamente la configuración definitiva. Eliminación local a 12 meses implementada; hay que programarla y gestionar Brevo/copias. Newsletters siguen desactivadas.
+7. **Oferta (equipo):** fijar alcance de mini-auditoría gratuita, plazo real de respuesta y precios si queréis publicarlos. No hay cifras inventadas. Completar `CAMPAIGN_RESPONSE_TIME` solo tras aprobarlo.
+8. **LED (equipo):** confirmar si funciona, disponibilidad y datos verificables antes de venderla; mantener claramente identificada la recreación mientras corresponda.
+9. **Confianza (equipo):** entregar fotos autorizadas de Jónatan y Rebeca y aprobar presentación; conseguir permisos de proyectos/logos, testimonios y resultados demostrables. Clientes destacados ocultos hasta autorización. No confundir entregables con mejoras medidas.
+10. **Vídeos (equipo):** grabar entrevista de Google Ads primero; identificar quién interviene, explicar problema/proceso/auditoría sin promesas. Entregar vídeo autorizado, miniatura, subtítulos y alojamiento/MP4 optimizado. Después repetir para servicios anunciados; aprobar antes de activar bloques.
+11. **SEO y contenido (equipo/desarrollo):** aprobar borradores `/google-ads.php`, `/meta-ads.php` y blog antes de retirar noindex y regenerar sitemap. Verificar Google Business Profile de Maliaño y validar esquema con herramienta de resultados enriquecidos al publicar.
+12. **Campañas (equipo):** usar Planificador real, definir zonas, presupuesto, grupos por intención, palabras negativas y anuncios coherentes con landing/variante. Landings sin menú y noindex; no son un acceso privado exclusivo para clics Ads. No bloquear usuarios por ausencia de gclid.
+13. **Accesibilidad/rendimiento (desarrollo):** resolver alternativa de envío sin JavaScript (Turnstile lo requiere actualmente); comprobar con tecnologías de apoyo reales. Revisar variación Lighthouse y repetir en Arsys con cuentas reales y sin llamadas de prueba. La prueba local no equivale a Core Web Vitals de usuarios.
+14. **Prueba de producción controlada (equipo/desarrollo):** copia previa, despliegue conjunto, un lead propio con consentimiento y revisión de guardado, Brevo, IA, los dos emails, gracias/conversión, cron, monitor y restauración. Solo después activar publicidad.
+15. **Opcional, posterior:** alta Dealfront bajo consentimiento; segmentos y pipeline Brevo (esqueleto de tratos desactivado, necesita IDs y revisión); importación offline solo diseñada. Propuestas, firma, pagos y freelancers fuera de esta fase.
 
-**Fase posterior, no bloquea el lanzamiento:** propuestas asistidas con aprobación, firma, cobro inicial y recurrente, gestión de freelancers e IA conectada a empresas de Leadfeeder. No están desarrollados esos flujos.
+**Resuelto en local:** tabla acordada 0–10 con históricos, móvil opcional, tokens y Turnstile diferidos, formulario en hero/servicios, variantes cerradas, cabeceras/404 privados/caché, copias/purga/health, consentimiento equilibrado con caducidad, eventos sin datos personales, eliminación de restos de chat, imágenes/SEO/sitemap y pruebas automatizadas. Los detalles inferiores son históricos y no deben usarse como checklist actual.
 
 ## 0. Cambios realizados el 21 de noviembre y próximos pasos inmediatos
 
@@ -39,7 +39,7 @@ Este resumen prevalece sobre los apartados históricos. No se consideran verific
 - [x] Titular de la home orientado a consultas y oferta de mini-auditoría inicial gratuita, confirmada por Soto Digital.
 - [x] Cuestionario guiado en home y landings: sector, objetivo, inversión, urgencia y contacto; web y contexto opcionales.
 - [x] Endpoint propio `api/lead.php`, guardado privado antes de depender de proveedores y respuesta de éxito solo tras guardar un lead válido.
-- [x] Puntuación PHP 0–10 y categorías caliente/templado/frio, con reglas provisionales editables y versión guardada.
+- [x] Puntuación PHP 0–10 y categorías caliente/templado/frio, con tabla acordada v1-acordada-2026-11-21 y versión guardada.
 - [x] Claude limitado a resumen y siguiente paso, sin decidir la puntuación y sin recibir datos de contacto ni texto libre.
 - [x] Integración Brevo para crear/actualizar contactos y gestionar los emails transaccionales; sustituye a Resend.
 - [x] Cola y proceso privado para las APIs; fallos de IA/CRM no pierden la solicitud.
@@ -54,7 +54,7 @@ Este resumen prevalece sobre los apartados históricos. No se consideran verific
 1. Crear/recuperar Brevo y Anthropic API, configurar claves y presupuesto/límites de uso. No basta con tener una suscripción al chat de Claude.
 2. En Brevo, crear la lista **Leads web**, los atributos de `docs/integracion-leads.md` y verificar remitente/dominio.
 3. Configurar Turnstile, almacenamiento privado y `soto-config.php` fuera del directorio público.
-4. Programar `php tools/campaign-leads.php retry`: sin ese proceso, los leads se guardan pero no se procesan las APIs ni los emails.
+4. Programar `php bin/campaign-leads.php retry`: sin ese proceso, los leads se guardan pero no se procesan las APIs ni los emails.
 5. Adaptar la puntuación provisional a la tabla original, ya recibida en la conversación completa de Claude.
 6. Configurar los IDs/labels reales de Google y comprobar conversiones con Tag Assistant.
 7. Revisar en navegador y ejecutar una prueba controlada real de formulario, Brevo, emails e IA.
@@ -258,9 +258,9 @@ Referencia de configuración y atributos: `docs/integracion-leads.md`. Los enví
 Herramientas existentes, solo para personal con acceso al servidor:
 
 ```sh
-php tools/campaign-leads.php export
-php tools/campaign-leads.php retry
-php tools/campaign-leads.php status
+php bin/campaign-leads.php export
+php bin/campaign-leads.php retry
+php bin/campaign-leads.php status
 ```
 
 - [ ] Preparar la exportación a un destino privado fuera de la web. El primer comando escribe CSV en la salida del terminal.
@@ -420,7 +420,7 @@ Ficha que hay que completar por caso:
 - [x] No enviar nombre, email, móvil, mensaje, puntuación ni contenido de WhatsApp en los eventos.
 - [x] Mantener el origen recibido durante 30 minutos en la sesión al navegar entre landings.
 - [ ] Crear/recuperar propiedad GA4 y cuenta Google Ads que se usarán realmente.
-- [ ] Configurar GOOGLE_ANALYTICS_ID (G-...), GOOGLE_ADS_ID (AW-...), GOOGLE_ADS_LEAD_LABEL y GOOGLE_ADS_WHATSAPP_LABEL.
+- [ ] Configurar GOOGLE_ANALYTICS_ID (G-...), GOOGLE_ADS_ID (AW-...), GOOGLE_ADS_LEAD_LABEL.
 - [ ] Revisar la conversión del formulario como objetivo vigente; no activar medición de WhatsApp mientras no existan sus accesos públicos.
 - [ ] Elegir una sola fuente principal por conversión: no importar además generate_lead si ya cuenta la etiqueta directa Ads.
 - [ ] No instalar otro contenedor/etiqueta duplicado. La implementación actual utiliza gtag directamente y no requiere GTM.
@@ -599,8 +599,8 @@ Las pruebas usan datos de ejemplo y transportes simulados; no han enviado contac
 
 ## 23. Configuración privada local de Brevo preparada
 
-- [x] Crear `/Applications/XAMPP/xamppfiles/sotodigital-private/soto-config.php`, fuera de `htdocs`, con permisos restringidos y lectura para PHP de XAMPP.
-- [x] Añadir el marcador `CLAVEAPISOTO` en BREVO_API_KEY; el cargador lo trata como desactivado para no enviarlo accidentalmente a Brevo.
+- [x] Preparar configuración local fuera del directorio público y con permisos restringidos; configurar la ruta privada propia de Arsys antes de publicar.
+- [x] Preparar la clave de Brevo en configuración privada. El cargador actual rechaza valores sin el formato real del proveedor; falta verificar una clave real en el hosting.
 - [x] Conectar la configuración en `.htaccess` solo para localhost/127.0.0.1. En producción hay que definir SOTO_CONFIG_FILE con su propia ruta privada.
 - [ ] Sustituir el marcador por una **clave API de Brevo**, no por la contraseña de acceso al panel. Editar solo el archivo privado, no `docs/soto-config.example.php`.
 - [ ] Completar BREVO_LIST_ID y confirmar los atributos y el remitente ads@soto-digital.com en Brevo.

@@ -1,0 +1,16 @@
+PASS: validation, optional website, screening, score boundaries, migration, persistent 5/hour rate, PII minimization, CRM upsert, duplicate protection, provider failures and email recovery
+PASS: agreed scores 0/3/4/6/7/10 and optional/required phone switch
+
+PASS: trusted proxies, spoof protection, CIDR IPv4/IPv6
+PASS: stopped worker, stale queue/Brevo failure, throttled alert and read-only storage
+PASS: consistent private SQLite backup and rotation
+PASS: retention, dry-run, commercial holds, last contact and failed remote cleanup
+PASS: aggregate-only report and CRM disabled by default
+PASS: simulated hot-lead CRM association and duplicate prevention
+
+PASS: 5-step wizard, validation, back navigation, API errors, success redirect, consent signals, category separation, consent migration, blocked storage, conversions, deduplication
+
+PASS: PHP lint 64 files
+PASS: manifest hashes and maximum two versions
+PASS: title/description limits, unique H1, no phone/chat CTAs or base tag
+PASS: sitemap 14 unique public pages

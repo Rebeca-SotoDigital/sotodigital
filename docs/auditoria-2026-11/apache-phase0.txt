@@ -1,0 +1,11 @@
+/pendientes.md 404 Cache-Control=['no-cache'] X-Robots=None
+/docs/integracion-leads.md 404 Cache-Control=['no-cache'] X-Robots=None
+/includes/campaign-leads.php 404 Cache-Control=['no-cache'] X-Robots=None
+/tools/build-assets.py 404 Cache-Control=['no-cache'] X-Robots=None
+/.git/config 404 Cache-Control=['no-cache'] X-Robots=None
+/ 200 Cache-Control=['private, no-store'] X-Robots=None
+/campanas/google-ads.php 200 Cache-Control=['no-store'] X-Robots=noindex, nofollow
+/api/lead.php 405 Cache-Control=['private, no-store'] X-Robots=noindex, nofollow
+/tarjeta/rebeca/rebeca-munoz-herreros.vcf 200 Cache-Control=['no-cache'] X-Robots=None
+/css/site.16054f91f9b6.css 200 Cache-Control=['public, max-age=31536000, immutable'] X-Robots=None
+/img/favicon.ico 200 Cache-Control=['public, max-age=2592000'] X-Robots=None

@@ -1,0 +1,182 @@
+[
+  {
+    "stage": "before",
+    "page": "home",
+    "run": 1,
+    "performance": 61,
+    "accessibility": 96,
+    "lcp_ms": 920,
+    "cls": 0,
+    "tbt_ms": 10113.13935
+  },
+  {
+    "stage": "before",
+    "page": "home",
+    "run": 2,
+    "performance": 100,
+    "accessibility": 96,
+    "lcp_ms": 1887,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "stage": "before",
+    "page": "home",
+    "run": 3,
+    "performance": 100,
+    "accessibility": 96,
+    "lcp_ms": 1890,
+    "cls": 0,
+    "tbt_ms": 55
+  },
+  {
+    "stage": "before",
+    "page": "google-ads",
+    "run": 1,
+    "performance": 100,
+    "accessibility": 95,
+    "lcp_ms": 913,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "stage": "before",
+    "page": "google-ads",
+    "run": 2,
+    "performance": 100,
+    "accessibility": 95,
+    "lcp_ms": 911,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "stage": "before",
+    "page": "google-ads",
+    "run": 3,
+    "performance": 100,
+    "accessibility": 95,
+    "lcp_ms": 912,
+    "cls": 0,
+    "tbt_ms": 69.5
+  },
+  {
+    "stage": "before",
+    "page": "servicio",
+    "run": 1,
+    "performance": 100,
+    "accessibility": 96,
+    "lcp_ms": 870,
+    "cls": 0,
+    "tbt_ms": 51.5
+  },
+  {
+    "stage": "before",
+    "page": "servicio",
+    "run": 2,
+    "performance": 100,
+    "accessibility": 96,
+    "lcp_ms": 868,
+    "cls": 0,
+    "tbt_ms": 45.5
+  },
+  {
+    "stage": "before",
+    "page": "servicio",
+    "run": 3,
+    "performance": 100,
+    "accessibility": 96,
+    "lcp_ms": 838,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "stage": "after",
+    "page": "home",
+    "run": 1,
+    "performance": 97,
+    "accessibility": 100,
+    "lcp_ms": 2352,
+    "cls": 0,
+    "tbt_ms": 96.99999999999989
+  },
+  {
+    "stage": "after",
+    "page": "home",
+    "run": 2,
+    "performance": 99,
+    "accessibility": 100,
+    "lcp_ms": 913,
+    "cls": 0,
+    "tbt_ms": 147
+  },
+  {
+    "stage": "after",
+    "page": "home",
+    "run": 3,
+    "performance": 98,
+    "accessibility": 100,
+    "lcp_ms": 2320,
+    "cls": 0,
+    "tbt_ms": 81.37630000000013
+  },
+  {
+    "stage": "after",
+    "page": "google-ads",
+    "run": 1,
+    "performance": 100,
+    "accessibility": 100,
+    "lcp_ms": 917,
+    "cls": 0,
+    "tbt_ms": 66.99999999999989
+  },
+  {
+    "stage": "after",
+    "page": "google-ads",
+    "run": 2,
+    "performance": 100,
+    "accessibility": 100,
+    "lcp_ms": 915,
+    "cls": 0,
+    "tbt_ms": 66
+  },
+  {
+    "stage": "after",
+    "page": "google-ads",
+    "run": 3,
+    "performance": 64,
+    "accessibility": 100,
+    "lcp_ms": 4923,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "stage": "after",
+    "page": "servicio",
+    "run": 1,
+    "performance": 100,
+    "accessibility": 100,
+    "lcp_ms": 918,
+    "cls": 0,
+    "tbt_ms": 3.680349999999976
+  },
+  {
+    "stage": "after",
+    "page": "servicio",
+    "run": 2,
+    "performance": 100,
+    "accessibility": 100,
+    "lcp_ms": 916,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "stage": "after",
+    "page": "servicio",
+    "run": 3,
+    "performance": 64,
+    "accessibility": 100,
+    "lcp_ms": 4924,
+    "cls": 0,
+    "tbt_ms": 0
+  }
+]

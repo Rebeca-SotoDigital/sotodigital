@@ -1,0 +1,114 @@
+{
+  "results": [
+    {
+      "name": "home",
+      "width": 390,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "google-ads",
+      "width": 390,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "servicio",
+      "width": 390,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "privacidad",
+      "width": 390,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "cookies",
+      "width": 390,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "aviso",
+      "width": 390,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "gracias",
+      "width": 390,
+      "conversionEvents": 1,
+      "reloadConversionEvents": 0
+    },
+    {
+      "name": "home",
+      "width": 1440,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "google-ads",
+      "width": 1440,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "servicio",
+      "width": 1440,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "privacidad",
+      "width": 1440,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "cookies",
+      "width": 1440,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "aviso",
+      "width": 1440,
+      "status": 200,
+      "setCookie": false,
+      "overflow": false,
+      "axe": []
+    },
+    {
+      "name": "gracias",
+      "width": 1440,
+      "conversionEvents": 1,
+      "reloadConversionEvents": 0
+    }
+  ],
+  "failures": [],
+  "consoleErrors": []
+}
