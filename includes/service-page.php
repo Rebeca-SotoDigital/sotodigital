@@ -3,8 +3,11 @@ $pageTitle = $service['title'];
 $pageDescription = $service['description'];
 $canonicalPath = '/' . $service['slug'] . '.php';
 $serviceStyles = true;
+require __DIR__.'/campaign-context.php';
+$slug = ['seo-sem'=>'sem','pantalla-led-raos'=>'pantalla-led'][$service['slug']] ?? $service['slug'];
+$pageDraft = !empty($service['draft']);
 $escape = static function ($value) { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); };
-$contactUrl = './#diagnostico';
+$contactUrl = $service['slug'].'.php#solicitud';
 $serviceLinks = [
     'diseno-web' => 'Diseño web',
     'redes-sociales' => 'Redes sociales',
@@ -95,11 +98,9 @@ include __DIR__ . '/header.php';
             </div>
         </div>
     </section>
-    <section class="contact-section">
-        <div class="container">
-            <span class="section-subtitle">EL SIGUIENTE PASO</span><h2>Cuéntanos qué necesitas.</h2>
-            <p>Nuestra sede está en Maliaño, Cantabria. Te atendemos con contacto directo y coordinamos el proyecto contigo según el servicio que necesites.</p>
-            <a class="btn btn-accent" href="<?= $escape($contactUrl) ?>"><?= $escape($service['cta']) ?> <span aria-hidden="true">↗</span></a>
+    <section id="solicitud" class="campaign-contact">
+        <div class="container campaign-split"><div><span class="section-subtitle">EL SIGUIENTE PASO</span><h2>Cuéntanos qué necesitas.</h2><p>Empieza con una mini-auditoría inicial gratuita. Revisaremos tus respuestas y acordaremos contigo el alcance antes de preparar la propuesta.</p></div>
+        <?php include __DIR__.'/campaign-form.php'; ?>
         </div>
     </section>
     <section class="service-related">
