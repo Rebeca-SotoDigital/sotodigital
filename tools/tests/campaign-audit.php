@@ -46,3 +46,11 @@ audit_check(strpos(json_encode($report),'@example.com')===false && strpos(json_e
 $lead=$purgeDb->query('SELECT * FROM leads LIMIT 1')->fetch(PDO::FETCH_ASSOC);
 campaign_create_deal($purgeDb,$lead,static function(){throw new RuntimeException('Disabled CRM called');});
 echo "PASS: aggregate-only report and CRM disabled by default\n";
+// Enabled path remains entirely simulated: no real provider or account IDs.
+putenv('BREVO_CREATE_DEALS=true');putenv('BREVO_API_KEY=xkeysib-audit-test');putenv('BREVO_PIPELINE_ID=audit-pipeline');putenv('BREVO_NEW_STAGE_ID=audit-new');
+$hot=['name'=>'Synthetic audit','email'=>'audit@example.com','score'=>10,'category'=>'caliente','score_version'=>'v1-acordada-2026-11-21'];
+$purgeDb->prepare('INSERT INTO leads(id,created_at,service,payload,attribution,consent_version,brevo_synced,brevo_contact_id) VALUES(?,?,?,?,?,?,1,123)')->execute(['hot-deal',gmdate('c'),'google-ads',json_encode($hot),'{}','test']);
+$dealCalls=0;$transport=static function($url,$headers,$payload)use(&$dealCalls){$dealCalls++;audit_check(str_ends_with($url,'/crm/deals'),'Wrong deal endpoint');audit_check($payload['linkedContactsIds']===[123]&&$payload['attributes']['pipeline']==='audit-pipeline'&&$payload['attributes']['deal_stage']==='audit-new','Wrong CRM association');return ['status'=>201,'body'=>['id'=>'audit-deal']];};
+foreach([1,2] as $attempt){$row=$purgeDb->query("SELECT * FROM leads WHERE id='hot-deal'")->fetch(PDO::FETCH_ASSOC);campaign_create_deal($purgeDb,$row,$transport);}
+audit_check($dealCalls===1,'Repeated deal created');putenv('BREVO_CREATE_DEALS');putenv('BREVO_API_KEY');putenv('BREVO_PIPELINE_ID');putenv('BREVO_NEW_STAGE_ID');
+echo "PASS: simulated hot-lead CRM association and duplicate prevention\n";
