@@ -7,6 +7,7 @@ return [
     'CAMPAIGN_ALERT_TO' => 'ads@soto-digital.com',
     'TURNSTILE_SITE_KEY' => '',
     'TURNSTILE_SECRET_KEY' => '',
+    'CAMPAIGN_RESPONSE_TIME' => '', // Only a service level approved by the team.
     'CAMPAIGN_PHONE_REQUIRED' => false,
     'CAMPAIGN_ALLOWED_HOSTS' => 'soto-digital.com,www.soto-digital.com',
     'CAMPAIGN_TRUSTED_PROXIES' => '', // Comma-separated CIDRs; proxies must overwrite forwarded headers.
