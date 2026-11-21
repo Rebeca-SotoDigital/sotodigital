@@ -4,7 +4,7 @@ ErrorDocument 404 /404.php
 # Canonical production domain. Local development hosts are unaffected.
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^(includes|tools|docs)(/|$) - [R=404,L]
+    RewriteRule ^(includes|tools|docs|bin)(/|$) - [R=404,L]
     RewriteRule ^[^/]*\.md$ - [R=404,L,NC]
     RewriteRule \.(py|sqlite3?|log|bak|sql|ini)$ - [R=404,L,NC]
     RewriteRule (^|/)\.(ht|git|DS_Store) - [R=404,L]

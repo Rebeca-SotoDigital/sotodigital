@@ -117,7 +117,8 @@ function campaign_store(PDO $db, string $id, string $service, array $data, array
 function campaign_http(string $url, array $headers, array $payload, int $timeout = 12, string $method = 'POST'): array {
     if (defined('CAMPAIGN_TEST_HARNESS') && CAMPAIGN_TEST_HARNESS === true && isset($GLOBALS['campaign_test_http'])) return ($GLOBALS['campaign_test_http'])($url, $headers, $payload);
     $curl = curl_init($url);
-    curl_setopt_array($curl, [CURLOPT_CUSTOMREQUEST => $method, CURLOPT_POSTFIELDS => json_encode($payload, JSON_THROW_ON_ERROR), CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 4, CURLOPT_TIMEOUT => $timeout, CURLOPT_HTTPHEADER => array_merge(['Content-Type: application/json', 'Accept: application/json'], $headers)]);
+    curl_setopt_array($curl, [CURLOPT_CUSTOMREQUEST => $method, CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 4, CURLOPT_TIMEOUT => $timeout, CURLOPT_HTTPHEADER => array_merge(['Content-Type: application/json', 'Accept: application/json'], $headers)]);
+    if (!in_array(strtoupper($method), ['GET', 'DELETE'], true)) curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload, JSON_THROW_ON_ERROR));
     $body = curl_exec($curl); $status = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE); curl_close($curl);
     return ['status' => $status, 'body' => $body === false ? [] : (json_decode($body, true) ?: [])];
 }
@@ -211,6 +212,6 @@ function campaign_process(PDO $db, string $id, ?callable $http = null, ?callable
     $stmt->execute([$id]); $row = $stmt->fetch(PDO::FETCH_ASSOC);
     try { campaign_brevo_sync($db, $row, $http); } catch (Throwable $e) { error_log('Campaign CRM pending'); }
     $stmt->execute([$id]); $row=$stmt->fetch(PDO::FETCH_ASSOC);
-    if (function_exists('campaign_create_deal')) campaign_create_deal($db,$row,$http);
+    try { if (function_exists('campaign_create_deal')) campaign_create_deal($db,$row,$http); } catch (Throwable $e) { error_log('Campaign deal requires review'); }
     campaign_deliver($db, $id, $sender);
 }
