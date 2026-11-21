@@ -2,6 +2,7 @@
 // EXAMPLE ONLY: copy OUTSIDE the public web root as soto-config.php.
 // Point SOTO_CONFIG_FILE to that absolute path. Do not enter real secrets here.
 return [
+    'SOTO_REGISTRO_MERCANTIL' => '', // Fill only with real company registration details.
     'CAMPAIGN_DATA_DIR' => '/absolute/private/soto-leads',
     'CAMPAIGN_RETENTION_MONTHS' => 12,
     'CAMPAIGN_PURGE_BREVO' => false, // Requires separate review: deletes a whole Brevo contact.

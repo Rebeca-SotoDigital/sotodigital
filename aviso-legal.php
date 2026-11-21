@@ -18,6 +18,7 @@ include 'includes/header.php';
             <ul>
                 <li><strong>Titular:</strong> Soto Digital S.L.</li>
                 <li><strong>NIF:</strong> B05897236</li>
+<?php /* {{REGISTRO_MERCANTIL}}: hidden until supplied by the company. */ $registration=campaign_config('SOTO_REGISTRO_MERCANTIL'); if($registration): ?><li><strong>Datos registrales:</strong> <?= htmlspecialchars($registration,ENT_QUOTES,'UTF-8') ?></li><?php endif; ?>
                 <li><strong>Dirección:</strong> Calle Galera 41, Polígono de Raos, 39600 Maliaño, Cantabria, España</li>
                 <li><strong>Email:</strong> <a href="mailto:rebeca@soto-digital.com">rebeca@soto-digital.com</a></li>
                 <li><strong>Instagram:</strong> <a href="https://instagram.com/sotodigital" target="_blank" rel="noopener noreferrer">@sotodigital</a></li>
