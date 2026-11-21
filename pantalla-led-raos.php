@@ -7,7 +7,6 @@ $service = [
 'heading' => 'Publicidad en pantalla LED en Raos, Cantabria',
 'intro' => 'Lleva tu marca a la calle con la pantalla LED de Soto Digital de 6 × 3 metros en el Polígono de Raos, en Maliaño, Cantabria, frente a la ITV. Un soporte de gran formato para presentar tu negocio, comunicar una promoción o anunciar una novedad.',
 'cta' => 'Consultar cómo anunciarme',
-'message' => 'Hola, quiero información sobre publicidad en la pantalla LED en Raos.',
 'section' => 'Visibilidad local en gran formato',
 'body' => 'Si quieres dar a conocer tu negocio en la zona, podemos ayudarte a preparar un anuncio para este soporte. Partimos de lo que quieres comunicar y concretamos contigo la creatividad y las condiciones de emisión antes de poner en marcha la campaña.',
 'items' => [['Una ubicación concreta', 'La pantalla está situada en el Polígono de Raos, frente a la ITV, en Maliaño, Cantabria.'], ['Un mensaje para la calle', 'Trabajamos una pieza con una idea clara, una marca reconocible y la información necesaria para comunicar tu propuesta.'], ['Diseño del anuncio', 'También diseñamos tu anuncio. Si ya tienes materiales, revisamos contigo cómo adaptarlos a la pantalla.']],

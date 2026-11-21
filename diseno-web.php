@@ -7,7 +7,6 @@ $service = [
 'heading' => 'Diseño de páginas web para empresas y negocios',
 'intro' => 'Tu web es un lugar donde presentar lo que haces, resolver dudas y abrir una conversación con tus próximos clientes. Diseñamos páginas para negocios de cualquier lugar, con una estructura clara y una imagen coherente con tu marca. Coordinamos el proyecto contigo a distancia y con comunicación directa.',
 'cta' => 'Hablemos de tu web',
-'message' => 'Hola, quiero información sobre diseño web para mi negocio.',
 'section' => 'De la primera visita al primer contacto',
 'body' => 'Organizamos la información para que quien llegue a tu web entienda qué ofreces, a quién ayudas y cómo dar el siguiente paso. Definimos contigo las páginas y los contenidos que necesita tu proyecto, tanto si empiezas desde cero como si quieres renovar tu presencia digital.',
 'items' => [['Diseño y contenido', 'Una presentación de tus servicios con una identidad visual coherente y textos que expliquen tu propuesta.'], ['Desarrollo web', 'Una web adaptada a móvil, tableta y ordenador, con navegación clara y vías de contacto accesibles.'], ['Dominio, hosting y mantenimiento', 'Podemos incluir alojamiento, dominio, mantenimiento y soporte en la propuesta, según las necesidades de tu proyecto.']],

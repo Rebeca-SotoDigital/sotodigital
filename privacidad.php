@@ -47,7 +47,7 @@ include 'includes/header.php';
 <p>Puedes solicitar acceso, rectificación, supresión, oposición, limitación y portabilidad cuando procedan, escribiendo a <a href="mailto:rebeca@soto-digital.com">rebeca@soto-digital.com</a>. Si el tratamiento depende de tu consentimiento, puedes retirarlo sin afectar a la licitud del tratamiento previo. Solo se solicitará información adicional para verificar tu identidad cuando sea necesaria.</p>
 <p>Puedes presentar una reclamación ante la <a href="https://www.aepd.es/" target="_blank" rel="noopener noreferrer">Agencia Española de Protección de Datos</a> si consideras que el tratamiento vulnera tus derechos.</p>
 <h2>Enlaces externos y más información</h2>
-<p>Los enlaces a perfiles externos, como Instagram, te llevan a servicios con sus propias políticas. Esta web no incluye actualmente un chat de WhatsApp ni un mapa incrustado. Puedes consultar también nuestra <a href="cookies.php">política de cookies</a>.</p>
+<p>Los enlaces a perfiles externos, como Instagram, te llevan a servicios con sus propias políticas. Puedes consultar también nuestra <a href="cookies.php">política de cookies</a>.</p>
 <ul class="policy-links">
 <li><a href="https://www.arsys.es/legal" target="_blank" rel="noopener noreferrer">Información legal de Arsys</a></li>
 <li><a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener noreferrer">Privacidad de Brevo</a></li>

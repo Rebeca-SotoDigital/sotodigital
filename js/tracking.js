@@ -94,12 +94,4 @@
             leadConversion();
         }
     };
-    document.addEventListener('click', function (event) {
-        const link = event.target.closest && event.target.closest('a[href]');
-        if (!link || !/^https:\/\/(?:wa\.me\/|api\.whatsapp\.com\/)/i.test(link.href)) return;
-        const placement = link.getAttribute ? link.getAttribute('data-contact-placement') : '';
-        const params = {service: config.service, contact_placement: placement === 'floating' ? 'floating' : 'inline', page_location: safeLocation(), page_referrer: safeReferrer()};
-        if (preferences.analytics && config.ga4) window.gtag('event', 'whatsapp_click', Object.assign({send_to: config.ga4}, params));
-        if (preferences.advertising && config.ads && config.whatsappLabel) window.gtag('event', 'conversion', Object.assign({send_to: config.ads + '/' + config.whatsappLabel}, params));
-    });
 })();

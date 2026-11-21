@@ -56,7 +56,7 @@ main_css = '\n'.join(parts)
 publish('css/site.css', (notice + compact_css(main_css) + '\n').encode())
 publish('css/site-services.css', (notice + compact_css(main_css + '\n' + (ROOT / 'css/services.css').read_text()) + '\n').encode())
 publish('css/campaign.css', (notice + compact_css((ROOT / 'css/campaign.css').read_text()) + '\n').encode())
-for name in ['main', 'cookies', 'campaign', 'campaign-bootstrap', 'tracking', 'campaign-whatsapp']:
+for name in ['main', 'cookies', 'campaign', 'campaign-bootstrap', 'tracking']:
     publish(f'js/{name}.js', (ROOT / f'js/{name}.js').read_bytes())
 
 # Generated PHP data, without runtime filesystem hashing or an asset endpoint.

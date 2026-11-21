@@ -67,6 +67,14 @@
         }); });
     }
     window.sotoTracking = {
+        event: function (name, params) {
+            if (!preferences.analytics || !config.ga4) return;
+            if (!['lead_form_start','lead_form_step','lead_form_error'].includes(name)) return;
+            const safe = {send_to: config.ga4, service: config.service, page_location: safeLocation(), page_referrer: safeReferrer()};
+            if (Number.isInteger(params && params.step) && params.step >= 1 && params.step <= 5) safe.step = params.step;
+            if (['validation','network','api','session','limit'].includes(params && params.type)) safe.error_type = params.type;
+            window.gtag('event', name, safe);
+        },
         apply: function (prefs) {
             const revoked = (preferences.analytics && !prefs.analytics) || (preferences.advertising && !prefs.advertising);
             preferences = {analytics: prefs.analytics === true, advertising: prefs.advertising === true};
@@ -86,12 +94,4 @@
             leadConversion();
         }
     };
-    document.addEventListener('click', function (event) {
-        const link = event.target.closest && event.target.closest('a[href]');
-        if (!link || !/^https:\/\/(?:wa\.me\/|api\.whatsapp\.com\/)/i.test(link.href)) return;
-        const placement = link.getAttribute ? link.getAttribute('data-contact-placement') : '';
-        const params = {service: config.service, contact_placement: placement === 'floating' ? 'floating' : 'inline', page_location: safeLocation(), page_referrer: safeReferrer()};
-        if (preferences.analytics && config.ga4) window.gtag('event', 'whatsapp_click', Object.assign({send_to: config.ga4}, params));
-        if (preferences.advertising && config.ads && config.whatsappLabel) window.gtag('event', 'conversion', Object.assign({send_to: config.ads + '/' + config.whatsappLabel}, params));
-    });
 })();

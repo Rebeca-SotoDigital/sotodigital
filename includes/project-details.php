@@ -39,7 +39,7 @@ return [
         'context' => 'La web presenta el taller, su trayectoria y los servicios que ofrece. Para quien necesita una reparación, reúne información sobre chapa y pintura, trabajo con aseguradoras y restauración de clásicos, junto a las vías para consultar un presupuesto.',
         'work' => [
             ['Servicios del taller', 'La estructura de la web permite conocer las especialidades del negocio y acceder a la información de sus servicios.'],
-            ['Ubicación y contacto', 'La dirección en el Polígono de Raos y los accesos a teléfono, WhatsApp y contacto ayudan a preparar una consulta o una visita.'],
+            ['Ubicación y contacto', 'La dirección en el Polígono de Raos y las vías de contacto disponibles ayudan a preparar una consulta o una visita.'],
             ['Web y gestión de redes', 'El trabajo incluye la presencia del taller en redes sociales, con un enlace al perfil de Instagram desde la web.'],
         ],
         'webSummary' => 'Web de nuestro taller en Maliaño: servicios de chapa y pintura, ubicación y opciones para consultar un presupuesto.',

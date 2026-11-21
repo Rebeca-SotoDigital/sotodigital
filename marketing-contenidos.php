@@ -7,7 +7,6 @@ $service = [
 'heading' => 'Marketing de contenidos que da voz a tu negocio',
 'intro' => 'Lo que sabes y lo que haces puede ayudar a tus futuros clientes a elegir. En Soto Digital lo convertimos en contenidos útiles, claros y con personalidad para tu web, blog y canales digitales. Trabajamos contigo a distancia para planificar y dar forma a tus contenidos.',
 'cta' => 'Hablemos de tus contenidos',
-'message' => 'Hola, quiero información sobre marketing de contenidos para mi negocio.',
 'section' => 'Respuestas que acercan tu marca',
 'body' => 'Partimos de las preguntas de tu público y de lo que hace especial a tu negocio. Definimos los temas, el tono y los formatos para explicar tus servicios, compartir conocimiento y mantener una comunicación coherente.',
 'items' => [['Estrategia de contenidos', 'Definimos objetivos, temas y un calendario editorial para organizar qué contar en cada canal.'], ['Artículos y textos para tu web', 'Redactamos artículos de blog, páginas de servicios y otros textos que explican tu propuesta y responden a las dudas de tu público.'], ['Contenidos para tus canales', 'Adaptamos las ideas a publicaciones, newsletters y otros formatos digitales para que tu comunicación mantenga una misma voz.']],

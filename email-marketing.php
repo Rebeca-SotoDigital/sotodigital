@@ -7,7 +7,6 @@ $service = [
 'heading' => 'Email marketing para seguir en contacto',
 'intro' => 'Convierte las novedades de tu negocio en mensajes que tus clientes quieran recibir. En Soto Digital creamos campañas de email marketing y newsletters con una voz cercana, un diseño coherente y un objetivo claro. Coordinamos tus campañas a distancia, con planificación y contacto directo.',
 'cta' => 'Hablemos de tus campañas de email',
-'message' => 'Hola, quiero información sobre email marketing para mi negocio.',
 'section' => 'Cada envío, con un propósito',
 'body' => 'Te ayudamos a mantener el contacto con tu audiencia, presentar tus servicios y comunicar novedades o promociones. Acordamos los objetivos y la frecuencia para que cada mensaje tenga sentido dentro de tu estrategia.',
 'items' => [['Estrategia y planificación', 'Definimos a quién dirigirte, qué comunicar y cuándo enviar tus campañas, con una planificación adaptada a tu negocio.'], ['Textos y diseño de emails', 'Preparamos asuntos, textos y diseños que reflejan tu marca y facilitan el siguiente paso: visitar tu web, consultar un servicio o conocer una novedad.'], ['Envío y seguimiento', 'Organizamos los envíos y revisamos los resultados disponibles en la plataforma para ajustar los siguientes mensajes.']],

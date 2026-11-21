@@ -8,7 +8,7 @@ function trackingTest() {
     const added = [], listeners = {}, stored = new Map();
     let reloads = 0;
     const nodes = {
-        'soto-tracking-config': {textContent: JSON.stringify({ga4: 'G-TEST', ads: 'AW-123', leadLabel: 'lead', whatsappLabel: 'whatsapp', service: 'google-ads'})},
+        'soto-tracking-config': {textContent: JSON.stringify({ga4: 'G-TEST', ads: 'AW-123', leadLabel: 'lead', service: 'google-ads'})},
         'soto-lead-receipt': {textContent: JSON.stringify({id: 'a'.repeat(32)})}
     };
     const context = {
@@ -36,9 +36,6 @@ function trackingTest() {
     check(funnel && funnel[2].step===2 && !('email' in funnel[2]),'Funnel allowlist');
     check(!JSON.stringify(events).includes('email=private'), 'PII query in tracking');
     check(events.filter(e => e[0] === 'consent').every(e => e[2].ad_personalization === 'denied'), 'Ad personalization enabled');
-    listeners.click({target: {closest: () => ({href: 'https://wa.me/34659625857?text=private-message'})}});
-    check(context.window.dataLayer.some(e => e[1] === 'whatsapp_click'), 'WhatsApp event missing');
-    check(!JSON.stringify(context.window.dataLayer).includes('private-message'), 'WhatsApp message leaked');
     context.window.sotoTracking.apply({analytics: false, advertising: false});
     check(reloads === 1, 'Revocation did not unload Google');
     // A fresh page without a genuine receipt never reports a lead.
@@ -65,21 +62,6 @@ function cookiesTest() {
     const blocked=run(null,true); blocked.nodes['accept-all'].click();
     check(blocked.added.length===0 && !blocked.applied.at(-1).analytics && !blocked.applied.at(-1).advertising, 'Storage failure enabled tracking');
 }
-function floatingWhatsappTest() {
-    let callback;
-    const button={hidden:true};
-    const heroRect={bottom:300};
-    const formRect={top:1600,bottom:2200};
-    const mobile={matches:true,addEventListener:(name,fn)=>{callback=fn;}};
-    const nodes={'[data-floating-whatsapp]':button,'.campaign-hero':{getBoundingClientRect:()=>heroRect},'[data-lead-form]':{getBoundingClientRect:()=>formRect}};
-    const context={document:{addEventListener:(name,fn)=>fn(),querySelector:selector=>nodes[selector]},window:{innerHeight:800,matchMedia:()=>mobile,addEventListener(){},IntersectionObserver:class {constructor(fn){callback=fn;}observe(){}}}};
-    vm.runInNewContext(fs.readFileSync(path.join(root,'js/campaign-whatsapp.js'),'utf8'),context);
-    check(button.hidden,'Floating WhatsApp visible over hero');
-    heroRect.bottom=0;callback();check(!button.hidden,'Floating WhatsApp missing after hero');
-    formRect.top=799;callback();check(button.hidden,'Floating WhatsApp distracts from form');
-    formRect.top=-1200;formRect.bottom=-1;callback();check(!button.hidden,'Floating WhatsApp missing after form');
-    mobile.matches=false;callback();check(button.hidden,'Floating WhatsApp visible on desktop');
-}
 async function wizardTest() {
     const events = {}, controls = {}, steps = [];
     let reported = 0, requestCount = 0, reset = 0, navigated = '', succeeds = false;
@@ -103,5 +85,4 @@ async function wizardTest() {
 }
 trackingTest();
 cookiesTest();
-floatingWhatsappTest();
-wizardTest().then(() => console.log('PASS: 5-step wizard, validation, back navigation, API errors, success redirect, consent signals, category separation, consent migration, blocked storage, conversions, deduplication and WhatsApp')).catch(error => {console.error(error); process.exitCode=1;});
+wizardTest().then(() => console.log('PASS: 5-step wizard, validation, back navigation, API errors, success redirect, consent signals, category separation, consent migration, blocked storage, conversions, deduplication')).catch(error => {console.error(error); process.exitCode=1;});
