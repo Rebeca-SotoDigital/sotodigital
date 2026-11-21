@@ -1,11 +1,5 @@
-# Paginas publicas y recursos disponibles para rastreo.
 User-agent: *
-Disallow: /includes/
-Disallow: /tools/
-Disallow: /docs/
-Disallow: /pendientes.md
 Allow: /
 
-# /campanas/ y /api/ no se bloquean: sus respuestas contienen noindex.
-# CSS, JavaScript e imagenes permanecen accesibles para renderizar la web.
+# Campaign and API responses supply noindex; allow crawlers to read it.
 Sitemap: https://soto-digital.com/sitemap.xml

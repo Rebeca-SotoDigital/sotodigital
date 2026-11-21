@@ -1,3 +1,5 @@
+Options -Indexes
+
 # Local XAMPP configuration only. Production must define its own private path.
 <IfModule mod_setenvif.c>
     SetEnvIf Host "^(localhost|127[.]0[.]0[.]1)(:[0-9]+)?$" SOTO_CONFIG_FILE=/Applications/XAMPP/xamppfiles/sotodigital-private/soto-config.php
@@ -6,6 +8,11 @@
 # Canonical production domain. Local development hosts are unaffected.
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteRule ^(includes|tools|docs)(/|$) - [R=404,L]
+    RewriteRule ^[^/]*\.md$ - [R=404,L,NC]
+    RewriteRule \.(py|sqlite3?|log|bak|sql|ini)$ - [R=404,L,NC]
+    RewriteRule (^|/)\.(ht|git|DS_Store) - [R=404,L]
+
     RewriteCond %{HTTP_HOST} ^(?:www\.)?soto-digital\.com(?::[0-9]+)?$ [NC]
     RewriteCond %{THE_REQUEST} "\s/+index\.php(?:[?\s])" [NC]
     RewriteRule ^index\.php$ https://soto-digital.com/ [R=301,L]
