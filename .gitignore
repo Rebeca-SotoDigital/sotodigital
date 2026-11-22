@@ -2,6 +2,10 @@
 __MACOSX/
 *.sqlite*
 soto-config.php
+whatsapp-config.php
+.env
+.env.*
+!.env.example
 *.log
 .htaccess.local*
 node_modules/

@@ -15,6 +15,12 @@ function campaign_email_messages(array $row, array $data, array $score, string $
     $text='';$table='<table role="presentation" style="width:100%;border-collapse:collapse">';
     foreach($details as $label=>$value){$text.=$label.': '.$value."\n";$table.='<tr><td style="padding:10px 0;border-bottom:1px solid #dbe1ea"><strong>'.$e($label).'</strong><br>'.$e($value).'</td></tr>';}
     $table.='</table><h2 style="font-size:18px">Contexto adicional</h2><p>'.nl2br($e($data['message']?:'No indicado')).'</p>';
+    $contactId=(string)($row['brevo_contact_id']??'');
+    $contactUrl=ctype_digit($contactId)&&(int)$contactId>0?'https://app.brevo.com/contact/index/'.$contactId:'';
+    if($contactUrl!==''){
+        $text.="\nAntes de responder, comprobad quién atiende la solicitud en Brevo.\nFicha: ".$contactUrl."\n";
+        $table='<p><a href="'.$e($contactUrl).'" style="display:inline-block;padding:12px 18px;background:#ffe44d;color:#142b53;text-decoration:none;font-weight:bold">Abrir contacto en Brevo</a></p><p>Antes de responder, comprobad quién atiende esta solicitud.</p>'.$table;
+    }
     $response=campaign_response_time();
     $next='Revisaremos los datos que nos has enviado. Según las necesidades de tu negocio, '.($data['phone']!==''?'te llamaremos o te enviaremos una propuesta por email.':'te contactaremos por email con una propuesta.');
     $timing='Primera respuesta en un máximo de '.$response.'.';

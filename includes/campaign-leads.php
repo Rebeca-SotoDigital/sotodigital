@@ -180,7 +180,7 @@ function campaign_brevo_sync(PDO $db, array $row, ?callable $http = null): void 
         $result = $http('https://api.brevo.com/v3/contacts', $headers, $payload);
     }
     // Do not change marketing blacklist/subscription status, trigger campaigns or subscribe to newsletter lists.
-    if ($result['status'] >= 200 && $result['status'] < 300) $db->prepare('UPDATE leads SET brevo_synced=1,brevo_contact_id=COALESCE(?,brevo_contact_id) WHERE id=?')->execute([$result['body']['id']??null,$row['id']]);
+    if ($result['status'] >= 200 && $result['status'] < 300) $db->prepare('UPDATE leads SET brevo_synced=1,brevo_contact_id=COALESCE(?,brevo_contact_id) WHERE id=?')->execute([$result['body']['id']??$existing['body']['id']??null,$row['id']]);
 }
 function campaign_uuid(string $seed): string {
     $hex = hash('sha256', $seed);

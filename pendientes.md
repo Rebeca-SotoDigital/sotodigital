@@ -1,6 +1,6 @@
 # Pendientes de Soto Digital
 
-Actualizado: **21 de noviembre de 2026**.
+Actualizado: **22 de noviembre de 2026**.
 
 Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web actualizada aún no se ha publicado en Arsys.** Las pruebas locales no sustituyen las comprobaciones en el servidor definitivo.
 
@@ -9,11 +9,20 @@ Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web
 ## Próximo bloque de trabajo en local: atención de las solicitudes
 
 - [x] Responsables de atender solicitudes: Jónatan y Rebeca, ambos confirmados por el equipo.
-- [ ] Acordar quién asume cada solicitud y cómo lo indica al otro para evitar respuestas duplicadas.
+- [x] Asignación acordada: quien atienda primero selecciona su nombre en `RESPONSABLE_LEAD` antes de responder. Campo creado y verificado en Brevo con Jónatan y Rebeca; acceso compartido. La web conserva la asignación manual.
+- [x] Facilitar instrucciones para mostrar `RESPONSABLE_LEAD` en la ficha de Brevo.
+- [x] El equipo confirma que ve `RESPONSABLE_LEAD`. Asignación y conservación verificadas mediante API real en un contacto interno. Es coordinación manual, sin bloqueo de edición simultánea. Véase `docs/asignacion-leads.md`.
 - [x] Primera respuesta en un máximo de **2 días laborables**, aprobada por el equipo. No implica entregar una propuesta completa en ese plazo.
 - [x] Revisión inicial: examinar los datos aportados y, según las necesidades, llamar si hay móvil o enviar una propuesta por email. No se promete un informe independiente ni una llamada si no se facilita teléfono.
 - [x] Emails, formulario, página de gracias y textos de revisión inicial actualizados con ese proceso y plazo.
-- [ ] Acordar el seguimiento comercial: estados, responsable y recordatorio de solicitudes sin atender. Definirlo antes de activar ampliaciones del CRM.
+- [x] Estados aprobados y configurados en `ESTADO_LEAD`: Nuevo → En revisión → Contactado → Propuesta enviada → Ganado / Perdido. Se conservan las opciones antiguas y sus IDs, sin reclasificar contactos.
+- [x] Revisión de solicitudes pendientes a cargo de ambos, Jónatan y Rebeca. Consultar responsable y estado antes de contactar para coordinarse.
+- [x] Recorrido real probado en el contacto interno 101: seis estados, ambos responsables y resincronización desde el código local en cada paso. Responsable, estado, puntuación e IA conservados; valores originales restaurados. Sin emails ni llamadas a IA.
+- [ ] Si se desean recordatorios automáticos, definir canal y momento del aviso antes de configurarlos. Actualmente la revisión es manual por ambos.
+
+### Siguiente paso recomendado, sin publicar
+
+GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rechazo y retirada del consentimiento en local. Siguiente paso: marcar `generate_lead` como evento clave cuando aparezca en Eventos recientes (la interfaz indica hasta 24 horas), sin crear un evento duplicado. Confirmar también que la medición mejorada de formularios está desactivada. Google Ads queda pendiente del alta de facturación y de sus identificadores; la verificación definitiva del dominio se realizará antes de activar campañas. El recorrido comercial básico ya está configurado y probado. Los datos registrales se posponen hasta que finalice la constitución.
 
 
 ## 1. Completado y comprobado en local
@@ -89,21 +98,33 @@ Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web
 
 ### Medición y revisión de recepción
 
-- [ ] Configurar/verificar IDs GA4/Google Ads y label de formulario; comprobar con Tag Assistant aceptar, rechazar y retirar consentimiento.
+- [x] GA4 `G-1C1JJRTFPW` guardado en la configuración privada local. Verificado en el HTML servido por XAMPP; pruebas de consentimiento, eventos y deduplicación correctas con transporte simulado (22/11/2026). No se ha añadido el contenedor GTM mostrado durante el alta.
+- [ ] Obtener y configurar `GOOGLE_ADS_ID` (`AW-…`) y `GOOGLE_ADS_LEAD_LABEL` de la conversión de solicitud. Actualmente vacíos en la web local.
+- [x] Recepción real en GA4 confirmada por captura del equipo el 22/11/2026: 1 usuario activo, `generate_lead` 1, `lead_form_start` 1, `lead_form_step` 5 y `page_view` 4. La página de gracias registra 2 vistas y el envío 1 evento en la ventana observada; no equivale a una auditoría completa de deduplicación.
+- [x] Solicitud local del 22/11/2026 a las 08:58 (hora peninsular) comprobada: inicialmente en cola, procesada manualmente antes del siguiente intervalo de cinco minutos. Contacto Brevo 104 verificado por API (HTTP 200) y presente en la lista configurada; IA completa y ambos emails aceptados por Brevo. Esta comprobación no verifica entrega en buzón ni demuestra un fallo del worker.
+- [x] Aceptación, rechazo y retirada del consentimiento comprobados por el equipo en Chrome local el 22/11/2026: Network filtrado por `google` muestra peticiones al aceptar analítica y queda vacío tras rechazar/retirar y recargar. Confirmación del usuario guiada por capturas; no inspección directa del agente ni validación con Tag Assistant.
+- [x] Interacciones con formularios de medición mejorada desactivada en GA4, comprobada en captura del equipo; se indicó pulsar Guardar.
+- [ ] Verificar con Tag Assistant en el dominio definitivo los estados de consentimiento y las etiquetas reales de Ads antes de campañas; la prueba actual corresponde a GA4 en local.
+- [ ] Comprobar si `generate_lead` está marcado como evento clave en GA4 y marcarlo si falta.
+- [ ] Google Ads: alta pendiente de perfil de pagos/datos fiscales definitivos; el acceso al panel devuelve al asistente de facturación. No se ha publicado ninguna campaña ni configurado el ID/label.
 - [ ] Elegir una sola fuente de conversión principal, evitando duplicar etiqueta directa e importación GA4.
-- [ ] Excluir tráfico interno y de pruebas de los informes cuando corresponda.
+- [ ] Separar tráfico interno y de pruebas antes de publicidad: pospuesto por el equipo durante el trabajo local. IP dinámica y varios equipos; sin reglas IP creadas. El filtro Internal Traffic permanece en Prueba, sin exclusión activa. No se ha implementado marcado automático de localhost.
 - [ ] Revisar CSP en Report-Only con los proveedores reales antes de imponerla; activar HSTS solo después de verificar HTTPS estable.
 - [ ] Opcional: comprobar recepción en buzones propios de Gmail/Outlook. La dirección facilitada para estas pruebas fue del dominio Soto Digital; no se ha ensayado otro proveedor de buzón.
 
 ### Privacidad definitiva
 
-- [ ] Aportar datos del Registro Mercantil para completar el aviso legal. Razón social, NIF, domicilio y contacto ya están incorporados.
+- [ ] **Pospuesto hasta finalizar la constitución:** aportar datos del Registro Mercantil y verificar titular, denominación y NIF definitivos antes de publicar. El usuario aclara el 21/11/2026 que la sociedad está en constitución; esta información sustituye la confirmación anterior de sociedad constituida. Los datos incorporados a los textos locales requieren validación definitiva.
 - [ ] Revisar contratos, entidades, transferencias y condiciones de los proveedores realmente contratados.
 - [ ] Completar inventario y duraciones de cookies con la instalación definitiva. La caducidad técnica de preferencias a 180 días ya está implementada.
 - [ ] Documentar quién atiende derechos y quién mantiene fechas de contacto/relación comercial y supresiones, incluidas copias y restauraciones.
 - [ ] Revisar y aprobar los textos definitivos antes de publicar. El formulario sigue sin dar de alta en newsletters; cualquier cambio de finalidad necesitará tratamiento separado.
 
 ### Oferta, equipo y pruebas sociales
+
+- [x] Revisión de contenido de `/campanas/google-ads.php` (22/11/2026): beneficios, alcance, mini-auditoría, proceso y proyección, preguntas específicas y CTA sin recarga. Sin casos publicitarios, vídeos, tarifas ni resultados inventados. Pruebas locales automatizadas y HTTP correctas. Ver `docs/revision-landing-google-ads.md`.
+- [ ] Revisar visualmente y aprobar con el equipo la landing de Google Ads en móvil/escritorio; comprobar titulares de variantes con los futuros anuncios.
+- [ ] Repetir la revisión de contenido específica en las demás landings; conservan de momento el proceso y preguntas generales.
 
 - [x] Alcance de revisión inicial y primera respuesta definidos: revisar datos aportados, valorar necesidades y contactar por llamada o propuesta por email; máximo 2 días laborables para responder.
 - [ ] Aprobar precios si se quieren publicar. No hay tarifas aprobadas; los rangos del formulario no son precios.
@@ -129,14 +150,18 @@ Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web
 - [x] **Claude — estilo breve:** ajuste solicitado completado y revisado en los contactos internos 101/103. Resumen de una frase (máximo 240 caracteres) y siguiente paso concreto (máximo 180), sin repetir puntuación ni metodología; inicio del cliente separado del plazo de resultados. El usuario confirma la revisión en Brevo.
 - [ ] **Claude — seguimiento:** revisar calidad con nuevos casos y vigilar consumo y errores. La prueba en Arsys queda para cuando se autorice publicar; los límites por petición no sustituyen el límite mensual del proveedor.
 - [ ] **Dealfront/Leadfeeder:** cuenta/plan, código, contratos, consentimiento específico, filtros y cobertura real, si se decide activar. No identifica a cada persona visitante.
-- [ ] **CRM comercial:** segmentos, responsable, IDs del pipeline/etapas y prueba del esqueleto de tratos; `BREVO_CREATE_DEALS` sigue desactivado por defecto.
+- [ ] **CRM comercial:** segmentos, estados definitivos, IDs del pipeline/etapas y prueba del esqueleto de tratos. Responsable manual y estados de contacto ya configurados y probados con API real. `BREVO_CREATE_DEALS` sigue desactivado por defecto.
 - [ ] **Conversiones offline:** aprobar hito, valor real, permisos, formato e importación. Actualmente están diseñadas, no implementadas ni importadas.
 - [ ] **Fases futuras:** propuestas asistidas con aprobación, firma, cobros y freelancers. No desarrolladas en esta fase.
 
 ## 5. Documentación y entregables
 
+- [x] Git local conectado al repositorio GitHub de Soto Digital; cuenta Rebeca-SotoDigital autorizada, rama `main` y autoría con email `noreply`. Configuraciones privadas y `.env` excluidos; el código independiente de WhatsApp no se añade a estos commits. La subida a GitHub no despliega la web en Arsys.
+
 - [Siete comprobaciones locales de Brevo](docs/comprobaciones-locales-brevo.md).
 - [Integración y atributos](docs/integracion-leads.md).
+- [Asignación manual de solicitudes](docs/asignacion-leads.md).
+- [Prueba real del recorrido comercial](docs/prueba-recorrido-comercial.json).
 - [Prueba real de Brevo y emails](docs/prueba-real-brevo.md).
 - [Claude: conexión real y estilo breve](docs/prueba-real-claude.md).
 - [Formulario local y corrección del destinatario](docs/prueba-formulario-local.md).

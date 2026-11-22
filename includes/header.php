@@ -56,7 +56,7 @@ $stylesheet = $siteAssets[!empty($serviceStyles) ? 'css/site-services.css' : 'cs
         <?php if (!empty($campaignLanding)): ?></span><?php else: ?></a><?php endif; ?>
 
         <?php if (!empty($campaignLanding)): ?>
-        <a class="btn btn-nav" href="<?= htmlspecialchars($campaignSelf ?? '/campanas/', ENT_QUOTES, 'UTF-8') ?>#propuesta">Mini-auditoría gratis ↗</a>
+        <a class="btn btn-nav" href="#propuesta">Mini-auditoría gratis ↗</a>
         <?php else: ?>
         <button class="mobile-toggle" id="mobile-menu" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menú">
             <i class="icon icon-bars" aria-hidden="true"></i>

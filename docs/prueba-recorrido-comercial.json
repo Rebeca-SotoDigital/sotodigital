@@ -1,0 +1,109 @@
+{
+    "date": "2026-11-21",
+    "test_contact_id": 101,
+    "internal_test_only": true,
+    "states_added": [
+        "En revisión",
+        "Contactado",
+        "Ganado"
+    ],
+    "all_state_options": [
+        {
+            "value": 1,
+            "label": "Nuevo"
+        },
+        {
+            "value": 2,
+            "label": "Calificado"
+        },
+        {
+            "value": 3,
+            "label": "Propuesta enviada"
+        },
+        {
+            "value": 4,
+            "label": "Aceptada"
+        },
+        {
+            "value": 5,
+            "label": "Contrato firmado"
+        },
+        {
+            "value": 6,
+            "label": "Pagado"
+        },
+        {
+            "value": 7,
+            "label": "Perdido"
+        },
+        {
+            "value": 8,
+            "label": "En revisión"
+        },
+        {
+            "value": 9,
+            "label": "Contactado"
+        },
+        {
+            "value": 10,
+            "label": "Ganado"
+        }
+    ],
+    "previous_options_preserved": true,
+    "steps": [
+        {
+            "state": "Nuevo",
+            "responsible": "Jónatan",
+            "manual_update_verified": true,
+            "preserved_after_real_sync": true,
+            "contact_id_unchanged": true,
+            "score_and_ai_unchanged": true
+        },
+        {
+            "state": "En revisión",
+            "responsible": "Rebeca",
+            "manual_update_verified": true,
+            "preserved_after_real_sync": true,
+            "contact_id_unchanged": true,
+            "score_and_ai_unchanged": true
+        },
+        {
+            "state": "Contactado",
+            "responsible": "Jónatan",
+            "manual_update_verified": true,
+            "preserved_after_real_sync": true,
+            "contact_id_unchanged": true,
+            "score_and_ai_unchanged": true
+        },
+        {
+            "state": "Propuesta enviada",
+            "responsible": "Rebeca",
+            "manual_update_verified": true,
+            "preserved_after_real_sync": true,
+            "contact_id_unchanged": true,
+            "score_and_ai_unchanged": true
+        },
+        {
+            "state": "Ganado",
+            "responsible": "Jónatan",
+            "manual_update_verified": true,
+            "preserved_after_real_sync": true,
+            "contact_id_unchanged": true,
+            "score_and_ai_unchanged": true
+        },
+        {
+            "state": "Perdido",
+            "responsible": "Rebeca",
+            "manual_update_verified": true,
+            "preserved_after_real_sync": true,
+            "contact_id_unchanged": true,
+            "score_and_ai_unchanged": true
+        }
+    ],
+    "original_state_and_responsible_restored": true,
+    "emails_sent": false,
+    "ai_requests": false,
+    "live_local_lead_rows_changed": false,
+    "deals_created": false,
+    "deployment_performed": false
+}

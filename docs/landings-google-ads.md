@@ -1,6 +1,6 @@
 # Landings de campañas de Soto Digital
 
-Implementación local. No se ha publicado ni creado ninguna campaña ni contratado ningún proveedor.
+Implementación local. No se ha publicado la nueva web ni activado ninguna campaña. Brevo, Cloudflare y Claude están configurados para las pruebas locales.
 
 ## Rutas
 
@@ -31,19 +31,17 @@ Proyección: escenarios con presupuesto, CPC estimado y conversión supuesta, de
 Ejemplo de URL final: `https://soto-digital.com/campanas/google-ads.php`.
 Sufijo final sugerido: `utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_content={creative}&utm_term={keyword}`. Mantener autoetiquetado si procede. El formulario guarda esos parámetros y el origen se conserva 30 minutos en sesión. La medición de Google ya está preparada con consentimiento y recibo único, pero requiere IDs/labels reales para activarse.
 
-## Cuestionario e integraciones (actualizado 21/11/2026)
+## Cuestionario e integraciones (actualizado 22/11/2026)
 
-El formulario se ha sustituido por cinco pasos: sector, objetivo, inversión orientativa, urgencia y contacto. Nombre, email y móvil obligatorios; web y contexto opcionales. Mini-auditoría inicial gratuita confirmada, sin precios inventados.
+Cinco pasos: sector, objetivo, inversión orientativa, urgencia y contacto. Nombre y email obligatorios; móvil, empresa, web y contexto opcionales con la configuración actual. Mini-auditoría inicial gratuita: revisión de los datos aportados y primera respuesta en un máximo de 2 días laborables. Según las necesidades, llamada si hay móvil o propuesta por email. No se promete informe independiente ni propuesta completa en ese plazo.
 
-El endpoint es `api/lead.php`, con compatibilidad para `campanas/enviar.php`. Guarda primero en SQLite privado y confirma recepción. Las llamadas a Claude y Brevo y los emails se procesan con el worker `php tools/campaign-leads.php retry`, que debe programarse. Brevo sustituye a Resend; no se utiliza mail().
+`api/lead.php` guarda primero en SQLite privado y confirma recepción. El worker `php bin/campaign-leads.php retry` procesa Brevo, Claude y los dos emails; en local está programado cada cinco minutos mientras el Mac esté despierto y la sesión abierta. Puntuación PHP 0–10 con la tabla aprobada; Claude redacta únicamente resumen y siguiente paso. Brevo y entregas de emails probados con solicitudes internas. Los estados comerciales y responsable manual se conservan al sincronizar.
 
-Reglas y configuración actuales, atributos Brevo, antispam y pruebas en `docs/integracion-leads.md`. La puntuación la decide PHP con una tabla provisional editable; Claude solo resume. Para guardar bastan almacenamiento y Turnstile válidos; para completar CRM, IA y emails hay que configurar sus cuentas/claves y ejecutar la cola.
-
-La medición tiene Consent Mode v2 básico y eventos de solicitud válida/WhatsApp desarrollados, pero faltan IDs/labels y prueba real. No instalar otra etiqueta que duplique el sistema ni contar la recarga de gracias como una conversión nueva.
+GA4 `G-1C1JJRTFPW` configurado en privado, recepción de `generate_lead` comprobada y consentimiento de aceptación/rechazo/retirada revisado por el equipo en Chrome local. Pendiente marcar el evento clave cuando aparezca y verificar etiquetas reales en producción. Google Ads pendiente de facturación y de ID/label. Sin WhatsApp ni teléfono públicos. No instalar etiquetas duplicadas ni medir la visita a gracias como un envío nuevo.
 
 ## Casos de éxito y clientes
 
-`includes/campaign-content.php` contiene los casos documentados de restauración y distribución técnica. Los textos de casos no nombran al cliente y describen entregables comprobables, sin atribuir mejoras de ventas, tráfico o procedencia de captación desconocidas. Se muestran solo en servicios relacionados. En la parte inferior de la principal figuran Cantabria Kebab y TecniRefinish, ya publicados en la web; confirmar autorización y añadir métricas verificadas si se quieren presentar como resultados comerciales. No mezclar negocios propios con clientes externos.
+`includes/campaign-content.php` contiene los casos documentados de restauración y distribución técnica. Los textos de casos no nombran al cliente y describen entregables comprobables, sin atribuir mejoras de ventas, tráfico o procedencia de captación desconocidas. Se muestran solo en servicios relacionados. Los clientes destacados de la principal permanecen ocultos mientras `approved` sea false; confirmar autorización y métricas verificables antes de mostrarlos. La landing de Google Ads no tiene casos de ese servicio documentados y no reutiliza proyectos web como prueba de rendimiento publicitario. No mezclar negocios propios con clientes externos.
 
 ## Vídeo en entrevista
 
@@ -62,13 +60,8 @@ Grabar a un miembro del equipo respondiendo a otra persona fuera de cámara, con
 - `php tools/tests/campaign-leads.php`: validación, protección frente a cabeceras manipuladas, almacenamiento privado, doble envío, fallo parcial y recuperación de emails. Sin red ni envíos reales.
 - Revisar todas las rutas, CSS, enlaces legales y formulario en móvil/escritorio.
 - Con cuentas configuradas, probar un envío real controlado: Turnstile válido, lead guardado, aviso, acuse y gracias. Probar tokens inválidos, rechazo de hostname, error de almacenamiento y caída de email.
-- Faltan credenciales, vídeo real y validación con proveedor en producción. No afirmar un aumento de conversión sin medición real.
+- Pendientes: vídeo real, evidencia de resultados de Google Ads y revisión del contenido por el equipo. Las credenciales locales ya funcionan; configuración y comprobaciones en producción siguen pendientes.
+- Revisión del 22/11/2026: beneficios visibles, cuatro bloques de alcance, proceso específico auditoría/estrategia/proyección, seis preguntas frecuentes y CTA por ancla que conserva la URL y evita recargar. Honorarios separados de inversión, alcance de landing sujeto a propuesta, sin precios ni cifras inventadas. Se omite la pantalla LED en los canales de esta landing mientras su disponibilidad siga pendiente.
+- Verificación local: HTTP 200 de las once landings y las dos variantes de Google Ads, formulario y recursos disponibles, HTML/cabecera noindex, un H1, sin WhatsApp/teléfono, vídeos/testimonios ausentes sin material aprobado. Suite estática y funcional automatizada correcta. Revisión visual actual en navegador pendiente; no hay una pestaña accesible al agente.
 
-Documentación oficial:
-- https://support.google.com/google-ads/answer/7337243
-- https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
-- https://developers.brevo.com/reference/send-transac-email
-
-Validación realizada en local: once landings con HTTP 200 y recursos disponibles, noindex en HTML/cabeceras, rechazo de POST sin configuración y con CSRF inválido, gracias protegida y regresión de páginas públicas. Pruebas de validación y almacenamiento/envío con transporte simulado superadas. Revisión visual móvil/escritorio pendiente: el entorno no dispone de navegadores conectados.
-
-Actualización 21/11/2026: las comprobaciones locales del nuevo cuestionario y los rechazos del endpoint se han repetido. Backend y lógica JS probados con transportes simulados; pendiente revisión visual y circuito real con cuentas. Consultar `docs/integracion-leads.md` y `pendientes.md` como referencia vigente para Brevo/Claude y medición.
+Ver `docs/revision-landing-google-ads.md` y `pendientes.md` para pendientes vigentes. No se ha desplegado ni enviado un formulario adicional por esta revisión.

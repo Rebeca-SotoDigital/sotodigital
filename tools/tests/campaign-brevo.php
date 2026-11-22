@@ -31,15 +31,16 @@ brevo_assert($attrs['EMPRESA']===$input['company']&&$attrs['RGPD_ACEPTADO']===tr
 foreach(['IA_PUNTUACION','IA_CATEGORIA','IMPORTE_SETUP','CONTRATO_FIRMADO'] as $forbidden)brevo_assert(!array_key_exists($forbidden,$attrs),'Unrequested field: '.$forbidden);
 brevo_assert($db->query("SELECT brevo_synced FROM leads WHERE id='new'")->fetchColumn()==1,'Contact not marked synced');
 // Re-enrichment must preserve a real existing business stage and optional contact data.
-$db->exec("UPDATE leads SET brevo_synced=0 WHERE id='new'");$row=$db->query("SELECT * FROM leads WHERE id='new'")->fetch(PDO::FETCH_ASSOC);
+$db->exec("UPDATE leads SET brevo_synced=0,brevo_contact_id=NULL WHERE id='new'");$row=$db->query("SELECT * FROM leads WHERE id='new'")->fetch(PDO::FETCH_ASSOC);
 $payload=json_decode($row['payload'],true);$payload['company']='';$payload['phone']='';$payload['website']='';$row['payload']=json_encode($payload);
 $existingPost=[];$existing=static function($url,$headers,$payload,$timeout=12,$method='POST')use($schema,&$existingPost){
  if(str_ends_with($url,'/attributes'))return ['status'=>200,'body'=>['attributes'=>$schema]];
- if($method==='GET')return ['status'=>200,'body'=>['attributes'=>['ESTADO_LEAD'=>'Contrato firmado']]];
+ if($method==='GET')return ['status'=>200,'body'=>['id'=>321,'attributes'=>['ESTADO_LEAD'=>'Contrato firmado','RESPONSABLE_LEAD'=>'Rebeca','CONTACT_OWNER'=>'existing-user']]];
  $existingPost=$payload;return ['status'=>204,'body'=>[]];
 };
 campaign_brevo_sync($db,$row,$existing);
-foreach(['ESTADO_LEAD','EMPRESA','WEB_CLIENTE','SMS'] as $name)brevo_assert(!array_key_exists($name,$existingPost['attributes']),'Existing contact data reset: '.$name);
+foreach(['ESTADO_LEAD','EMPRESA','WEB_CLIENTE','SMS','RESPONSABLE_LEAD','CONTACT_OWNER'] as $name)brevo_assert(!array_key_exists($name,$existingPost['attributes']),'Existing contact data reset: '.$name);
+brevo_assert((int)$db->query("SELECT brevo_contact_id FROM leads WHERE id='new'")->fetchColumn()===321,'Existing contact ID lost after 204 upsert');
 $missing=static function($url,$headers,$payload,$timeout=12,$method='POST')use($schema){return ['status'=>200,'body'=>['attributes'=>array_values(array_filter($schema,fn($v)=>$v['name']!=='PUNTUACION'))]];};
 $db->exec("UPDATE leads SET brevo_synced=0 WHERE id='new'");$row=$db->query("SELECT * FROM leads WHERE id='new'")->fetch(PDO::FETCH_ASSOC);
 try{campaign_brevo_sync($db,$row,$missing);throw new RuntimeException('Missing schema accepted');}catch(RuntimeException $e){brevo_assert(str_contains($e->getMessage(),'PUNTUACION'),'Wrong schema error');}
