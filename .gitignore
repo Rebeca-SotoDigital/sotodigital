@@ -11,3 +11,10 @@ whatsapp-config.php
 node_modules/
 .audit-local/
 dist/
+# Credenciales de WhatsApp y Claude
+**/anthropic-config.php
+**/whatsapp-config.php
+
+# Registros privados
+**/errores-whatsapp.txt
+**/processed/

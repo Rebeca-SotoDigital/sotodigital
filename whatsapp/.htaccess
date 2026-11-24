@@ -10,3 +10,9 @@
 
 # Evitar mostrar listados de directorios
 Options -Indexes
+
+
+# Proteger las credenciales de Anthropic
+<Files "anthropic-config.php">
+    Require all denied
+</Files>
