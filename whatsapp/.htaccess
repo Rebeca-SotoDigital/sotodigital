@@ -1,0 +1,12 @@
+# Proteger credenciales de WhatsApp
+<Files "whatsapp-config.php">
+    Require all denied
+</Files>
+
+# Proteger archivos de diagnóstico y registros
+<FilesMatch "^(errores-whatsapp|control-[^/]*|diagnostico-[^/]*|resultado-envio|analisis-mensaje)\.txt$">
+    Require all denied
+</FilesMatch>
+
+# Evitar mostrar listados de directorios
+Options -Indexes
