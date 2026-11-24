@@ -1,6 +1,6 @@
 <?php
 // Editorial details based on confirmed work. No traffic, sales or ranking claims.
-return [
+$details = [
     'kebab' => [
         'slug' => 'proyecto-cantabria-kebab',
         'title' => 'Web y redes de Cantabria Kebab en Colindres | Soto Digital',
@@ -46,3 +46,16 @@ return [
         'socialSummary' => 'Gestionamos las redes de nuestro taller de chapa y pintura. El proyecto combina web e Instagram como vías para conocer el negocio.',
     ],
 ];
+
+$caseCopy = [
+    'refinish' => ['slug' => 'proyecto-tecnirefinish', 'phrase' => 'Una web a la altura de su catálogo.', 'caseWork' => 'Web corporativa que presenta sus soluciones profesionales.'],
+    'kebab' => ['slug' => 'proyecto-cantabria-kebab', 'phrase' => 'Una carta que da hambre.', 'caseWork' => 'Web y gestión de redes sociales para su restaurante.'],
+    'carrocerias' => ['slug' => 'proyecto-soto-carrocerias', 'phrase' => 'El taller, también en pantalla.', 'caseWork' => 'Web y redes de nuestro propio taller de chapa y pintura.'],
+    'cars' => ['slug' => 'proyecto-soto-cars', 'phrase' => 'Un escaparate que no cierra.', 'caseWork' => 'Web para nuestro negocio de venta de vehículos.'],
+    'wash' => ['slug' => 'proyecto-soto-wash', 'phrase' => 'Brillo en la calle y en internet.', 'caseWork' => 'Web y redes de nuestro servicio de lavado y detailing.'],
+    'events' => ['slug' => 'proyecto-why-not', 'phrase' => 'Eventos que se cuentan solos.', 'caseWork' => 'Web y redes para organización de eventos y celebraciones.'],
+];
+foreach ($caseCopy as $theme => $copy) {
+    $details[$theme] = array_replace($details[$theme] ?? [], $copy);
+}
+return $details;

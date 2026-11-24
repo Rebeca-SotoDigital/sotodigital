@@ -69,7 +69,7 @@ async function wizardTest() {
         const field = {valid: true, checkValidity() {return this.valid;}, reportValidity() {reported++;}};
         steps.push({hidden: false, field, querySelectorAll: () => [field], querySelector: () => ({focus() {}})});
     }
-    ['[data-previous]', '[data-next]', '[data-submit]', '[data-progress]', '[data-progress-bar]', '[data-form-error]'].forEach(selector => controls[selector] = {hidden: false, disabled: false, textContent: 'Submit', addEventListener: (name, fn) => controls[selector][name] = fn, scrollIntoView() {}});
+    ['[data-previous]', '[data-next]', '[data-submit]', '[data-progress]', '[data-progress-bar]', '[data-form-error]'].forEach(selector => controls[selector] = {hidden: false, disabled: false, textContent: 'Submit', addEventListener: (name, fn) => controls[selector][name] = fn, scrollIntoView() {}, setAttribute(name, value) { this[name] = value; }, removeAttribute(name) { delete this[name]; }});
     const form = {action: 'https://soto-digital.com/api/lead.php', querySelectorAll: () => steps, querySelector: selector => controls[selector], addEventListener: (name, fn) => events[name] = fn};
     const context = {document: {querySelector: () => form, baseURI: 'https://soto-digital.com/', addEventListener: (name, fn) => fn()}, window: {location: {assign: url => navigated = url}, turnstile: {reset: () => reset++}}, FormData: class {}, URL, setTimeout, clearTimeout, fetch: async () => {requestCount++; return {ok: succeeds, json: async () => succeeds ? {ok: true, next: '/campanas/gracias.php'} : {ok: false, error: 'Error de prueba'}};}};
     vm.runInNewContext(fs.readFileSync(path.join(root, 'js/campaign.js'), 'utf8'), context);
@@ -87,7 +87,7 @@ async function wizardTest() {
     check(requestCount===0 && controls['[data-form-error]'].textContent.includes('casilla'),'Missing privacy failure was silent');
     steps[4].field.valid=true;
     await Promise.all([events.submit({preventDefault() {}}),events.submit({preventDefault() {}})]);
-    check(requestCount === 1 && reset === 1 && controls['[data-form-error]'].textContent === 'Error de prueba' && !navigated, 'Submission failure handling');
+    check(requestCount === 1 && reset === 1 && controls['[data-form-error]'].textContent === 'No hemos podido enviar tu solicitud. Inténtalo de nuevo o escríbenos por WhatsApp.' && !navigated, 'Submission failure handling');
     succeeds = true; await events.submit({preventDefault() {}});
     check(navigated === 'https://soto-digital.com/campanas/gracias.php', 'Success redirect');
 }

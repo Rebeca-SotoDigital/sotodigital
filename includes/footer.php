@@ -4,25 +4,22 @@
         <div class="footer-top">
             <div class="footer-col">
                 <h2>SOTO DIGITAL</h2>
-                <p>Estrategia, creatividad y soluciones digitales para que tu negocio se vea, conecte y destaque. Contigo en el siguiente paso, estés donde estés.</p>
+                <p>Estrategia, creatividad y soluciones digitales para que tu negocio se vea, conecte y destaque.</p>
+                <p>Maliaño, Cantabria · Trabajamos con empresas de toda España.</p>
                 <div class="social-links">
-                    <a href="https://instagram.com/sotodigital" aria-label="Soto Digital en Instagram" target="_blank" rel="noopener noreferrer">
+                    <a href="https://instagram.com/sotodigital" aria-label="Instagram de Soto Digital" target="_blank" rel="noopener noreferrer">
                         <i class="icon icon-instagram" aria-hidden="true"></i>
                     </a>
-                    <a href="/#diagnostico" aria-label="Pedir una propuesta"><i class="icon icon-envelope" aria-hidden="true"></i></a>
+                    <a href="mailto:rebeca@soto-digital.com" aria-label="Escríbenos por email"><i class="icon icon-envelope" aria-hidden="true"></i></a>
                 </div>
             </div>
 
             <div class="footer-col">
                 <h2>Servicios</h2>
                 <ul>
-                    <li><a href="/pantalla-led-raos.php">Pantalla LED</a></li>
-                    <li><a href="/branding.php">Diseño gráfico</a></li>
-                    <li><a href="/diseno-web.php">Páginas web</a></li>
-                    <li><a href="/redes-sociales.php">Redes sociales</a></li>
-                    <li><a href="/email-marketing.php">Email marketing</a></li>
-                    <li><a href="/marketing-contenidos.php">Marketing de contenidos</a></li>
-                    <li><a href="/seo-sem.php">SEO y SEM</a></li>
+                    <?php foreach (SOTO_SERVICES as [$label, $url]): ?>
+                        <li><a href="<?= htmlspecialchars($url, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($label, ENT_QUOTES, 'UTF-8') ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
 
@@ -98,6 +95,15 @@
 </div>
 
 <?php include __DIR__ . '/company-identification.php'; ?>
+<?php if (preg_match('/^[1-9][0-9]{6,14}$/D', SOTO_WHATSAPP_NUMBER)): ?>
+<a class="whatsapp-float" href="<?= htmlspecialchars('https://wa.me/' . SOTO_WHATSAPP_NUMBER . '?text=' . rawurlencode(SOTO_WHATSAPP_MESSAGE), ENT_QUOTES, 'UTF-8') ?>" aria-label="¿Hablamos por WhatsApp?">
+    <i class="icon icon-phone" aria-hidden="true"></i><span class="whatsapp-label">¿Hablamos?</span>
+</a>
+<?php elseif (soto_show_pending()): ?>
+<div class="whatsapp-float whatsapp-pending">
+    <i class="icon icon-phone" aria-hidden="true"></i><span class="whatsapp-label">¿Hablamos?</span><span>[PENDIENTE: número]</span>
+</div>
+<?php endif; ?>
 <script src="/<?= htmlspecialchars($siteAssets['js/tracking.js'], ENT_QUOTES, 'UTF-8') ?>" defer></script>
 <script src="/<?= htmlspecialchars($siteAssets['js/cookies.js'], ENT_QUOTES, 'UTF-8') ?>" defer></script>
 <script src="/<?= htmlspecialchars($siteAssets['js/main.js'], ENT_QUOTES, 'UTF-8') ?>" defer></script>

@@ -15,14 +15,14 @@ $content = require __DIR__ . '/campaign-content.php';
 $serviceDetails = $content['service_details'][$slug] ?? null;
 $campaignSelf = '/campanas/' . ($slug === 'estrategia-digital' ? 'index.php' : $slug . '.php');
 $campaignLanding = true;
-$pageTitle = $service[0] . ' | Mini-auditoría gratuita | Soto Digital';
+$pageTitle = $service[0] . ' | Propuesta gratuita | Soto Digital';
 $pageDescription = $service[2];
 $canonicalPath = $campaignSelf;
 include __DIR__ . '/header.php';
 ?>
 <main id="contenido">
 <section class="campaign-hero"><div class="container campaign-split">
- <div><span class="eyebrow"><?= $escape($service[0]) ?> · SOTO DIGITAL</span><h1><?= $escape($service[1]) ?></h1><p class="campaign-lead"><?= $escape($service[2]) ?></p><a class="btn" href="#propuesta">Pedir mini-auditoría gratuita</a><p class="campaign-micro">Desde Cantabria. Contigo, estés donde estés.</p>
+ <div><span class="eyebrow"><?= $escape($service[0]) ?> · SOTO DIGITAL</span><h1><?= $escape($service[1]) ?></h1><p class="campaign-lead"><?= $escape($service[2]) ?></p><a class="btn" href="#propuesta"><?= SOTO_PROPOSAL_CTA ?></a><p class="campaign-micro">Desde Cantabria. Contigo, estés donde estés.</p>
  <?php if ($serviceDetails): ?><ul><?php foreach ($service[3] as $benefit): ?><li><?= $escape($benefit) ?></li><?php endforeach; ?></ul><p>Primera respuesta en un máximo de <?= $escape(campaign_response_time()) ?>. Sin compromiso de contratación.</p><?php endif; ?>
  <?php if (in_array($slug,['google-ads','sem'],true)): ?><div class="campaign-ad"><small>Ejemplo ilustrativo · No es un resultado real de Google</small><h2><?= $escape($campaignVariant['example'] ?? 'Tu servicio, ante quien lo busca.') ?></h2><p>Un anuncio claro y una página que facilita pedir información.</p></div><?php endif; ?>
  </div>
@@ -55,14 +55,14 @@ include __DIR__ . '/header.php';
 <?php include __DIR__.'/team-section.php'; ?>
 <section class="faq-section"><div class="container faq-layout"><div><span class="section-subtitle">ANTES DE EMPEZAR</span><h2>Las preguntas<br>que importan.</h2></div><div class="faq-list">
 <?php if ($serviceDetails): foreach ($serviceDetails['faqs'] as $faq): ?><details><summary><?= $escape($faq['question']) ?><span aria-hidden="true">+</span></summary><p><?= $escape(str_replace('{{response_time}}', campaign_response_time(), $faq['answer'])) ?></p></details><?php endforeach; else: ?>
-<details><summary>¿La mini-auditoría es gratuita?<span aria-hidden="true">+</span></summary><p>Sí. Revisamos gratuitamente los datos que nos aportas. Según tus necesidades, te llamamos si has dejado móvil o te enviamos una propuesta por email. No obliga a contratar.</p></details>
+<details><summary>¿La propuesta es gratuita?<span aria-hidden="true">+</span></summary><p>Sí. Revisamos gratuitamente los datos que nos aportas. Según tus necesidades, te llamamos si has dejado móvil o te enviamos una propuesta por email. No obliga a contratar.</p></details>
 <details><summary>¿Necesito tener una web?<span aria-hidden="true">+</span></summary><p>No. Puedes dejar el campo de web vacío y contarnos qué necesita tu negocio. Valoraremos el punto de partida antes de recomendar canales.</p></details>
 <details><summary>¿Cuánto cuesta el servicio?<span aria-hidden="true">+</span></summary><p>Preparamos un presupuesto según el alcance y tus objetivos. La inversión que indiques en el cuestionario es orientativa, no una tarifa. En publicidad distinguimos los honorarios de la inversión en anuncios.</p></details>
 <details><summary>¿Podéis garantizar resultados?<span aria-hidden="true">+</span></summary><p>No garantizamos ventas ni posiciones. Planteamos escenarios con supuestos claros y revisamos los resultados para ajustar el trabajo.</p></details>
 <?php endif; ?>
 </div></div></section>
-<section class="campaign-contact"><div class="container"><span class="section-subtitle">EL SIGUIENTE PASO EMPIEZA AQUÍ</span><h2>Tu negocio, con un plan.</h2><p>Cuéntanos qué necesitas y revisamos contigo por dónde empezar.</p><a class="btn" href="#propuesta">Pedir mini-auditoría gratuita</a></div></section>
+<section class="campaign-contact"><div class="container"><span class="section-subtitle">EL SIGUIENTE PASO EMPIEZA AQUÍ</span><h2>Tu negocio, con un plan.</h2><p>Cuéntanos qué necesitas y revisamos contigo por dónde empezar.</p><a class="btn" href="#propuesta"><?= SOTO_PROPOSAL_CTA ?></a></div></section>
 <?php $approvedClients=array_filter($content['featured_clients'], static function($client){return ($client['approved']??false)===true;}); if ($slug === 'estrategia-digital' && $approvedClients): ?><section><div class="container"><span class="section-subtitle">CLIENTES CON LOS QUE AVANZAMOS</span><h2>Clientes con proyectos que puedes conocer.</h2><div class="campaign-channels"><?php foreach ($approvedClients as $client): ?><article class="campaign-client"><h3><?php if (!empty($client['project']) && preg_match('/^proyecto-[a-z-]+\.php$/',$client['project'])): ?><a href="<?= $escape($client['project']) ?>"><?= $escape($client['name']) ?></a><?php else: ?><?= $escape($client['name']) ?><?php endif; ?></h3><p><?= $escape($client['evidence']) ?></p></article><?php endforeach; ?></div></div></section><?php endif; ?>
 </main>
-<a class="campaign-sticky" data-form-sticky href="#propuesta" hidden>Pedir mini-auditoría gratuita</a>
+<a class="campaign-sticky" data-form-sticky href="#propuesta" hidden><?= SOTO_PROPOSAL_CTA ?></a>
 <?php include __DIR__ . '/footer.php'; ?>

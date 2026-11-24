@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const bar = form.querySelector('[data-progress-bar]');
     const error = form.querySelector('[data-form-error]');
     const canSubmit = !submit.disabled;
+    const submissionError = 'No hemos podido enviar tu solicitud. Inténtalo de nuevo o escríbenos por WhatsApp.';
+    submit.disabled = false;
     let current = 0;
     let pending = false;
     let advanceTimer;
@@ -94,13 +96,17 @@ document.addEventListener('DOMContentLoaded', function () {
         if (pending) return;
         if (current < steps.length - 1) { if (validStep(current)) show(current + 1, true); return; }
         for (let i = 0; i < steps.length; i++) if (!validStep(i)) return;
-        if (!canSubmit) return;
+        if (!canSubmit) {
+            showError(submissionError);
+            return;
+        }
         error.hidden = true;
         pending = true;
         submit.disabled = true;
         previous.disabled = true;
         const label = submit.textContent;
         submit.textContent = 'Enviando…';
+        submit.setAttribute('aria-busy', 'true');
         try {
             if (window.sotoLeadForm) await window.sotoLeadForm.prepare();
             const response = await fetch(form.action, {method: 'POST', body: new FormData(form), headers: {'Accept': 'application/json'}, credentials: 'same-origin'});
@@ -110,13 +116,13 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.assign(new URL(result.next, document.baseURI).href);
         } catch (failure) {
             track('lead_form_error', {type:failure.kind || 'network', step:current+1});
-            showError(failure.message || 'No se ha podido enviar. Inténtalo de nuevo.');
-            if (window.turnstile) window.turnstile.reset();
-        } finally {
+            showError(submissionError);
             pending = false;
-            submit.disabled = !canSubmit;
+            submit.disabled = false;
             previous.disabled = false;
             submit.textContent = label;
+            submit.removeAttribute('aria-busy');
+            if (window.turnstile) window.turnstile.reset();
         }
     });
 });

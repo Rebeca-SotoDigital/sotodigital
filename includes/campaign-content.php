@@ -12,14 +12,14 @@ return [
     ['title'=>'Seguimiento y decisiones', 'text'=>'Revisamos búsquedas, anuncios y coste por consulta cuando haya datos suficientes. Compartimos contigo qué está ocurriendo y qué ajustes proponemos.'],
    ],
    'process' => [
-    ['label'=>'AUDITORÍA', 'title'=>'Entendemos tu punto de partida.', 'text'=>'La mini-auditoría gratuita parte de los datos que envías: servicio, objetivo, inversión y momento para empezar. Si ya tienes campañas, acordamos qué información o acceso necesitamos para revisarlas.'],
+    ['label'=>'PUNTO DE PARTIDA', 'title'=>'Entendemos tu punto de partida.', 'text'=>'La propuesta gratuita parte de los datos que envías: servicio, objetivo, inversión y momento para empezar. Si ya tienes campañas, acordamos qué información o acceso necesitamos para revisarlas.'],
     ['label'=>'ESTRATEGIA', 'title'=>'Priorizamos dónde invertir.', 'text'=>'Definimos las búsquedas, zonas, anuncios y página de destino adecuados para tu negocio. La propuesta separa nuestros honorarios del presupuesto que se invierte en Google.'],
     ['label'=>'PROYECCIÓN Y PROPUESTA', 'title'=>'Decidimos con supuestos claros.', 'text'=>'Cuando disponemos de datos suficientes, planteamos escenarios orientativos de inversión y consultas, indicando sus supuestos. Revisamos contigo el alcance y cómo mediremos el avance antes de activar campañas.'],
    ],
    'faqs' => [
-    ['question'=>'¿Qué incluye la mini-auditoría gratuita?', 'answer'=>'Revisamos los datos que nos aportas para valorar tu punto de partida y tus necesidades. Si dejas móvil, podemos llamarte; también podemos enviarte una propuesta por email. No obliga a contratar ni implica entregar un informe independiente.'],
+    ['question'=>'¿Qué incluye la propuesta gratuita?', 'answer'=>'Revisamos los datos que nos aportas para valorar tu punto de partida y tus necesidades. Si dejas móvil, podemos llamarte; también podemos enviarte una propuesta por email. No obliga a contratar ni implica entregar un informe independiente.'],
     ['question'=>'¿Podéis revisar campañas que ya están funcionando?', 'answer'=>'Sí. Indícalo en el cuestionario y valoraremos qué información necesitamos revisar. Los accesos se acuerdan después; no envíes contraseñas ni claves en el formulario.'],
-    ['question'=>'¿Necesito tener una web o una landing?', 'answer'=>'Para una campaña que dirija a tu web hace falta una página de destino adecuada. Puedes pedir la mini-auditoría sin tenerla: valoraremos si necesitas una landing y presupuestaremos su creación o mejora según el alcance.'],
+    ['question'=>'¿Necesito tener una web o una landing?', 'answer'=>'Para una campaña que dirija a tu web hace falta una página de destino adecuada. Puedes pedir la propuesta sin tenerla: valoraremos si necesitas una landing y presupuestaremos su creación o mejora según el alcance.'],
     ['question'=>'¿Cuánto cuesta y cuánto tengo que invertir en Google?', 'answer'=>'Preparamos una propuesta según tus objetivos y el alcance. Nuestros honorarios y la inversión publicitaria son conceptos separados. El rango del cuestionario es orientativo y no constituye una tarifa ni un presupuesto cerrado.'],
     ['question'=>'¿Cuándo responderéis y cuándo empezaría la campaña?', 'answer'=>'La primera respuesta llega en un máximo de {{response_time}}. La fecha de lanzamiento se acuerda después de revisar la propuesta, preparar la página de destino y comprobar la medición; no se activa una campaña por enviar el formulario.'],
     ['question'=>'¿Garantizáis ventas o un coste por consulta?', 'answer'=>'No. Los resultados dependen de la demanda, la competencia, la oferta y la página de destino, entre otros factores. Las proyecciones son escenarios con supuestos, no compromisos de ventas ni costes garantizados.'],
@@ -38,8 +38,8 @@ return [
  // Per service: local MP4 path relative to site root; no external embeds before consent.
  // Names and education supplied by the founders; photos still pending.
  'team' => [
-  ['name'=>'Jónatan','description'=>'Cofundador e ingeniero en Informática.','approved'=>true,'photo'=>''],
-  ['name'=>'Rebeca','description'=>'Cofundadora e ingeniera en Telecomunicaciones.','approved'=>true,'photo'=>''],
+  ['name'=>'Rebeca','description'=>'CEO y cofundadora.','personal'=>'[PENDIENTE: frase personal]','approved'=>true,'photo'=>''],
+  ['name'=>'Jónatan','description'=>'CCO y cofundador.','personal'=>'[PENDIENTE: frase personal]','approved'=>true,'photo'=>''],
  ],
  'videos' => [],
  // Approved authentic quotes only; see docs/testimonios-clientes.md.

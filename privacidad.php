@@ -15,7 +15,7 @@ include 'includes/header.php';
 <li><strong>Domicilio:</strong> Calle Galera 41, Polígono de Raos, 39600 Maliaño, Cantabria, España.</li>
 <li><strong>Contacto para privacidad:</strong> <a href="mailto:rebeca@soto-digital.com">rebeca@soto-digital.com</a>.</li>
 </ul></div>
-<h2 id="solicitudes-propuesta">Solicitudes de mini-auditoría y propuesta</h2>
+<h2 id="solicitudes-propuesta">Solicitudes de propuesta</h2>
 <p>El cuestionario de la home y las páginas de campaña recoge nombre y apellidos, email, sector, objetivo, inversión orientativa y plazo para empezar. La empresa o negocio es opcional. El móvil es opcional por defecto y se indica si se exige en una configuración concreta. La URL del negocio y el contexto adicional también son opcionales. También podemos recibir información si escribes a nuestros correos de contacto. Evita incluir datos sensibles o datos de otras personas que no sean necesarios para tu consulta.</p>
 <p>Utilizamos esta información para atender tu petición, preparar la revisión inicial y una posible propuesta y contactar contigo por email o teléfono. La base jurídica es la aplicación de medidas precontractuales solicitadas por ti (artículo 6.1.b del RGPD), cuando corresponda a una solicitud sobre nuestros servicios. Si actúas en representación de una empresa, la gestión de los datos de contacto profesional se fundamenta, cuando proceda, en el interés legítimo de mantener esa relación con la entidad (artículo 6.1.f del RGPD).</p>
 <p>La casilla del formulario confirma que has leído esta información. No te suscribe a newsletters ni autoriza campañas de publicidad. Si en el futuro se ofrece una suscripción, se solicitará de forma separada.</p>

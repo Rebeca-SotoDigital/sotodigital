@@ -25,65 +25,29 @@ document.addEventListener("DOMContentLoaded", () => {
     window.matchMedia("(min-width: 993px)").addEventListener("change", close);
 });
 
-// Motion enhances the page; content stays visible when it is unavailable.
 document.addEventListener("DOMContentLoaded", () => {
-    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const stage = document.querySelector(".brand-stage");
-    let revealObserver;
-    let stageObserver;
+    if (!("IntersectionObserver" in window)) return;
 
-    const clearMotion = () => {
-        revealObserver?.disconnect();
-        stageObserver?.disconnect();
-        document.querySelectorAll(".reveal-pending").forEach(element => {
-            element.classList.remove("reveal-pending");
+    const whatsapp = document.querySelector(".whatsapp-float");
+    const actions = document.querySelector(".campaign-form-actions");
+    if (whatsapp && actions) {
+        const formObserver = new IntersectionObserver(([entry]) => {
+            whatsapp.hidden = entry.isIntersecting;
+        }, { rootMargin: "0px 0px 24px 0px" });
+        formObserver.observe(actions);
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("section-arrive");
+            revealObserver.unobserve(entry.target);
         });
-        stage?.classList.remove("motion-in-view");
-    };
-
-    const startMotion = () => {
-        clearMotion();
-        if (motionPreference.matches || !("IntersectionObserver" in window)) return;
-        revealObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.remove("reveal-pending");
-                revealObserver.unobserve(entry.target);
-            });
-        }, { threshold: 0.08 });
-
-        const targets = document.querySelectorAll(
-            ".section-heading, .solution-card, .led-photo, .led-copy, .service-row, " +
-            ".service-note, .process-grid article, .faq-layout > div, .contact-layout > div"
-        );
-        targets.forEach(element => {
-            element.classList.add("reveal-item");
-            if (element.getBoundingClientRect().top >= window.innerHeight) {
-                element.classList.add("reveal-pending");
-                revealObserver.observe(element);
-            }
-        });
-        document.querySelectorAll(".solutions-grid, .process-grid").forEach(group => {
-            Array.from(group.children).forEach((element, index) => {
-                element.style.setProperty("--reveal-delay", `${index * 75}ms`);
-            });
-        });
-        if (stage) {
-            stageObserver = new IntersectionObserver(entries => {
-                stage.classList.toggle("motion-in-view", entries[0].isIntersecting);
-            });
-            stageObserver.observe(stage);
-        }
-    };
-
-    // Keyboard navigation never has to wait for an entrance animation.
-    document.addEventListener("focusin", event => {
-        const target = event.target.closest(".reveal-pending");
-        if (target) {
-            target.classList.remove("reveal-pending");
-            revealObserver?.unobserve(target);
+    });
+    document.querySelectorAll("#contenido > section:not(#hero) > .container").forEach(section => {
+        if (section.getBoundingClientRect().top >= window.innerHeight) {
+            revealObserver.observe(section);
         }
     });
-    motionPreference.addEventListener("change", startMotion);
-    startMotion();
 });

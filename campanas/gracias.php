@@ -13,8 +13,10 @@ $pageDescription = 'Hemos recibido tu solicitud de propuesta estratégica.';
 $canonicalPath = '/campanas/gracias.php';
 include __DIR__ . '/../includes/header.php';
 ?>
-<main id="contenido"><section><div class="container campaign-thanks"><span class="section-subtitle">SOLICITUD RECIBIDA</span><h1>Gracias por contarnos tu proyecto.</h1><p>Tu solicitud se ha guardado. Estos son los siguientes pasos:</p><ol class="thanks-steps"><li><strong>Revisamos tus datos.</strong> Leemos la información que nos has facilitado.</li><li><strong>Valoramos tus necesidades.</strong> Estudiamos qué servicios pueden encajar con tu negocio.</li><li><strong>Te contactamos.</strong> Según el caso, te llamamos si has dejado móvil o te enviamos una propuesta por email.</li></ol>
-<p>Primera respuesta en un máximo de <?= htmlspecialchars(campaign_response_time(),ENT_QUOTES,'UTF-8') ?>.</p>
-<a class="btn" href="/diseno-web.php">Qué puede aportar una web a tu negocio</a></div></section></main>
+<main id="contenido">
+    <section><div class="container campaign-thanks">
+        <h1>¡Recibido! Te respondemos <?php if (soto_show_pending()): ?>en [PENDIENTE: plazo real, por ejemplo 24 horas laborables] <?php endif; ?>con una propuesta para tu negocio.</h1>
+    </div></section>
+</main>
 <?php if ($receipt): ?><script id="soto-lead-receipt" type="application/json"><?= json_encode(['id' => $receipt['id']], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script><?php endif; ?>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

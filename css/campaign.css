@@ -11,3 +11,28 @@
 
 .campaign-multichannel h2{color:#fff}.campaign-process article>span{color:#1858b9;font-size:.8125rem}.campaign-body .section-subtitle{color:#00658b}.campaign-multichannel .section-subtitle{color:#ffe44d}
 .campaign-body{padding-top:0}
+
+.campaign-form [data-submit]:not(:disabled) {
+    background: #00658b;
+    color: #fff;
+}
+.campaign-form [data-submit]:not(:disabled):hover { background: #004f71; }
+.campaign-form [data-submit]::after {
+    content: "";
+    display: none;
+    width: .9em;
+    height: .9em;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: campaign-spin .7s linear infinite;
+}
+.campaign-form [data-submit][aria-busy="true"]::after { display: inline-block; }
+@keyframes campaign-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+    .campaign-form [data-submit]::after { animation: none; }
+}
+
+.campaign-privacy { margin-block: 12px; }
+.campaign-privacy summary { cursor: pointer; color: #00658b; text-decoration: underline; }
+.campaign-privacy p { margin-top: 8px; }

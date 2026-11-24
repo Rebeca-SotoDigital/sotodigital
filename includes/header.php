@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/site-paths.php';
+require_once __DIR__ . '/site-content.php';
 if (soto_base_path() !== '') ob_start('soto_html_paths');
+$staging = soto_is_staging();
+if ($staging) header('X-Robots-Tag: noindex, nofollow');
 $pageTitle = $pageTitle ?? 'Soto Digital | Diseño web y marketing para empresas';
 $pageDescription = $pageDescription ?? 'Diseño web, redes sociales, email marketing, marketing de contenidos, SEO, SEM, branding y publicidad para empresas y negocios con Soto Digital.';
 $canonicalUrl = 'https://soto-digital.com' . ($canonicalPath ?? '/');
@@ -11,10 +14,9 @@ $stylesheet = $siteAssets[!empty($serviceStyles) ? 'css/site-services.css' : 'cs
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <?php if (!empty($campaignLanding)): ?>
+    <?php if ($staging || !empty($campaignLanding) || !empty($pageDraft)): ?>
     <meta name="robots" content="noindex, nofollow">
     <?php endif; ?>
-    <?php if (!empty($pageDraft) && empty($campaignLanding)): ?><meta name="robots" content="noindex, nofollow"><?php endif; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#142b53">
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
@@ -56,19 +58,18 @@ $stylesheet = $siteAssets[!empty($serviceStyles) ? 'css/site-services.css' : 'cs
         <?php if (!empty($campaignLanding)): ?></span><?php else: ?></a><?php endif; ?>
 
         <?php if (!empty($campaignLanding)): ?>
-        <a class="btn btn-nav" href="#propuesta">Mini-auditoría gratis ↗</a>
+        <a class="btn btn-nav" href="#propuesta"><?= SOTO_PROPOSAL_SHORT_CTA ?></a>
         <?php else: ?>
         <button class="mobile-toggle" id="mobile-menu" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menú">
             <i class="icon icon-bars" aria-hidden="true"></i>
         </button>
 
         <nav class="nav-links" id="nav-links" aria-label="Navegación principal">
-            <a href="/#soluciones">Soluciones</a>
-            <a href="/#pantalla">Pantalla LED</a>
             <a href="/#servicios">Servicios</a>
             <a href="/#proyectos">Proyectos</a>
+            <a href="/#pantalla">Pantalla LED</a>
             <a href="/#contacto">Contacto</a>
-            <a href="/#diagnostico" class="btn btn-nav">Pedir una propuesta <span aria-hidden="true">↗</span></a>
+            <a href="/#diagnostico" class="btn btn-nav"><?= SOTO_PROPOSAL_SHORT_CTA ?></a>
         </nav>
         <?php endif; ?>
     </div>

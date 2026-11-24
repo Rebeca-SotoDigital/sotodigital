@@ -62,7 +62,7 @@ include __DIR__ . '/header.php';
             <span class="section-subtitle"><?= $escape($service['label']) ?></span>
             <h1><?= $escape($service['heading']) ?></h1>
             <p class="service-lead"><?= $escape($service['intro']) ?></p>
-            <a class="btn btn-accent" href="<?= $escape($contactUrl) ?>"><?= $escape($service['cta']) ?> <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-accent" href="<?= $escape($contactUrl) ?>"><?= SOTO_PROPOSAL_CTA ?> <span aria-hidden="true">↗</span></a>
         </div>
     </section>
     <section>
@@ -103,7 +103,7 @@ include __DIR__ . '/header.php';
         </div>
     </section>
     <section id="solicitud" class="campaign-contact">
-        <div class="container campaign-split"><div><span class="section-subtitle">EL SIGUIENTE PASO</span><h2>Cuéntanos qué necesitas.</h2><p>Empieza con una mini-auditoría inicial gratuita. Revisaremos los datos que nos aportes y, según tus necesidades, te llamaremos si has dejado móvil o te enviaremos una propuesta por email.</p></div>
+        <div class="container campaign-split"><div><span class="section-subtitle">EL SIGUIENTE PASO</span><h2>Cuéntanos qué necesitas.</h2><p>Pide una propuesta gratuita. Revisaremos los datos que nos aportes y, según tus necesidades, te llamaremos si has dejado móvil o te enviaremos una propuesta por email.</p></div>
         <?php include __DIR__.'/campaign-form.php'; ?>
         </div>
     </section>

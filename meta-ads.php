@@ -6,7 +6,6 @@ $service = [
 'label'=>'PUBLICIDAD EN INSTAGRAM Y META',
 'heading'=>'Meta Ads para dar a conocer tu propuesta',
 'intro'=>'En Instagram y Meta el anuncio debe captar el interés y explicar por qué tu oferta importa. Damos una dirección común al objetivo, al mensaje y al contenido para que la campaña tenga sentido dentro de tu comunicación.',
-'cta'=>'Pedir mini-auditoría gratuita',
 'section'=>'Objetivo, creatividad y destino conectados',
 'body'=>'La publicidad puede acompañar una novedad, presentar un servicio o apoyar un lanzamiento. Revisamos contigo qué acción esperas del público y qué hay después del anuncio antes de definir el alcance.',
 'items'=>[['Objetivo y público','Acordamos la finalidad, las zonas y los criterios de público disponibles en la plataforma.'],['Mensajes y creatividades','Preparamos textos y piezas coherentes con tu identidad, revisando los materiales que hacen falta.'],['Revisión de la campaña','Seguimos los resultados que se puedan medir y planteamos cambios en anuncios, contenidos o página de destino.']],

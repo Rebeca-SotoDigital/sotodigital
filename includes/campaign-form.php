@@ -1,7 +1,6 @@
 <?php $questions = campaign_options(); ?>
 <form class="campaign-form" method="post" action="/api/lead.php" data-lead-form data-token-url="/api/token.php">
 <noscript><p class="campaign-error">Activa JavaScript para completar la verificación de seguridad y enviar tu solicitud. Las preguntas se muestran a continuación.</p></noscript>
-<span class="section-subtitle">MINI-AUDITORÍA INICIAL GRATUITA</span>
 <h3>¿Qué necesita tu negocio?</h3>
 <p class="campaign-progress" data-progress hidden aria-live="polite">Paso 1 de 5</p>
 <progress data-progress-bar max="5" value="1" hidden aria-label="Progreso del cuestionario"></progress>
@@ -22,12 +21,10 @@
 <label>Web del negocio (opcional)<input type="url" name="website" placeholder="https://tunegocio.com" maxlength="500" value="<?= $escape($old['website'] ?? '') ?>"></label>
 <label>¿Algo más que debamos saber? (opcional)<textarea name="message" rows="3" maxlength="5000" placeholder="Cuéntanos lo que te gustaría mejorar."><?= $escape($old['message'] ?? '') ?></textarea></label>
 <label class="campaign-check"><input required type="checkbox" name="privacy" value="1"><span>He leído la <a href="/privacidad.php#solicitudes-propuesta" target="_blank" rel="noopener">política de privacidad</a> sobre la gestión de mi solicitud.</span></label>
-<p class="campaign-small">Responsable: Soto Digital S.L. (NIF B05897236). Finalidad: atender tu solicitud y preparar la revisión o propuesta; base jurídica: medidas precontractuales y, cuando corresponda, contacto profesional. Tus respuestas se puntúan para revisión humana. Proveedores previstos: Arsys, Brevo, Cloudflare y Claude con datos limitados, según la política enlazada. No te suscribimos a newsletters. Derechos: rebeca@soto-digital.com.</p>
+<details class="campaign-privacy"><summary>Más información sobre el tratamiento de tus datos</summary><p class="campaign-small">Responsable: Soto Digital S.L. (NIF B05897236). Finalidad: atender tu solicitud y preparar la revisión o propuesta; base jurídica: medidas precontractuales y, cuando corresponda, contacto profesional. Tus respuestas se puntúan para revisión humana. Proveedores previstos: Arsys, Brevo, Cloudflare y Claude con datos limitados, según la política enlazada. No te suscribimos a newsletters. Derechos: rebeca@soto-digital.com.</p></details>
 <?php if ($ready): ?><div data-turnstile-container data-sitekey="<?= $escape(campaign_config('TURNSTILE_SITE_KEY')) ?>" data-action="proposal" data-language="es"></div><?php endif; ?>
 </fieldset>
-<?php if (!$ready): ?><p class="campaign-form-status">Estamos preparando la solicitud online. Vuelve a intentarlo más adelante.</p><?php endif; ?>
 <p class="campaign-error" data-form-error role="alert" <?= !$error ? 'hidden' : '' ?>><?= $escape($error) ?></p>
-<div class="campaign-form-actions"><button type="button" class="text-link" data-previous hidden>← Volver</button><button type="button" class="btn" data-next hidden>Continuar →</button><button class="btn" type="submit" data-submit <?= !$ready ? 'disabled' : '' ?>>Pedir mini-auditoría gratuita ↗</button></div>
-<p class="campaign-small">Revisaremos tus datos y, según tus necesidades, te llamaremos si has dejado móvil o te enviaremos una propuesta por email. Sin compromiso de contratación.</p>
-<p class="campaign-small">Primera respuesta en un máximo de <?= $escape(campaign_response_time()) ?>.</p>
+<div class="campaign-form-actions"><button type="button" class="text-link" data-previous hidden>Atrás</button><button type="button" class="btn" data-next hidden>Continuar</button><button class="btn" type="submit" data-submit <?= !$ready ? 'disabled' : '' ?>>Enviar solicitud</button></div>
+<p class="campaign-small">Usaremos tus datos solo para responderte. Puedes retirar tu consentimiento cuando quieras.</p>
 </form>
