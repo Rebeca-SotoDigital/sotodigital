@@ -25,9 +25,9 @@ include 'includes/header.php';
     <div class="container">
         <div class="section-heading"><h2>¿Dónde estás? <span class="muted-heading">¿A dónde quieres llegar?</span></h2></div>
         <div class="solutions-grid">
-            <a class="solution-card solution-dark" href="#servicio-visibilidad"><h3>Quiero que <strong>me conozcan</strong></h3><p>Una presencia cuidada en redes y en internet para que más gente sepa que existes.</p></a>
-            <a class="solution-card solution-dark" href="#servicio-publicidad"><h3>Quiero <strong>más consultas</strong></h3><p>Una web clara y campañas que llevan a personas interesadas hasta tu puerta.</p></a>
-            <a class="solution-card solution-dark" href="#servicio-marca"><h3>Quiero una <strong>marca</strong> que destaque</h3><p>Una imagen coherente y reconocible que transmita confianza desde el primer vistazo.</p></a>
+            <a class="solution-card solution-dark" href="<?= $escape(SOTO_SERVICES['servicio-visibilidad'][1]) ?>"><h3>Quiero que <strong>me conozcan</strong></h3><p>Una presencia cuidada en redes y en internet para que más gente sepa que existes.</p></a>
+            <a class="solution-card solution-dark" href="<?= $escape(SOTO_SERVICES['servicio-publicidad'][1]) ?>"><h3>Quiero <strong>más consultas</strong></h3><p>Una web clara y campañas que llevan a personas interesadas hasta tu puerta.</p></a>
+            <a class="solution-card solution-dark" href="<?= $escape(SOTO_SERVICES['servicio-marca'][1]) ?>"><h3>Quiero una <strong>marca</strong> que destaque</h3><p>Una imagen coherente y reconocible que transmita confianza desde el primer vistazo.</p></a>
         </div>
     </div>
 </section>
@@ -38,7 +38,12 @@ include 'includes/header.php';
             <?php foreach (SOTO_SERVICES as $id => $entry): ?>
                 <?php if (!isset($entry[2])) continue; ?>
                 <article class="service-row" id="<?= $escape($id) ?>">
-                    <h3><strong><?= $escape($entry[0]) ?></strong><?= $escape($entry[2]) ?></h3>
+                    <?php $title = [
+                        'servicio-web' => ['Webs', ' que abren puertas'],
+                        'servicio-email-marketing' => ['Emails', ' que mantienen el contacto'],
+                        'servicio-marketing-contenidos' => ['Contenido', ' que aporta valor'],
+                    ][$id] ?? [$entry[0], $entry[2]]; ?>
+                    <h3><a class="service-card-link" href="<?= $escape($entry[1]) ?>" aria-labelledby="<?= $escape($id) ?>-titulo"><span id="<?= $escape($id) ?>-titulo"><strong><?= $escape($title[0]) ?></strong><?= $escape($title[1]) ?></span><span class="service-card-more" aria-hidden="true">Ver más</span></a></h3>
                     <p><?= $escape($entry[3]) ?></p>
                 </article>
             <?php endforeach; ?>

@@ -41,6 +41,10 @@ ErrorDocument 404 /404.php
     # Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
     Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://sc.lftracker.com; connect-src 'self' https://challenges.cloudflare.com https://*.google-analytics.com https://*.analytics.google.com https://*.googleadservices.com https://googleads.g.doubleclick.net https://*.lftracker.com; img-src 'self' data: https://*.google-analytics.com https://*.google.com https://*.google.es https://*.googleadservices.com https://googleads.g.doubleclick.net https://*.lftracker.com; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src https://challenges.cloudflare.com https://www.googletagmanager.com; base-uri 'self'; object-src 'none'; form-action 'self'; frame-ancestors 'self'"
 
+    <Files "sitemap.xml">
+        Header always set X-Robots-Tag "noindex, nofollow" "expr=reqenv('SITE_ENV') == 'staging' || %{REQUEST_URI} != '/sitemap.xml'"
+    </Files>
+
     # Clear both Apache header tables before setting one final policy.
     Header unset Cache-Control
     Header always unset Cache-Control

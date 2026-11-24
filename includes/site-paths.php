@@ -4,6 +4,7 @@ function soto_base_path(): string {
     $root = realpath(__DIR__ . '/..');
     $file = realpath($_SERVER['SCRIPT_FILENAME'] ?? '');
     $script = $_SERVER['SCRIPT_NAME'] ?? '';
+    if (PHP_SAPI === 'cli' && $script === ($_SERVER['SCRIPT_FILENAME'] ?? '')) return '';
     if (!$root || !$file || strpos($file, $root . DIRECTORY_SEPARATOR) !== 0) return '';
     $relative = str_replace(DIRECTORY_SEPARATOR, '/', substr($file, strlen($root)));
     if ($script === '' || substr($script, -strlen($relative)) !== $relative) return '';
