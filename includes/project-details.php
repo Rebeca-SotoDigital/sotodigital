@@ -48,7 +48,23 @@ $details = [
 ];
 
 $caseCopy = [
-    'refinish' => ['slug' => 'proyecto-tecnirefinish', 'phrase' => 'Una web a la altura de su catálogo.', 'caseWork' => 'Web corporativa que presenta sus soluciones profesionales.'],
+    'refinish' => [
+        'slug' => 'proyecto-tecnirefinish',
+        'phrase' => 'Una web a la altura de su catálogo.',
+        'caseWork' => 'Web corporativa que presenta sus soluciones profesionales.',
+        'workParagraphs' => [
+            'Diseñamos y desarrollamos una página web corporativa personalizada, con una estética profesional, una estructura intuitiva y una comunicación alineada con su actividad.',
+            'Un proyecto enfocado en facilitar la navegación, dar protagonismo a sus productos y servicios y acercar la empresa a sus potenciales clientes.',
+        ],
+        'result' => [
+            'Una nueva carta de presentación digital que refleja la identidad de TecniRefinish y proyecta una imagen profesional, sólida y coherente con su actividad.',
+            'Una plataforma que sienta las bases para seguir creciendo en el entorno digital y generar nuevas oportunidades comerciales.',
+        ],
+        'challenge' => [
+            'Trasladar al entorno digital la identidad y profesionalidad de TecniRefinish, empresa especializada en productos y soluciones para el sector de la pintura y el repintado profesional.',
+            'El desafío consistía en crear una presencia online capaz de transmitir confianza, facilitar el conocimiento de su oferta comercial y reforzar su posicionamiento dentro del sector.',
+        ],
+    ],
     'kebab' => ['slug' => 'proyecto-cantabria-kebab', 'phrase' => 'Una carta que da hambre.', 'caseWork' => 'Web y gestión de redes sociales para su restaurante.'],
     'carrocerias' => ['slug' => 'proyecto-soto-carrocerias', 'phrase' => 'El taller, también en pantalla.', 'caseWork' => 'Web y redes de nuestro propio taller de chapa y pintura.'],
     'cars' => ['slug' => 'proyecto-soto-cars', 'phrase' => 'Un escaparate que no cierra.', 'caseWork' => 'Web para nuestro negocio de venta de vehículos.'],

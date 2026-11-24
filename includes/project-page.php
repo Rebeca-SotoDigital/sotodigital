@@ -31,15 +31,23 @@ include __DIR__ . '/header.php';
     </section>
     <section class="case-detail">
         <div class="container">
-            <?php if (soto_show_pending()): ?>
+            <?php if (!empty($detail['challenge']) || soto_show_pending()): ?>
                 <h2>Reto</h2>
-                <p>[PENDIENTE]</p>
+                <?php foreach ($detail['challenge'] ?? ['[PENDIENTE]'] as $paragraph): ?>
+                    <p><?= $escape($paragraph) ?></p>
+                <?php endforeach; ?>
             <?php endif; ?>
             <h2>Qué hicimos</h2>
-            <p><?= $escape($detail['caseWork']) ?></p>
-            <?php if (soto_show_pending()): ?>
+            <?php foreach ($detail['workParagraphs'] ?? [$detail['caseWork']] as $paragraph): ?>
+                <p><?= $escape($paragraph) ?></p>
+            <?php endforeach; ?>
+            <?php if (!empty($detail['result']) || soto_show_pending()): ?>
                 <h2>Resultado</h2>
-                <p>[PENDIENTE]</p>
+                <?php foreach ($detail['result'] ?? ['[PENDIENTE]'] as $paragraph): ?>
+                    <p><?= $escape($paragraph) ?></p>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <?php if (soto_show_pending()): ?>
                 <?php if (in_array($projectTheme, ['refinish', 'kebab'], true)): ?>
                     <h2>Testimonio</h2>
                     <p>[PENDIENTE: testimonio del cliente]</p>
