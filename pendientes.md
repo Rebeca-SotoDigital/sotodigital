@@ -14,7 +14,7 @@ Este es el checklist vigente. **El formulario y Brevo se verificaron en local.**
 - [x] El equipo confirma que ve `RESPONSABLE_LEAD`. Asignación y conservación verificadas mediante API real en un contacto interno. Es coordinación manual, sin bloqueo de edición simultánea. Véase `docs/asignacion-leads.md`.
 - [x] Primera respuesta en un máximo de **2 días laborables**, aprobada por el equipo. No implica entregar una propuesta completa en ese plazo.
 - [x] Revisión inicial: examinar los datos aportados y, según las necesidades, llamar si hay móvil o enviar una propuesta por email. No se promete un informe independiente ni una llamada si no se facilita teléfono.
-- [x] El proceso de revisión inicial y los textos de captación están preparados. El plazo ya aprobado queda por incorporar en la página de gracias.
+- [x] El proceso de revisión inicial y los textos de captación están preparados. La página de gracias muestra el plazo aprobado de primera respuesta.
 - [x] Estados aprobados y configurados en `ESTADO_LEAD`: Nuevo → En revisión → Contactado → Propuesta enviada → Ganado / Perdido. Se conservan las opciones antiguas y sus IDs, sin reclasificar contactos.
 - [x] Revisión de solicitudes pendientes a cargo de ambos, Jónatan y Rebeca. Consultar responsable y estado antes de contactar para coordinarse.
 - [x] Recorrido real probado en el contacto interno 101: seis estados, ambos responsables y resincronización desde el código local en cada paso. Responsable, estado, puntuación e IA conservados; valores originales restaurados. Sin emails ni llamadas a IA.
@@ -129,7 +129,7 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 - [x] Alcance de revisión inicial y primera respuesta definidos: revisar datos aportados, valorar necesidades y contactar por llamada o propuesta por email; máximo 2 días laborables para responder.
 - [ ] Aprobar precios si se quieren publicar. No hay tarifas aprobadas; los rangos del formulario no son precios.
 - [x] Plazo de primera respuesta definido en la configuración. `CAMPAIGN_RESPONSE_TIME` tiene un valor predeterminado de 2 días laborables.
-- [ ] Sustituir el marcador del plazo en `campanas/gracias.php` por el máximo aprobado de **2 días laborables para la primera respuesta**. Diferenciar ese plazo de la entrega de la propuesta.
+- [x] La página de gracias muestra el plazo aprobado de **2 días laborables como máximo para la primera respuesta**, mediante `campaign_response_time()`.
 - [ ] Confirmar estado operativo, disponibilidad y condiciones reales de la pantalla LED antes de vender publicidad. Mantener identificada cualquier recreación y no prometer audiencias sin datos.
 - [x] Equipo actualizado: Rebeca figura primero como CEO y cofundadora, con su frase personal. Jónatan figura como CCO y cofundador. Los cargos se muestran en negrita y la frase personal en un párrafo aparte.
 - [x] Retratos de Rebeca y Jónatan incorporados a la sección de equipo en WebP, con el mismo formato y alineación.
