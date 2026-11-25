@@ -62,7 +62,18 @@ function procesarColaWhatsApp(
     int $limite = 10,
     ?callable $generadorRespuesta = null
 ): array {
-    $generadorRespuesta ??= 'responderAlCliente';
+    
+$generadorRespuesta ??= static function (
+    string $telefono,
+    string $texto
+): array {
+    return responderAlCliente(
+        $telefono,
+        $texto,
+        false
+    );
+};
+
 
     $directorio = sotoQueueDirectory();
 
@@ -162,25 +173,59 @@ $resultado = procesarMensajeProtegido(
         }
 
         // 2. Registrar etapas y efectuar el envío.
-        $entrega = procesarEntregaConDiario(
-            $messageId,
-            $telefono,
-            $respuesta,
-            $transportador
-        );
+        
+$entrega = procesarEntregaConDiario(
+    $messageId,
+    $telefono,
+    $respuesta,
+    $transportador
+);
 
-        // 3. Solo completar si Meta ha aceptado
-        // y no quedan incidencias de vinculación.
-        if (
-            ($entrega['estado'] ?? '') !== 'aceptado'
-        ) {
-            throw new RuntimeException(
-                'Entrega pendiente de revisión: ' .
-                ($entrega['estado'] ?? 'desconocido')
-            );
-        }
+// Solo aceptamos el intercambio si Meta ha
+// confirmado la aceptación de la solicitud.
+if (
+    ($entrega['estado'] ?? '') !== 'aceptado'
+) {
+    throw new RuntimeException(
+        'Entrega pendiente de revisión: ' .
+        ($entrega['estado'] ?? 'desconocido')
+    );
+}
 
-        return ['ok' => true];
+// Recuperar el texto exacto generado.
+$textoAgente = $respuesta['respuesta'] ?? null;
+
+if (
+    !is_string($textoAgente) ||
+    trim($textoAgente) === ''
+) {
+    throw new RuntimeException(
+        'No existe respuesta para consolidar'
+    );
+}
+
+// Guardar cliente + asistente en una sola
+// operación de memoria, con protección
+// frente a mensajes duplicados.
+$resultadoMemoria = guardarIntercambioConfirmado(
+    $telefono,
+    $messageId,
+    $texto,
+    $textoAgente
+);
+
+if (!in_array(
+    $resultadoMemoria,
+    ['guardado', 'duplicado'],
+    true
+)) {
+    throw new RuntimeException(
+        'No se pudo consolidar la conversación'
+    );
+}
+
+return ['ok' => true];
+
     }
 );
 
