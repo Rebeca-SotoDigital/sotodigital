@@ -29,7 +29,7 @@ $projectServiceNames = ['web' => 'Web', 'social' => 'Redes'];
                         <ul class="case-tags" aria-label="Servicios">
                             <?php foreach ($project['services'] as $projectService): ?><li><?= $projectEscape($projectServiceNames[$projectService]) ?></li><?php endforeach; ?>
                         </ul>
-                        <a class="btn case-link" href="/<?= $projectEscape($case['slug']) ?>.php" aria-label="Ver el caso de <?= $projectEscape($project['name']) ?>">Ver el caso</a>
+                        <a class="btn case-link" href="/<?= $projectEscape($case['slug']) ?>.php" aria-label="Ver proyecto de <?= $projectEscape($project['name']) ?>">Ver proyecto</a>
                     </div>
                 </article>
             <?php endforeach; ?>

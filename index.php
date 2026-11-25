@@ -16,7 +16,6 @@ include 'includes/header.php';
             <p>Creamos la web, las campañas y la imagen que tu negocio necesita para que más gente te conozca y te escriba.</p>
             <div class="hero-buttons">
                 <a href="#diagnostico" class="btn"><?= SOTO_PROPOSAL_CTA ?></a>
-                <a href="#proyectos" class="text-link">Ver nuestros trabajos</a>
             </div>
         </div>
     </div>
