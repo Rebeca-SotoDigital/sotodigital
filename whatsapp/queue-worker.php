@@ -6,7 +6,7 @@ require_once __DIR__ . '/message-guard.php';
 require_once __DIR__ . '/conversation-controller.php';
 require_once __DIR__ . '/whatsapp-bridge.php';
 require_once __DIR__ . '/delivery-worker.php';
-
+require_once __DIR__ . '/queue-order.php';
 
 /**
  * Trabajador manual de cola - Soto Digital.
@@ -91,16 +91,18 @@ function procesarColaWhatsApp(
             );
         }
 
-        $archivos = glob(
-            $directorio . '/*.json'
-        ) ?: [];
+        
+        // Seleccionar únicamente el primer mensaje
+        // no resuelto de cada cliente.
+        $plan = planificarColaWhatsApp();
 
-        // Orden básico por momento de recepción.
-        usort(
-            $archivos,
-            fn($a, $b) =>
-                filemtime($a) <=> filemtime($b)
-        );
+        $archivos = $plan['elegibles'];
+
+        // Orden determinista de la tanda.
+        // El orden por cliente ya lo ha decidido
+        // el planificador.
+        sort($archivos, SORT_STRING);
+
 
         $procesados = 0;
 
