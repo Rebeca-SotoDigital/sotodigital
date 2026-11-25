@@ -41,6 +41,13 @@ function leadDirectory(): string
  * No llamar a esta función únicamente porque
  * Claude detecte interés comercial.
  */
+
+/**
+ * Guarda un lead confirmado e impide duplicados.
+ *
+ * Un lead por teléfono en esta versión.
+ * La escritura se hace mediante archivo temporal.
+ */
 function guardarLead(
     string $clienteId,
     array $datos
@@ -51,15 +58,12 @@ function guardarLead(
         );
     }
 
-    if (($datos['confirmado'] ?? false) !== true) {
+    if (
+        ($datos['confirmado'] ?? false) !== true ||
+        ($datos['consentimiento'] ?? false) !== true
+    ) {
         throw new InvalidArgumentException(
-            'Falta confirmación del cliente'
-        );
-    }
-
-    if (($datos['consentimiento'] ?? false) !== true) {
-        throw new InvalidArgumentException(
-            'Falta aceptación para gestionar la solicitud'
+            'Falta confirmación o consentimiento'
         );
     }
 
@@ -72,75 +76,110 @@ function guardarLead(
         $nombre === '' ||
         $negocio === '' ||
         $necesidad === '' ||
-        strlen($nombre) > 160 ||
-        strlen($negocio) > 200 ||
-        strlen($necesidad) > 2000
-    ) {
-        throw new InvalidArgumentException(
-            'Datos comerciales incompletos o demasiado largos'
-        );
-    }
-
-    if (
+        mb_strlen($nombre) > 160 ||
+        mb_strlen($negocio) > 200 ||
+        mb_strlen($necesidad) > 2000 ||
         strlen($email) > 254 ||
         !filter_var($email, FILTER_VALIDATE_EMAIL)
     ) {
         throw new InvalidArgumentException(
-            'Correo electrónico no válido'
+            'Datos comerciales no válidos'
         );
     }
 
-    // Un registro por cliente en esta versión.
-    // El hash no sustituye al cifrado de datos.
+    $campos = [
+        'nombre' => $nombre,
+        'negocio' => $negocio,
+        'email' => $email,
+        'necesidad' => $necesidad
+    ];
+
     $hash = hash('sha256', $clienteId);
-    $file = leadDirectory() . '/' . $hash . '.json';
+    $directory = leadDirectory();
+    $path = $directory . '/' . $hash . '.json';
+    $lockPath = $directory . '/' . $hash . '.lock';
 
     $oldUmask = umask(0077);
 
     try {
-        $handle = fopen($file, 'c+');
+        $lock = fopen($lockPath, 'c');
     } finally {
         umask($oldUmask);
     }
 
-    if ($handle === false) {
+    if ($lock === false) {
         throw new RuntimeException(
-            'No se pudo abrir el archivo del lead'
+            'No se pudo abrir el bloqueo del lead'
         );
     }
 
     try {
-        if (!flock($handle, LOCK_EX)) {
+        if (!flock($lock, LOCK_EX)) {
             throw new RuntimeException(
-                'No se pudo bloquear el archivo'
+                'No se pudo bloquear el lead'
             );
         }
 
-        rewind($handle);
-        $existing = stream_get_contents($handle);
-        $previous = json_decode($existing ?: '', true);
+        // Comprobar si el lead ya existe.
+        if (file_exists($path)) {
+            $raw = file_get_contents($path);
 
-        // Repetir la misma confirmación no genera
-        // automáticamente un segundo registro.
-        if (
-            is_array($previous) &&
-            ($previous['estado'] ?? '') === 'pendiente'
-        ) {
+            if ($raw === false || trim($raw) === '') {
+                throw new RuntimeException(
+                    'Lead existente vacío o ilegible'
+                );
+            }
+
+            $previous = json_decode(
+                $raw,
+                true,
+                512,
+                JSON_THROW_ON_ERROR
+            );
+
+            if (
+                !is_array($previous) ||
+                ($previous['id'] ?? null) !== $hash ||
+                !is_string($previous['estado'] ?? null) ||
+                $previous['estado'] === '' ||
+                ($previous['confirmado'] ?? null) !== true ||
+                ($previous['consentimiento'] ?? null) !== true
+            ) {
+                throw new RuntimeException(
+                    'Lead existente inconsistente'
+                );
+            }
+
+            // No reutilizar un lead con datos diferentes.
+            foreach ($campos as $campo => $valor) {
+                if (
+                    !is_string($previous[$campo] ?? null) ||
+                    $previous[$campo] !== $valor
+                ) {
+                    throw new RuntimeException(
+                        'Ya existe un lead con otros datos'
+                    );
+                }
+            }
+
+            // La confirmación repetida recupera
+            // exactamente el registro anterior.
             return $previous;
         }
 
-        $lead = [
-            'id' => $hash,
-            'nombre' => $nombre,
-            'negocio' => $negocio,
-            'email' => $email,
-            'necesidad' => $necesidad,
-            'estado' => 'pendiente',
-            'canal' => 'whatsapp',
-            'confirmado' => true,
-            'consentimiento' => true,
-            'creado_en' => gmdate('c')
-        ];
+        $lead = array_merge(
+            [
+                'id' => $hash
+            ],
+            $campos,
+            [
+                'estado' => 'pendiente',
+                'canal' => 'whatsapp',
+                'confirmado' => true,
+                'consentimiento' => true,
+                'creado_en' => gmdate('c')
+            ]
+        );
 
         $json = json_encode(
             $lead,
@@ -149,28 +188,93 @@ function guardarLead(
             JSON_THROW_ON_ERROR
         );
 
-        rewind($handle);
+        $temp = tempnam(
+            $directory,
+            '.lead-'
+        );
 
-        if (!ftruncate($handle, 0)) {
+        if ($temp === false) {
             throw new RuntimeException(
-                'No se pudo actualizar el archivo'
+                'No se pudo crear el archivo temporal'
             );
         }
 
-        $written = fwrite($handle, $json);
+        try {
+            if (!chmod($temp, 0600)) {
+                throw new RuntimeException(
+                    'No se pudieron proteger los permisos'
+                );
+            }
 
-        if ($written !== strlen($json)) {
-            throw new RuntimeException(
-                'No se pudo guardar el lead completo'
-            );
+            $handle = fopen($temp, 'wb');
+
+            if ($handle === false) {
+                throw new RuntimeException(
+                    'No se pudo abrir el archivo temporal'
+                );
+            }
+
+            try {
+                $length = strlen($json);
+                $written = 0;
+
+                while ($written < $length) {
+                    $n = fwrite(
+                        $handle,
+                        substr($json, $written)
+                    );
+
+                    if ($n === false || $n === 0) {
+                        throw new RuntimeException(
+                            'Escritura incompleta del lead'
+                        );
+                    }
+
+                    $written += $n;
+                }
+
+                if (!fflush($handle)) {
+                    throw new RuntimeException(
+                        'No se pudo vaciar el búfer'
+                    );
+                }
+
+                if (
+                    function_exists('fsync') &&
+                    !fsync($handle)
+                ) {
+                    throw new RuntimeException(
+                        'No se pudo sincronizar el lead'
+                    );
+                }
+
+            } finally {
+                fclose($handle);
+            }
+
+            if (file_get_contents($temp) !== $json) {
+                throw new RuntimeException(
+                    'Verificación del lead fallida'
+                );
+            }
+
+            if (!rename($temp, $path)) {
+                throw new RuntimeException(
+                    'No se pudo publicar el lead'
+                );
+            }
+
+        } finally {
+            if (is_file($temp)) {
+                unlink($temp);
+            }
         }
-
-        fflush($handle);
 
         return $lead;
 
     } finally {
-        flock($handle, LOCK_UN);
-        fclose($handle);
+        flock($lock, LOCK_UN);
+        fclose($lock);
     }
 }
+
