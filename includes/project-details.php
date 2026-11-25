@@ -62,6 +62,12 @@ $caseCopy = [
             'Una nueva carta de presentación digital que refleja la identidad de TecniRefinish y proyecta una imagen profesional, sólida y coherente con su actividad.',
             'Una plataforma que sienta las bases para seguir creciendo en el entorno digital y generar nuevas oportunidades comerciales.',
         ],
+        'captures' => [
+            ['file' => 'tecnirefinish/portada-desktop.webp', 'width' => 1280, 'height' => 808,
+                'caption' => 'Portada en escritorio', 'alt' => 'Portada de TecniRefinish con menú horizontal, presentación comercial y ficha de calidad Cesvitest'],
+            ['file' => 'tecnirefinish/portada-movil.webp', 'width' => 390, 'height' => 844,
+                'caption' => 'Portada en móvil', 'alt' => 'Portada de TecniRefinish en una columna, con menú compacto y acceso a la solicitud de información'],
+        ],
         'challenge' => [
             'Trasladar al entorno digital la identidad y profesionalidad de TecniRefinish, empresa especializada en productos y soluciones para el sector de la pintura y el repintado profesional.',
             'El desafío consistía en crear una presencia online capaz de transmitir confianza, facilitar el conocimiento de su oferta comercial y reforzar su posicionamiento dentro del sector.',
@@ -69,36 +75,99 @@ $caseCopy = [
     ],
     'kebab' => [
         'slug' => 'proyecto-cantabria-kebab',
-        'phrase' => 'Una carta que da hambre.',
+        'phrase' => 'Una identidad digital diseñada para despertar el apetito y conectar con el público local.',
         'caseWork' => 'Web y gestión de redes sociales para su restaurante.',
+        'challenge' => [
+            'Acompañar el lanzamiento de un nuevo establecimiento de restauración en Colindres, creando una presencia digital desde cero que permitiera dar a conocer el negocio, diferenciarlo de la competencia y conectar con sus potenciales clientes.',
+        ],
+        'workParagraphs' => [
+            'Desarrollamos una página web personalizada, visual y accesible, donde los productos son los protagonistas.',
+            'Complementamos el proyecto con la gestión de redes sociales, creación de contenido audiovisual, diseño de material publicitario y acciones de promoción digital, construyendo una comunicación coherente en los diferentes canales.',
+        ],
+        'result' => [
+            'Una presencia de marca integrada, tanto en el entorno físico como en el digital, preparada para potenciar la visibilidad local, atraer nuevos clientes y acompañar el crecimiento del establecimiento.',
+        ],
         'cover' => ['file' => 'cantabria-kebab.webp', 'width' => 487, 'height' => 420,
             'alt' => 'Logo de Cantabria Döner con un asador de kebab'],
     ],
     'carrocerias' => [
         'slug' => 'proyecto-soto-carrocerias',
-        'phrase' => 'El taller, también en pantalla.',
+        'phrase' => 'Décadas de experiencia. Una nueva forma de comunicarla.',
         'caseWork' => 'Web y redes de nuestro propio taller de chapa y pintura.',
+        'challenge' => [
+            'Modernizar la presencia digital de un taller de chapa y pintura con trayectoria desde 1985, manteniendo su esencia y trasladando al entorno online los valores que lo han acompañado durante décadas: experiencia, calidad y confianza.',
+            'El desafío consistía en diferenciar la marca dentro de un sector tradicional y acercarla a las nuevas generaciones de clientes.',
+        ],
+        'workParagraphs' => [
+            'Desarrollamos una página web corporativa que refleja la profesionalidad del taller, sus instalaciones, servicios y procesos de reparación.',
+            'Creamos una estrategia de comunicación digital basada en contenido audiovisual real, mostrando el trabajo, la técnica y los resultados que hay detrás de cada reparación.',
+            'Complementamos el proyecto con diseño gráfico, gestión de redes sociales y producción de creatividades publicitarias para diferentes soportes, incluidos los videomarcadores de los Campos de Sport de El Sardinero.',
+        ],
+        'result' => [
+            'Una imagen de marca renovada, profesional y coherente en todos sus canales de comunicación.',
+            'Una presencia digital que pone en valor décadas de experiencia, acerca el trabajo del taller al cliente y refuerza su visibilidad dentro del sector de la automoción en Cantabria.',
+        ],
+        'testimonial' => 'Después de más de 40 años dedicados a la reparación de vehículos, necesitábamos modernizar nuestra presencia digital sin perder nuestra esencia. Soto Digital ha sabido combinar nuestra trayectoria con una imagen actual, profesional y cercana. Su implicación va mucho más allá del diseño de una página web.',
         'cover' => ['file' => 'soto-carrocerias.webp', 'width' => 560, 'height' => 169,
             'alt' => 'Logo de Soto Carrocerías'],
     ],
     'cars' => [
         'slug' => 'proyecto-soto-cars',
-        'phrase' => 'Un escaparate que no cierra.',
+        'phrase' => 'Una nueva forma de conectar vehículos con sus futuros propietarios.',
         'caseWork' => 'Web para nuestro negocio de venta de vehículos.',
+        'challenge' => [
+            'Crear un escaparate digital para la comercialización de vehículos que transmitiera confianza, profesionalidad y transparencia desde el primer contacto.',
+            'El objetivo era facilitar la consulta de vehículos y ofrecer una experiencia de navegación atractiva, adaptada a los nuevos hábitos de búsqueda y compra del sector de la automoción.',
+        ],
+        'workParagraphs' => [
+            'Planteamos una experiencia web centrada en el producto, con una estética moderna, una estructura intuitiva y un especial protagonismo de la imagen de cada vehículo.',
+            'Diseñamos una comunicación orientada a facilitar la consulta de información y reducir la distancia entre el interés del usuario y el contacto comercial.',
+        ],
+        'result' => [
+            'Un escaparate digital diseñado para presentar los vehículos de forma atractiva y profesional, reforzar la identidad de marca y facilitar la generación de oportunidades comerciales.',
+            'Una presencia online alineada con las expectativas del comprador actual.',
+        ],
+        'testimonial' => 'Buscábamos una imagen digital moderna, profesional y capaz de transmitir confianza a nuestros clientes. Soto Digital ha entendido nuestras necesidades y ha creado una propuesta que da protagonismo a nuestros vehículos y refleja nuestra forma de trabajar.',
         'cover' => ['file' => 'soto-cars.webp', 'width' => 560, 'height' => 230,
             'alt' => 'Logo de Soto Cars'],
     ],
     'wash' => [
         'slug' => 'proyecto-soto-wash',
-        'phrase' => 'Brillo en la calle y en internet.',
+        'phrase' => 'Una experiencia digital que refleja el cuidado de cada detalle.',
         'caseWork' => 'Web y redes de nuestro servicio de lavado y detailing.',
+        'challenge' => [
+            'Construir una presencia digital capaz de diferenciar a Soto Wash de los lavaderos convencionales, transmitiendo la calidad, exclusividad y atención al detalle de sus servicios de limpieza profesional de vehículos.',
+            'El objetivo era trasladar esa experiencia premium al entorno digital y facilitar el acceso de los clientes a sus servicios.',
+        ],
+        'workParagraphs' => [
+            'Diseñamos y desarrollamos una página web personalizada, con una estética cuidada, una presentación clara de sus servicios y acceso directo al sistema de reservas online.',
+            'Desarrollamos una estrategia de comunicación visual a través de redes sociales, contenido audiovisual, diseño de material corporativo y acciones publicitarias orientadas a reforzar el reconocimiento de marca.',
+        ],
+        'result' => [
+            'Una presencia digital que transmite profesionalidad y confianza desde el primer contacto, facilita el proceso de reserva y refuerza el posicionamiento de Soto Wash como un servicio de limpieza de vehículos premium en Cantabria.',
+        ],
+        'testimonial' => 'Para nosotros, cada detalle cuenta, y necesitábamos que nuestra imagen digital transmitiera esa misma filosofía. Soto Digital ha conseguido reflejar la calidad de nuestros servicios, diferenciarnos y construir una identidad visual que representa perfectamente nuestro negocio.',
         'cover' => ['file' => 'soto-wash.webp', 'width' => 560, 'height' => 159,
             'alt' => 'Logo de Soto Wash'],
     ],
     'events' => [
         'slug' => 'proyecto-why-not',
-        'phrase' => 'Eventos que se cuentan solos.',
+        'phrase' => 'Porque las experiencias inolvidables empiezan mucho antes del evento.',
         'caseWork' => 'Web y redes para organización de eventos y celebraciones.',
+        'challenge' => [
+            'Trasladar al entorno digital la creatividad, personalidad y capacidad de personalización de Why Not, una marca dedicada a transformar celebraciones en experiencias especiales.',
+            'El desafío consistía en presentar una oferta de servicios muy visual y emocional, despertando la ilusión del cliente desde su primera visita.',
+        ],
+        'workParagraphs' => [
+            'Diseñamos una propuesta web personalizada, con una estética elegante, cercana e inspiradora, donde las imágenes y las experiencias adquieren un papel protagonista.',
+            'Organizamos sus diferentes servicios —mesas dulces, decoración de eventos, plataforma 360, coche de novia y detalles personalizados— dentro de una experiencia de navegación coherente, atractiva y orientada al contacto.',
+            'Complementamos la propuesta con el diseño de material comercial que refleja la personalidad y esencia de la marca.',
+        ],
+        'result' => [
+            'Una propuesta de presencia digital con identidad propia, capaz de transmitir emociones, inspirar a futuros clientes y mostrar las posibilidades de personalización de cada celebración.',
+            'Una experiencia visual diseñada para convertir la inspiración en el primer paso hacia un evento inolvidable.',
+        ],
+        'testimonial' => 'Han sabido captar perfectamente nuestra esencia y trasladarla al mundo digital. Queríamos transmitir creatividad, ilusión y personalidad, y la propuesta de Soto Digital refleja exactamente lo que queremos que nuestros clientes sientan cuando nos descubren.',
         'cover' => ['file' => 'why-not.webp', 'width' => 438, 'height' => 420,
             'alt' => 'Logo de Why Not Eventos'],
     ],

@@ -329,3 +329,74 @@ header .nav-links .btn-nav:hover, #pantalla .btn-nav:hover { background: #e3f2f8
     .home-page :is(.solution-card, .process-grid article):nth-child(2) { animation-delay: .07s; }
     .home-page :is(.solution-card, .process-grid article):nth-child(3) { animation-delay: .14s; }
 }
+
+.case-gallery {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+    margin: 0 0 2rem;
+}
+.case-gallery figure { margin: 0; }
+.case-gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #d9e6eb;
+    border-radius: 12px;
+    box-shadow: 0 8px 22px #19374714;
+}
+.case-gallery figcaption { margin-top: .55rem; color: #42515e; font-size: .9rem; }
+
+@media (max-width: 700px) {
+    .case-gallery { grid-template-columns: 1fr; }
+    .case-gallery figure + figure { width: min(100%, 18rem); justify-self: center; }
+}
+
+.project-page .project-intro {
+    padding-block: clamp(24px, 4vw, 52px) clamp(40px, 6vw, 84px);
+    background: #142d3a;
+    background: linear-gradient(
+        180deg,
+        #142d3a,
+        color-mix(in srgb, var(--project-logo-bg) 65%, #14212c) calc(100% - 36px),
+        color-mix(in srgb, var(--project-logo-bg) 65%, #fff)
+    );
+    border-bottom: 3px solid var(--project-logo-bg);
+}
+.project-intro .project-back { color: #f0f6f8; }
+.project-back::before { content: ""; width: .65rem; height: 2px; background: #a6e4fa; }
+.project-intro-copy { margin-top: clamp(22px, 4vw, 48px); }
+.project-intro .project-intro-copy h1 {
+    margin: 0 0 .22em;
+    color: #fff;
+    overflow-wrap: anywhere;
+}
+.project-intro .project-intro-copy .service-lead { margin: 0; color: #e7f2f6; }
+.project-intro-copy .case-tags { margin: 1.1rem 0 0; }
+.project-intro-copy .case-tags li {
+    border: 1px solid #ffffff59;
+    background: #ffffff17;
+    color: #fff;
+}
+.project-intro-copy .case-tags a {
+    color: inherit;
+    text-decoration: none;
+}
+.project-intro-copy .case-tags li:has(a:hover) { background: #ffffff32; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .project-intro-copy .case-tags li:has(> a) { transition: transform .2s ease-out, background-color .2s ease-out; }
+    .project-intro-copy .case-tags li:has(a:hover) { transform: translateY(-2px); }
+}
+.project-intro :is(.project-back, .case-tags a):focus-visible { outline-color: #a6e4fa; }
+@media (min-width: 1000px) {
+    .project-page .project-intro {
+        background: linear-gradient(
+            105deg,
+            #142d3a 10%,
+            color-mix(in srgb, var(--project-logo-bg) 65%, #14212c) 58%,
+            color-mix(in srgb, var(--project-logo-bg) 55%, #fff)
+        );
+    }
+    .project-intro-copy { max-width: 58%; }
+}
