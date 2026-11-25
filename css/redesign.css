@@ -402,3 +402,17 @@ header .nav-links .btn-nav:hover, #pantalla .btn-nav:hover { background: #e3f2f8
     }
     .project-intro-copy { max-width: 58%; }
 }
+
+.team-grid article { text-align: center; }
+.team-grid img,
+.team-grid .team-photo-placeholder {
+    width: min(100%, 216px);
+    aspect-ratio: 1;
+    margin: 0 auto 18px;
+    border-radius: 12px;
+}
+.team-grid img { display: block; object-fit: cover; }
+.team-grid .team-photo-placeholder { min-height: 0; }
+.team-grid h3 { margin: 0 0 8px; }
+.team-grid p { max-width: 40ch; margin-inline: auto; }
+.team-grid p + p { margin-top: 8px; }

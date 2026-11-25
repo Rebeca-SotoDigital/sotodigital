@@ -132,7 +132,8 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 - [ ] Sustituir el marcador del plazo en `campanas/gracias.php` por el máximo aprobado de **2 días laborables para la primera respuesta**. Diferenciar ese plazo de la entrega de la propuesta.
 - [ ] Confirmar estado operativo, disponibilidad y condiciones reales de la pantalla LED antes de vender publicidad. Mantener identificada cualquier recreación y no prometer audiencias sin datos.
 - [x] Equipo actualizado: Rebeca figura primero como CEO y cofundadora, con su frase personal. Jónatan figura como CCO y cofundador. Los cargos se muestran en negrita y la frase personal en un párrafo aparte.
-- [ ] Entregar la frase personal de Jónatan y las fotos autorizadas de ambos.
+- [x] Retratos de Rebeca y Jónatan incorporados a la sección de equipo en WebP, con el mismo formato y alineación.
+- [ ] Incorporar la frase personal de Jónatan.
 - [x] Las seis fichas tienen textos de Reto, Qué hicimos y Resultado, logos en el Portfolio y capturas de escritorio y móvil. Las etiquetas Web y Redes disponibles enlazan desde cada ficha.
 - [x] Incorporados los testimonios de Why Not, Soto Cars, Soto Wash y Soto Carrocerías.
 - [ ] Incorporar los testimonios de TecniRefinish y Cantabria Kebab. Confirmar los permisos de publicación de marcas y testimonios y distinguir los entregables de cualquier resultado medido.

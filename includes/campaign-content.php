@@ -38,8 +38,8 @@ return [
  // Per service: local MP4 path relative to site root; no external embeds before consent.
  // Names and education supplied by the founders; photos still pending.
  'team' => [
-  ['name'=>'Rebeca','description'=>'CEO y cofundadora.','personal'=>'Creativa por naturaleza, inconformista por elección e incansable cuando se trata de convertir una idea en realidad.','approved'=>true,'photo'=>''],
-  ['name'=>'Jónatan','description'=>'CCO y cofundador.','personal'=>'[PENDIENTE: frase personal]','approved'=>true,'photo'=>''],
+  ['name'=>'Rebeca','description'=>'CEO y cofundadora.','personal'=>'Creativa por naturaleza, inconformista por elección e incansable cuando se trata de convertir una idea en realidad.','approved'=>true,'photo'=>'img/equipo/rebeca.webp'],
+  ['name'=>'Jónatan','description'=>'CCO y cofundador.','personal'=>'[PENDIENTE: frase personal]','approved'=>true,'photo'=>'img/equipo/jonatan.webp'],
  ],
  'videos' => [],
  // Approved authentic quotes only; see docs/testimonios-clientes.md.
