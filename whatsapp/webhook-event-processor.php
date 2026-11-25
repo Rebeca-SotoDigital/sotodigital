@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/queue-storage.php';
 
 /**
  * Entrada de eventos WhatsApp - Soto Digital.
@@ -231,14 +232,16 @@ function procesarEventoWebhook(array $payload): array
                     continue;
                 }
 
-                $estado = sotoEncolarMensaje(
-                    $telefono,
-                    $messageId,
-                    $texto,
-                    is_string($timestamp)
-                        ? $timestamp
-                        : null
-                );
+                
+$estado = sotoEncolarMensajeSeguro(
+    $telefono,
+    $messageId,
+    $texto,
+    is_string($timestamp)
+        ? $timestamp
+        : null
+);
+
 
                 if ($estado === 'duplicado') {
                     $resultado['duplicados']++;
