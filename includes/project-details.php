@@ -49,6 +49,8 @@ $details = [
 
 $caseCopy = [
     'refinish' => [
+        'cover' => ['file' => 'tecnirefinish.webp', 'width' => 203, 'height' => 86,
+            'alt' => 'Símbolo de TecniRefinish con una pistola de pintura y la silueta de un coche'],
         'slug' => 'proyecto-tecnirefinish',
         'phrase' => 'Una web a la altura de su catálogo.',
         'caseWork' => 'Web corporativa que presenta sus soluciones profesionales.',
@@ -65,11 +67,41 @@ $caseCopy = [
             'El desafío consistía en crear una presencia online capaz de transmitir confianza, facilitar el conocimiento de su oferta comercial y reforzar su posicionamiento dentro del sector.',
         ],
     ],
-    'kebab' => ['slug' => 'proyecto-cantabria-kebab', 'phrase' => 'Una carta que da hambre.', 'caseWork' => 'Web y gestión de redes sociales para su restaurante.'],
-    'carrocerias' => ['slug' => 'proyecto-soto-carrocerias', 'phrase' => 'El taller, también en pantalla.', 'caseWork' => 'Web y redes de nuestro propio taller de chapa y pintura.'],
-    'cars' => ['slug' => 'proyecto-soto-cars', 'phrase' => 'Un escaparate que no cierra.', 'caseWork' => 'Web para nuestro negocio de venta de vehículos.'],
-    'wash' => ['slug' => 'proyecto-soto-wash', 'phrase' => 'Brillo en la calle y en internet.', 'caseWork' => 'Web y redes de nuestro servicio de lavado y detailing.'],
-    'events' => ['slug' => 'proyecto-why-not', 'phrase' => 'Eventos que se cuentan solos.', 'caseWork' => 'Web y redes para organización de eventos y celebraciones.'],
+    'kebab' => [
+        'slug' => 'proyecto-cantabria-kebab',
+        'phrase' => 'Una carta que da hambre.',
+        'caseWork' => 'Web y gestión de redes sociales para su restaurante.',
+        'cover' => ['file' => 'cantabria-kebab.webp', 'width' => 487, 'height' => 420,
+            'alt' => 'Logo de Cantabria Döner con un asador de kebab'],
+    ],
+    'carrocerias' => [
+        'slug' => 'proyecto-soto-carrocerias',
+        'phrase' => 'El taller, también en pantalla.',
+        'caseWork' => 'Web y redes de nuestro propio taller de chapa y pintura.',
+        'cover' => ['file' => 'soto-carrocerias.webp', 'width' => 560, 'height' => 169,
+            'alt' => 'Logo de Soto Carrocerías'],
+    ],
+    'cars' => [
+        'slug' => 'proyecto-soto-cars',
+        'phrase' => 'Un escaparate que no cierra.',
+        'caseWork' => 'Web para nuestro negocio de venta de vehículos.',
+        'cover' => ['file' => 'soto-cars.webp', 'width' => 560, 'height' => 230,
+            'alt' => 'Logo de Soto Cars'],
+    ],
+    'wash' => [
+        'slug' => 'proyecto-soto-wash',
+        'phrase' => 'Brillo en la calle y en internet.',
+        'caseWork' => 'Web y redes de nuestro servicio de lavado y detailing.',
+        'cover' => ['file' => 'soto-wash.webp', 'width' => 560, 'height' => 159,
+            'alt' => 'Logo de Soto Wash'],
+    ],
+    'events' => [
+        'slug' => 'proyecto-why-not',
+        'phrase' => 'Eventos que se cuentan solos.',
+        'caseWork' => 'Web y redes para organización de eventos y celebraciones.',
+        'cover' => ['file' => 'why-not.webp', 'width' => 438, 'height' => 420,
+            'alt' => 'Logo de Why Not Eventos'],
+    ],
 ];
 foreach ($caseCopy as $theme => $copy) {
     $details[$theme] = array_replace($details[$theme] ?? [], $copy);
