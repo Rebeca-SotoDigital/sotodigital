@@ -2,7 +2,7 @@
 const SOTO_PROPOSAL_CTA = 'Pide tu propuesta gratuita';
 const SOTO_PROPOSAL_SHORT_CTA = 'Pide tu propuesta';
 
-const SOTO_WHATSAPP_NUMBER = '';
+const SOTO_WHATSAPP_NUMBER = '34693420125';
 const SOTO_WHATSAPP_MESSAGE = 'Hola, me gustaría información sobre vuestros servicios.';
 
 function soto_is_staging(): bool {

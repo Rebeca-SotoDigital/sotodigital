@@ -137,7 +137,7 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 - [x] Las seis fichas tienen textos de Reto, Qué hicimos y Resultado, logos en el Portfolio y capturas de escritorio y móvil. Las etiquetas Web y Redes disponibles enlazan desde cada ficha.
 - [x] Incorporados los testimonios de Why Not, Soto Cars, Soto Wash y Soto Carrocerías.
 - [ ] Incorporar los testimonios de TecniRefinish y Cantabria Kebab. Confirmar los permisos de publicación de marcas y testimonios y distinguir los entregables de cualquier resultado medido.
-- [ ] Facilitar el número público de WhatsApp y comprobar el botón y su mensaje precargado.
+- [x] Configurar el número de WhatsApp en el botón y comprobar el enlace y su mensaje precargado en local.
 - [ ] Grabar la entrevista de Google Ads y después los vídeos de los servicios anunciados. Entregar archivos optimizados, miniaturas, subtítulos y autorización; revisar antes de mostrar los bloques.
 
 ### SEO, campañas y accesibilidad

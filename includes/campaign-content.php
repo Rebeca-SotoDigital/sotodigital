@@ -39,7 +39,7 @@ return [
  // Names and education supplied by the founders; photos still pending.
  'team' => [
   ['name'=>'Rebeca','description'=>'CEO y cofundadora.','personal'=>'Creativa por naturaleza, inconformista por elección e incansable cuando se trata de convertir una idea en realidad.','approved'=>true,'photo'=>'img/equipo/rebeca.webp'],
-  ['name'=>'Jónatan','description'=>'CCO y cofundador.','personal'=>'[PENDIENTE: frase personal]','approved'=>true,'photo'=>'img/equipo/jonatan.webp'],
+  ['name'=>'Jónatan','description'=>'CCO y cofundador.','personal'=>'Los retos no me frenan, me impulsan. Creo en el esfuerzo, la constancia y el compromiso de llevar cada proyecto hasta el final.','approved'=>true,'photo'=>'img/equipo/jonatan.webp'],
  ],
  'videos' => [],
  // Approved authentic quotes only; see docs/testimonios-clientes.md.
