@@ -184,13 +184,21 @@ try {
     );
 
     // PRUEBA 4: conexión incierta.
-    $id3 = 'wamid.QUEUE_DELIVERY_003';
+    
+ // PRUEBA 4: conexión incierta.
+ // Utilizamos otro cliente porque el anterior
+ // tiene un mensaje rechazado que bloquea
+ // correctamente los posteriores.
 
-    sotoEncolarMensaje(
-        $telefono,
-        $id3,
-        'Quiero gestionar mis redes sociales'
-    );
+$id3 = 'wamid.QUEUE_DELIVERY_003';
+$telefonoIncierto = '34999996666';
+
+sotoEncolarMensaje(
+    $telefonoIncierto,
+    $id3,
+    'Quiero gestionar mis redes sociales'
+);
+
 
     $r = procesarColaWhatsApp(
         $metaIncierto,

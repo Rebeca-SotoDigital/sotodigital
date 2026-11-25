@@ -41,6 +41,13 @@ function pipelineDirectory(): string
 /**
  * Lee y actualiza el estado de un cliente con bloqueo.
  */
+
+/**
+ * Lee y actualiza el pipeline bajo bloqueo.
+ *
+ * Utiliza un archivo .lock independiente
+ * y una escritura atómica del estado JSON.
+ */
 function pipelineEstado(
     string $phone,
     callable $operacion
@@ -51,89 +58,185 @@ function pipelineEstado(
         );
     }
 
-    $path = pipelineDirectory() . '/' .
+    $directory = pipelineDirectory();
+    $path = $directory . '/' .
         hash('sha256', $phone) . '.json';
 
-    $previousUmask = umask(0077);
+    $lockPath = $path . '.lock';
+
+    $oldUmask = umask(0077);
 
     try {
-        $handle = fopen($path, 'c+');
+        $lock = fopen($lockPath, 'c');
     } finally {
-        umask($previousUmask);
+        umask($oldUmask);
     }
 
-    if ($handle === false) {
+    if ($lock === false) {
         throw new RuntimeException(
-            'No se pudo abrir el estado del pipeline'
+            'No se pudo abrir el bloqueo del pipeline'
         );
     }
 
     try {
-        if (!flock($handle, LOCK_EX)) {
+        if (!flock($lock, LOCK_EX)) {
             throw new RuntimeException(
-                'No se pudo bloquear el estado'
+                'No se pudo bloquear el pipeline'
             );
         }
 
-        rewind($handle);
-        $raw = stream_get_contents($handle);
+        $state = [];
 
-        $state = ($raw !== false && trim($raw) !== '')
-            ? json_decode($raw, true, 512, JSON_THROW_ON_ERROR)
-            : [];
+        if (is_file($path)) {
+            $raw = file_get_contents($path);
 
-        if (!is_array($state)) {
-            throw new RuntimeException(
-                'Estado del pipeline no válido'
-            );
-        }
-
-        // La operación devuelve el estado actualizado
-        // y un resultado para el código que la llamó.
-        $result = $operacion($state);
-
-        if (!empty($result['guardar'])) {
-            $json = json_encode(
-                $result['estado'],
-                JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
-            );
-
-            rewind($handle);
-
-            if (!ftruncate($handle, 0)) {
+            if ($raw === false || trim($raw) === '') {
                 throw new RuntimeException(
-                    'No se pudo actualizar el estado'
+                    'Pipeline vacío o ilegible'
                 );
             }
 
-            $length = strlen($json);
-            $written = 0;
-
-            while ($written < $length) {
-                $n = fwrite(
-                    $handle,
-                    substr($json, $written)
+            try {
+                $state = json_decode(
+                    $raw,
+                    true,
+                    512,
+                    JSON_THROW_ON_ERROR
                 );
+            } catch (JsonException $e) {
+                throw new RuntimeException(
+                    'Pipeline corrupto',
+                    0,
+                    $e
+                );
+            }
 
-                if ($n === false || $n === 0) {
+            if (!is_array($state)) {
+                throw new RuntimeException(
+                    'Estado del pipeline inválido'
+                );
+            }
+        }
+
+        $result = $operacion($state);
+
+        if (
+            !is_array($result) ||
+            !array_key_exists('resultado', $result)
+        ) {
+            throw new RuntimeException(
+                'Operación del pipeline inválida'
+            );
+        }
+
+        if (empty($result['guardar'])) {
+            return $result['resultado'];
+        }
+
+        if (
+            !isset($result['estado']) ||
+            !is_array($result['estado'])
+        ) {
+            throw new RuntimeException(
+                'Nuevo estado del pipeline inválido'
+            );
+        }
+
+        $json = json_encode(
+            $result['estado'],
+            JSON_UNESCAPED_UNICODE |
+            JSON_THROW_ON_ERROR
+        );
+
+        $temp = tempnam(
+            $directory,
+            '.pipeline-'
+        );
+
+        if ($temp === false) {
+            throw new RuntimeException(
+                'No se pudo crear archivo temporal'
+            );
+        }
+
+        try {
+            if (!chmod($temp, 0600)) {
+                throw new RuntimeException(
+                    'No se pudieron proteger los permisos'
+                );
+            }
+
+            $handle = fopen($temp, 'wb');
+
+            if ($handle === false) {
+                throw new RuntimeException(
+                    'No se pudo abrir el temporal'
+                );
+            }
+
+            try {
+                $length = strlen($json);
+                $written = 0;
+
+                while ($written < $length) {
+                    $n = fwrite(
+                        $handle,
+                        substr($json, $written)
+                    );
+
+                    if ($n === false || $n === 0) {
+                        throw new RuntimeException(
+                            'Escritura incompleta'
+                        );
+                    }
+
+                    $written += $n;
+                }
+
+                if (!fflush($handle)) {
                     throw new RuntimeException(
-                        'Error escribiendo el estado'
+                        'Error vaciando el búfer'
                     );
                 }
 
-                $written += $n;
+                if (
+                    function_exists('fsync') &&
+                    !fsync($handle)
+                ) {
+                    throw new RuntimeException(
+                        'Error sincronizando el pipeline'
+                    );
+                }
+            } finally {
+                fclose($handle);
             }
 
-            fflush($handle);
+            if (file_get_contents($temp) !== $json) {
+                throw new RuntimeException(
+                    'Verificación de escritura fallida'
+                );
+            }
+
+            if (!rename($temp, $path)) {
+                throw new RuntimeException(
+                    'No se pudo publicar el pipeline'
+                );
+            }
+
+        } finally {
+            if (is_file($temp)) {
+                unlink($temp);
+            }
         }
 
         return $result['resultado'];
 
     } finally {
-        flock($handle, LOCK_UN);
-        fclose($handle);
+        flock($lock, LOCK_UN);
+        fclose($lock);
     }
 }
+
 
 /**
  * Extrae los datos de la conversación y prepara
