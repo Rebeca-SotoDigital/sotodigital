@@ -18,8 +18,17 @@ for page in sorted(ROOT.glob('*.php'),key=lambda p:(p.name!='index.php',p.name))
     if re.search(r'<meta[^>]+name="robots"[^>]+content="[^"]*noindex',html):continue
     canonical=re.search(r'<link rel="canonical" href="([^"]+)"',html)
     if not canonical:raise RuntimeError('Missing canonical '+page.name)
-    dependencies=[page,ROOT/'includes/header.php',ROOT/'includes/footer.php']
-    if '$service = [' in source:dependencies.append(ROOT/'includes/service-page.php')
+    dependencies=[page,*(ROOT/'includes'/name for name in ['header.php','footer.php','site-content.php'])]
+    if '$service = [' in source:
+        dependencies.append(ROOT/'includes/service-page.php')
+    if 'project-page.php' in source:
+        dependencies.append(ROOT/'includes/project-page.php')
+    if page.name in {'index.php','diseno-web.php','redes-sociales.php'}:
+        dependencies.append(ROOT/'includes/project-section.php')
+    if 'project-page.php' in source or page.name in {'index.php','diseno-web.php','redes-sociales.php'}:
+        dependencies.extend(ROOT/'includes'/name for name in ['projects.php','project-details.php'])
+    if page.name == 'index.php':
+        dependencies.extend(ROOT/'includes'/name for name in ['campaign-content.php','team-section.php'])
     modified=max(p.stat().st_mtime for p in dependencies)
     node=ET.SubElement(root,'{'+namespace+'}url')
     ET.SubElement(node,'{'+namespace+'}loc').text=canonical.group(1)

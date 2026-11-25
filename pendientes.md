@@ -1,12 +1,12 @@
 # Pendientes de Soto Digital
 
-Actualizado: **22 de noviembre de 2026**.
+Actualizado: **25 de noviembre de 2026**.
 
-Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web actualizada aún no se ha publicado en Arsys.** Las pruebas locales no sustituyen las comprobaciones en el servidor definitivo.
+Este es el checklist vigente. **El formulario y Brevo se verificaron en local.** La última comprobación de la versión provisional en `/mumito/` devolvió HTTP 503 en `api/token.php` tanto para la portada como para Diseño web. La publicación en la raíz y la prueba real desde Arsys siguen pendientes.
 
 **Criterio vigente del equipo:** continuar en local hasta que todo esté preparado y revisado. No publicar ni modificar Arsys sin autorización posterior. El apartado de producción es preparación para esa fase, no una orden de despliegue.
 
-## Próximo bloque de trabajo en local: atención de las solicitudes
+## Atención de las solicitudes
 
 - [x] Responsables de atender solicitudes: Jónatan y Rebeca, ambos confirmados por el equipo.
 - [x] Asignación acordada: quien atienda primero selecciona su nombre en `RESPONSABLE_LEAD` antes de responder. Campo creado y verificado en Brevo con Jónatan y Rebeca; acceso compartido. La web conserva la asignación manual.
@@ -14,7 +14,7 @@ Este es el checklist vigente. **Brevo y el formulario funcionan en local; la web
 - [x] El equipo confirma que ve `RESPONSABLE_LEAD`. Asignación y conservación verificadas mediante API real en un contacto interno. Es coordinación manual, sin bloqueo de edición simultánea. Véase `docs/asignacion-leads.md`.
 - [x] Primera respuesta en un máximo de **2 días laborables**, aprobada por el equipo. No implica entregar una propuesta completa en ese plazo.
 - [x] Revisión inicial: examinar los datos aportados y, según las necesidades, llamar si hay móvil o enviar una propuesta por email. No se promete un informe independiente ni una llamada si no se facilita teléfono.
-- [x] Emails, formulario, página de gracias y textos de revisión inicial actualizados con ese proceso y plazo.
+- [x] El proceso de revisión inicial y los textos de captación están preparados. El plazo ya aprobado queda por incorporar en la página de gracias.
 - [x] Estados aprobados y configurados en `ESTADO_LEAD`: Nuevo → En revisión → Contactado → Propuesta enviada → Ganado / Perdido. Se conservan las opciones antiguas y sus IDs, sin reclasificar contactos.
 - [x] Revisión de solicitudes pendientes a cargo de ambos, Jónatan y Rebeca. Consultar responsable y estado antes de contactar para coordinarse.
 - [x] Recorrido real probado en el contacto interno 101: seis estados, ambos responsables y resincronización desde el código local en cada paso. Responsable, estado, puntuación e IA conservados; valores originales restaurados. Sin emails ni llamadas a IA.
@@ -84,13 +84,13 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 
 ### Despliegue y prueba final
 
-- [ ] Revisar el ZIP, su manifiesto y las exclusiones antes de subirlo. El trabajo independiente de WhatsApp sin versionar **no está incluido**; necesita revisión propia si se quiere incorporarlo.
+- [ ] Regenerar el ZIP desde la revisión aprobada y revisar su manifiesto y exclusiones. El código de `whatsapp/` ya está versionado. Confirmar si debe incluirse en esta publicación y comprobar que su configuración privada queda fuera.
 - [ ] Publicar juntos PHP, reglas, imágenes, recursos con hash y manifiesto, con cambio atómico o una ventana que evite versiones mezcladas.
-- [ ] Ejecutar `brevo-check` y `health` en Arsys.
-- [ ] Enviar un formulario propio con Turnstile válido desde el dominio publicado y verificar guardado, puntuación, gracias, contacto/lista y ejecución automática del worker.
+- [ ] Ejecutar `brevo-check` y `health` en Arsys. Resolver el HTTP 503 de `api/token.php` confirmando que PHP web recibe `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` y `CAMPAIGN_DATA_DIR`, y que el almacenamiento privado es escribible.
+- [ ] Enviar solicitudes de prueba con Turnstile desde la portada y desde una página de servicio. Verificar guardado, puntuación, confirmación, ejecución del worker y `ORIGEN` y `LANDING` en Brevo. La prueba local simulada ya verificó esas rutas para portada, Diseño web y Campañas.
 - [ ] Comprobar entrega de **ambos** emails, dirección de respuesta y lectura en móvil/escritorio.
 - [ ] Comprobar duplicados, recarga de gracias, errores y ausencia de éxito falso cuando no se pueda guardar.
-- [ ] Revisar 404 de rutas internas, caché, ausencia de sesión inicial innecesaria, noindex de campañas/API y sitemap/robots.
+- [ ] Revisar 404 de rutas internas, caché, sesión, noindex de campañas/API y sitemap/robots. Configurar `SITE_ENV=staging` para pruebas y `SITE_ENV=production` para la raíz. Tras validar producción, redirigir las visitas GET/HEAD de `/mumito/` a su ruta equivalente, conservando la consulta.
 - [ ] Comprobar consentimiento y conversión única con las etiquetas reales antes de invertir en anuncios.
 - [ ] Documentar el resultado y la autorización del equipo para lanzar publicidad. Tener listo el rollback sin perder leads nuevos ni recuperar datos suprimidos.
 
@@ -122,19 +122,28 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 
 ### Oferta, equipo y pruebas sociales
 
-- [x] Revisión de contenido de `/campanas/google-ads.php` (22/11/2026): beneficios, alcance, mini-auditoría, proceso y proyección, preguntas específicas y CTA sin recarga. Sin casos publicitarios, vídeos, tarifas ni resultados inventados. Pruebas locales automatizadas y HTTP correctas. Ver `docs/revision-landing-google-ads.md`.
+- [x] Revisión de contenido de `/campanas/google-ads.php` (22/11/2026): beneficios, alcance, revisión inicial, proceso y proyección, preguntas específicas y CTA sin recarga. Sin casos publicitarios, vídeos, tarifas ni resultados inventados. Pruebas locales automatizadas y HTTP correctas. Ver `docs/revision-landing-google-ads.md`.
 - [ ] Revisar visualmente y aprobar con el equipo la landing de Google Ads en móvil/escritorio; comprobar titulares de variantes con los futuros anuncios.
 - [ ] Repetir la revisión de contenido específica en las demás landings; conservan de momento el proceso y preguntas generales.
 
 - [x] Alcance de revisión inicial y primera respuesta definidos: revisar datos aportados, valorar necesidades y contactar por llamada o propuesta por email; máximo 2 días laborables para responder.
 - [ ] Aprobar precios si se quieren publicar. No hay tarifas aprobadas; los rangos del formulario no son precios.
-- [x] Plazo aprobado aplicado mediante `campaign_response_time()`: `CAMPAIGN_RESPONSE_TIME` configurable con predeterminado de 2 días laborables, también si el valor privado está vacío.
+- [x] Plazo de primera respuesta definido en la configuración. `CAMPAIGN_RESPONSE_TIME` tiene un valor predeterminado de 2 días laborables.
+- [ ] Sustituir el marcador del plazo en `campanas/gracias.php` por el máximo aprobado de **2 días laborables para la primera respuesta**. Diferenciar ese plazo de la entrega de la propuesta.
 - [ ] Confirmar estado operativo, disponibilidad y condiciones reales de la pantalla LED antes de vender publicidad. Mantener identificada cualquier recreación y no prometer audiencias sin datos.
-- [ ] Entregar fotos autorizadas de Jónatan y Rebeca y aprobar su presentación.
-- [ ] Reunir permisos de proyectos/logos, testimonios auténticos y resultados verificables. Distinguir entregables, resultados medidos y negocios propios.
+- [x] Equipo actualizado: Rebeca figura primero como CEO y cofundadora, con su frase personal. Jónatan figura como CCO y cofundador. Los cargos se muestran en negrita y la frase personal en un párrafo aparte.
+- [ ] Entregar la frase personal de Jónatan y las fotos autorizadas de ambos.
+- [x] Las seis fichas tienen textos de Reto, Qué hicimos y Resultado, logos en el Portfolio y capturas de escritorio y móvil. Las etiquetas Web y Redes disponibles enlazan desde cada ficha.
+- [x] Incorporados los testimonios de Why Not, Soto Cars, Soto Wash y Soto Carrocerías.
+- [ ] Incorporar los testimonios de TecniRefinish y Cantabria Kebab. Confirmar los permisos de publicación de marcas y testimonios y distinguir los entregables de cualquier resultado medido.
+- [ ] Facilitar el número público de WhatsApp y comprobar el botón y su mensaje precargado.
 - [ ] Grabar la entrevista de Google Ads y después los vídeos de los servicios anunciados. Entregar archivos optimizados, miniaturas, subtítulos y autorización; revisar antes de mostrar los bloques.
 
 ### SEO, campañas y accesibilidad
+
+- [x] Portada enlazada a las siete páginas públicas de servicio. Campañas dispone de una página propia con formulario integrado. Las landings de anuncios mantienen navegación y URLs separadas.
+- [x] Sitemap regenerado en local con 18 URL canónicas de producción, incluidas las seis fichas y Campañas. `robots.txt` referencia el sitemap de raíz y permite leer las directivas noindex.
+- [ ] Verificar en Apache que el sitemap provisional bajo `/mumito/` entrega `X-Robots-Tag: noindex, nofollow`. En la última consulta a la versión publicada esa cabecera no estaba presente.
 
 - [ ] Aprobar `/google-ads.php`, `/meta-ads.php` y blog antes de retirar su estado de borrador/noindex y regenerar el sitemap. No retirar noindex de las landings de campañas ni de la API.
 - [ ] Definir y revisar los primeros contenidos del blog, sin publicar información o resultados inventados.
@@ -156,7 +165,7 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 
 ## 5. Documentación y entregables
 
-- [x] Git local conectado al repositorio GitHub de Soto Digital; cuenta Rebeca-SotoDigital autorizada, rama `main` y autoría con email `noreply`. Configuraciones privadas y `.env` excluidos; el código independiente de WhatsApp no se añade a estos commits. La subida a GitHub no despliega la web en Arsys.
+- [x] Git local conectado al repositorio GitHub de Soto Digital; cuenta Rebeca-SotoDigital autorizada, rama `main` y autoría con email `noreply`. Configuraciones privadas y `.env` excluidos; el código de WhatsApp está en GitHub y su configuración privada sigue excluida. La subida a GitHub no despliega la web en Arsys.
 
 - [Siete comprobaciones locales de Brevo](docs/comprobaciones-locales-brevo.md).
 - [Integración y atributos](docs/integracion-leads.md).

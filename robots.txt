@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 
-# Campaign and API responses supply noindex; allow crawlers to read it.
+# Las campañas, los borradores, la API y las páginas de pruebas indican noindex.
+# Se permite el rastreo para que los buscadores puedan leer esa directiva.
 Sitemap: https://soto-digital.com/sitemap.xml
