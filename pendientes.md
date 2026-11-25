@@ -22,7 +22,7 @@ Este es el checklist vigente. **El equipo ha publicado en soto-digital.com por S
 
 ### Siguiente paso recomendado, sin publicar
 
-GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rechazo y retirada del consentimiento en local. Siguiente paso: marcar `generate_lead` como evento clave cuando aparezca en Eventos recientes (la interfaz indica hasta 24 horas), sin crear un evento duplicado. Confirmar también que la medición mejorada de formularios está desactivada. Google Ads queda pendiente del alta de facturación y de sus identificadores; la verificación definitiva del dominio se realizará antes de activar campañas. El recorrido comercial básico ya está configurado y probado. Los datos registrales se posponen hasta que finalice la constitución.
+GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rechazo y retirada del consentimiento en local. El equipo confirma el 25/11/2026 que `generate_lead` está marcado como evento clave. Nuevo envío desde producción comprobado por capturas: una ocurrencia de `generate_lead`, contabilizada como evento clave, con seis vistas de Gracias en esa ventana. Mantener desactivada la medición mejorada de formularios. Google Ads queda pendiente del alta de facturación y de sus identificadores; la verificación definitiva del dominio se realizará antes de activar campañas. El recorrido comercial básico ya está configurado y probado. Los datos registrales se posponen hasta que finalice la constitución.
 
 
 ## 1. Completado y comprobado en local
@@ -107,7 +107,7 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 - [x] Aceptación, rechazo y retirada del consentimiento comprobados por el equipo en Chrome local el 22/11/2026: Network filtrado por `google` muestra peticiones al aceptar analítica y queda vacío tras rechazar/retirar y recargar. Confirmación del usuario guiada por capturas; no inspección directa del agente ni validación con Tag Assistant.
 - [x] Interacciones con formularios de medición mejorada desactivada en GA4, comprobada en captura del equipo; se indicó pulsar Guardar.
 - [ ] Verificar con Tag Assistant en el dominio definitivo los estados de consentimiento y las etiquetas reales de Ads antes de campañas; la prueba actual corresponde a GA4 en local.
-- [ ] Comprobar si `generate_lead` está marcado como evento clave en GA4 y marcarlo si falta.
+- [x] El equipo confirma el 25/11/2026 haber marcado la estrella de `generate_lead` como evento clave en GA4. Nuevo envío de producción comprobado en capturas del 25/11/2026 a las 19:58: `generate_lead` 1 y evento clave 1, con 6 vistas de Gracias en la misma ventana observada. No se atribuye retroactividad a eventos anteriores ni se generaliza esta prueba a todos los escenarios.
 - [ ] Google Ads: alta pendiente de perfil de pagos/datos fiscales definitivos; el acceso al panel devuelve al asistente de facturación. No se ha publicado ninguna campaña ni configurado el ID/label.
 - [ ] Elegir una sola fuente de conversión principal, evitando duplicar etiqueta directa e importación GA4.
 - [ ] Separar tráfico interno y de pruebas antes de publicidad: pospuesto por el equipo durante el trabajo local. IP dinámica y varios equipos; sin reglas IP creadas. El filtro Internal Traffic permanece en Prueba, sin exclusión activa. No se ha implementado marcado automático de localhost.
@@ -240,3 +240,7 @@ La planificación anterior se conserva en [el archivo histórico](docs/pendiente
 
 - Custodia externa acordada: descarga manual por SFTP a una carpeta privada del Mac, semanal y antes de cambios importantes. No está automatizada y todavía no se ha confirmado una descarga.
 - [ ] Renovar el token del worker mostrado en una captura y actualizarlo en la configuración privada de Arsys y las tareas de procesamiento/backup. No se incluye su valor en Git.
+
+- [x] Medición GA4 en producción verificada con el equipo el 25/11/2026 a las 19:58: 1 usuario activo, 8 page_view, 6 vistas de Gracias, 1 generate_lead y 1 evento clave generate_lead. La prueba observada no muestra duplicación del lead al recargar Gracias.
+
+- [x] Consentimiento en producción comprobado por el equipo en Chrome el 25/11/2026: con rechazo no aparecen peticiones de Google en Network; al aceptar analítica aparecen; tras retirar el consentimiento, limpiar la lista y recargar dejan de aparecer. Confirmación del usuario; no inspección directa del agente ni validación completa con Tag Assistant/Ads.
