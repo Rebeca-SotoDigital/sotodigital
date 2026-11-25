@@ -1,0 +1,130 @@
+{
+  "date": "2026-11-25",
+  "scope": "once landings /campanas/",
+  "checks": [
+    {
+      "url": "https://soto-digital.com/campanas/branding.php",
+      "h1": "Una marca a la altura de tu negocio.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    },
+    {
+      "url": "https://soto-digital.com/campanas/diseno-web.php",
+      "h1": "Una web que abra la puerta a nuevas consultas.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    },
+    {
+      "url": "https://soto-digital.com/campanas/email-marketing.php",
+      "h1": "Mantén la conversación con tus clientes.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    },
+    {
+      "url": "https://soto-digital.com/campanas/google-ads.php",
+      "h1": "Google Ads para que tu negocio reciba más consultas.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    },
+    {
+      "url": "https://soto-digital.com/campanas/index.php",
+      "h1": "Webs y campañas para recibir más consultas.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    },
+    {
+      "url": "https://soto-digital.com/campanas/marketing-contenidos.php",
+      "h1": "Tu experiencia merece contenido que conecte.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    },
+    {
+      "url": "https://soto-digital.com/campanas/meta-ads.php",
+      "h1": "Pon tu propuesta delante de tu público.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    },
+    {
+      "url": "https://soto-digital.com/campanas/pantalla-led.php",
+      "h1": "Tu negocio, en grande y en el lugar adecuado.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    },
+    {
+      "url": "https://soto-digital.com/campanas/redes-sociales.php",
+      "h1": "Que tus redes cuenten por qué elegirte.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    },
+    {
+      "url": "https://soto-digital.com/campanas/sem.php",
+      "h1": "De una búsqueda a una oportunidad para tu negocio.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    },
+    {
+      "url": "https://soto-digital.com/campanas/seo.php",
+      "h1": "Haz que encuentren lo que tu negocio ofrece.",
+      "single_h1": true,
+      "single_form": true,
+      "endpoint": "/api/lead.php",
+      "noindex_html": true,
+      "noindex_header": true,
+      "broken_anchors": [],
+      "images_without_alt": 0
+    }
+  ],
+  "shared_css_js_images_available": 10,
+  "visual_review_completed": false,
+  "forms_submitted": false
+}

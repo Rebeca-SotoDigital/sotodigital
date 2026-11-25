@@ -245,4 +245,10 @@ La planificación anterior se conserva en [el archivo histórico](docs/pendiente
 
 - [x] Consentimiento en producción comprobado por el equipo en Chrome el 25/11/2026: con rechazo no aparecen peticiones de Google en Network; al aceptar analítica aparecen; tras retirar el consentimiento, limpiar la lista y recargar dejan de aparecer. Confirmación del usuario; no inspección directa del agente ni validación completa con Tag Assistant/Ads.
 
-- [x] `sitemap.xml` regenerado el 25/11/2026: 18 URL canónicas de raíz, sin `/mumito/` ni endpoints/campañas noindex. `robots.txt` actualizado para el estado de producción y referencia al sitemap de raíz. Pendiente subir ambos archivos por SFTP.
+- [x] `sitemap.xml` regenerado el 25/11/2026: 18 URL canónicas de raíz, sin `/mumito/` ni endpoints/campañas noindex. `robots.txt` actualizado para el estado de producción y referencia al sitemap de raíz. El equipo confirma que ambos archivos ya están subidos a Arsys por SFTP.
+
+## Revisión de landings en producción — 25/11/2026
+
+- [x] Primera revisión HTTP de las once landings de `/campanas/`: páginas y diez recursos compartidos disponibles, un H1 y un formulario por landing, endpoint `/api/lead.php`, anclas internas correctas y noindex en HTML/cabeceras. Informe `docs/revision-landings-produccion.json`. No se han enviado formularios adicionales.
+- [ ] Revisión visual móvil/escritorio: el navegador no está conectado al agente. Empezar por Google Ads y principal mediante capturas de las páginas renderizadas; las comprobaciones HTTP no acreditan legibilidad, tamaños ni ausencia de desbordamientos.
+- Observación de contenido: Google Ads tiene alcance y preguntas específicos; las otras landings conservan FAQs y proceso generales. Sus beneficios definidos no se muestran en el bloque inicial como los de Google Ads. Revisar cada servicio antes de dar la aprobación comercial. Vídeos y casos publicitarios requieren material verificable.
