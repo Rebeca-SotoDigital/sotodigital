@@ -58,43 +58,57 @@ function conversationFile(string $phone): string
 /**
  * Ejecuta una operación bajo bloqueo exclusivo.
  */
+
+/**
+ * Ejecuta una operación sobre la conversación
+ * bajo bloqueo exclusivo.
+ *
+ * Escribe en un temporal y sustituye el JSON
+ * completo sin truncar el historial anterior.
+ */
 function withConversation(
     string $phone,
     callable $operation
 ): mixed {
     $path = conversationFile($phone);
+    $lockPath = $path . '.lock';
 
-    // Crear nuevos archivos con permisos privados
     $oldUmask = umask(0077);
 
     try {
-        $handle = fopen($path, 'c+');
+        $lock = fopen($lockPath, 'c');
     } finally {
         umask($oldUmask);
     }
 
-    if ($handle === false) {
+    if ($lock === false) {
         throw new RuntimeException(
-            'No se pudo abrir el historial'
+            'No se pudo abrir el bloqueo del historial'
         );
     }
 
     try {
-        if (!flock($handle, LOCK_EX)) {
+        if (!flock($lock, LOCK_EX)) {
             throw new RuntimeException(
-                'No se pudo bloquear el historial'
+                'No se pudo bloquear la conversación'
             );
         }
-
-        rewind($handle);
-        $raw = stream_get_contents($handle);
 
         $state = [
             'updated_at' => time(),
             'messages' => []
         ];
 
-        if ($raw !== false && trim($raw) !== '') {
+        // Leer el JSON existente sin modificarlo.
+        if (is_file($path)) {
+            $raw = file_get_contents($path);
+
+            if ($raw === false || trim($raw) === '') {
+                throw new RuntimeException(
+                    'Historial vacío o ilegible'
+                );
+            }
+
             $stored = json_decode(
                 $raw,
                 true,
@@ -102,14 +116,20 @@ function withConversation(
                 JSON_THROW_ON_ERROR
             );
 
-            if (!is_array($stored)) {
+            if (
+                !is_array($stored) ||
+                !is_array($stored['messages'] ?? null)
+            ) {
                 throw new RuntimeException(
                     'Historial no válido'
                 );
             }
 
-            $updated = (int) ($stored['updated_at'] ?? 0);
+            $updated = (int) (
+                $stored['updated_at'] ?? 0
+            );
 
+            // Mantener la caducidad anterior.
             if (
                 $updated > 0 &&
                 time() - $updated < SOTO_HISTORY_TTL
@@ -120,41 +140,132 @@ function withConversation(
 
         $result = $operation($state);
 
-        if (!empty($result['save'])) {
-            $state = $result['state'];
-            $state['updated_at'] = time();
-
-            $json = json_encode(
-                $state,
-                JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
+        if (!is_array($result) ||
+            !array_key_exists('value', $result)) {
+            throw new RuntimeException(
+                'Operación de conversación inválida'
             );
+        }
 
-            rewind($handle);
+        if (empty($result['save'])) {
+            return $result['value'];
+        }
 
-            if (!ftruncate($handle, 0)) {
+        if (
+            !isset($result['state']) ||
+            !is_array($result['state']) ||
+            !is_array(
+                $result['state']['messages'] ?? null
+            )
+        ) {
+            throw new RuntimeException(
+                'Nuevo estado de conversación inválido'
+            );
+        }
+
+        $newState = $result['state'];
+        $newState['updated_at'] = time();
+
+        $json = json_encode(
+            $newState,
+            JSON_UNESCAPED_UNICODE |
+            JSON_THROW_ON_ERROR
+        );
+
+        // Temporal en el mismo directorio.
+        $temp = tempnam(
+            dirname($path),
+            '.conversation-'
+        );
+
+        if ($temp === false) {
+            throw new RuntimeException(
+                'No se pudo crear el archivo temporal'
+            );
+        }
+
+        try {
+            if (!chmod($temp, 0600)) {
                 throw new RuntimeException(
-                    'No se pudo actualizar el historial'
+                    'No se pudieron proteger los permisos'
                 );
             }
 
-            $written = fwrite($handle, $json);
+            $handle = fopen($temp, 'wb');
 
-            if ($written !== strlen($json)) {
+            if ($handle === false) {
                 throw new RuntimeException(
-                    'No se pudo guardar el historial completo'
+                    'No se pudo abrir el temporal'
                 );
             }
 
-            fflush($handle);
+            try {
+                $length = strlen($json);
+                $written = 0;
+
+                while ($written < $length) {
+                    $n = fwrite(
+                        $handle,
+                        substr($json, $written)
+                    );
+
+                    if ($n === false || $n === 0) {
+                        throw new RuntimeException(
+                            'Escritura incompleta'
+                        );
+                    }
+
+                    $written += $n;
+                }
+
+                if (!fflush($handle)) {
+                    throw new RuntimeException(
+                        'No se pudo vaciar el búfer'
+                    );
+                }
+
+                if (
+                    function_exists('fsync') &&
+                    !fsync($handle)
+                ) {
+                    throw new RuntimeException(
+                        'No se pudo sincronizar el archivo'
+                    );
+                }
+            } finally {
+                fclose($handle);
+            }
+
+            // Comprobar el contenido escrito.
+            $verification = file_get_contents($temp);
+
+            if ($verification !== $json) {
+                throw new RuntimeException(
+                    'Verificación de escritura fallida'
+                );
+            }
+
+            // Publicar la nueva versión del JSON.
+            if (!rename($temp, $path)) {
+                throw new RuntimeException(
+                    'No se pudo publicar el historial'
+                );
+            }
+
+        } finally {
+            if (is_file($temp)) {
+                unlink($temp);
+            }
         }
 
         return $result['value'];
 
     } finally {
-        flock($handle, LOCK_UN);
-        fclose($handle);
+        flock($lock, LOCK_UN);
+        fclose($lock);
     }
 }
+
 
 /**
  * Recupera el historial de un cliente.
@@ -218,3 +329,115 @@ function guardarTurno(
         }
     );
 }
+
+
+/**
+ * Consolida un intercambio completo.
+ *
+ * Debe llamarse SOLO después de confirmar
+ * la aceptación del envío por Meta.
+ *
+ * Un mismo mensaje entrante solo puede
+ * consolidarse una vez.
+ *
+ * Devuelve:
+ * - 'guardado': intercambio incorporado
+ * - 'duplicado': ya estaba registrado
+ */
+function guardarIntercambioConfirmado(
+    string $phone,
+    string $incomingId,
+    string $textoCliente,
+    string $respuestaAgente
+): string {
+    if (
+        !str_starts_with($incomingId, 'wamid.') ||
+        strlen($incomingId) < 8 ||
+        strlen($incomingId) > 512
+    ) {
+        throw new InvalidArgumentException(
+            'ID de WhatsApp no válido'
+        );
+    }
+
+    $textoCliente = trim($textoCliente);
+    $respuestaAgente = trim($respuestaAgente);
+
+    foreach (
+        [$textoCliente, $respuestaAgente] as $contenido
+    ) {
+        if (
+            $contenido === '' ||
+            strlen($contenido) > 4000
+        ) {
+            throw new InvalidArgumentException(
+                'Contenido del intercambio no válido'
+            );
+        }
+    }
+
+    return withConversation(
+        $phone,
+        function (array $state) use (
+            $incomingId,
+            $textoCliente,
+            $respuestaAgente
+        ): array {
+            $eventHash = hash('sha256', $incomingId);
+
+            $registrados = $state['eventos_registrados'] ?? [];
+
+            if (!is_array($registrados)) {
+                throw new RuntimeException(
+                    'Índice de eventos inválido'
+                );
+            }
+
+            if (isset($registrados[$eventHash])) {
+                return [
+                    'save' => false,
+                    'value' => 'duplicado'
+                ];
+            }
+
+            $messages = $state['messages'] ?? [];
+
+            if (!is_array($messages)) {
+                throw new RuntimeException(
+                    'Historial de mensajes inválido'
+                );
+            }
+
+            // Incorporar ambos mensajes en una
+            // única actualización del historial.
+            $messages[] = [
+                'role' => 'user',
+                'content' => $textoCliente
+            ];
+
+            $messages[] = [
+                'role' => 'assistant',
+                'content' => $respuestaAgente
+            ];
+
+            $state['messages'] = array_slice(
+                $messages,
+                -SOTO_HISTORY_LIMIT
+            );
+
+            // Índice de idempotencia.
+            // Se conserva con la conversación
+            // hasta la caducidad configurada.
+            $registrados[$eventHash] = time();
+
+            $state['eventos_registrados'] = $registrados;
+
+            return [
+                'save' => true,
+                'state' => $state,
+                'value' => 'guardado'
+            ];
+        }
+    );
+}
+

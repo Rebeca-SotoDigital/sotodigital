@@ -12,10 +12,13 @@ require_once __DIR__ . '/lead-confirmation.php';
  * NO envía mensajes de WhatsApp.
  */
 
+
 function responderAlCliente(
     string $phone,
-    string $texto
+    string $texto,
+    bool $guardarHistorial = true
 ): array {
+
     $texto = trim($texto);
 
     if ($texto === '') {
@@ -137,10 +140,19 @@ function responderAlCliente(
     }
 
     // Guardar únicamente después de obtener respuesta.
-    if ($respuesta !== '') {
-        guardarTurno($phone, 'user', $texto);
-        guardarTurno($phone, 'assistant', $respuesta);
-    }
+    
+// Modo compatible con el comportamiento anterior.
+//
+// En el flujo nuevo, el trabajador utilizará
+// guardarHistorial=false. La conversación se
+// consolidará después, mediante un mecanismo
+// específico que evite escrituras parciales.
+
+if ($guardarHistorial && $respuesta !== '') {
+    guardarTurno($phone, 'user', $texto);
+    guardarTurno($phone, 'assistant', $respuesta);
+}
+
 
     return [
         'estado' => $estado,
