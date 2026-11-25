@@ -95,11 +95,11 @@
 </div>
 
 <?php include __DIR__ . '/company-identification.php'; ?>
-<?php if (preg_match('/^[1-9][0-9]{6,14}$/D', SOTO_WHATSAPP_NUMBER)): ?>
+<?php if (empty($campaignLanding) && preg_match('/^[1-9][0-9]{6,14}$/D', SOTO_WHATSAPP_NUMBER)): ?>
 <a class="whatsapp-float" href="<?= htmlspecialchars('https://wa.me/' . SOTO_WHATSAPP_NUMBER . '?text=' . rawurlencode(SOTO_WHATSAPP_MESSAGE), ENT_QUOTES, 'UTF-8') ?>" aria-label="¿Hablamos por WhatsApp?">
     <i class="icon icon-phone" aria-hidden="true"></i><span class="whatsapp-label">¿Hablamos?</span>
 </a>
-<?php elseif (soto_show_pending()): ?>
+<?php elseif (empty($campaignLanding) && soto_show_pending()): ?>
 <div class="whatsapp-float whatsapp-pending">
     <i class="icon icon-phone" aria-hidden="true"></i><span class="whatsapp-label">¿Hablamos?</span><span>[PENDIENTE: número]</span>
 </div>

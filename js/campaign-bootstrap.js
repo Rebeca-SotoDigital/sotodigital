@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded',function(){
     }
     function render(){
         if(!window.turnstile || widget!==null || container.closest('fieldset').hidden)return;
-        widget=window.turnstile.render(container,{sitekey:container.dataset.sitekey,action:'proposal',language:'es'});
+        widget=window.turnstile.render(container,{sitekey:container.dataset.sitekey,action:'proposal',language:'es',size:container.clientWidth < 300 ? 'compact' : 'normal'});
     }
     function warm(){Promise.all([issueTokens(),loadChallenge()]).then(render).catch(()=>{});}
     if(window.IntersectionObserver){const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){warm();observer.disconnect();}},{rootMargin:'250px'});observer.observe(form);}

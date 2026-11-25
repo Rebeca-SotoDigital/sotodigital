@@ -15,28 +15,16 @@ $projectServiceNames = ['web' => 'Web', 'social' => 'Redes'];
             <p>Webs, redes y marcas que hemos creado para clientes y para nuestros propios negocios.</p>
         </div>
         <div class="projects-grid">
-            <?php foreach ($projectItems as $project): ?>
+            <?php $projectItems=array_values($projectItems); $projectLimit=isset($projectPreviewLimit)?max(1,(int)$projectPreviewLimit):count($projectItems); ?>
+            <?php foreach ($projectItems as $projectIndex => $project): ?>
+                <?php if ($projectIndex === $projectLimit): ?></div><details class="projects-more"><summary><span class="projects-show-label">Ver todos los proyectos (<?= count($projectItems) ?>)</span><span class="projects-hide-label">Ver menos</span></summary><div class="projects-grid"><?php endif; ?>
                 <?php
                 $case = $projectDetails[$project['theme']];
                 $cover = $case['cover'];
                 ?>
-                <article class="project-card project-theme-<?= $projectEscape($project['theme']) ?>">
-                    <div class="project-cover">
-                        <img src="/img/optimized/projects/<?= $projectEscape($cover['file']) ?>"
-                             alt="<?= $projectEscape($cover['alt']) ?>"
-                             width="<?= $cover['width'] ?>" height="<?= $cover['height'] ?>"
-                             loading="lazy" decoding="async">
-                    </div>
-                    <div class="project-body">
-                        <h3><?= $projectEscape($project['name']) ?></h3>
-                        <p><?= $projectEscape($case['phrase']) ?></p>
-                        <ul class="case-tags" aria-label="Servicios">
-                            <?php foreach ($project['services'] as $projectService): ?><li><?= $projectEscape($projectServiceNames[$projectService]) ?></li><?php endforeach; ?>
-                        </ul>
-                        <a class="btn case-link" href="/<?= $projectEscape($case['slug']) ?>.php" aria-label="Ver proyecto de <?= $projectEscape($project['name']) ?>">Ver proyecto</a>
-                    </div>
-                </article>
+                <?php include __DIR__.'/project-card.php'; ?>
             <?php endforeach; ?>
         </div>
+        <?php if (count($projectItems)>$projectLimit): ?></details><?php endif; ?>
     </div>
 </section>

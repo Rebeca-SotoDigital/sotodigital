@@ -36,3 +36,34 @@
 .campaign-privacy { margin-block: 12px; }
 .campaign-privacy summary { cursor: pointer; color: #00658b; text-decoration: underline; }
 .campaign-privacy p { margin-top: 8px; }
+
+/* Campaign conversion path: one clear CTA and comfortable small-screen fields. */
+.campaign-split { grid-template-columns: minmax(0,1.12fr) minmax(0,1fr); gap: 70px; }
+.campaign-split > * { min-width: 0; }
+.campaign-benefits { list-style: none; padding: 0; margin: 24px 0 18px; display: grid; gap: 10px; }
+.campaign-benefits li { padding-left: 20px; position: relative; line-height: 1.5; }
+.campaign-benefits li::before { content: ""; position: absolute; left: 0; top: .6em; width: 7px; height: 7px; border-radius: 50%; background: #00658b; }
+.campaign-response { max-width: 52ch; padding-block: 14px; border-top: 1px solid #cad8e8; font-size: .9rem; }
+.campaign-micro { margin-top: 14px; font-size: .875rem; }
+.campaign-small { font-size: .875rem; }
+.campaign-form input:not([type=radio]):not([type=checkbox]), .campaign-form textarea { font-size: 1rem; }
+.campaign-form [data-turnstile-container] { margin-block: 16px; min-width: 0; }
+.campaign-form .campaign-check { font-size: .875rem; }
+.campaign-form .campaign-check input { width: 20px; height: 20px; }
+.campaign-form-actions button { min-height: 48px; }
+.campaign-body .campaign-form [data-next] { background: #171b22; color: #fff; }
+.campaign-body .campaign-form [data-submit]:not(:disabled) { background: #ffe44d; color: #142b53; }
+.campaign-body .campaign-form [data-submit]:not(:disabled):hover { background: #ffda20; }
+.campaign-body .campaign-case h3 { margin-top: 0; }
+@media (max-width: 800px) {
+    .campaign-split { grid-template-columns: 1fr; gap: 30px; }
+    .campaign-body .campaign-lead { font-size: 1rem; margin-bottom: 20px; }
+    .campaign-body .campaign-hero .campaign-benefits { gap: 7px; margin-block: 18px 12px; }
+    .campaign-body .campaign-response { margin-bottom: 0; }
+    .campaign-body .nav-container { gap: 12px; }
+    .campaign-body .logo img { width: clamp(96px,28vw,145px); }
+    .campaign-body .btn-nav { min-height: 44px; font-size: .875rem; padding: 10px 12px; }
+    .campaign-body .campaign-case-grid { gap: 16px; margin-top: 24px; }
+    .campaign-form-pair { grid-template-columns: 1fr; gap: 0; }
+    .campaign-form-actions { gap: 8px; }
+}

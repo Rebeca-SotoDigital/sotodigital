@@ -1,7 +1,7 @@
 <?php
 // Only documented deliverables. No invented acquisition source, sales or growth metrics.
 return [
- 'service_details' => [
+ 'service_details' => array_merge(require __DIR__.'/campaign-service-details.php', [
   'google-ads' => [
    'heading' => 'Qué incluye la gestión de Google Ads',
    'intro' => 'Definimos el alcance contigo antes de empezar: preparación de campañas, seguimiento y mejoras según los datos disponibles.',
@@ -25,7 +25,7 @@ return [
     ['question'=>'¿Garantizáis ventas o un coste por consulta?', 'answer'=>'No. Los resultados dependen de la demanda, la competencia, la oferta y la página de destino, entre otros factores. Las proyecciones son escenarios con supuestos, no compromisos de ventas ni costes garantizados.'],
    ],
   ],
- ],
+ ]),
  'cases' => [
   ['sector' => 'Restauración', 'situation' => 'Una oferta que el público necesita consultar antes de visitar el local.', 'work' => 'Conectamos web y redes sociales.', 'result' => 'Carta, ubicación, horario e información práctica reunidos en la web, con acceso al perfil de Instagram.', 'services' => ['estrategia-digital', 'diseno-web', 'redes-sociales', 'marketing-contenidos']],
   ['sector' => 'Distribución técnica', 'situation' => 'Soluciones profesionales que necesitan una presentación clara en internet.', 'work' => 'Desarrollamos una web de presentación corporativa.', 'result' => 'Un espacio propio para explicar la actividad, presentar soluciones y acceder a las vías de contacto.', 'services' => ['estrategia-digital', 'diseno-web', 'branding', 'marketing-contenidos']],

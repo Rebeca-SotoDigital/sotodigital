@@ -26,7 +26,7 @@ for page in sorted(ROOT.glob('*.php'),key=lambda p:(p.name!='index.php',p.name))
     if page.name in {'index.php','diseno-web.php','redes-sociales.php'}:
         dependencies.append(ROOT/'includes/project-section.php')
     if 'project-page.php' in source or page.name in {'index.php','diseno-web.php','redes-sociales.php'}:
-        dependencies.extend(ROOT/'includes'/name for name in ['projects.php','project-details.php'])
+        dependencies.extend(ROOT/'includes'/name for name in ['projects.php','project-details.php','project-card.php'])
     if page.name == 'index.php':
         dependencies.extend(ROOT/'includes'/name for name in ['campaign-content.php','team-section.php'])
     modified=max(p.stat().st_mtime for p in dependencies)

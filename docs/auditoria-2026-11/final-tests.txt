@@ -27,7 +27,9 @@ PASS: optional AI warning and explicitly required AI health failure
 
 PASS: 5-step wizard, validation, back navigation, API errors, success redirect, consent signals, category separation, consent migration, blocked storage, conversions, deduplication
 
-PASS: PHP lint 90 files
+PASS: contact-step challenge visibility, compact/normal widths, single session/widget and missing-verification error
+
+PASS: PHP lint 94 files
 PASS: manifest hashes and maximum two versions
 PASS: title/description limits, unique H1, no telephone CTAs, WhatsApp only to configured destination, no base tag
 PASS: sitemap 18 unique public pages

@@ -4,7 +4,7 @@ import subprocess,os,re,html,json,hashlib,xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[2];PHP=os.environ.get('SOTO_PHP','php');NODE=os.environ.get('SOTO_AUDIT_NODE','node')
 outputs=[]
 tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode().split('\0'))
-for command in [[PHP,'tools/tests/campaign-config.php'],[PHP,'tools/tests/campaign-worker.php'],[PHP,'tools/tests/campaign-backup.php'],[PHP,'tools/tests/campaign-emails.php'],[PHP,'tools/tests/campaign-brevo.php'],[PHP,'tools/tests/site-paths.php'],[PHP,'tools/tests/campaign-leads.php'],[PHP,'tools/tests/campaign-audit.php'],[NODE,'tools/tests/campaign-frontend.js']]:
+for command in [[PHP,'tools/tests/campaign-config.php'],[PHP,'tools/tests/campaign-worker.php'],[PHP,'tools/tests/campaign-backup.php'],[PHP,'tools/tests/campaign-emails.php'],[PHP,'tools/tests/campaign-brevo.php'],[PHP,'tools/tests/site-paths.php'],[PHP,'tools/tests/campaign-leads.php'],[PHP,'tools/tests/campaign-audit.php'],[NODE,'tools/tests/campaign-frontend.js'],[NODE,'tools/tests/campaign-bootstrap.js']]:
  r=subprocess.run(command,cwd=ROOT,capture_output=True,text=True);outputs.append(r.stdout+r.stderr)
  if r.returncode:raise RuntimeError(outputs[-1])
 files=sorted({ROOT/name for name in tracked if name.endswith('.php') and (ROOT/name).is_file()} | set((ROOT/'tools/tests').glob('*.php')))

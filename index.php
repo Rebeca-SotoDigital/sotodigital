@@ -36,21 +36,27 @@ include 'includes/header.php';
         <div class="service-list">
             <?php foreach (SOTO_SERVICES as $id => $entry): ?>
                 <?php if (!isset($entry[2])) continue; ?>
-                <article class="service-row" id="<?= $escape($id) ?>">
+                <a class="service-row" id="<?= $escape($id) ?>" href="<?= $escape($entry[1]) ?>" aria-labelledby="<?= $escape($id) ?>-titulo">
                     <?php $title = [
                         'servicio-web' => ['Webs', ' que abren puertas'],
                         'servicio-email-marketing' => ['Emails', ' que mantienen el contacto'],
                         'servicio-marketing-contenidos' => ['Contenido', ' que aporta valor'],
                     ][$id] ?? [$entry[0], $entry[2]]; ?>
-                    <h3><a class="service-card-link" href="<?= $escape($entry[1]) ?>" aria-labelledby="<?= $escape($id) ?>-titulo"><span id="<?= $escape($id) ?>-titulo"><strong><?= $escape($title[0]) ?></strong><?= $escape($title[1]) ?></span><span class="service-card-more" aria-hidden="true">Ver más</span></a></h3>
+                    <h3><span class="service-card-link"><span id="<?= $escape($id) ?>-titulo"><strong><?= $escape($title[0]) ?></strong><?= $escape($title[1]) ?></span><span class="service-card-more" aria-hidden="true">Ver más</span></span></h3>
                     <p><?= $escape($entry[3]) ?></p>
-                </article>
+                </a>
             <?php endforeach; ?>
         </div>
         <div class="service-note"><p>¿No sabes cuál necesitas? Lo vemos juntos.</p><a class="btn" href="#diagnostico"><?= SOTO_PROPOSAL_CTA ?></a></div>
     </div>
 </section>
-<?php $projectFilter = 'all'; include __DIR__ . '/includes/project-section.php'; ?>
+<section id="diagnostico" class="bg-soft">
+    <div class="container campaign-split">
+        <div><h2>¿Qué puede mejorar en tu negocio?</h2><p>Respóndenos a unas preguntas y te enviamos una propuesta gratuita y sin compromiso.</p><p class="response-promise">Primera respuesta en un máximo de <?= $escape(campaign_response_time()) ?>.</p></div>
+        <?php include __DIR__ . '/includes/campaign-form.php'; ?>
+    </div>
+</section>
+<?php $projectFilter = 'all'; $projectPreviewLimit = 3; include __DIR__ . '/includes/project-section.php'; ?>
 <section id="pantalla">
     <div class="container led-layout">
         <div class="led-photo led-recreation">
@@ -91,12 +97,7 @@ include 'includes/header.php';
     </div>
 </section>
 <?php include __DIR__.'/includes/team-section.php'; ?>
-<section id="diagnostico" class="bg-soft">
-    <div class="container campaign-split">
-        <div><h2>¿Qué puede mejorar en tu negocio?</h2><p>Respóndenos a unas preguntas y te enviamos una propuesta gratuita y sin compromiso.</p></div>
-        <?php include __DIR__ . '/includes/campaign-form.php'; ?>
-    </div>
-</section>
+
 <section id="contacto" class="contact-section">
     <div class="container">
         <h2>Hagamos que <span><strong>pase algo.</strong></span></h2>

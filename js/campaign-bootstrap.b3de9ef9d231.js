@@ -25,14 +25,17 @@ document.addEventListener('DOMContentLoaded',function(){
     }
     function render(){
         if(!window.turnstile || widget!==null || container.closest('fieldset').hidden)return;
-        widget=window.turnstile.render(container,{sitekey:container.dataset.sitekey,action:'proposal',language:'es'});
+        widget=window.turnstile.render(container,{sitekey:container.dataset.sitekey,action:'proposal',language:'es',size:container.clientWidth < 300 ? 'compact' : 'normal'});
     }
     function warm(){Promise.all([issueTokens(),loadChallenge()]).then(render).catch(()=>{});}
     if(window.IntersectionObserver){const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){warm();observer.disconnect();}},{rootMargin:'250px'});observer.observe(form);}
     form.addEventListener('focusin',warm,{once:true});form.addEventListener('soto:step',()=>{warm();render();});
     window.sotoLeadForm={prepare:async function(){
         await issueTokens();await loadChallenge();render();
-        const token=form.querySelector('[name="cf-turnstile-response"]');
-        if(!token || !token.value){const error=new Error('Completa la verificación de seguridad antes de enviar.');error.kind='validation';throw error;}
+        let token=form.querySelector('[name="cf-turnstile-response"]');
+        const response=typeof window.turnstile.getResponse==='function' && widget!==null ? window.turnstile.getResponse(widget) : (token && token.value);
+        if(!response){const error=new Error('Completa la verificación de seguridad antes de enviar. Si había caducado, espera a que termine de nuevo.');error.kind='validation';throw error;}
+        if(!token){token=document.createElement('input');token.type='hidden';token.name='cf-turnstile-response';form.appendChild(token);}
+        token.value=response;
     }};
 });

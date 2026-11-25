@@ -252,3 +252,13 @@ La planificación anterior se conserva en [el archivo histórico](docs/pendiente
 - [x] Primera revisión HTTP de las once landings de `/campanas/`: páginas y diez recursos compartidos disponibles, un H1 y un formulario por landing, endpoint `/api/lead.php`, anclas internas correctas y noindex en HTML/cabeceras. Informe `docs/revision-landings-produccion.json`. No se han enviado formularios adicionales.
 - [ ] Revisión visual móvil/escritorio: el navegador no está conectado al agente. Empezar por Google Ads y principal mediante capturas de las páginas renderizadas; las comprobaciones HTTP no acreditan legibilidad, tamaños ni ausencia de desbordamientos.
 - Observación de contenido: Google Ads tiene alcance y preguntas específicos; las otras landings conservan FAQs y proceso generales. Sus beneficios definidos no se muestran en el bloque inicial como los de Google Ads. Revisar cada servicio antes de dar la aprobación comercial. Vídeos y casos publicitarios requieren material verificable.
+
+
+## Quince mejoras de home y landings — 25/11/2026
+
+- [x] Aplicadas en local las mejoras acordadas: titular y hero Google Ads, beneficios, CTA, espacios, retirada de ejemplo, prioridad del formulario, multicanalidad, formulario temprano y portfolio abreviado de home, enlaces de servicios, categorías de proyectos, primera respuesta y alcance/FAQ por servicio.
+- [x] Cuestionario completo comprobado con pruebas funcionales, incluidos errores y contacto; ajuste Turnstile compacto en ancho reducido y campos de texto de 16 px. No se ha realizado una nueva verificación visual de pasos 2–5 en un dispositivo real.
+- [x] Recursos con hash y sitemap regenerados. Suite de pruebas correcta y comprobación de estructura/render de las once landings. Detalle en `docs/mejoras-visuales-landings.md`.
+- [ ] Subir el paquete preparado de cambios a Arsys y revisar el resultado renderizado en móvil/escritorio con el equipo. Las capturas anteriores no acreditan el aspecto después de estos cambios. No se han enviado leads reales durante esta revisión.
+
+- Ajuste visual solicitado: recuperadas en local las proporciones anteriores (titulares, columnas y espaciado). Subir el paquete actualizado y comprobar la amplitud en producción.
