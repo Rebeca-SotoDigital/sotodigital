@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 
-# Las campañas, los borradores, la API y las páginas de pruebas indican noindex.
+# Producción en la raíz de soto-digital.com; /mumito/ ya se ha retirado.
+# Las landings de campañas, los borradores y la API indican noindex.
 # Se permite el rastreo para que los buscadores puedan leer esa directiva.
 Sitemap: https://soto-digital.com/sitemap.xml

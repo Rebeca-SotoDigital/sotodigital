@@ -92,7 +92,7 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 - [x] Entrega de ambos emails en producción confirmada por el equipo el 25/11/2026.
 - [ ] Revisar dirección de respuesta y lectura de emails en móvil/escritorio en producción.
 - [ ] Comprobar duplicados, recarga de gracias, errores y ausencia de éxito falso cuando no se pueda guardar.
-- [ ] Revisar 404 de rutas internas, caché, sesión, noindex de campañas/API y sitemap/robots. Configurar `SITE_ENV=staging` para pruebas y `SITE_ENV=production` para la raíz. Tras validar producción, redirigir las visitas GET/HEAD de `/mumito/` a su ruta equivalente, conservando la consulta.
+- [ ] Revisar 404 de rutas internas, caché, sesión, noindex de campañas/API y sitemap/robots. Configurar `SITE_ENV=staging` para pruebas y `SITE_ENV=production` para la raíz. `/mumito/` ya retirado; no queda pendiente revisar el antiguo sitemap provisional.
 - [ ] Comprobar consentimiento y conversión única con las etiquetas reales antes de invertir en anuncios.
 - [ ] Documentar el resultado y la autorización del equipo para lanzar publicidad. Tener listo el rollback sin perder leads nuevos ni recuperar datos suprimidos.
 
@@ -146,7 +146,7 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 
 - [x] Portada enlazada a las siete páginas públicas de servicio. Campañas dispone de una página propia con formulario integrado. Las landings de anuncios mantienen navegación y URLs separadas.
 - [x] Sitemap regenerado en local con 18 URL canónicas de producción, incluidas las seis fichas y Campañas. `robots.txt` referencia el sitemap de raíz y permite leer las directivas noindex.
-- [ ] Verificar en Apache que el sitemap provisional bajo `/mumito/` entrega `X-Robots-Tag: noindex, nofollow`. En la última consulta a la versión publicada esa cabecera no estaba presente.
+- [x] `/mumito/` retirado según el equipo y HTTP 404 comprobado directamente el 25/11/2026. El sitemap provisional ya no aplica; no se bloquea su rastreo en robots para que pueda observarse la retirada.
 
 - [ ] Aprobar `/google-ads.php`, `/meta-ads.php` y blog antes de retirar su estado de borrador/noindex y regenerar el sitemap. No retirar noindex de las landings de campañas ni de la API.
 - [ ] Definir y revisar los primeros contenidos del blog, sin publicar información o resultados inventados.
@@ -244,3 +244,5 @@ La planificación anterior se conserva en [el archivo histórico](docs/pendiente
 - [x] Medición GA4 en producción verificada con el equipo el 25/11/2026 a las 19:58: 1 usuario activo, 8 page_view, 6 vistas de Gracias, 1 generate_lead y 1 evento clave generate_lead. La prueba observada no muestra duplicación del lead al recargar Gracias.
 
 - [x] Consentimiento en producción comprobado por el equipo en Chrome el 25/11/2026: con rechazo no aparecen peticiones de Google en Network; al aceptar analítica aparecen; tras retirar el consentimiento, limpiar la lista y recargar dejan de aparecer. Confirmación del usuario; no inspección directa del agente ni validación completa con Tag Assistant/Ads.
+
+- [x] `sitemap.xml` regenerado el 25/11/2026: 18 URL canónicas de raíz, sin `/mumito/` ni endpoints/campañas noindex. `robots.txt` actualizado para el estado de producción y referencia al sitemap de raíz. Pendiente subir ambos archivos por SFTP.
