@@ -45,9 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
             revealObserver.unobserve(entry.target);
         });
     });
-    document.querySelectorAll("#contenido > section:not(#hero) > .container").forEach(section => {
-        if (section.getBoundingClientRect().top >= window.innerHeight) {
-            revealObserver.observe(section);
+    const home = document.querySelector(".home-page");
+    // Reveal smaller groups on the home page so they also enter in sequence on narrow screens.
+    const targets = home
+        ? home.querySelectorAll(".section-heading, .solution-card, .service-row, .project-card, .led-photo, .led-copy, .process-grid article, .faq-list details, .team-grid article, #contacto > .container")
+        : document.querySelectorAll("#contenido > section:not(#hero) > .container");
+    targets.forEach(target => {
+        if (target.getBoundingClientRect().top >= window.innerHeight) {
+            revealObserver.observe(target);
         }
     });
 });

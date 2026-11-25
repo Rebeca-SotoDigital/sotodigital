@@ -7,7 +7,7 @@ $canonicalPath = '/';
 $includeLocalBusiness = true;
 include 'includes/header.php';
 ?>
-<main id="contenido">
+<main id="contenido" class="home-page">
 <section id="hero" class="new-hero">
     <div class="container">
         <div class="hero-copy">

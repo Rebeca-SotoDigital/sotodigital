@@ -263,3 +263,69 @@ header .nav-links .btn-nav:hover, #pantalla .btn-nav:hover { background: #e3f2f8
     font-weight: 700;
 }
 .service-close p { margin-block: 12px 20px; }
+
+/* Homepage accents stay behind the content and remain visible on touch screens. */
+.home-page #hero.new-hero {
+    background:
+        radial-gradient(ellipse at 95% 0%, #cfe9f4, transparent 63%),
+        radial-gradient(ellipse at 10% 100%, #fff3c9, transparent 55%),
+        #fafbf9;
+}
+.home-page #hero h1 > span {
+    background: linear-gradient(transparent 82%, #ffe44d 82%, #ffe44d 92%, transparent 92%);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+.home-page .hero-context {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .65rem;
+}
+.home-page .hero-context::before {
+    content: "";
+    width: 1.4rem;
+    height: 3px;
+    flex: none;
+    align-self: center;
+    border-radius: 2px;
+    background: #007baa;
+}
+.home-page #soluciones .solution-card {
+    background: linear-gradient(145deg, #23414f, #17242e 74%);
+    border: 1px solid #315365;
+}
+.home-page #servicios .service-row {
+    padding-inline: clamp(12px, 2vw, 24px);
+}
+.home-page #servicios .service-row:nth-child(odd) { background: #eaf1f3; }
+.home-page #servicios .service-card-more { left: clamp(12px, 2vw, 24px); }
+.home-page #pantalla { background: #edf4f6; }
+.home-page .led-photo {
+    padding: clamp(8px, 1.2vw, 15px);
+    border: 1px solid #d9e6eb;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 12px 28px #19374716;
+}
+.home-page .led-photo img { display: block; border-radius: 9px; }
+
+@media (prefers-reduced-motion: no-preference) {
+    .home-page .section-arrive { animation: home-section-arrive .52s ease-out backwards; }
+    .home-page .section-arrive:focus-within { animation: none; }
+    .home-page .hero-context::before {
+        transform-origin: left;
+        animation: home-accent-arrive .55s ease-out backwards;
+    }
+    @keyframes home-section-arrive {
+        from { opacity: .72; translate: 0 12px; }
+        to { opacity: 1; translate: 0; }
+    }
+    @keyframes home-accent-arrive {
+        from { transform: scaleX(.25); }
+        to { transform: scaleX(1); }
+    }
+}
+@media (min-width: 701px) and (prefers-reduced-motion: no-preference) {
+    .home-page :is(.solution-card, .process-grid article):nth-child(2) { animation-delay: .07s; }
+    .home-page :is(.solution-card, .process-grid article):nth-child(3) { animation-delay: .14s; }
+}
