@@ -344,6 +344,7 @@ function pipelinePreparar(
  * el resumen fue realmente entregado antes de
  * aceptar la confirmación.
  */
+
 function pipelineConfirmar(
     string $phone,
     string $textoCliente
@@ -355,100 +356,11 @@ function pipelineConfirmar(
         ];
     }
 
-    return pipelineEstado(
+    require_once __DIR__ . '/lead-confirmation.php';
+
+    return procesarConfirmacionLead(
         $phone,
-        function (array $state) use ($phone): array {
-            if (($state['fase'] ?? '') === 'registrado') {
-                return [
-                    'guardar' => false,
-                    'resultado' => [
-                        'estado' => 'registrado',
-                        'mensaje' =>
-                            'Esta solicitud ya estaba registrada.'
-                    ]
-                ];
-            }
-
-            if (
-                ($state['fase'] ?? '') !==
-                'pendiente_confirmacion'
-            ) {
-                return [
-                    'guardar' => false,
-                    'resultado' => [
-                        'estado' => 'sin_borrador',
-                        'mensaje' =>
-                            'No existe una propuesta pendiente.'
-                    ]
-                ];
-            }
-
-            $creado = (int) ($state['creado_en'] ?? 0);
-
-            if (
-                $creado <= 0 ||
-                time() - $creado > SOTO_LEAD_TTL
-            ) {
-                return [
-                    'guardar' => true,
-                    'estado' => [
-                        'fase' => 'caducado'
-                    ],
-                    'resultado' => [
-                        'estado' => 'caducado',
-                        'mensaje' =>
-                            'La solicitud ha caducado. ' .
-                            'Debe prepararse nuevamente.'
-                    ]
-                ];
-            }
-
-            $datos = $state['datos'] ?? [];
-
-            $validacion = validarLeadExtraido(
-                $datos,
-                true,
-                true
-            );
-
-            if (!$validacion['valido']) {
-                return [
-                    'guardar' => false,
-                    'resultado' => [
-                        'estado' => 'no_valido',
-                        'errores' => $validacion['errores']
-                    ]
-                ];
-            }
-
-            // Solo después de confirmar y validar.
-            $lead = guardarLead(
-                $phone,
-                array_merge(
-                    $validacion['datos'],
-                    [
-                        'confirmado' => true,
-                        'consentimiento' => true
-                    ]
-                )
-            );
-
-            return [
-                'guardar' => true,
-                'estado' => [
-                    'fase' => 'registrado',
-                    'registrado_en' => time(),
-                    'lead_id' => $lead['id']
-                ],
-                'resultado' => [
-                    'estado' => 'registrado',
-                    'lead_id' => $lead['id'],
-                    'mensaje' =>
-                        '¡Gracias! Hemos registrado tu solicitud. ' .
-                        'El equipo de Soto Digital revisará ' .
-                        'tu información para preparar la propuesta.'
-                ]
-            ];
-        }
+        trim($textoCliente)
     );
 }
+
