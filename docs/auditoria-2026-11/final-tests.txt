@@ -1,3 +1,9 @@
+PASS: private Arsys fallback, Apache/FastCGI/redirect variables, environment precedence, request-header rejection and public-config blocking
+
+PASS: immediate CRM/emails, deferred AI/resync, no duplicate emails, shared worker lock, secret validation, throttling and request budgets; no real network
+
+PASS: consistent private backup, isolated restoration/integrity/checksum, unchanged live leads, lock/throttle, retention and corrupt-snapshot cleanup; no provider calls
+
 PASS: email recipients, HTML escaping, responsive structure and separation of internal scoring
 PASS: HTML email transport and reply-to, no real sends
 
@@ -21,7 +27,7 @@ PASS: optional AI warning and explicitly required AI health failure
 
 PASS: 5-step wizard, validation, back navigation, API errors, success redirect, consent signals, category separation, consent migration, blocked storage, conversions, deduplication
 
-PASS: PHP lint 72 files
+PASS: PHP lint 90 files
 PASS: manifest hashes and maximum two versions
-PASS: title/description limits, unique H1, no phone/chat CTAs or base tag
-PASS: sitemap 14 unique public pages
+PASS: title/description limits, unique H1, no telephone CTAs, WhatsApp only to configured destination, no base tag
+PASS: sitemap 18 unique public pages

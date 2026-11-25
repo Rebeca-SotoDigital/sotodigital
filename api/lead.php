@@ -58,5 +58,14 @@ catch (Throwable $e) { error_log('Campaign lead storage failed'); campaign_alert
 $_SESSION['campaign_received'] = $submission;
 $_SESSION['campaign_conversion'] = ['id' => $submission, 'service' => $slug];
 unset($_SESSION['campaign_screened'], $_SESSION['campaign_old'], $_SESSION['campaign_submission'], $_SESSION['campaign_attribution'][$attributionToken]);
-// Slow external calls run in the private CLI worker. A valid lead is already durable.
+// The receipt is durable before contacting providers. Release the session so
+// other requests are not blocked. Provider failures never undo capture.
+session_write_close();
+if (filter_var(campaign_config('CAMPAIGN_PROCESS_ON_SUBMIT',true),FILTER_VALIDATE_BOOLEAN)) {
+    ignore_user_abort(true);
+    try {
+        require_once __DIR__.'/../includes/campaign-worker.php';
+        campaign_run_queue($db,$submission,1,15);
+    } catch (Throwable $e) {error_log('Campaign immediate processing pending');}
+}
 lead_response(true, '', 200, $submission);

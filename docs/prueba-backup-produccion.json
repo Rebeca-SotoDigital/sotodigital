@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-25",
+  "environment": "production-arsys",
+  "http": 200,
+  "backup_file": "leads-20261125-183854-21650808.sqlite",
+  "integrity": "ok",
+  "restore_test": "ok",
+  "leads": 5,
+  "sha256": "44d237b6ce6eac2158622a2faf1a85298dc0212fd49176c0a6bc4128cc086bdf",
+  "retention_limit": 14,
+  "live_database_replaced": false,
+  "external_copy_downloaded": false
+}

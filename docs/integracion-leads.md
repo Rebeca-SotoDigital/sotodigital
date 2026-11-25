@@ -193,3 +193,15 @@ Jónatan y Rebeca atenderán las solicitudes. Primera respuesta: máximo 2 días
 El equipo confirma la visibilidad de `RESPONSABLE_LEAD` y que ambos revisarán las solicitudes pendientes. `ESTADO_LEAD` ofrece el recorrido aprobado Nuevo → En revisión → Contactado → Propuesta enviada → Ganado / Perdido. Las opciones anteriores se mantienen con sus IDs para no reclasificar contactos existentes. Los cambios son manuales; no hay tratos ni recordatorios automáticos activados.
 
 Prueba real del 21/11/2026 en el contacto interno 101: cada uno de los seis estados y ambos responsables se conservaron tras ejecutar la sincronización local. Puntuación, IA e ID intactos; estado y responsable originales restaurados al finalizar. No se enviaron emails ni peticiones a IA y no se modificaron filas de leads locales. Véanse `docs/asignacion-leads.md` y `docs/prueba-recorrido-comercial.json`.
+
+
+### Carga privada en Arsys (25/11/2026)
+
+El cargador consulta primero `SOTO_CONFIG_FILE`, después sus variantes en entorno/servidor Apache con prefijos REDIRECT y finalmente el archivo fijo `data/soto-private/soto-config.php` situado junto al directorio público `html`. La ubicación se calcula desde el código instalado, sin usar cabeceras de la petición. Una ruta explícita inválida falla en lugar de ocultar el error usando otra configuración. Se rechazan rutas reales dentro del proyecto público o DOCUMENT_ROOT, también tras resolver enlaces simbólicos. La CLI y el cron deben seguir usando `SOTO_CONFIG_FILE` explícito para evitar diferencias de instalación.
+
+Pruebas aisladas: `php tools/tests/campaign-config.php`. El parche requiere subir `includes/campaign-config.php`; no modifica el archivo privado ni lleva claves. El POST de preparación del formulario devuelve 503 cuando faltan configuración de almacenamiento o claves Turnstile, antes de usar Brevo. La compatibilidad preparada no acredita que esos valores estén completos en el servidor.
+
+
+### Alternativa sin cron nativo (25/11/2026)
+
+`api/lead.php` intenta CRM y correos tras el guardado durable, sin esperar a la IA. `includes/campaign-worker.php` coordina ejecución inmediata y endpoint POST protegido `api/worker.php`, compartiendo el bloqueo con la CLI. La IA y reintentos periódicos requieren activar un programador externo con token en cabecera; no hay ejecución periódica autónoma por subir PHP. Parámetros y activación: `docs/worker-http-arsys.md`. Las entregas ambiguas siguen requiriendo revisión manual.

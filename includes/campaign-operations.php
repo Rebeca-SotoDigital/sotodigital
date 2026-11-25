@@ -35,14 +35,66 @@ function campaign_alert(?PDO $db, string $reason, ?callable $sender=null): bool 
     if(!$sent) error_log('Campaign operational alert pending: check external health monitoring');
     return $sent;
 }
+/** Compatibility snapshot for older SQLite engines without VACUUM INTO. */
+function campaign_backup_logical(PDO $source, string $target): void {
+    if($source->inTransaction()||file_exists($target))throw new RuntimeException('Snapshot requires a fresh target');
+    $destination=null;$mask=umask(0077);$success=false;
+    $quote=static fn($name)=>'"'.str_replace('"','""',$name).'"';
+    try {
+        $handle=fopen($target,'x');if(!$handle)throw new RuntimeException('Cannot reserve backup');fclose($handle);chmod($target,0600);
+        $destination=new PDO('sqlite:'.$target);$destination->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        $destination->exec('PRAGMA foreign_keys=OFF');
+        // The first read establishes a stable source snapshot, including its schema.
+        $source->beginTransaction();
+        $schema=$source->query("SELECT type,name,sql FROM sqlite_master WHERE sql IS NOT NULL AND name NOT LIKE 'sqlite_%' ORDER BY CASE type WHEN 'table' THEN 0 ELSE 1 END,name")->fetchAll(PDO::FETCH_ASSOC);
+        $destination->beginTransaction();
+        foreach($schema as $object){
+            if($object['type']!=='table')continue;
+            $destination->exec($object['sql']);
+            $columns=$source->query('PRAGMA table_info('.$quote($object['name']).')')->fetchAll(PDO::FETCH_ASSOC);
+            $names=array_column($columns,'name');
+            $insert=$destination->prepare('INSERT INTO '.$quote($object['name']).' ('.implode(',',array_map($quote,$names)).') VALUES ('.implode(',',array_fill(0,count($names),'?')).')');
+            $rows=$source->query('SELECT '.implode(',',array_map($quote,$names)).' FROM '.$quote($object['name']));
+            while($row=$rows->fetch(PDO::FETCH_NUM)){
+                foreach($row as $i=>$value)$insert->bindValue($i+1,$value,$value===null?PDO::PARAM_NULL:(is_int($value)?PDO::PARAM_INT:PDO::PARAM_STR));
+                $insert->execute();
+            }
+        }
+        foreach($schema as $object)if($object['type']!=='table')$destination->exec($object['sql']);
+        if($source->query("SELECT COUNT(*) FROM sqlite_master WHERE name='sqlite_sequence'")->fetchColumn()){
+            $destination->exec('DELETE FROM sqlite_sequence');$insert=$destination->prepare('INSERT INTO sqlite_sequence(name,seq) VALUES(?,?)');
+            foreach($source->query('SELECT name,seq FROM sqlite_sequence') as $row)$insert->execute([$row['name'],$row['seq']]);
+        }
+        $version=(int)$source->query('PRAGMA user_version')->fetchColumn();$destination->exec('PRAGMA user_version='.$version);
+        $destination->commit();$source->rollBack();$success=true;
+    }finally{
+        if($source->inTransaction())$source->rollBack();
+        if($destination&&$destination->inTransaction())$destination->rollBack();
+        $destination=null;
+        if(!$success)foreach([$target,$target.'-journal'] as $file)if(is_file($file))unlink($file);
+        umask($mask);
+    }
+}
 function campaign_backup(PDO $db, string $directory, int $keep = 14): string {
     $parent=realpath(dirname($directory));
     if(!$parent) throw new RuntimeException('Backup parent unavailable');
     foreach(array_filter([realpath(__DIR__.'/..'),realpath($_SERVER['DOCUMENT_ROOT']??'')]) as $public) if($parent===$public || strpos($parent,$public.DIRECTORY_SEPARATOR)===0) throw new RuntimeException('Backups must be private');
     if(!is_dir($directory) && !mkdir($directory,0700,true)) throw new RuntimeException('Cannot create backup directory');
+    if(is_link($directory))throw new RuntimeException('Backup directory must not be a symlink');
+    $actual=realpath($directory);
+    if(!$actual)throw new RuntimeException('Backup directory unavailable');
+    foreach(array_filter([realpath(__DIR__.'/..'),realpath($_SERVER['DOCUMENT_ROOT']??'')]) as $public)if($actual===$public||strpos($actual,$public.DIRECTORY_SEPARATOR)===0)throw new RuntimeException('Backups must be private');
+    if(!chmod($directory,0700))throw new RuntimeException('Cannot protect backup directory');
     $target=$directory.'/leads-'.gmdate('Ymd-His').'-'.bin2hex(random_bytes(4)).'.sqlite';
     $oldMask=umask(0077);
-    try {$db->exec('VACUUM INTO '.$db->quote($target));chmod($target,0600);} finally {umask($oldMask);}
+    try {
+        try {$db->exec('VACUUM INTO '.$db->quote($target));}
+        catch(PDOException $e){
+            if(stripos($e->getMessage(),'near "INTO"')===false)throw $e;
+            campaign_backup_logical($db,$target);
+        }
+        chmod($target,0600);
+    } finally {umask($oldMask);}
     $files=glob($directory.'/leads-????????-??????-????????.sqlite')?:[];usort($files,static function($a,$b)use($target){if($a===$target)return -1;if($b===$target)return 1;return filemtime($b)<=>filemtime($a);});
     foreach(array_slice($files,max(1,$keep)) as $old) if(is_file($old) && !is_link($old)) unlink($old);
     return $target;

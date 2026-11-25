@@ -2,9 +2,9 @@
 
 Actualizado: **25 de noviembre de 2026**.
 
-Este es el checklist vigente. **El formulario y Brevo se verificaron en local.** La última comprobación de la versión provisional en `/mumito/` devolvió HTTP 503 en `api/token.php` tanto para la portada como para Diseño web. La publicación en la raíz y la prueba real desde Arsys siguen pendientes.
+Este es el checklist vigente. **El equipo ha publicado en soto-digital.com por SFTP.** La preparación del formulario pasó de HTTP 503 a HTTP 200 tras el ajuste del cargador privado; el equipo confirma la página de gracias. El equipo confirma el circuito en producción: contactos en Brevo con puntuación y resumen de IA, ambos correos recibidos y `pending: 0` en cron-job.org.
 
-**Criterio vigente del equipo:** continuar en local hasta que todo esté preparado y revisado. No publicar ni modificar Arsys sin autorización posterior. El apartado de producción es preparación para esa fase, no una orden de despliegue.
+**Criterio vigente:** autorizado trabajar sobre el dominio principal. La subida de código se está realizando manualmente por SFTP; no se ha activado publicidad. No sobrescribir bases de leads ni claves con versiones locales.
 
 ## Atención de las solicitudes
 
@@ -59,7 +59,7 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 - [x] Paquete verificado: sin claves reales, bases de leads, logs, documentación ni herramientas de desarrollo; incluye la CLI operativa protegida en `bin/`.
 - [x] Carpeta `dist/` bloqueada por HTTP (404). **No se ha desplegado el ZIP.**
 
-## 2. Antes de publicar en Arsys — prioritario
+## 2. Revisión y operación en Arsys — publicación realizada
 
 ### Hosting y configuración
 
@@ -70,12 +70,12 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 - [ ] Hacer copia de la web/configuración actuales y preparar la recuperación de la versión anterior.
 - [ ] Crear configuración y almacenamiento privados fuera de `public_html`, con permisos limitados a los usuarios necesarios.
 - [ ] Definir `SOTO_CONFIG_FILE` tanto para PHP web como para PHP CLI/cron. Completar las rutas propias de Arsys, sin copiar rutas ni ACL del Mac.
-- [ ] Autorizar **la IP saliente de Arsys** en Brevo. La IP autorizada en la prueba local no cubre automáticamente el servidor.
+- [x] IP de Arsys autorizada en Brevo el 25/11/2026. Los intentos bloqueados coincidían con las ejecuciones del servidor; tras autorizarla, el equipo confirma contactos y correos recibidos.
 - [ ] Crear o configurar un widget Turnstile de producción que admita `soto-digital.com` y los hostnames utilizados. Las claves locales no garantizan protección del dominio publicado.
 
 ### Automatización y mantenimiento en el servidor
 
-- [ ] Programar `php bin/campaign-leads.php retry` **cada cinco minutos** con el PHP y las rutas de Arsys. El LaunchAgent del Mac no sustituye este cron.
+- [x] Sustituido el cron nativo, no disponible en el plan según soporte de Arsys, por cron-job.org: POST protegido cada cinco minutos a `api/worker.php`. Ejecución automática 200 observada en captura y cola `pending: 0` confirmada por el equipo.
 - [ ] Programar copias diarias, definir ubicación privada/externa y rotación, y comprobar una restauración en el entorno definitivo.
 - [ ] Revisar el resultado de `purge --dry-run` antes de programar la conservación. Mantener actualizados última comunicación y relación comercial; no borrar indiscriminadamente clientes activos.
 - [ ] Resolver la conservación en Brevo y en las copias. El borrado remoto de contactos permanece desactivado por defecto y requiere revisar otras finalidades y contactos compartidos.
@@ -86,9 +86,11 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 
 - [ ] Regenerar el ZIP desde la revisión aprobada y revisar su manifiesto y exclusiones. El código de `whatsapp/` ya está versionado. Confirmar si debe incluirse en esta publicación y comprobar que su configuración privada queda fuera.
 - [ ] Publicar juntos PHP, reglas, imágenes, recursos con hash y manifiesto, con cambio atómico o una ventana que evite versiones mezcladas.
-- [ ] Ejecutar `brevo-check` y `health` en Arsys. Resolver el HTTP 503 de `api/token.php` confirmando que PHP web recibe `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` y `CAMPAIGN_DATA_DIR`, y que el almacenamiento privado es escribible.
+- [x] Resuelto HTTP 503 de `api/token.php`; respuesta 200 comprobada directamente. Envío y página de gracias confirmados por el equipo.
+- [ ] Configurar y comprobar monitor de `health` en producción; el éxito del worker y las entregas no sustituyen esa revisión. `brevo-check` CLI queda disponible si se obtiene acceso de ejecución.
 - [ ] Enviar solicitudes de prueba con Turnstile desde la portada y desde una página de servicio. Verificar guardado, puntuación, confirmación, ejecución del worker y `ORIGEN` y `LANDING` en Brevo. La prueba local simulada ya verificó esas rutas para portada, Diseño web y Campañas.
-- [ ] Comprobar entrega de **ambos** emails, dirección de respuesta y lectura en móvil/escritorio.
+- [x] Entrega de ambos emails en producción confirmada por el equipo el 25/11/2026.
+- [ ] Revisar dirección de respuesta y lectura de emails en móvil/escritorio en producción.
 - [ ] Comprobar duplicados, recarga de gracias, errores y ausencia de éxito falso cuando no se pueda guardar.
 - [ ] Revisar 404 de rutas internas, caché, sesión, noindex de campañas/API y sitemap/robots. Configurar `SITE_ENV=staging` para pruebas y `SITE_ENV=production` para la raíz. Tras validar producción, redirigir las visitas GET/HEAD de `/mumito/` a su ruta equivalente, conservando la consulta.
 - [ ] Comprobar consentimiento y conversión única con las etiquetas reales antes de invertir en anuncios.
@@ -158,7 +160,7 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 - [x] **Claude en local:** clave privada aceptada y modelo claude-haiku-5-5 disponible. Prueba sintética y dos solicitudes internas completadas: resumen y siguiente paso sincronizados en Brevo, ESTADO_IA=complete y puntuación PHP intacta. Peticiones sin nombre, email, móvil, empresa, URL, texto libre, IP ni atribución. Ver `docs/prueba-real-claude.md`.
 - [x] **Claude — límite mensual:** el usuario confirma haber fijado 100 USD/mes en el panel de límites de Anthropic el 21/11/2026. Confirmación del usuario; no se ha verificado por API el importe ni su alcance de organización/workspace. Es un tope de consumo, no un cargo mensual fijo.
 - [x] **Claude — estilo breve:** ajuste solicitado completado y revisado en los contactos internos 101/103. Resumen de una frase (máximo 240 caracteres) y siguiente paso concreto (máximo 180), sin repetir puntuación ni metodología; inicio del cliente separado del plazo de resultados. El usuario confirma la revisión en Brevo.
-- [ ] **Claude — seguimiento:** revisar calidad con nuevos casos y vigilar consumo y errores. La prueba en Arsys queda para cuando se autorice publicar; los límites por petición no sustituyen el límite mensual del proveedor.
+- [ ] **Claude — seguimiento:** revisar calidad con nuevos casos y vigilar consumo y errores. Resumen de IA en Brevo desde Arsys confirmado por el equipo el 25/11/2026; los límites por petición no sustituyen el límite mensual del proveedor.
 - [ ] **Dealfront/Leadfeeder:** cuenta/plan, código, contratos, consentimiento específico, filtros y cobertura real, si se decide activar. No identifica a cada persona visitante.
 - [ ] **CRM comercial:** segmentos, estados definitivos, IDs del pipeline/etapas y prueba del esqueleto de tratos. Responsable manual y estados de contacto ya configurados y probados con API real. `BREVO_CREATE_DEALS` sigue desactivado por defecto.
 - [ ] **Conversiones offline:** aprobar hito, valor real, permisos, formato e importación. Actualmente están diseñadas, no implementadas ni importadas.
@@ -184,3 +186,57 @@ GA4 recibe actividad y `generate_lead`; el equipo ha comprobado aceptación, rec
 ## 6. Historial
 
 La planificación anterior se conserva en [el archivo histórico](docs/pendientes-historico-previo-a-consolidacion-2026-11-21.md). Contiene decisiones y casillas de etapas ya superadas; **no es el checklist vigente**. Esta consolidación elimina contradicciones sobre claves, tabla provisional, Turnstile, worker y pruebas reales, sin perder ese historial.
+
+
+## Incidencia inicial en Arsys — 25/11/2026
+
+- [x] El equipo confirma haber subido la web al dominio principal por SFTP.
+- [x] Diagnóstico público: POST `/api/token.php` devuelve 503 y el HTML no incluye Turnstile; la preparación se detiene antes de Brevo. No atribuir este error a la API de Brevo.
+- [x] Captura del equipo confirma `data/soto-private/soto-config.php`, carpeta `leads` y configuración de almacenamiento con `__DIR__ . '/leads'`.
+- [x] Preparado y probado en local el cargador compatible con variables Apache/FastCGI, prefijos REDIRECT y ubicación privada fija de Arsys. Mantiene bloqueo de configuraciones dentro del directorio público y prioridad de variables explícitas. No contiene claves.
+- [x] Cargador corregido subido por el equipo; endpoint de preparación HTTP 200 comprobado directamente.
+- [x] Circuito de pruebas de producción completado según capturas y confirmación del equipo: envío aceptado, procesador externo activo, IP autorizada, contactos con puntuación/resumen de IA, ambos correos recibidos y cola sin pendientes. Esto no certifica todos los escenarios de fallo ni una auditoría completa de permisos.
+
+
+## Procesamiento sin cron nativo — 25/11/2026
+
+- [x] Implementado intento de CRM y correos tras guardar el formulario, con sesión liberada, bloqueo compartido y presupuesto temporal. La IA se completa después en cola.
+- [x] Endpoint POST `api/worker.php` con clave privada independiente en cabecera, lotes limitados y sin datos personales en su respuesta. Pruebas de autenticación, concurrencia, presupuesto y no duplicación correctas con proveedores simulados.
+- [x] Generada una línea de configuración privada fuera de Git y preparado ZIP de cinco archivos para subir por SFTP. Instrucciones en `docs/worker-http-arsys.md`.
+- [x] Parche subido y token privado añadido por el equipo; la prueba externa autenticada devuelve HTTP 200. La clave no se versiona.
+- [x] Cuenta y tarea cron-job.org creadas y habilitadas: POST cada cinco minutos con cabecera privada, cuerpo vacío y timeout de 30 segundos. Captura confirma ejecución automática.
+- [x] Email de alerta de cron-job.org recibido en `info@soto-digital.com`, confirmado por captura del equipo el 25/11/2026 a las 18:47. Prueba mediante tarea temporal sin token: ejecución programada HTTP 401. Acredita el canal de notificaciones; no una caída de la tarea principal.
+- [ ] Eliminar la tarea temporal «Prueba de alertas», manteniendo «Soto Digital — Procesar leads» habilitada.
+- [ ] Confirmar que la tarea principal conserva los avisos de fallo/recuperación; la recepción del email se ensayó en la tarea temporal.
+- [x] Monitor independiente Better Stack activo en `/api/health.php`, estado Up y frecuencia de tres minutos confirmados por captura del 25/11/2026 a las 19:06. El equipo confirma recepción de alerta de prueba. Detecta cola envejecida/proceso detenido según umbrales del endpoint; no se ha provocado una caída real del servicio.
+- [x] Cola existente recuperada: el equipo confirma contactos con puntuación y resumen de IA, recepción de ambos correos y `pending: 0`. Bloqueo inicial de Brevo resuelto al autorizar la IP de Arsys.
+
+
+## Monitor independiente de salud — preparación 25/11/2026
+
+- [x] Endpoint existente `api/health.php` revisado: respuesta simple `ok`/200 si almacenamiento y configuración básica funcionan, heartbeat de worker de como máximo 15 minutos y sin solicitudes de CRM/correos pendientes de más de 30 minutos. No consulta en vivo los proveedores ni detecta todos los problemas de IA opcional.
+- [x] Pruebas aisladas de proceso detenido, cola envejecida, base sin escritura y estados de configuración correctas. Clave de salud independiente generada fuera de Git y entregada en Descargas; no se muestra en el chat.
+- [x] Monitor autenticado configurado por el equipo; captura posterior confirma Up en el endpoint protegido. La clave de salud se mantiene privada y separada de la del worker.
+- [x] Cuenta Better Stack y monitor configurados por el equipo: URL `/api/health.php`, método GET y autenticación por cabecera; Up y comprobación cada tres minutos visibles en captura. Avisos por email y alerta manual recibida, confirmada por el equipo. No se ha comprobado una regla adicional de contenido `ok`; el estado Up acredita el chequeo HTTP configurado.
+- [x] Monitor de salud autenticado Up y recepción de alerta manual de Better Stack confirmados.
+- [ ] Opcional: comprobar incidente y recuperación reales en un monitor temporal con credencial incorrecta, sin tocar el monitor ni el worker principales. La alerta manual no acredita ese ciclo completo.
+
+
+## Copias y restauración en producción — preparación 25/11/2026
+
+- [x] Preparado endpoint POST protegido `api/backup.php`, con la misma cabecera privada del worker. No descarga bases ni permite restaurar sobre la base activa.
+- [x] Implementada copia consistente en almacenamiento privado `leads/backups`, prueba de restauración en archivo aislado, integridad SQLite, checksum y conteos. Limpieza del archivo de prueba y rotación solo tras validar la copia nueva (14 por defecto, configurable 2–90).
+- [x] Pruebas locales con datos sintéticos: copia/restauración, bloqueo, límite de repetición, permisos, rotación, rechazo de copia corrupta y conservación de leads originales. No se ha copiado todavía la base de producción mediante este endpoint.
+- [x] Parche subido y copia real de Arsys ejecutada: HTTP 200, `integrity: ok`, `restore_test: ok`, 5 leads y retención de 14 copias. Archivo `leads-20261125-183854-21650808.sqlite`; informe y SHA256 en `docs/prueba-backup-produccion.json`. Restauración en archivo aislado, sin sustituir la base activa.
+- [x] Tarea diaria de backup creada en cron-job.org con POST y cabecera privada; prueba desde cron-job.org HTTP 200 y `ok: true`, confirmada por captura.
+- [ ] Confirmar guardado de la hora diaria fuera del minuto del worker (recomendada 03:32), aviso de recuperación y primera ejecución diaria en el historial.
+- [ ] Descargar y custodiar una copia por SFTP fuera del servidor. Las copias en el mismo hosting no cubren pérdida de toda la cuenta; mantener acceso restringido y aplicar conservación/supresiones también a copias externas.
+
+- Prueba inicial real de backup del 25/11/2026: endpoint presente/protegido; POST autenticado devuelve 503. No se da por creada/verificada la copia de Arsys. Preparado diagnóstico autenticado por fase y motivo sin rutas ni datos; pendiente subir el parche actualizado y repetir.
+
+- Diagnóstico de Arsys confirmado: fase `snapshot`, motivo `sqlite_vacuum_into_unsupported`. Implementada y probada alternativa transaccional compatible con SQLite antiguo; pendiente subir `includes/campaign-operations.php` y repetir la copia de producción.
+
+- Cierre de incidencia de backup: tras subir la alternativa compatible, copia real y restauración aislada correctas el 25/11/2026. Siguen pendientes la programación diaria y la descarga/custodia externa por SFTP.
+
+- Custodia externa acordada: descarga manual por SFTP a una carpeta privada del Mac, semanal y antes de cambios importantes. No está automatizada y todavía no se ha confirmado una descarga.
+- [ ] Renovar el token del worker mostrado en una captura y actualizarlo en la configuración privada de Arsys y las tareas de procesamiento/backup. No se incluye su valor en Git.

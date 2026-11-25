@@ -117,12 +117,17 @@ function campaign_store(PDO $db, string $id, string $service, array $data, array
     $stmt->execute([$id, gmdate('c'), $service, json_encode($data, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), json_encode($attribution, JSON_THROW_ON_ERROR), 'campaign-2026-11-21-legal-v3']);
 }
 function campaign_http(string $url, array $headers, array $payload, int $timeout = 12, string $method = 'POST'): array {
+    if (!campaign_request_budget()) throw new RuntimeException('Campaign processing budget exhausted');
+    if (isset($GLOBALS['campaign_deadline'])) $timeout = min($timeout, max(1, (int)floor($GLOBALS['campaign_deadline'] - microtime(true))));
     if (defined('CAMPAIGN_TEST_HARNESS') && CAMPAIGN_TEST_HARNESS === true && isset($GLOBALS['campaign_test_http'])) return ($GLOBALS['campaign_test_http'])($url, $headers, $payload);
     $curl = curl_init($url);
     curl_setopt_array($curl, [CURLOPT_CUSTOMREQUEST => $method, CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 4, CURLOPT_TIMEOUT => $timeout, CURLOPT_HTTPHEADER => array_merge(['Content-Type: application/json', 'Accept: application/json'], $headers)]);
     if (!in_array(strtoupper($method), ['GET', 'DELETE'], true)) curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload, JSON_THROW_ON_ERROR));
     $body = curl_exec($curl); $status = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE); curl_close($curl);
     return ['status' => $status, 'body' => $body === false ? [] : (json_decode($body, true) ?: [])];
+}
+function campaign_request_budget(): bool {
+    return !isset($GLOBALS['campaign_deadline']) || $GLOBALS['campaign_deadline'] - microtime(true) >= 1;
 }
 function campaign_enrich(PDO $db, array $row, ?callable $http = null): void {
     if ($row['ai_status'] === 'complete' || (int)$row['ai_attempts'] >= 3 || !campaign_config('ANTHROPIC_API_KEY')) return;
@@ -207,6 +212,8 @@ function campaign_deliver(PDO $db, string $id, ?callable $sender = null): void {
     $admin = campaign_config('CAMPAIGN_MAIL_TO', 'ads@soto-digital.com');
     $messages = campaign_email_messages($row, $data, $score, $admin);
     foreach ($messages as $column => $message) {
+        // Do not mark an email as sending if no request can start in this run.
+        if (!campaign_request_budget()) return;
         $state = $column === 'admin_sent' ? 'admin_state' : 'confirmation_state';
         if ($row[$column] || $row[$state] === 'sending') continue;
         // An interrupted send stays flagged for manual review; never blindly resend an ambiguous email.

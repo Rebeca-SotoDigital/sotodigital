@@ -9,6 +9,8 @@ return [
     'CAMPAIGN_WORKER_MAX_AGE' => 900,
     'CAMPAIGN_PURGE_BREVO' => false, // Requires separate review: deletes a whole Brevo contact.
     'CAMPAIGN_HEALTH_TOKEN' => '', // Long random token; send only via Authorization header.
+    'CAMPAIGN_PROCESS_ON_SUBMIT' => true, // Try CRM/emails after durable capture, max 15 seconds.
+    'CAMPAIGN_WORKER_TOKEN' => '', // Independent random token >=32 chars; X-Soto-Worker-Token header only.
     'CAMPAIGN_ALERT_TO' => 'ads@soto-digital.com',
     'TURNSTILE_SITE_KEY' => '',
     'TURNSTILE_SECRET_KEY' => '',
