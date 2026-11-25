@@ -15,7 +15,8 @@ include __DIR__ . '/../includes/header.php';
 ?>
 <main id="contenido">
     <section><div class="container campaign-thanks">
-        <h1>¡Recibido! Te respondemos <?php if (soto_show_pending()): ?>en [PENDIENTE: plazo real, por ejemplo 24 horas laborables] <?php endif; ?>con una propuesta para tu negocio.</h1>
+        <h1>¡Recibido! Gracias por tu solicitud.</h1>
+        <p>Recibirás una primera respuesta en un máximo de <strong><?= htmlspecialchars(campaign_response_time(), ENT_QUOTES, 'UTF-8') ?></strong>.</p>
     </div></section>
 </main>
 <?php if ($receipt): ?><script id="soto-lead-receipt" type="application/json"><?= json_encode(['id' => $receipt['id']], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script><?php endif; ?>

@@ -16,12 +16,16 @@ $projectServiceNames = ['web' => 'Web', 'social' => 'Redes'];
         </div>
         <div class="projects-grid">
             <?php foreach ($projectItems as $project): ?>
-                <?php $case = $projectDetails[$project['theme']]; ?>
+                <?php
+                $case = $projectDetails[$project['theme']];
+                $cover = $case['cover'];
+                ?>
                 <article class="project-card project-theme-<?= $projectEscape($project['theme']) ?>">
                     <div class="project-cover">
-                        <span class="project-cover-grid" aria-hidden="true"></span>
-                        <span class="project-cover-orbit" aria-hidden="true"></span>
-                        <span class="project-cover-mark" aria-hidden="true"><?= $projectEscape($project['mark']) ?></span>
+                        <img src="/img/optimized/projects/<?= $projectEscape($cover['file']) ?>"
+                             alt="<?= $projectEscape($cover['alt']) ?>"
+                             width="<?= $cover['width'] ?>" height="<?= $cover['height'] ?>"
+                             loading="lazy" decoding="async">
                     </div>
                     <div class="project-body">
                         <h3><?= $projectEscape($project['name']) ?></h3>
@@ -29,7 +33,7 @@ $projectServiceNames = ['web' => 'Web', 'social' => 'Redes'];
                         <ul class="case-tags" aria-label="Servicios">
                             <?php foreach ($project['services'] as $projectService): ?><li><?= $projectEscape($projectServiceNames[$projectService]) ?></li><?php endforeach; ?>
                         </ul>
-                        <a class="btn case-link" href="/<?= $projectEscape($case['slug']) ?>.php" aria-label="Ver el caso de <?= $projectEscape($project['name']) ?>">Ver el caso</a>
+                        <a class="btn case-link" href="/<?= $projectEscape($case['slug']) ?>.php" aria-label="Ver proyecto de <?= $projectEscape($project['name']) ?>">Ver proyecto</a>
                     </div>
                 </article>
             <?php endforeach; ?>

@@ -7,7 +7,7 @@ $canonicalPath = '/';
 $includeLocalBusiness = true;
 include 'includes/header.php';
 ?>
-<main id="contenido">
+<main id="contenido" class="home-page">
 <section id="hero" class="new-hero">
     <div class="container">
         <div class="hero-copy">
@@ -16,7 +16,6 @@ include 'includes/header.php';
             <p>Creamos la web, las campañas y la imagen que tu negocio necesita para que más gente te conozca y te escriba.</p>
             <div class="hero-buttons">
                 <a href="#diagnostico" class="btn"><?= SOTO_PROPOSAL_CTA ?></a>
-                <a href="#proyectos" class="text-link">Ver nuestros trabajos</a>
             </div>
         </div>
     </div>
@@ -53,11 +52,21 @@ include 'includes/header.php';
 </section>
 <?php $projectFilter = 'all'; include __DIR__ . '/includes/project-section.php'; ?>
 <section id="pantalla">
-    <div class="container">
-        <span class="section-subtitle">Publicidad exterior</span>
-        <h2>Pantalla <strong>LED</strong></h2>
-        <p>Publicidad en pantalla LED de gran formato. Muy pronto, más información.</p>
-        <a class="btn btn-nav" href="#diagnostico">Avísame cuando esté disponible</a>
+    <div class="container led-layout">
+        <div class="led-photo led-recreation">
+            <img src="/img/optimized/pantalla-led-recreacion-693.webp"
+                 srcset="/img/optimized/pantalla-led-recreacion-420.webp 420w, /img/optimized/pantalla-led-recreacion-693.webp 693w"
+                 sizes="(max-width: 700px) 100vw, 50vw" width="693" height="595"
+                 alt="Recreación de la pantalla LED frente a la ITV del Polígono de Raos" loading="lazy">
+        </div>
+        <div class="led-copy">
+            <span class="section-subtitle">Publicidad exterior</span>
+            <h2>Pantalla <strong>LED</strong></h2>
+            <p>Publicidad exterior en una pantalla de <strong>6 × 3 metros</strong> en el Polígono de Raos, en Maliaño, Cantabria, frente a la ITV.</p>
+            <p>Un espacio para dar a conocer tu negocio, anunciar novedades y reforzar tu presencia local. También diseñamos tu anuncio.</p>
+            <p>Muy pronto, más información. <a href="/pantalla-led-raos.php">Más detalles sobre la pantalla LED</a>.</p>
+            <a class="btn btn-nav" href="#diagnostico">Avísame cuando esté disponible</a>
+        </div>
     </div>
 </section>
 <section id="proceso" class="process-section">
