@@ -5,6 +5,8 @@ require_once __DIR__ . '/webhook-event-processor.php';
 require_once __DIR__ . '/message-guard.php';
 require_once __DIR__ . '/conversation-controller.php';
 require_once __DIR__ . '/whatsapp-bridge.php';
+require_once __DIR__ . '/delivery-worker.php';
+
 
 /**
  * Trabajador manual de cola - Soto Digital.
@@ -54,15 +56,13 @@ function guardarEstadoCola(
     }
 }
 
+
 function procesarColaWhatsApp(
     callable $transportador,
-    int $limite = 10
+    int $limite = 10,
+    ?callable $generadorRespuesta = null
 ): array {
-    if ($limite < 1 || $limite > 100) {
-        throw new InvalidArgumentException(
-            'Límite no válido'
-        );
-    }
+    $generadorRespuesta ??= 'responderAlCliente';
 
     $directorio = sotoQueueDirectory();
 
@@ -136,37 +136,51 @@ function procesarColaWhatsApp(
             $procesados++;
 
             try {
-                $resultado = procesarMensajeProtegido(
-                    $telefono,
-                    $messageId,
-                    function () use (
-                        $telefono,
-                        $texto,
-                        $transportador
-                    ): array {
-                        $respuesta = responderAlCliente(
-                            $telefono,
-                            $texto
-                        );
 
-                        $envio = ejecutarWhatsAppBridge(
-                            $telefono,
-                            $respuesta,
-                            $transportador
-                        );
+$resultado = procesarMensajeProtegido(
+    $telefono,
+    $messageId,
+    function () use (
+        $telefono,
+        $messageId,
+        $texto,
+        $transportador,
+        $generadorRespuesta
+    ): array {
+        // 1. Obtener la respuesta comercial.
+        $respuesta = $generadorRespuesta(
+            $telefono,
+            $texto
+        );
 
-                        if (
-                            ($envio['estado'] ?? '') !==
-                            'aceptado'
-                        ) {
-                            throw new RuntimeException(
-                                'La respuesta no fue aceptada'
-                            );
-                        }
+        if (!is_array($respuesta)) {
+            throw new RuntimeException(
+                'Respuesta del controlador inválida'
+            );
+        }
 
-                        return ['ok' => true];
-                    }
-                );
+        // 2. Registrar etapas y efectuar el envío.
+        $entrega = procesarEntregaConDiario(
+            $messageId,
+            $telefono,
+            $respuesta,
+            $transportador
+        );
+
+        // 3. Solo completar si Meta ha aceptado
+        // y no quedan incidencias de vinculación.
+        if (
+            ($entrega['estado'] ?? '') !== 'aceptado'
+        ) {
+            throw new RuntimeException(
+                'Entrega pendiente de revisión: ' .
+                ($entrega['estado'] ?? 'desconocido')
+            );
+        }
+
+        return ['ok' => true];
+    }
+);
 
                 $correcto =
                     ($resultado['estado'] ?? '') ===

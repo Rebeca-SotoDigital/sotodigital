@@ -12,6 +12,7 @@ putenv('SOTO_CONVERSATIONS_DIR=' . $base . '/conversations');
 putenv('SOTO_PIPELINE_DIR=' . $base . '/pipeline');
 putenv('SOTO_LEADS_DIR=' . $base . '/leads');
 putenv('SOTO_WHATSAPP_LIVE_SEND=0');
+putenv('SOTO_JOURNAL_DIR=' . $base . '/journal');
 
 $envios = 0;
 
