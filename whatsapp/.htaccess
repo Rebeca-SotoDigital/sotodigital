@@ -16,3 +16,20 @@ Options -Indexes
 <Files "anthropic-config.php">
     Require all denied
 </Files>
+
+
+# Soto Digital - Seguridad del agente WhatsApp
+
+# Bloquear acceso HTTP directo a los archivos
+# internos, scripts de pruebas y configuraciones.
+# Solo permitir las entradas públicas necesarias.
+<FilesMatch "^(?!(?:index|webhook|webhook-agent|worker-agent)\.php$).+\.php$">
+    Require all denied
+</FilesMatch>
+
+# Proteger archivos de datos y bloqueo.
+<FilesMatch "\.(json|lock|log|bak|sql|env)$">
+    Require all denied
+</FilesMatch>
+
+Options -Indexes
