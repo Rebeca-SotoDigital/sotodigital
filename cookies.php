@@ -6,7 +6,7 @@ include 'includes/header.php';
 ?>
 <main id="contenido"><section class="legal-section"><div class="container legal-container">
 <span class="section-subtitle">Información legal</span><h1>Política de Cookies</h1>
-<p class="legal-intro">El responsable de esta web es Soto Digital S.L., NIF B05897236, con domicilio en Calle Galera 41, Polígono de Raos, 39600 Maliaño, Cantabria. Puedes contactar para cuestiones de privacidad en <a href="mailto:rebeca@soto-digital.com">rebeca@soto-digital.com</a>.</p>
+<p class="legal-intro">El responsable de esta web es Soto Digital S.L., NIF B05897236, con domicilio en Calle Galera 41, Polígono de Raos, 39600 Maliaño, Cantabria. Puedes contactar para cuestiones de privacidad en <a href="mailto:info@soto-digital.com">info@soto-digital.com</a>.</p>
 <h2>Cookies y almacenamiento del navegador</h2>
 <p>Las cookies y tecnologías similares permiten mantener una sesión, recordar tus preferencias y, si lo autorizas y están configuradas las herramientas, medir visitas y campañas o identificar empresas visitantes.</p>
 <p>El formulario utiliza almacenamiento técnico para funcionar y evitar envíos duplicados. Google Analytics, Google Ads y Leadfeeder/Dealfront están previstos para su activación posterior. Su inclusión aquí no significa que estén funcionando: solo se cargarán una vez configurados y con la elección correspondiente del panel.</p>

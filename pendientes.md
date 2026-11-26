@@ -10,6 +10,7 @@ Lista vigente tras publicar y revisar las tres entradas del blog, enviar el site
    - [ ] Completar la facturación y los datos del anunciante.
    - [ ] Configurar la conversión de solicitud válida y comprobar su conexión con Ads antes de activar publicidad. GA4 ya recibe generate_lead como evento clave.
    - [ ] Preparar palabras clave con el Planificador, negativas, anuncios, zonas, presupuesto y sus landings.
+   - Preferencias confirmadas: promocionar todos los servicios, cobertura de toda España, sin especialización por sector ni exclusiones comerciales. No implica activar campañas sin presupuesto ni facturación confirmados.
 
 2. **Vídeos y testimonios**
    - [ ] Grabar los vídeos del equipo explicando los servicios, preferiblemente en formato entrevista; editar y subtitular antes de incorporarlos.
@@ -20,7 +21,7 @@ Lista vigente tras publicar y revisar las tres entradas del blog, enviar el site
    - [ ] Confirmar disponibilidad y condiciones comerciales reales antes de cambiar los textos actuales.
 
 4. **Legal y privacidad**
-   - [ ] Completar los datos definitivos de la sociedad cuando finalice su constitución.
+   - [ ] Confirmar si la constitución está finalizada y completar datos registrales. Datos facilitados: Soto Digital S.L., NIF B05897236, Polígono de Raos, Calle Galera 41, Maliaño, Cantabria. Ya figuran en los textos locales; el CP 39600 confirmado y email de derechos info@soto-digital.com.
    - [ ] Revisar la configuración definitiva de proveedores y tratamientos, inventario de cookies y procedimiento de atención de derechos.
 
 ## Seguimiento, sin nuevas tareas de desarrollo
@@ -39,3 +40,19 @@ Lista vigente tras publicar y revisar las tres entradas del blog, enviar el site
 - **Google Business Profile pospuesto:** servicios nacionales por videollamada y visitas locales solo como posibilidad. Reconsiderar si la atención presencial pasa a formar parte efectiva del servicio. No bloquea el SEO nacional.
 
 El detalle y los estados anteriores se conservan en [el histórico](docs/pendientes-historico-2026-11-26.md). Este documento sustituye sus casillas antiguas como lista operativa. Las ampliaciones opcionales (Dealfront, tratos CRM, conversiones offline, firma y cobros) no forman parte del cierre actual y requieren definir alcance antes de desarrollarlas.
+
+## Datos confirmados y aclaraciones pendientes
+
+- Publicidad: todos los servicios interesan; toda España; sin nicho ni sectores/zonas excluidos. Pendientes presupuesto para los anuncios propios de Soto Digital y facturación (respuesta 1 vacía).
+- Titular indicado nuevamente por el equipo: Soto Digital S.L., NIF B05897236. Dirección para titular y derechos: Polígono de Raos, Calle Galera 41, Maliaño, Cantabria. Falta confirmar fin de constitución, datos registrales, CP y buzón de derechos.
+- Instagram se añade a la relación de servicios utilizados. Falta concretar si solo enlaza al perfil o hay inserciones, Meta Pixel o campañas Meta Ads; no activar integraciones por esta respuesta. Falta confirmar Dealfront/Leadfeeder.
+- Finalidad declarada: asuntos de Soto Digital, sin cesión comercial a otras empresas. Falta distinguir atención de solicitudes de envíos publicitarios propios; no interpretar esto como consentimiento para newsletters. Los proveedores técnicos siguen interviniendo según configuración existente.
+- Conservación no decidida por el equipo. El texto actual y el ejemplo de configuración señalan 12 meses desde la última comunicación para solicitudes sin contratación; pendiente ratificar o ajustar de forma coherente, sin modificar plazos por inferencia.
+
+## Últimas confirmaciones del equipo
+
+- Sociedad todavía en constitución. Datos registrales pendientes; CP 39600 confirmado.
+- Buzón de privacidad y derechos: info@soto-digital.com. Actualizados en local política de privacidad, cookies y aviso informativo del formulario, sin modificar el envío ni suscripciones. El email general del aviso legal permanece en rebeca@ por no haberse pedido cambiar ese contacto.
+- Instagram: solo enlace al perfil actualmente; campañas previstas, sin activar píxel ni nuevas integraciones. Falta confirmar estado de Dealfront/Leadfeeder.
+- Posible publicidad propia posterior: pendiente definir alta voluntaria separada y mecanismo de baja; la lectura de privacidad no autoriza newsletters. No se ha suscrito a ningún contacto.
+- Continúan sin respuesta: facturación de Ads, presupuesto mensual de anuncios propios y plazo de conservación (actualmente política/ejemplo: 12 meses desde última comunicación).
