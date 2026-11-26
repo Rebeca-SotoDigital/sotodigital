@@ -16,7 +16,7 @@ Landings y subida de sitemap/robots completadas, según confirmación del equipo
 - [ ] **Legal y privacidad:** completar datos definitivos de la sociedad y revisar proveedores, inventario de cookies y gestión de derechos.
 - [x] **Revisión técnica:** cerrada el 26/11/2026 tras verificar en producción el `.htaccess`: web 200, rutas internas 404, APIs 401 sin credenciales, gzip, caché y cabeceras de protección correctas. Evidencia en `docs/verificacion-htaccess-produccion-2026-11-26.json`.
 - [x] **Copias:** punto cerrado por confirmación del equipo el 26/11/2026: copia diaria generada a la hora programada. Código de retención máxima de tres subido por SFTP. La descarga periódica al Mac queda como mantenimiento; el contador de archivos conservados no se ha verificado de forma independiente.
-- [ ] **Mantenimiento:** asignar quién revisa alertas, errores, rebotes y consumo de IA.
+- [x] **Mantenimiento:** organización cerrada por confirmación del equipo el 26/11/2026. Rebeca es responsable principal y Jónatan suplente; destinatarios acordados `info@soto-digital.com` y `rebeca@soto-digital.com`. El equipo confirma que los canales y avisos de cron-job.org ya estaban configurados.
 - [ ] **SEO:** revisar Google Business Profile y decidir los primeros contenidos del blog.
 
 ## Atención de las solicitudes
@@ -292,3 +292,10 @@ La planificación anterior se conserva en [el archivo histórico](docs/pendiente
 - [x] Punto 6 cerrado a petición del equipo el 26/11/2026: confirmada la ejecución de la copia de hoy a la hora estipulada. La descarga periódica externa se mantiene como tarea recurrente de mantenimiento.
 
 - [x] Punto 5 cerrado el 26/11/2026: comprobación HTTP posterior a la subida del `.htaccess` correcta (12 rutas). Sustituye el estado de incidencia anterior; incluye home/Google Ads, bloqueos de includes/docs/tools/dist/.git, caché immutable en CSS con hash, gzip y cabeceras nosniff/SAMEORIGIN. Robots y sitemap disponibles. No implica certificación completa de accesibilidad ni nuevas métricas Core Web Vitals.
+
+## Organización del mantenimiento — 26/11/2026
+
+- [x] Responsable principal: Rebeca. Suplente y seguimiento: Jónatan mediante info@.
+- [x] El equipo confirma configurados los dos destinatarios y avisos de cron-job.org para procesamiento y copias. Confirmación del equipo, sin inspección nueva del panel.
+- Destinatarios acordados para alertas: `info@soto-digital.com` y `rebeca@soto-digital.com`. La confirmación de esta conversación cubre cron-job.org; no acredita un cambio nuevo en Better Stack ni en los avisos internos de la web.
+- Rutina recurrente: revisar alertas y solicitudes cada día laborable; errores, rebotes, ejecuciones y descarga de copia al Mac cada semana y antes de cambios importantes; consumo/facturación de IA y Brevo cada mes. Quien atienda un aviso informa al otro y comprueba la recuperación. Estas tareas continúan aunque la organización se da por completada.
