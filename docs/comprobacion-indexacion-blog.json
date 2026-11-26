@@ -1,0 +1,47 @@
+{
+  "robots_status": 200,
+  "sitemap_status": 200,
+  "sitemap_count": 22,
+  "robots_matches_local": false,
+  "sitemap_matches_local": true,
+  "sitemap_in_robots": true,
+  "pages": [
+    {
+      "url": "https://soto-digital.com/blog/",
+      "status": 200,
+      "in_sitemap": true,
+      "noindex_html": false,
+      "x_robots_tag": "",
+      "canonical": "https://soto-digital.com/blog/"
+    },
+    {
+      "url": "https://soto-digital.com/blog/mi-web-recibe-visitas-pero-no-contactos.php",
+      "status": 200,
+      "in_sitemap": true,
+      "noindex_html": false,
+      "x_robots_tag": "",
+      "canonical": "https://soto-digital.com/blog/mi-web-recibe-visitas-pero-no-contactos.php"
+    },
+    {
+      "url": "https://soto-digital.com/blog/antes-de-invertir-en-google-ads.php",
+      "status": 200,
+      "in_sitemap": true,
+      "noindex_html": false,
+      "x_robots_tag": "",
+      "canonical": "https://soto-digital.com/blog/antes-de-invertir-en-google-ads.php"
+    },
+    {
+      "url": "https://soto-digital.com/blog/seo-o-google-ads-por-donde-empezar.php",
+      "status": 200,
+      "in_sitemap": true,
+      "noindex_html": false,
+      "x_robots_tag": "",
+      "canonical": "https://soto-digital.com/blog/seo-o-google-ads-por-donde-empezar.php"
+    }
+  ],
+  "robots_equivalent_rules": true,
+  "notes": [
+    "Robots publicado y local difieren solo en comentarios; reglas User-agent, Allow y Sitemap equivalentes.",
+    "Comprobación HTTP: disponibilidad y ausencia de noindex no acreditan que Google haya indexado las URL."
+  ]
+}
