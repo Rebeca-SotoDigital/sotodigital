@@ -1,7 +1,7 @@
 <?php
 /** CRM vocabulary is independent of the questionnaire's internal keys. */
 function campaign_brevo_values(array $row, array $data, array $attr): array {
-    $services = ['google-ads'=>'Google Ads','seo'=>'SEO','redes-sociales'=>'Redes sociales','diseno-web'=>'Diseño web','branding'=>'Marca','email-marketing'=>'Email marketing'];
+    $services = ['chatgpt-ads'=>'ChatGPT Ads','google-ads'=>'Google Ads','seo'=>'SEO','redes-sociales'=>'Redes sociales','diseno-web'=>'Diseño web','branding'=>'Marca','email-marketing'=>'Email marketing'];
     $paid = !empty($attr['gclid']) || !empty($attr['gbraid']) || !empty($attr['wbraid']) ||
         (strtolower($attr['utm_source'] ?? '') === 'google' && in_array(strtolower($attr['utm_medium'] ?? ''), ['cpc','ppc','paid','paidsearch'], true));
     $score = campaign_stored_score($data);

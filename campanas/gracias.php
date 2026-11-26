@@ -16,6 +16,7 @@ include __DIR__ . '/../includes/header.php';
 <main id="contenido">
     <section><div class="container campaign-thanks">
         <h1>¡Recibido! Gracias por tu solicitud.</h1>
+        <?php if ($slug === 'pantalla-led'): ?><p>Hemos registrado tu interés en la pantalla LED de Raos. El proyecto todavía no está disponible para contratar. Te informaremos cuando podamos confirmar disponibilidad y condiciones. No implica reserva ni pago.</p><?php endif; ?>
         <p>Recibirás una primera respuesta en un máximo de <strong><?= htmlspecialchars(campaign_response_time(), ENT_QUOTES, 'UTF-8') ?></strong>.</p>
     </div></section>
 </main>

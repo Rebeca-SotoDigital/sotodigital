@@ -488,3 +488,7 @@ header .nav-links .btn-nav:hover, #pantalla .btn-nav:hover { background: #e3f2f8
 .blog-pending { overflow-wrap: anywhere; }
 .blog-figure.blog-pending { padding: 20px; border: 1px dashed #647c8e; border-radius: 8px; background: #f7f9fb; }
 @media(max-width:700px) { .blog-note { padding: 20px; } }
+
+.home-page #preguntas {
+    background-color: #e8f3f8;
+}

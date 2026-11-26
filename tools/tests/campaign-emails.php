@@ -26,3 +26,13 @@ $GLOBALS['campaign_test_http']=static function($url,$headers,$payload){
 };
 email_assert(campaign_send($messages['confirmation_sent'],'test-template'),'HTML email not accepted by transport fixture');
 echo "PASS: HTML email transport and reply-to, no real sends\n";
+
+$row['service']='pantalla-led';
+$led=campaign_email_messages($row,$data,campaign_score($data),'ads@soto-digital.com');
+foreach(['text','html'] as $format){
+ email_assert(str_contains($led['confirmation_sent'][$format],'todavía no está disponible para contratar'),'LED availability status missing');
+ email_assert(str_contains($led['confirmation_sent'][$format],'No implica reserva ni pago'),'LED confirmation implies booking');
+ email_assert(!str_contains($led['confirmation_sent'][$format],'por email con una propuesta'),'LED confirmation promises proposal');
+}
+email_assert(str_contains($led['admin_sent']['subject'],'Interés en pantalla LED'),'LED interest subject missing');
+echo "PASS: LED interest confirmation, no launch or booking promise; no real sends\n";

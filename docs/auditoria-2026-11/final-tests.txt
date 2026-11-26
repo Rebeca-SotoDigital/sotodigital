@@ -6,6 +6,7 @@ PASS: consistent private backup, isolated restoration/integrity/checksum, unchan
 
 PASS: email recipients, HTML escaping, responsive structure and separation of internal scoring
 PASS: HTML email transport and reply-to, no real sends
+PASS: LED interest confirmation, no launch or booking promise; no real sends
 
 PASS: Brevo schema/category IDs, PHP-only score, attribution, phone retry, existing stage/empty preservation and recoverable schema failure
 PASS: read-only Brevo preflight, authentication failure and secret-safe output
@@ -29,7 +30,7 @@ PASS: 5-step wizard, validation, back navigation, API errors, success redirect, 
 
 PASS: contact-step challenge visibility, compact/normal widths, single session/widget and missing-verification error
 
-PASS: PHP lint 96 files
+PASS: PHP lint 101 files
 PASS: manifest hashes and maximum two versions
 PASS: title/description limits, unique H1, no telephone CTAs, WhatsApp only to configured destination, no base tag
 PASS: sitemap 22 unique public pages

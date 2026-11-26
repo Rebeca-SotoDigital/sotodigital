@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
 
-# El sitemap recoge las URL canónicas de producción, incluido el blog.
-# El rastreo permite leer las directivas noindex de landings, borradores y API.
+# El sitemap recoge las páginas públicas canónicas, incluido el blog y ChatGPT Ads.
+# Las landings /campanas/ quedan fuera del sitemap; se permite leer su noindex.
+# El rastreo también permite leer el noindex de borradores y API.
 # Apache protege las rutas privadas mediante .htaccess.
 Sitemap: https://soto-digital.com/sitemap.xml

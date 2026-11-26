@@ -1,7 +1,8 @@
 <?php $questions = campaign_options(); ?>
 <form class="campaign-form" method="post" action="/api/lead.php" data-lead-form data-token-url="/api/token.php">
 <noscript><p class="campaign-error">Activa JavaScript para completar la verificación de seguridad y enviar tu solicitud. Las preguntas se muestran a continuación.</p></noscript>
-<h3>¿Qué necesita tu negocio?</h3>
+<h3><?= $slug === 'pantalla-led' ? 'Tu interés en la pantalla LED' : '¿Qué necesita tu negocio?' ?></h3>
+<?php if ($slug === 'pantalla-led'): ?><p class="campaign-small">El proyecto todavía no está disponible para contratar. Las respuestas sobre inversión y momento son orientativas; no confirman tarifas ni fechas.</p><?php endif; ?>
 <p class="campaign-progress" data-progress hidden aria-live="polite">Paso 1 de 5</p>
 <progress data-progress-bar max="5" value="1" hidden aria-label="Progreso del cuestionario"></progress>
 <input type="hidden" name="csrf" value="<?= $escape($formCsrf) ?>"><input type="hidden" name="service" value="<?= $escape($slug) ?>"><input type="hidden" name="submission" value="<?= $escape($formSubmission) ?>"><input type="hidden" name="attribution_token" value="<?= $escape($attributionToken) ?>">
@@ -25,6 +26,6 @@
 <?php if ($ready): ?><div data-turnstile-container data-sitekey="<?= $escape(campaign_config('TURNSTILE_SITE_KEY')) ?>" data-action="proposal" data-language="es"></div><?php endif; ?>
 </fieldset>
 <p class="campaign-error" data-form-error role="alert" <?= !$error ? 'hidden' : '' ?>><?= $escape($error) ?></p>
-<div class="campaign-form-actions"><button type="button" class="text-link" data-previous hidden>Atrás</button><button type="button" class="btn" data-next hidden>Continuar</button><button class="btn" type="submit" data-submit <?= !$ready ? 'disabled' : '' ?>>Enviar solicitud</button></div>
+<div class="campaign-form-actions"><button type="button" class="text-link" data-previous hidden>Atrás</button><button type="button" class="btn" data-next hidden>Continuar</button><button class="btn" type="submit" data-submit <?= !$ready ? 'disabled' : '' ?>><?= $slug === 'pantalla-led' ? 'Quiero información cuando esté disponible' : 'Enviar solicitud' ?></button></div>
 <p class="campaign-small">Usaremos tus datos solo para responderte. Puedes retirar tu consentimiento cuando quieras.</p>
 </form>

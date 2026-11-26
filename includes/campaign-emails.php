@@ -23,11 +23,14 @@ function campaign_email_messages(array $row, array $data, array $score, string $
     }
     $response=campaign_response_time();
     $next='Revisaremos los datos que nos has enviado. Según las necesidades de tu negocio, '.($data['phone']!==''?'te llamaremos o te enviaremos una propuesta por email.':'te contactaremos por email con una propuesta.');
+    $isLed = $row['service'] === 'pantalla-led';
+    if ($isLed) $next = 'Hemos registrado tu interés en la pantalla LED de Raos. El proyecto está en preparación y todavía no está disponible para contratar. Te informaremos cuando podamos concretar disponibilidad y condiciones. No implica reserva ni pago.';
     $timing='Primera respuesta en un máximo de '.$response.'.';
     $confirmation='Hola '.$data['name'].",\n\nHemos recibido tu solicitud sobre ".$service.".\n\n".$next."\n".($timing!==''?$timing."\n":'')."\nSi quieres añadir información, responde a este correo.\n\nSin compromiso de contratación. Este mensaje confirma tu solicitud; no te hemos suscrito a newsletters.\n\nEl equipo de Soto Digital\n".$admin;
     $body='<p>Servicio: <strong>'.$e($service).'</strong></p><ol style="padding-left:22px"><li>Revisamos los datos que nos has facilitado.</li><li>Valoramos las necesidades de tu negocio.</li><li>Según el caso, te llamamos si has dejado móvil o te enviamos una propuesta por email.</li></ol>'.($timing!==''?'<p>'.$e($timing).'</p>':'').'<p>Si quieres añadir información, responde a este correo.</p><p style="font-size:14px">Sin compromiso de contratación. Este mensaje confirma tu solicitud; no te hemos suscrito a newsletters.</p>';
+    if ($isLed) $body = '<p>'.$e($next).'</p><p>'.$e($timing).'</p><p>Si quieres añadir información, responde a este correo. No te hemos suscrito a newsletters.</p>';
     return [
-      'admin_sent'=>['to'=>[$admin],'reply_to'=>$data['email'],'subject'=>'Nueva solicitud de propuesta | Soto Digital','text'=>$text."\n".$data['message'],'html'=>campaign_email_html('Nueva solicitud de propuesta','Jónatan y Rebeca: revisad los datos y coordinad la primera respuesta para evitar duplicados.',$table,$admin)],
+      'admin_sent'=>['to'=>[$admin],'reply_to'=>$data['email'],'subject'=>($isLed ? 'Interés en pantalla LED' : 'Nueva solicitud de propuesta').' | Soto Digital','text'=>$text."\n".$data['message'],'html'=>campaign_email_html('Nueva solicitud de propuesta','Jónatan y Rebeca: revisad los datos y coordinad la primera respuesta para evitar duplicados.',$table,$admin)],
       'confirmation_sent'=>['to'=>[$data['email']],'reply_to'=>$admin,'subject'=>'Hemos recibido tu solicitud | Soto Digital','text'=>$confirmation,'html'=>campaign_email_html('Hemos recibido tu solicitud','Hola '.$data['name'].', gracias por contarnos tu proyecto.',$body,$admin)],
     ];
 }

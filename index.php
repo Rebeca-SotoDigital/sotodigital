@@ -68,10 +68,10 @@ include 'includes/header.php';
         <div class="led-copy">
             <span class="section-subtitle">Publicidad exterior</span>
             <h2>Pantalla <strong>LED</strong></h2>
-            <p>Publicidad exterior en una pantalla de <strong>6 × 3 metros</strong> en el Polígono de Raos, en Maliaño, Cantabria, frente a la ITV.</p>
-            <p>Un espacio para dar a conocer tu negocio, anunciar novedades y reforzar tu presencia local. También diseñamos tu anuncio.</p>
-            <p>Muy pronto, más información. <a href="/pantalla-led-raos.php">Más detalles sobre la pantalla LED</a>.</p>
-            <a class="btn btn-nav" href="#diagnostico">Avísame cuando esté disponible</a>
+            <p>Proyecto de publicidad exterior en una pantalla de <strong>6 × 3 metros</strong> en el Polígono de Raos, en Maliaño, Cantabria, frente a la ITV.</p>
+            <p>Un soporte previsto para dar a conocer tu negocio o comunicar novedades en la zona. Podemos valorar el diseño o la adaptación de tu anuncio.</p>
+            <p>Proyecto en preparación. Te informaremos cuando esté disponible. <a href="/pantalla-led-raos.php">Más detalles sobre la pantalla LED</a>.</p>
+            <a class="btn btn-nav" href="/pantalla-led-raos.php#solicitud">Quiero información cuando esté disponible</a>
         </div>
     </div>
 </section>
@@ -85,6 +85,14 @@ include 'includes/header.php';
         </div>
     </div>
 </section>
+<section id="contacto" class="contact-section">
+    <div class="container">
+        <h2>Hagamos que <span><strong>pase algo.</strong></span></h2>
+        <p>Dinos dónde estás, cuéntanos qué buscas y nosotros te ayudamos a llegar.</p>
+        <a href="#diagnostico" class="btn btn-accent"><?= SOTO_PROPOSAL_CTA ?></a>
+    </div>
+</section>
+<?php include __DIR__.'/includes/team-section.php'; ?>
 <section id="preguntas" class="faq-section">
     <div class="container faq-layout">
         <h2>Preguntas frecuentes</h2>
@@ -94,15 +102,6 @@ include 'includes/header.php';
             <details><summary>¿Podemos trabajar juntos desde otra ciudad?<span aria-hidden="true">+</span></summary><p>Sí. Trabajamos online con llamadas, videollamadas y mensajes, estés donde estés.</p></details>
             <details><summary>¿Cuánto cuesta trabajar con Soto Digital?<span aria-hidden="true">+</span></summary><p>Depende de lo que necesites, por eso preparamos una propuesta a medida y gratuita.<?php if (soto_show_pending()): ?> [PENDIENTE: precio de partida o rango, si lo decidimos]<?php endif; ?></p></details>
         </div>
-    </div>
-</section>
-<?php include __DIR__.'/includes/team-section.php'; ?>
-
-<section id="contacto" class="contact-section">
-    <div class="container">
-        <h2>Hagamos que <span><strong>pase algo.</strong></span></h2>
-        <p>Dinos dónde estás, cuéntanos qué buscas y nosotros te ayudamos a llegar.</p>
-        <a href="#diagnostico" class="btn btn-accent"><?= SOTO_PROPOSAL_CTA ?></a>
     </div>
 </section>
 </main>

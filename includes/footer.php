@@ -19,6 +19,9 @@
                 <ul>
                     <?php foreach (SOTO_SERVICES as [$label, $url]): ?>
                         <li><a href="<?= htmlspecialchars($url, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($label, ENT_QUOTES, 'UTF-8') ?></a></li>
+                        <?php if ($url === '/publicidad-digital.php'): ?>
+                        <li><a href="/chatgpt-ads.php">Publicidad en ChatGPT</a></li>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                     <li><a href="/blog/">Blog</a></li>
                 </ul>

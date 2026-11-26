@@ -18,6 +18,7 @@ $serviceLinks = [
     'publicidad-digital' => 'Campañas',
     'google-ads' => 'Google Ads',
     'meta-ads' => 'Instagram y Meta Ads',
+    'chatgpt-ads' => 'Publicidad en ChatGPT',
     'pantalla-led-raos' => 'Pantalla LED en Raos',
 ];
 $returnSections = [
@@ -30,6 +31,7 @@ $returnSections = [
     'publicidad-digital' => 'servicio-publicidad',
     'google-ads' => 'servicio-seo-sem',
     'meta-ads' => 'servicio-publicidad',
+    'chatgpt-ads' => 'servicio-publicidad',
     'pantalla-led-raos' => 'pantalla',
 ];
 $returnUrl = '/#' . $returnSections[$service['slug']];
@@ -64,7 +66,7 @@ include __DIR__ . '/header.php';
             <span class="section-subtitle"><?= $escape($service['label']) ?></span>
             <h1><?php if (isset($service['heading_emphasis'])): ?><strong><?= $escape($service['heading_emphasis']) ?></strong><?= $escape(substr($service['heading'], strlen($service['heading_emphasis']))) ?><?php else: ?><?= $escape($service['heading']) ?><?php endif; ?></h1>
             <p class="service-lead"><?= $escape($service['intro']) ?></p>
-            <a class="btn btn-accent" href="<?= $escape($contactUrl) ?>"><?= SOTO_PROPOSAL_CTA ?> <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-accent" href="<?= $escape($contactUrl) ?>"><?= $escape($service['slug'] === 'pantalla-led-raos' ? $service['cta'] : SOTO_PROPOSAL_CTA) ?><?php if ($service['slug'] !== 'pantalla-led-raos'): ?> <span aria-hidden="true">↗</span><?php endif; ?></a>
         </div>
     </section>
     <section>
@@ -115,7 +117,7 @@ include __DIR__ . '/header.php';
     </section>
     <?php endif; ?>
     <section id="solicitud" class="campaign-contact">
-        <div class="container campaign-split"><div><span class="section-subtitle">EL SIGUIENTE PASO</span><h2>Cuéntanos qué necesitas.</h2><p>Pide una propuesta gratuita. Revisaremos los datos que nos aportes y, según tus necesidades, te llamaremos si has dejado móvil o te enviaremos una propuesta por email.</p></div>
+        <div class="container campaign-split"><div><span class="section-subtitle">EL SIGUIENTE PASO</span><?php if ($slug === 'pantalla-led'): ?><h2>Quiero información cuando esté disponible.</h2><p>Cuéntanos tu negocio y qué te gustaría anunciar. Guardaremos tu consulta como interés en la pantalla LED para informarte cuando podamos confirmar disponibilidad y condiciones. No implica reserva ni pago.</p><?php else: ?><h2>Cuéntanos qué necesitas.</h2><p>Pide una propuesta gratuita. Revisaremos los datos que nos aportes y, según tus necesidades, te llamaremos si has dejado móvil o te enviaremos una propuesta por email.</p><?php endif; ?></div>
         <?php include __DIR__.'/campaign-form.php'; ?>
         </div>
     </section>
@@ -130,7 +132,7 @@ include __DIR__ . '/header.php';
         <div class="container">
             <h2><?= $escape($service['closing_title'] ?? 'Hablemos de tu proyecto') ?></h2>
             <p><?= $escape($service['closing_text'] ?? 'Cuéntanos tu negocio y te enviamos una propuesta gratuita y sin compromiso.') ?></p>
-            <a class="btn btn-accent" href="<?= $escape($contactUrl) ?>"><?= SOTO_PROPOSAL_CTA ?></a>
+            <a class="btn btn-accent" href="<?= $escape($contactUrl) ?>"><?= $escape($service['slug'] === 'pantalla-led-raos' ? $service['cta'] : SOTO_PROPOSAL_CTA) ?></a>
         </div>
     </section>
 </main>

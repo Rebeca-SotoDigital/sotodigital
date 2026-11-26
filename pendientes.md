@@ -18,11 +18,18 @@ Lista vigente tras publicar y revisar las tres entradas del blog, enviar el site
    - [ ] Incorporar únicamente resultados verificables y autorizados; no inventar cifras ni atribuir resultados publicitarios a proyectos sin evidencia.
 
 3. **Pantalla LED**
-   - [ ] Confirmar disponibilidad y condiciones comerciales reales antes de cambiar los textos actuales.
+   - [x] Preparados en local los textos del proyecto y la captación de interesados: ubicación/formato previstos, público orientativo, alcance del diseño por concretar, sin prometer puesta en marcha.
+   - [ ] Subir estos cambios a Arsys y revisar el recorrido de interés.
+   - [ ] Financiación, disponibilidad, fecha, tarifas y condiciones de emisión: pendientes de datos definitivos. No se ofrecen reservas ni pagos.
 
 4. **Legal y privacidad**
    - [ ] Confirmar si la constitución está finalizada y completar datos registrales. Datos facilitados: Soto Digital S.L., NIF B05897236, Polígono de Raos, Calle Galera 41, Maliaño, Cantabria. Ya figuran en los textos locales; el CP 39600 confirmado y email de derechos info@soto-digital.com.
    - [ ] Revisar la configuración definitiva de proveedores y tratamientos, inventario de cookies y procedimiento de atención de derechos.
+
+5. **Publicar ChatGPT Ads**
+   - [ ] Subir la página pública, la landing y los archivos compartidos actualizados a Arsys; revisar móvil y escritorio.
+   - [ ] Comprobar en Brevo el atributo `SERVICIO_INTERES`: si es categoría, añadir «ChatGPT Ads». Probar el registro del servicio después de publicar.
+   - [ ] Antes de activar campañas, concretar acceso a Ads Manager, permisos, presupuesto, honorarios y medición.
 
 ## Seguimiento, sin nuevas tareas de desarrollo
 
@@ -68,3 +75,28 @@ A petición del equipo, quedan aplazadas sin asumir respuestas ni activar funcio
 5. ¿Se prepara una casilla opcional para novedades y publicidad propia, con registro del permiso y baja?
 
 Estado legal vigente: sociedad en constitución; domicilio confirmado Calle Galera 41, Polígono de Raos, 39600 Maliaño, Cantabria; privacidad/derechos info@soto-digital.com actualizado en local. Instagram solo enlazado por ahora. No se han habilitado newsletters ni nuevas integraciones.
+
+- [x] El equipo confirma subidos a Arsys los últimos cambios legales y el contacto de privacidad info@soto-digital.com. Punto de subida cerrado por confirmación del equipo. Siguen pendientes las decisiones legales y la finalización de la constitución, no la subida de estos cambios.
+
+## Pantalla LED — preparación comercial
+
+- [x] Inicio y página de servicio describen un proyecto en preparación, sin mencionar financiación al cliente ni confirmar fecha o tarifas; recreación identificada. Diseño/adaptación se concreta y presupuesta por separado, sin asumir inclusión.
+- [x] Botón «Quiero información cuando esté disponible» dirige desde inicio a `/pantalla-led-raos.php#solicitud`. Formulario conserva service=pantalla-led para registro y sincronización mediante el circuito actual; no crea listas de newsletters.
+- [x] Confirmación de email y Gracias adaptadas a interés en proyecto, sin reserva/pago ni propuesta de emisión inmediata. Pruebas simuladas y render correctos; no se han enviado leads reales.
+- [ ] Subida SFTP y revisión visual pendientes. El lanzamiento comercial sigue condicionado a financiación y condiciones definitivas.
+
+- Ajuste LED solicitado: mantener financiación solo como condición interna. Textos públicos y confirmación indican «Proyecto en preparación» y disponibilidad por confirmar. CTA al formulario específico conservada y flecha retirada del botón de la página LED.
+
+## ChatGPT Ads
+
+- [x] Landing preparada en local: `/campanas/chatgpt-ads.php`, con propuesta de prueba piloto, alcance, preguntas frecuentes y formulario conectado al circuito de leads. El código asigna el servicio «ChatGPT Ads» a Brevo; falta verificar la configuración del atributo y el envío real. La puntuación sigue calculándose en PHP.
+- [ ] Subir los archivos modificados a Arsys y revisar la landing en móvil y escritorio.
+- [ ] Antes de gestionar campañas: comprobar acceso a Ads Manager, cuenta del cliente y permisos, condiciones vigentes, presupuesto, honorarios y plan de medición. No se ha creado ni activado ninguna campaña.
+- Landing de campañas con noindex, excluida del sitemap como las demás páginas de captación.
+
+- [ ] En Brevo, si `SERVICIO_INTERES` es de tipo categoría, añadir la opción exacta «ChatGPT Ads» antes de recibir solicitudes de esta landing. Si es texto no requiere cambiar el atributo. Pendiente prueba real tras la subida.
+
+- [x] Página pública `/chatgpt-ads.php` preparada en local, enlazada desde el footer junto a Campañas y desde los servicios relacionados. Mención incorporada en Campañas de publicidad; sitemap actualizado. La landing `/campanas/chatgpt-ads.php` mantiene noindex.
+- [ ] Subir `chatgpt-ads.php`, `campanas/chatgpt-ads.php`, `publicidad-digital.php`, `includes/footer.php`, `includes/service-page.php`, `includes/site-content.php`, `includes/campaign-services.php`, `includes/campaign-service-details.php`, `includes/campaign-brevo.php`, `sitemap.xml` y `robots.txt` a Arsys.
+
+- [x] Descripción de Campañas actualizada en home y servicio: Google, Instagram, Facebook y ChatGPT. Título y descripción SEO ajustados. Sitemap local regenerado con 23 páginas públicas; robots permite rastrear la página pública y leer el noindex de las landings. Esta actualización todavía no se ha confirmado en producción.
