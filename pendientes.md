@@ -17,7 +17,7 @@ Landings y subida de sitemap/robots completadas, según confirmación del equipo
 - [x] **Revisión técnica:** cerrada el 26/11/2026 tras verificar en producción el `.htaccess`: web 200, rutas internas 404, APIs 401 sin credenciales, gzip, caché y cabeceras de protección correctas. Evidencia en `docs/verificacion-htaccess-produccion-2026-11-26.json`.
 - [x] **Copias:** punto cerrado por confirmación del equipo el 26/11/2026: copia diaria generada a la hora programada. Código de retención máxima de tres subido por SFTP. La descarga periódica al Mac queda como mantenimiento; el contador de archivos conservados no se ha verificado de forma independiente.
 - [x] **Mantenimiento:** organización cerrada por confirmación del equipo el 26/11/2026. Rebeca es responsable principal y Jónatan suplente; destinatarios acordados `info@soto-digital.com` y `rebeca@soto-digital.com`. El equipo confirma que los canales y avisos de cron-job.org ya estaban configurados.
-- [ ] **SEO:** revisar Google Business Profile y decidir los primeros contenidos del blog.
+- [ ] **SEO:** revisar Google Business Profile. Los tres primeros artículos están escritos e integrados en local, con publicación autorizada por el equipo; falta subirlos a Arsys y revisión editorial posterior.
 
 ## Atención de las solicitudes
 
@@ -299,3 +299,55 @@ La planificación anterior se conserva en [el archivo histórico](docs/pendiente
 - [x] El equipo confirma configurados los dos destinatarios y avisos de cron-job.org para procesamiento y copias. Confirmación del equipo, sin inspección nueva del panel.
 - Destinatarios acordados para alertas: `info@soto-digital.com` y `rebeca@soto-digital.com`. La confirmación de esta conversación cubre cron-job.org; no acredita un cambio nuevo en Better Stack ni en los avisos internos de la web.
 - Rutina recurrente: revisar alertas y solicitudes cada día laborable; errores, rebotes, ejecuciones y descarga de copia al Mac cada semana y antes de cambios importantes; consumo/facturación de IA y Brevo cada mes. Quien atienda un aviso informa al otro y comprueba la recuperación. Estas tareas continúan aunque la organización se da por completada.
+
+## SEO — inicio 26/11/2026
+
+- [x] Revisado el estado local del blog: borrador/noindex, sin artículos aprobados.
+- [x] Preparada propuesta priorizada de seis temas en `docs/plan-seo-blog.md`, sin inventar datos de demanda.
+- [ ] Recibir enlace de Google Business Profile y confirmar atención presencial para revisar la ficha correcta y su elegibilidad.
+- [x] Temas aceptados y publicación autorizada por el equipo el 26/11/2026; tres artículos escritos e integrados en local. El equipo los revisará después de subirlos.
+
+## Primeras entradas del blog — 26/11/2026
+
+- [x] Redactadas e integradas tres entradas: visitas sin contactos, preparación de Google Ads y SEO frente a Google Ads. Autor: Soto Digital; sin cifras de resultados ni testimonios inventados.
+- [x] Blog con enlaces a artículos completos, índice por artículo, enlaces a servicios, artículos relacionados y CTA al formulario. Acceso al blog añadido al pie de página.
+- [x] Borrador/noindex retirado del blog con autorización explícita para publicar y revisar después. Entorno local conserva su noindex de staging. Sitemap actualizado a 22 páginas (incluye portada del blog y tres artículos); campañas siguen noindex.
+- [x] Carga HTTP 200 de cuatro páginas en XAMPP, enlaces con prefijo local, H1/índices/schema comprobados y suite existente correcta. Sin navegador conectado para inspección visual.
+- [ ] Subir los archivos locales a Arsys por SFTP. No se dispone de conexión SFTP desde el agente; no se da por publicado en producción.
+- [ ] Revisión editorial por Rebeca tras la subida, según lo acordado.
+- Editar textos en `includes/blog-posts.php`; plantilla compartida en `includes/blog-post.php`. Subir también `blog/`, `includes/footer.php`, `includes/asset-manifest.php`, los CSS generados actuales y `sitemap.xml`.
+
+## Revisión editorial del blog — 26/11/2026
+
+- [x] Primer artículo actualizado según instrucciones confirmadas: tú, resumen, seis puntos, cierre literal, plazo compartido y cuatro bloques opcionales bajo SHOW_PENDING_PLACEHOLDERS. Pruebas de ambos estados correctas.
+- [ ] Aportar ejemplo real y tres capturas (titular, botón, formulario móvil). Sin inventar contenido.
+- [ ] Subir cambios locales y revisar visualmente a 360 px y escritorio: navegador no disponible para el agente. Detalle en `docs/revision-editorial-blog.md`.
+
+- [x] Tres ilustraciones generadas con IA e integradas en el primer artículo (titular, botón y formulario móvil), con alt, pie aclaratorio y dimensiones reservadas. Archivos optimizados en `img/blog/`. Sustituyen los tres huecos de captura, sin presentarse como casos reales.
+- [ ] Solo queda aportar el ejemplo real «Así lo revisamos en Soto Digital». Subida SFTP de las imágenes y archivos del blog pendiente; el agente no tiene conexión al servidor.
+
+- [x] Texto aprobado por el equipo incorporado al recuadro «Así lo revisamos en Soto Digital», tras el punto 4. Describe el proceso de revisión sin cifras ni resultados inventados y se muestra también con placeholders desactivados. No quedan contenidos pendientes en ese artículo; falta subir la versión local a Arsys.
+
+## Segunda entrada del blog — revisión editorial
+
+- [x] Siete puntos, resumen, tratamiento tú, conversión explicada y enlaces revisados. Plazo aprobado reutilizado, sin modificar formulario ni integraciones.
+- [x] Reutilizados bloques opcionales y estilos existentes; configuración única de autor personal pendiente y fechas honestas compartidas. Pruebas de ambos artículos con placeholders true/false correctas.
+- [ ] Aportar ejemplo real del segundo artículo, tres capturas/esquemas reales, nombre/cargo del autor y fecha de publicación real. Se ocultan los marcadores en producción.
+- [ ] Subir versión local a Arsys y comprobar visualmente a 360 px y escritorio; no hay navegador conectado al agente.
+
+- [x] Segundo artículo: recuadro completado con el proceso de Soto Digital ya definido en el proyecto (preguntas iniciales, revisión, propuesta y preparación). Sin casos de clientes ni resultados inventados.
+- [ ] Confirmar firma definitiva, fecha real de publicación y autorización de esquemas en lugar de capturas reales antes de completar esos datos. Preguntas enviadas al equipo.
+
+- [x] Blog: firma definitiva «Soto Digital» y fechas desactivadas por petición expresa del equipo (también en schema; sin marcadores). Aplicado a las tres entradas mediante `includes/blog-settings.php`.
+- [x] Segundo artículo: tres ilustraciones autorizadas, generadas con IA, optimizadas e integradas con alt, pies aclaratorios, dimensiones y lazy loading. El recuadro de proceso ya está completo. No quedan contenidos pendientes de esta revisión; estados anteriores de firma/fecha/imágenes quedan sustituidos.
+- [ ] Subir la versión local del blog a Arsys (incluidos `img/blog/`, `includes/blog-settings.php`, `includes/blog-post.php`, `includes/blog-posts.php` y `sitemap.xml`) y revisar visualmente.
+
+## Tercera entrada — revisión editorial
+
+- [x] Resumen, SEM, fila Ritmo, guía rápida, cuatro preguntas, párrafo local, cierre y enlaces aplicados. Tabla con desplazamiento interno y acceso por teclado. Firma corporativa y fechas desactivadas conservadas.
+- [x] Pruebas editoriales de los tres artículos correctas en ambos estados del interruptor.
+- [ ] Aportar ejemplo real del tercer artículo y dos ilustraciones: vías orgánica/publicitaria y decisión de tres ramas. Huecos ocultos en producción.
+- [ ] Subir cambios locales a Arsys y revisar a 360 px/escritorio, especialmente el desplazamiento de tabla. No hay navegador conectado para inspección visual.
+
+- [x] Tercer artículo: recuadro de proceso completado y dos ilustraciones generadas con autorización del equipo, integradas en `img/blog/` con alt, pie aclaratorio y dimensiones. Pruebas de los tres artículos correctas, sin marcadores pendientes en true/false. Sustituye los pendientes editoriales anteriores de esta entrada.
+- [ ] Subida SFTP y revisión visual del tercer artículo pendientes; no hay conexión de publicación ni navegador disponible desde el agente.

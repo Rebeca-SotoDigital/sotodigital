@@ -32,4 +32,4 @@ PASS: contact-step challenge visibility, compact/normal widths, single session/w
 PASS: PHP lint 96 files
 PASS: manifest hashes and maximum two versions
 PASS: title/description limits, unique H1, no telephone CTAs, WhatsApp only to configured destination, no base tag
-PASS: sitemap 18 unique public pages
+PASS: sitemap 22 unique public pages

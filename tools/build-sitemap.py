@@ -8,10 +8,11 @@ PHP=os.environ.get('SOTO_PHP','php')
 namespace='http://www.sitemaps.org/schemas/sitemap/0.9'
 ET.register_namespace('',namespace)
 root=ET.Element('{'+namespace+'}urlset')
-for page in sorted(ROOT.glob('*.php'),key=lambda p:(p.name!='index.php',p.name)):
+pages=[*ROOT.glob('*.php'),*(ROOT/'blog').glob('*.php')]
+for page in sorted(pages,key=lambda p:(p!=ROOT/'index.php',str(p))):
     if page.name=='404.php':continue
     source=page.read_text()
-    if not any(marker in source for marker in ['$service = [','$pageTitle =','project-page.php']):continue
+    if not any(marker in source for marker in ['$service = [','$pageTitle =','project-page.php','blog-post.php']):continue
     result=subprocess.run([PHP,str(page)],cwd=ROOT,capture_output=True,text=True,check=True)
     if result.stderr:raise RuntimeError(result.stderr)
     html=result.stdout
@@ -29,6 +30,8 @@ for page in sorted(ROOT.glob('*.php'),key=lambda p:(p.name!='index.php',p.name))
         dependencies.extend(ROOT/'includes'/name for name in ['projects.php','project-details.php','project-card.php'])
     if page.name == 'index.php':
         dependencies.extend(ROOT/'includes'/name for name in ['campaign-content.php','team-section.php'])
+    if page.parent.name == 'blog':
+        dependencies.extend(ROOT/'includes'/name for name in ['blog-posts.php','blog-post.php','blog-settings.php'])
     modified=max(p.stat().st_mtime for p in dependencies)
     node=ET.SubElement(root,'{'+namespace+'}url')
     ET.SubElement(node,'{'+namespace+'}loc').text=canonical.group(1)

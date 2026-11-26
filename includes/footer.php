@@ -20,6 +20,7 @@
                     <?php foreach (SOTO_SERVICES as [$label, $url]): ?>
                         <li><a href="<?= htmlspecialchars($url, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($label, ENT_QUOTES, 'UTF-8') ?></a></li>
                     <?php endforeach; ?>
+                    <li><a href="/blog/">Blog</a></li>
                 </ul>
             </div>
 
