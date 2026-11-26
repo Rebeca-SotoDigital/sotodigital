@@ -47,7 +47,8 @@ function campaign_verified_backup(PDO $db): array {
         $stage='verification';
         $report=campaign_verify_backup($backup);
         $stage='rotation';
-        $keep=max(2,min(90,(int)campaign_config('CAMPAIGN_BACKUP_KEEP',14)));
+        // Cap existing configurations too: retain at most the three newest verified copies.
+        $keep=max(2,min(3,(int)campaign_config('CAMPAIGN_BACKUP_KEEP',3)));
         $files=glob($directory.'/backups/leads-????????-??????-????????.sqlite')?:[];
         usort($files,static function($a,$b)use($backup){if($a===$backup)return -1;if($b===$backup)return 1;return filemtime($b)<=>filemtime($a);});
         foreach(array_slice($files,$keep) as $file)if(is_file($file)&&!is_link($file))unlink($file);

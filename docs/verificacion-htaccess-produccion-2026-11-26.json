@@ -1,0 +1,101 @@
+{
+  "date": "2026-11-26",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "cache": "no-cache",
+      "encoding": "gzip",
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/campanas/google-ads.php",
+      "status": 200,
+      "cache": "no-cache",
+      "encoding": "gzip",
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/includes/campaign-backup.php",
+      "status": 404,
+      "cache": "no-cache",
+      "encoding": null,
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/docs/soto-config.example.php",
+      "status": 404,
+      "cache": "no-cache",
+      "encoding": null,
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/tools/tests/campaign-backup.php",
+      "status": 404,
+      "cache": "no-cache",
+      "encoding": null,
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/dist/retencion-revision-tecnica.zip",
+      "status": 404,
+      "cache": "no-cache",
+      "encoding": null,
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/.git/config",
+      "status": 404,
+      "cache": "no-cache",
+      "encoding": null,
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "cache": "no-cache",
+      "encoding": "gzip",
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "cache": "no-cache",
+      "encoding": "gzip",
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/css/site.9c46658222cf.css",
+      "status": 200,
+      "cache": "public, max-age=31536000, immutable",
+      "encoding": "gzip",
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/api/health.php",
+      "status": 401,
+      "cache": "private, no-store",
+      "encoding": null,
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    },
+    {
+      "path": "/api/worker.php",
+      "status": 401,
+      "cache": "private, no-store",
+      "encoding": null,
+      "nosniff": "nosniff",
+      "frame": "SAMEORIGIN"
+    }
+  ]
+}

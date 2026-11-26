@@ -1,0 +1,1298 @@
+{
+  "date": "2026-11-26",
+  "pages": [
+    {
+      "url": "https://soto-digital.com/",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 32918,
+      "elapsed": 0.309,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/aviso-legal.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 11783,
+      "elapsed": 0.28,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/branding.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 22642,
+      "elapsed": 0.33,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/cookies.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 14917,
+      "elapsed": 0.296,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/diseno-web.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 29300,
+      "elapsed": 0.351,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/email-marketing.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 22865,
+      "elapsed": 0.368,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/marketing-contenidos.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 23110,
+      "elapsed": 0.152,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/pantalla-led-raos.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 23226,
+      "elapsed": 0.154,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/privacidad.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 18716,
+      "elapsed": 0.159,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/proyecto-cantabria-kebab.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 13610,
+      "elapsed": 0.159,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/proyecto-soto-carrocerias.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 14561,
+      "elapsed": 0.129,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/proyecto-soto-cars.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 13790,
+      "elapsed": 0.137,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/proyecto-soto-wash.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 13801,
+      "elapsed": 0.14,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/proyecto-tecnirefinish.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 13429,
+      "elapsed": 0.146,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/proyecto-why-not.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 14075,
+      "elapsed": 0.12,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/publicidad-digital.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 20969,
+      "elapsed": 0.162,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/redes-sociales.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 28321,
+      "elapsed": 0.144,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/seo-sem.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 23632,
+      "elapsed": 0.163,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/branding.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 19010,
+      "elapsed": 0.157,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/index.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 20396,
+      "elapsed": 0.165,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/email-marketing.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 18571,
+      "elapsed": 0.151,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/meta-ads.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 18603,
+      "elapsed": 0.156,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/pantalla-led.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 17976,
+      "elapsed": 0.146,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/google-ads.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 20404,
+      "elapsed": 0.179,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/diseno-web.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 19464,
+      "elapsed": 0.137,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/sem.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 18621,
+      "elapsed": 0.122,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/seo.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 18534,
+      "elapsed": 0.139,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/marketing-contenidos.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 19531,
+      "elapsed": 0.133,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    },
+    {
+      "url": "https://soto-digital.com/campanas/redes-sociales.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:55 GMT",
+        "Server": "Apache",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "no-cache",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 19086,
+      "elapsed": 0.139,
+      "h1": 1,
+      "images_missing_alt": 0,
+      "missing_anchors": []
+    }
+  ],
+  "resources": [
+    {
+      "url": "https://soto-digital.com/css/campaign.4deff3b2c2bb.css",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:34 GMT",
+        "ETag": "\"2b58-6611f20505777\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "11096",
+        "Content-Type": "text/css"
+      },
+      "bytes": 11096,
+      "elapsed": 0.151
+    },
+    {
+      "url": "https://soto-digital.com/css/site-services.d9aec2f2195f.css",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:34 GMT",
+        "ETag": "\"bab4-6611f2055f4f7\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "47796",
+        "Content-Type": "text/css"
+      },
+      "bytes": 47796,
+      "elapsed": 0.187
+    },
+    {
+      "url": "https://soto-digital.com/css/site.9c46658222cf.css",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:34 GMT",
+        "ETag": "\"b2cc-6611f204e05b8\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "45772",
+        "Content-Type": "text/css"
+      },
+      "bytes": 45772,
+      "elapsed": 0.19
+    },
+    {
+      "url": "https://soto-digital.com/fonts/montserrat-latin.6438d7b8ea9c.woff2",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:42 GMT",
+        "ETag": "\"8ab4-6611f20d20e6f\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "35508",
+        "Content-Type": "font/woff2"
+      },
+      "bytes": 35508,
+      "elapsed": 0.163
+    },
+    {
+      "url": "https://soto-digital.com/google-ads.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 22964,
+      "elapsed": 0.146
+    },
+    {
+      "url": "https://soto-digital.com/img/apple-touch-icon.png",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:43 GMT",
+        "ETag": "\"cad-6611f20d7ea6f\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "3245",
+        "Content-Type": "image/png"
+      },
+      "bytes": 3245,
+      "elapsed": 0.11
+    },
+    {
+      "url": "https://soto-digital.com/img/equipo/jonatan.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:43 GMT",
+        "ETag": "\"2edc-6611f20dc0d06\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "11996",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 11996,
+      "elapsed": 0.103
+    },
+    {
+      "url": "https://soto-digital.com/img/equipo/rebeca.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:43 GMT",
+        "ETag": "\"4240-6611f20dc014e\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "16960",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 16960,
+      "elapsed": 0.136
+    },
+    {
+      "url": "https://soto-digital.com/img/favicon-32.png",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:43 GMT",
+        "ETag": "\"15b-6611f20d951cf\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "347",
+        "Content-Type": "image/png"
+      },
+      "bytes": 347,
+      "elapsed": 0.108
+    },
+    {
+      "url": "https://soto-digital.com/img/favicon.ico",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:42 GMT",
+        "ETag": "\"3aee-6611f20d546a7\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "15086",
+        "Content-Type": "image/vnd.microsoft.icon"
+      },
+      "bytes": 15086,
+      "elapsed": 0.122
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/logo-480.png",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"5e2c-6611f20e6de8d\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "24108",
+        "Content-Type": "image/png"
+      },
+      "bytes": 24108,
+      "elapsed": 0.147
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/pantalla-led-recreacion-693.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:43 GMT",
+        "ETag": "\"6dd6-6611f20e37f45\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "28118",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 28118,
+      "elapsed": 0.146
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/cantabria-kebab.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"126f2-6611f20eaa74c\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "75506",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 75506,
+      "elapsed": 0.134
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/cantabria-kebab/portada-desktop.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:45 GMT",
+        "ETag": "\"f2be-6611f20f5af83\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "62142",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 62142,
+      "elapsed": 0.179
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/cantabria-kebab/portada-movil.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:45 GMT",
+        "ETag": "\"69b0-6611f20f5c30b\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "27056",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 27056,
+      "elapsed": 0.124
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/soto-carrocerias.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"4cec-6611f20e78e55\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "19692",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 19692,
+      "elapsed": 0.143
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/soto-carrocerias/portada-desktop.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:45 GMT",
+        "ETag": "\"1377e-6611f20f7788b\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "79742",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 79742,
+      "elapsed": 0.156
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/soto-carrocerias/portada-movil.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:45 GMT",
+        "ETag": "\"8c06-6611f20f78ffb\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "35846",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 35846,
+      "elapsed": 0.122
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/soto-cars.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"a596-6611f20eba534\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "42390",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 42390,
+      "elapsed": 0.136
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/soto-cars/portada-desktop.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"113b2-6611f20f1563c\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "70578",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 70578,
+      "elapsed": 0.172
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/soto-cars/portada-movil.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"7db2-6611f20f169c4\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "32178",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 32178,
+      "elapsed": 0.131
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/soto-wash.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"796e-6611f20e9a57d\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "31086",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 31086,
+      "elapsed": 0.138
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/soto-wash/portada-desktop.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"10d26-6611f20f30fa3\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "68902",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 68902,
+      "elapsed": 0.15
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/soto-wash/portada-movil.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"a32c-6611f20f32afb\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "41772",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 41772,
+      "elapsed": 0.135
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/tecnirefinish.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"24a8-6611f20e724dd\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "9384",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 9384,
+      "elapsed": 0.12
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/tecnirefinish/portada-desktop.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"134ec-6611f20eeed0c\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "79084",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 79084,
+      "elapsed": 0.177
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/tecnirefinish/portada-movil.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"a814-6611f20ef0864\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "43028",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 43028,
+      "elapsed": 0.144
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/why-not.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:44 GMT",
+        "ETag": "\"1cdb2-6611f20eb8dc4\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "118194",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 118194,
+      "elapsed": 0.19
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/why-not/portada-desktop.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:45 GMT",
+        "ETag": "\"c394-6611f20fa04e3\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "50068",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 50068,
+      "elapsed": 0.186
+    },
+    {
+      "url": "https://soto-digital.com/img/optimized/projects/why-not/portada-movil.webp",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:45 GMT",
+        "ETag": "\"956e-6611f20fa203b\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "38254",
+        "Content-Type": "image/webp"
+      },
+      "bytes": 38254,
+      "elapsed": 0.168
+    },
+    {
+      "url": "https://soto-digital.com/js/campaign-bootstrap.b3de9ef9d231.js",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:46 GMT",
+        "ETag": "\"d02-6611f21109250\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "3330",
+        "Content-Type": "application/javascript"
+      },
+      "bytes": 3330,
+      "elapsed": 0.133
+    },
+    {
+      "url": "https://soto-digital.com/js/campaign.fc270e0b77be.js",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:47 GMT",
+        "ETag": "\"1952-6611f211604d7\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "6482",
+        "Content-Type": "application/javascript"
+      },
+      "bytes": 6482,
+      "elapsed": 0.116
+    },
+    {
+      "url": "https://soto-digital.com/js/cookies.be26cb687e45.js",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:46 GMT",
+        "ETag": "\"1f35-6611f211082b0\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "7989",
+        "Content-Type": "application/javascript"
+      },
+      "bytes": 7989,
+      "elapsed": 0.103
+    },
+    {
+      "url": "https://soto-digital.com/js/main.16d460c24167.js",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:47 GMT",
+        "ETag": "\"a3c-6611f21191217\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "2620",
+        "Content-Type": "application/javascript"
+      },
+      "bytes": 2620,
+      "elapsed": 0.11
+    },
+    {
+      "url": "https://soto-digital.com/js/tracking.a0edf5b4b738.js",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:47 GMT",
+        "ETag": "\"165c-6611f2113b317\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "5724",
+        "Content-Type": "application/javascript"
+      },
+      "bytes": 5724,
+      "elapsed": 0.115
+    },
+    {
+      "url": "https://soto-digital.com/meta-ads.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 22830,
+      "elapsed": 0.13
+    },
+    {
+      "url": "https://soto-digital.com/site.webmanifest",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:32 GMT",
+        "ETag": "\"11f-6611f203c0072\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "287"
+      },
+      "bytes": 287,
+      "elapsed": 0.095
+    },
+    {
+      "url": "https://soto-digital.com/why-not/",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 07 Oct 2026 07:11:39 GMT",
+        "ETag": "\"2300-65d3ad38ff7f2\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "8960",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 8960,
+      "elapsed": 0.117
+    }
+  ],
+  "protected": [
+    {
+      "url": "https://soto-digital.com/includes/campaign-backup.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Content-Length": "0",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 0,
+      "elapsed": 0.145
+    },
+    {
+      "url": "https://soto-digital.com/docs/soto-config.example.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Content-Length": "0",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 0,
+      "elapsed": 0.127
+    },
+    {
+      "url": "https://soto-digital.com/.git/config",
+      "status": 404,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Content-Length": "315",
+        "Connection": "close",
+        "Content-Type": "text/html; charset=iso-8859-1"
+      },
+      "bytes": 315,
+      "elapsed": 0.103
+    },
+    {
+      "url": "https://soto-digital.com/tools/tests/campaign-backup.php",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 169,
+      "elapsed": 0.195
+    },
+    {
+      "url": "https://soto-digital.com/bin/campaign-leads.php",
+      "status": 404,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Content-Length": "0",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 0,
+      "elapsed": 0.133
+    },
+    {
+      "url": "https://soto-digital.com/dist/mejoras-landings.zip",
+      "status": 200,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:56 GMT",
+        "Server": "Apache",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Last-Modified": "Wed, 25 Nov 2026 19:49:35 GMT",
+        "ETag": "\"14d72-6611f205b9a46\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "85362",
+        "Content-Type": "application/zip"
+      },
+      "bytes": 85362,
+      "elapsed": 0.192
+    },
+    {
+      "url": "https://soto-digital.com/api/health.php",
+      "status": 401,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:57 GMT",
+        "Server": "Apache",
+        "Cache-Control": "private, no-store",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "text/plain; charset=UTF-8"
+      },
+      "bytes": 4,
+      "elapsed": 0.103
+    },
+    {
+      "url": "https://soto-digital.com/api/worker.php",
+      "status": 401,
+      "headers": {
+        "Date": "Thu, 26 Nov 2026 05:58:57 GMT",
+        "Server": "Apache",
+        "Cache-Control": "private, no-store",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      "bytes": 12,
+      "elapsed": 0.095
+    }
+  ],
+  "scope": "29 páginas públicas y landings; 38 enlaces/recursos internos; rutas protegidas. Sin envío de leads ni prueba de carga.",
+  "notes": [
+    "/campanas/enviar.php es un endpoint POST: 405 por GET es correcto, no es una página pública.",
+    "Rutas includes/docs/tools/dist accesibles: subir/aplicar .htaccess antes de cerrar la revisión.",
+    "No hay medición nueva de Core Web Vitals ni auditoría manual completa de accesibilidad; se revisó estructura y se conservan las mediciones locales anteriores."
+  ]
+}

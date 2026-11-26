@@ -1,10 +1,23 @@
 # Pendientes de Soto Digital
 
-Actualizado: **25 de noviembre de 2026**.
+Actualizado: **26 de noviembre de 2026**.
 
 Este es el checklist vigente. **El equipo ha publicado en soto-digital.com por SFTP.** La preparación del formulario pasó de HTTP 503 a HTTP 200 tras el ajuste del cargador privado; el equipo confirma la página de gracias. El equipo confirma el circuito en producción: contactos en Brevo con puntuación y resumen de IA, ambos correos recibidos y `pending: 0` en cron-job.org.
 
 **Criterio vigente:** autorizado trabajar sobre el dominio principal. La subida de código se está realizando manualmente por SFTP; no se ha activado publicidad. No sobrescribir bases de leads ni claves con versiones locales.
+
+## Pendientes vigentes — 26/11/2026
+
+Landings y subida de sitemap/robots completadas, según confirmación del equipo. Este resumen sustituye los estados históricos que aparecen más abajo.
+
+- [ ] **Google Ads:** completar facturación, configurar la conversión y preparar palabras clave, anuncios, zonas y presupuesto.
+- [ ] **Contenido:** grabar vídeos e incorporar testimonios de TecniRefinish y Cantabria Kebab, con permisos y resultados verificables.
+- [ ] **Pantalla LED:** confirmar disponibilidad y condiciones.
+- [ ] **Legal y privacidad:** completar datos definitivos de la sociedad y revisar proveedores, inventario de cookies y gestión de derechos.
+- [x] **Revisión técnica:** cerrada el 26/11/2026 tras verificar en producción el `.htaccess`: web 200, rutas internas 404, APIs 401 sin credenciales, gzip, caché y cabeceras de protección correctas. Evidencia en `docs/verificacion-htaccess-produccion-2026-11-26.json`.
+- [x] **Copias:** punto cerrado por confirmación del equipo el 26/11/2026: copia diaria generada a la hora programada. Código de retención máxima de tres subido por SFTP. La descarga periódica al Mac queda como mantenimiento; el contador de archivos conservados no se ha verificado de forma independiente.
+- [ ] **Mantenimiento:** asignar quién revisa alertas, errores, rebotes y consumo de IA.
+- [ ] **SEO:** revisar Google Business Profile y decidir los primeros contenidos del blog.
 
 ## Atención de las solicitudes
 
@@ -250,7 +263,7 @@ La planificación anterior se conserva en [el archivo histórico](docs/pendiente
 ## Revisión de landings en producción — 25/11/2026
 
 - [x] Primera revisión HTTP de las once landings de `/campanas/`: páginas y diez recursos compartidos disponibles, un H1 y un formulario por landing, endpoint `/api/lead.php`, anclas internas correctas y noindex en HTML/cabeceras. Informe `docs/revision-landings-produccion.json`. No se han enviado formularios adicionales.
-- [ ] Revisión visual móvil/escritorio: el navegador no está conectado al agente. Empezar por Google Ads y principal mediante capturas de las páginas renderizadas; las comprobaciones HTTP no acreditan legibilidad, tamaños ni ausencia de desbordamientos.
+- [x] Revisión de contenido y diseño de landings en móvil y escritorio completada, según confirmación del equipo el 26/11/2026.
 - Observación de contenido: Google Ads tiene alcance y preguntas específicos; las otras landings conservan FAQs y proceso generales. Sus beneficios definidos no se muestran en el bloque inicial como los de Google Ads. Revisar cada servicio antes de dar la aprobación comercial. Vídeos y casos publicitarios requieren material verificable.
 
 
@@ -259,6 +272,23 @@ La planificación anterior se conserva en [el archivo histórico](docs/pendiente
 - [x] Aplicadas en local las mejoras acordadas: titular y hero Google Ads, beneficios, CTA, espacios, retirada de ejemplo, prioridad del formulario, multicanalidad, formulario temprano y portfolio abreviado de home, enlaces de servicios, categorías de proyectos, primera respuesta y alcance/FAQ por servicio.
 - [x] Cuestionario completo comprobado con pruebas funcionales, incluidos errores y contacto; ajuste Turnstile compacto en ancho reducido y campos de texto de 16 px. No se ha realizado una nueva verificación visual de pasos 2–5 en un dispositivo real.
 - [x] Recursos con hash y sitemap regenerados. Suite de pruebas correcta y comprobación de estructura/render de las once landings. Detalle en `docs/mejoras-visuales-landings.md`.
-- [ ] Subir el paquete preparado de cambios a Arsys y revisar el resultado renderizado en móvil/escritorio con el equipo. Las capturas anteriores no acreditan el aspecto después de estos cambios. No se han enviado leads reales durante esta revisión.
+- [x] Revisión final de contenido y diseño en móvil/escritorio completada por el equipo, confirmada el 26/11/2026.
 
-- Ajuste visual solicitado: recuperadas en local las proporciones anteriores (titulares, columnas y espaciado). Subir el paquete actualizado y comprobar la amplitud en producción.
+- Ajuste visual solicitado: recuperadas en local las proporciones anteriores (titulares, columnas y espaciado). Revisión visual completada por el equipo el 26/11/2026.
+
+## Revisión técnica y retención — 26/11/2026
+
+- [x] El equipo confirma generación automática de copias de leads.
+- [x] Retención cambiada en código a un máximo de tres copias, incluso con configuración antigua de 14. Las antiguas se eliminan solo después de verificar la nueva; no se toca la base activa. Prueba aislada con configuración antigua, cinco copias y resultado de tres conservadas correcta.
+- [ ] Subir `includes/campaign-backup.php` y comprobar `retention_limit: 3`. La limpieza de copias antiguas se aplicará en la siguiente ejecución correcta, no desde este entorno local.
+- [x] Suite local completa correcta: copias/restauración, formularios, consentimiento, rutas, recursos y sintaxis PHP.
+- [x] Revisión HTTP ampliada a 29 páginas y 38 recursos/enlaces: respuestas 200, un H1 por página, imágenes con alt y anclas internas correctas.
+- [ ] Producción: aplicar `.htaccess`. Actualmente includes/docs/tools/dist responden 200 y faltan cabeceras globales de protección, caché y compresión. API worker/salud rechazan acceso sin token (401); `.git` devuelve 404. No dar por cerrada esta incidencia hasta repetir comprobaciones tras subir el archivo oculto.
+- [x] Robots revisado y sitemap regenerado: 18 páginas públicas, sin campañas noindex ni API. Subir ambas versiones del paquete.
+- Rendimiento/accesibilidad: comprobación de recursos y estructura realizada; las mediciones Lighthouse anteriores son locales, no una medición nueva de Core Web Vitals en producción ni una certificación de accesibilidad.
+
+- 26/11/2026: parche colocado directamente en el proyecto local (no requiere descargar ni descomprimir): `.htaccess`, `includes/campaign-backup.php`, `robots.txt` y `sitemap.xml`. Retención probada con configuración antigua de 14: máximo tres copias. Falta subir estos originales por SFTP y comprobar el efecto en Arsys.
+
+- [x] Punto 6 cerrado a petición del equipo el 26/11/2026: confirmada la ejecución de la copia de hoy a la hora estipulada. La descarga periódica externa se mantiene como tarea recurrente de mantenimiento.
+
+- [x] Punto 5 cerrado el 26/11/2026: comprobación HTTP posterior a la subida del `.htaccess` correcta (12 rutas). Sustituye el estado de incidencia anterior; incluye home/Google Ads, bloqueos de includes/docs/tools/dist/.git, caché immutable en CSS con hash, gzip y cabeceras nosniff/SAMEORIGIN. Robots y sitemap disponibles. No implica certificación completa de accesibilidad ni nuevas métricas Core Web Vitals.

@@ -5,7 +5,7 @@ return [
     'SOTO_REGISTRO_MERCANTIL' => '', // Fill only with real company registration details.
     'CAMPAIGN_DATA_DIR' => '/absolute/private/soto-leads',
     'CAMPAIGN_RETENTION_MONTHS' => 12,
-    'CAMPAIGN_BACKUP_KEEP' => 14,
+    'CAMPAIGN_BACKUP_KEEP' => 3,
     'CAMPAIGN_WORKER_MAX_AGE' => 900,
     'CAMPAIGN_PURGE_BREVO' => false, // Requires separate review: deletes a whole Brevo contact.
     'CAMPAIGN_HEALTH_TOKEN' => '', // Long random token; send only via Authorization header.

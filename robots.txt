@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
 
-# Producción en la raíz de soto-digital.com; /mumito/ ya se ha retirado.
+# Revisado el 26/11/2026. Producción en la raíz de soto-digital.com.
+# /mumito/ retirado. Las rutas privadas se protegen mediante .htaccess, no robots.
 # Las landings de campañas, los borradores y la API indican noindex.
 # Se permite el rastreo para que los buscadores puedan leer esa directiva.
 Sitemap: https://soto-digital.com/sitemap.xml

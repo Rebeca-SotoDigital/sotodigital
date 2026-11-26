@@ -4,7 +4,7 @@ $GLOBALS['campaign_test_http']=static function(){throw new RuntimeException('Une
 require __DIR__.'/../../includes/campaign-backup.php';
 function backup_assert($ok,$message){if(!$ok)throw new RuntimeException($message);}
 $dir=sys_get_temp_dir().'/soto-restore-test-'.bin2hex(random_bytes(5));mkdir($dir,0700);
-putenv('CAMPAIGN_DATA_DIR='.$dir);putenv('CAMPAIGN_BACKUP_KEEP=2');
+putenv('CAMPAIGN_DATA_DIR='.$dir);putenv('CAMPAIGN_BACKUP_KEEP=14');
 try {
     $db=campaign_db();$id=str_repeat('a',32);
     $db->prepare('INSERT INTO leads(id,created_at,service,payload,attribution,consent_version) VALUES(?,?,?,?,?,?)')->execute([$id,gmdate('c'),'google-ads','{"email":"synthetic@example.com"}','{}','test']);
@@ -30,8 +30,8 @@ try {
     file_put_contents($dir.'/backups/corrupt.sqlite','invalid sqlite file');
     try{campaign_verify_backup($dir.'/backups/corrupt.sqlite');throw new RuntimeException('Corrupt snapshot accepted');}catch(CampaignBackupFailure $e){backup_assert($e->getMessage()==='integrity','Corrupt backup phase missing');}
     backup_assert(!glob($dir.'/backups/.restore-test-*'),'Failed restore files left behind');
-    foreach([1,2] as $i){campaign_operation($db,'backup_last_success','0');campaign_verified_backup($db);}
-    backup_assert(count(glob($dir.'/backups/leads-*.sqlite'))===2,'Retention wrong');
+    foreach([1,2,3,4] as $i){campaign_operation($db,'backup_last_success','0');$r=campaign_verified_backup($db);}
+    backup_assert(count(glob($dir.'/backups/leads-*.sqlite'))===3&&$r['retention_limit']===3,'Retention wrong');
     echo "PASS: consistent private backup, isolated restoration/integrity/checksum, unchanged live leads, lock/throttle, retention and corrupt-snapshot cleanup; no provider calls\n";
 }finally {
     $db=null;
