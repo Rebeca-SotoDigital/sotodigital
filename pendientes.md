@@ -56,3 +56,15 @@ El detalle y los estados anteriores se conservan en [el histórico](docs/pendien
 - Instagram: solo enlace al perfil actualmente; campañas previstas, sin activar píxel ni nuevas integraciones. Falta confirmar estado de Dealfront/Leadfeeder.
 - Posible publicidad propia posterior: pendiente definir alta voluntaria separada y mecanismo de baja; la lectura de privacidad no autoriza newsletters. No se ha suscrito a ningún contacto.
 - Continúan sin respuesta: facturación de Ads, presupuesto mensual de anuncios propios y plazo de conservación (actualmente política/ejemplo: 12 meses desde última comunicación).
+
+## Preguntas guardadas para más adelante
+
+A petición del equipo, quedan aplazadas sin asumir respuestas ni activar funciones:
+
+1. ¿Está configurada la facturación de Google Ads?
+2. ¿Qué presupuesto mensual se destinará a los anuncios propios de Soto Digital?
+3. ¿Se confirman 12 meses desde la última comunicación para conservar solicitudes sin contratación?
+4. ¿Dealfront/Leadfeeder sigue desactivado?
+5. ¿Se prepara una casilla opcional para novedades y publicidad propia, con registro del permiso y baja?
+
+Estado legal vigente: sociedad en constitución; domicilio confirmado Calle Galera 41, Polígono de Raos, 39600 Maliaño, Cantabria; privacidad/derechos info@soto-digital.com actualizado en local. Instagram solo enlazado por ahora. No se han habilitado newsletters ni nuevas integraciones.
