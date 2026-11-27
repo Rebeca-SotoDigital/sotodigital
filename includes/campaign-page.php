@@ -32,6 +32,17 @@ include __DIR__ . '/header.php';
 <?php if ($serviceDetails): ?>
 <section id="servicio"><div class="container"><div class="section-heading"><div><span class="section-subtitle">QUÉ VAMOS A TRABAJAR</span><h2><?= $escape($serviceDetails['heading']) ?></h2></div><p><?= $escape($serviceDetails['intro']) ?></p></div><div class="campaign-case-grid"><?php foreach ($serviceDetails['items'] as $item): ?><article class="campaign-case"><h3><?= $escape($item['title']) ?></h3><p><?= $escape($item['text']) ?></p></article><?php endforeach; ?></div></div></section>
 <?php endif; ?>
+<?php foreach (['proposal'=>'TU PROPUESTA, CONCRETADA', 'formats'=>'DÓNDE PUEDE ENCAJAR TU NEGOCIO', 'approach'=>'ASÍ TRABAJAMOS EN SOTO DIGITAL', 'reporting'=>'SEGUIMIENTO CON SENTIDO'] as $blockKey => $blockLabel):
+ $detailBlock = $serviceDetails[$blockKey] ?? null;
+ if (!$detailBlock) continue;
+?>
+<section<?= in_array($blockKey, ['proposal', 'approach'], true) ? ' class="bg-soft"' : '' ?>><div class="container">
+ <div class="section-heading"><div><span class="section-subtitle"><?= $escape($blockLabel) ?></span><h2><?= $escape($detailBlock['heading']) ?></h2></div><p><?= $escape($detailBlock['intro']) ?></p></div>
+ <div class="process-grid"><?php foreach ($detailBlock['items'] as $item): ?><article><h3><?= $escape($item['title']) ?></h3><p><?= $escape($item['text']) ?></p></article><?php endforeach; ?></div>
+ <?php if ($blockKey === 'proposal'): ?><a class="btn" href="#propuesta"><?= SOTO_PROPOSAL_CTA ?></a><?php endif; ?>
+</div></section>
+<?php endforeach; ?>
+<?php $editorialDefinitions = require __DIR__.'/service-content-blocks.php'; $editorialBlocks = $editorialDefinitions[$slug] ?? []; include __DIR__.'/service-blocks-section.php'; ?>
 <?php $video = $content['videos'][$slug] ?? ''; if ($video && preg_match('~\Aimg/videos/[a-zA-Z0-9_-]+\.mp4\z~', $video) && is_file(__DIR__ . '/../' . $video)): ?>
 <section><div class="container campaign-split"><div><span class="section-subtitle">TE LO CONTAMOS NOSOTROS</span><h2>Las preguntas que importan.<br>Una conversación con el equipo.</h2><p>Conoce cómo abordamos <?= $escape(mb_strtolower($service[0])) ?> y qué necesitamos saber de tu negocio.</p></div><video controls preload="none" aria-label="Entrevista al equipo de Soto Digital sobre <?= $escape($service[0]) ?>"><source src="/<?= $escape($video) ?>" type="video/mp4"><track kind="captions" src="/<?= $escape(substr($video, 0, -4)) ?>.vtt" srclang="es" label="Español" default></video></div></section>
 <?php endif; ?>
@@ -43,7 +54,12 @@ include __DIR__ . '/header.php';
 <?php endif; ?>
 </div></div></section>
 <?php if ($slug !== 'pantalla-led'): ?>
-<section class="campaign-multichannel"><div class="container campaign-split"><div><span class="section-subtitle">UNA ESTRATEGIA MULTICANAL</span><h2>Los canales adecuados<br>para tu objetivo.</h2></div><div><p>Una web facilita el contacto; los anuncios, el SEO y los contenidos ayudan a llegar a tu público. Te proponemos combinar canales cuando aporte valor a tu objetivo y presupuesto, sin obligarte a contratar varios servicios.</p><div class="campaign-channels"><span>Google Ads</span><span>Web + SEO</span><span>Redes + Meta Ads</span><span>Contenido + Email</span></div></div></div></section>
+<section class="campaign-multichannel"><div class="container campaign-split"><div><span class="section-subtitle">UNA ESTRATEGIA MULTICANAL</span><h2>Los canales adecuados<br>para tu objetivo.</h2></div><div><p>Una web facilita el contacto; los anuncios, el SEO y los contenidos ayudan a llegar a tu público. Te proponemos combinar canales cuando aporte valor a tu objetivo y presupuesto, sin obligarte a contratar varios servicios.</p><div class="campaign-channels"><span>Google Ads</span><span>Web + SEO</span><span>Redes + Meta Ads</span><span>Contenido + Email</span></div><ol>
+<li><strong>Te encuentran.</strong> Elegimos los canales según tu oferta: búsquedas, redes, contenidos o una prueba publicitaria cuando encaje.</li>
+<li><strong>Entienden tu propuesta.</strong> El anuncio, el contenido y la web explican qué haces y por qué puede interesar.</li>
+<li><strong>Dan el siguiente paso.</strong> Facilitamos una solicitud o una conversación, con un destino y una atención definidos.</li>
+<li><strong>Atendemos la oportunidad.</strong> Acordamos cómo registrar y dar seguimiento a las consultas. El email puede apoyar ese proceso sin convertirlo en una suscripción publicitaria.</li>
+</ol></div></div></section>
 <?php endif; ?>
 <?php $cases = array_filter($content['cases'], static function ($case) use ($slug) { return in_array($slug, $case['services'], true); }); if ($cases): ?>
 <section><div class="container"><span class="section-subtitle">SITUACIONES EN LAS QUE PUEDES RECONOCERTE</span><h2>Del reto a lo que<br>hicimos realidad.</h2><div class="campaign-case-grid"><?php foreach ($cases as $case): ?><article class="campaign-case"><span><?= $escape($case['sector']) ?></span><h3><?= $escape($case['situation']) ?></h3><p><?= $escape($case['work']) ?></p><strong>Qué entregamos</strong><p><?= $escape($case['result']) ?></p></article><?php endforeach; ?></div></div></section>

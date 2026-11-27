@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'Ideas de marketing para negocios | Soto Digital';
-$pageDescription='Guías prácticas de Soto Digital sobre diseño web, SEO y Google Ads para decidir cómo conseguir más consultas para tu negocio.';
+$pageDescription='Guías prácticas de Soto Digital sobre diseño web, SEO y publicidad digital para decidir cómo conseguir más consultas para tu negocio.';
 $canonicalPath='/blog/';
 $posts=require __DIR__.'/../includes/blog-posts.php';
 $blogEscape=static function($text){return htmlspecialchars($text,ENT_QUOTES,'UTF-8');};

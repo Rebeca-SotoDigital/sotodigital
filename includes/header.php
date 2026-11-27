@@ -53,9 +53,9 @@ $stylesheet = $siteAssets[!empty($serviceStyles) ? 'css/site-services.css' : 'cs
 <a href="#contenido" class="skip-link">Saltar al contenido</a>
 <header>
     <div class="container nav-container">
-        <?php if (!empty($campaignLanding)): ?><span class="logo" aria-label="Soto Digital"><?php else: ?><a href="/" class="logo"><?php endif; ?>
+        <a href="/" class="logo" aria-label="Soto Digital: ir al inicio">
             <img src="/img/optimized/logo-480.png" srcset="/img/optimized/logo-240.png 240w, /img/optimized/logo-480.png 480w" sizes="(max-width: 700px) 205px, (max-width: 992px) 218px, (max-width: 1150px) 205px, 240px" width="480" height="136" alt="SOTO DIGITAL Logo">
-        <?php if (!empty($campaignLanding)): ?></span><?php else: ?></a><?php endif; ?>
+        </a>
 
         <?php if (!empty($campaignLanding)): ?>
         <a class="btn btn-nav" href="#propuesta"><?= SOTO_PROPOSAL_SHORT_CTA ?></a>

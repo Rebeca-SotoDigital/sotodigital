@@ -4,7 +4,7 @@ $teamMembers = array_filter($teamContent['team'] ?? [], static function($member)
 if ($teamMembers):
 $teamEscape=static function($value){return htmlspecialchars((string)$value,ENT_QUOTES,'UTF-8');};
 ?>
-<section class="team-section"><div class="container"><h2>Las personas detrás de tu proyecto</h2><p>Hablarás con nosotros desde la primera conversación. Revisaremos tu negocio y te explicaremos qué proponemos y por qué.</p><div class="team-grid">
+<section class="team-section"><div class="container"><h2>Las personas detrás de tu proyecto</h2><p>Hablarás con nosotros desde la primera conversación. Revisaremos tu negocio y te explicaremos qué proponemos y por qué.</p><p>En Soto Digital trabajamos en webs, redes y marcas tanto para clientes como para nuestros propios negocios. Esa perspectiva nos lleva a mirar más allá de una pieza: cómo se presenta la oferta, cómo se facilita el contacto y qué necesita la persona para decidir. Desde Cantabria, trabajamos contigo por videollamada estés donde estés en España.</p><div class="team-grid">
 <?php foreach($teamMembers as $member): ?><article>
 <?php if(!empty($member['photo']) && preg_match('~^img/equipo/[a-zA-Z0-9_.-]+$~',$member['photo']) && is_file(__DIR__.'/../'.$member['photo'])): ?><img src="/<?= $teamEscape($member['photo']) ?>" alt="<?= $teamEscape($member['name']) ?>" width="400" height="400" loading="lazy"><?php elseif (soto_show_pending()): ?><div class="team-photo-placeholder">[PENDIENTE: foto]</div><?php endif; ?>
 <h3><?= $teamEscape($member['name']) ?></h3>

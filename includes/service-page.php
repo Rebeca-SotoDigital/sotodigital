@@ -82,6 +82,12 @@ include __DIR__ . '/header.php';
             </div>
         </div>
     </section>
+    <?php if ($service['slug'] === 'publicidad-digital'): ?>
+    <div class="container"><p>¿Quieres valorar un nuevo canal? Conoce nuestro servicio de <a href="/chatgpt-ads.php">publicidad en ChatGPT Ads para empresas</a> y cómo planteamos una prueba con objetivos y presupuesto acordados.</p></div>
+    <?php elseif ($service['slug'] === 'chatgpt-ads'): ?>
+    <div class="container"><p>Antes de decidir, lee nuestra guía: <a href="/blog/publicidad-chatgpt-antes-de-invertir.php">publicidad en ChatGPT: qué valorar antes de invertir</a>.</p></div>
+    <?php endif; ?>
+    <?php $editorialDefinitions = require __DIR__.'/service-content-blocks.php'; $editorialBlocks = $editorialDefinitions[$service['slug']] ?? []; include __DIR__.'/service-blocks-section.php'; ?>
     <?php if (!empty($service['audience'])): ?>
     <section>
         <div class="container">

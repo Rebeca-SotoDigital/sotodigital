@@ -1,102 +1,110 @@
 # Pendientes de Soto Digital
 
-Actualizado: **26 de noviembre de 2026**.
+Actualizado: **27 de noviembre de 2026**.
 
-Lista vigente tras publicar y revisar las tres entradas del blog, enviar el sitemap correcto y solicitar la indexación de `/blog/` y los tres artículos. Las solicitudes están confirmadas por el equipo; la indexación efectiva depende de Google y todavía no se ha confirmado.
+Lista operativa vigente. Un push a GitHub no confirma la publicación en Arsys. No se dan por terminadas pruebas en producción sin evidencia o confirmación del equipo.
 
-## Trabajo pendiente
+## 1. WhatsApp: puesta en marcha del agente
 
-1. **Google Ads**
-   - [ ] Completar la facturación y los datos del anunciante.
-   - [ ] Configurar la conversión de solicitud válida y comprobar su conexión con Ads antes de activar publicidad. GA4 ya recibe generate_lead como evento clave.
-   - [ ] Preparar palabras clave con el Planificador, negativas, anuncios, zonas, presupuesto y sus landings.
-   - Preferencias confirmadas: promocionar todos los servicios, cobertura de toda España, sin especialización por sector ni exclusiones comerciales. No implica activar campañas sin presupuesto ni facturación confirmados.
+El código del agente, webhook y ejecutor HTTPS protegido está incorporado en `main`. Los envíos reales requieren activación explícita; la presencia del código no confirma que el servicio esté operativo.
 
-2. **Vídeos y testimonios**
-   - [ ] Grabar los vídeos del equipo explicando los servicios, preferiblemente en formato entrevista; editar y subtitular antes de incorporarlos.
-   - [ ] Recopilar testimonios de TecniRefinish y Cantabria Kebab, con permiso de publicación.
-   - [ ] Incorporar únicamente resultados verificables y autorizados; no inventar cifras ni atribuir resultados publicitarios a proyectos sin evidencia.
+- [ ] Confirmar despliegue en Arsys y configuración privada de Meta, Anthropic, autenticación del ejecutor y directorios de conversaciones, cola y leads fuera de la carpeta pública. No subir secretos a GitHub.
+- [ ] Verificar número y permisos de WhatsApp Business, webhook y suscripción a los eventos necesarios.
+- [ ] Configurar y probar la ejecución periódica del worker de WhatsApp; comprobar sus avisos de fallo. No confundirlo con el worker del formulario ya operativo.
+- [ ] Probar una conversación real completa: recepción, respuesta, recogida de datos, confirmación de propuesta y guardado sin duplicados. Comprobar también reintentos y recuperación de errores.
+- [ ] Definir y comprobar cómo recibe el equipo el lead de WhatsApp y si debe sincronizarse con Brevo. El guardado propio de WhatsApp no demuestra una integración con Brevo.
+- [ ] Revisar información de privacidad, aviso de asistente de IA, conservación y acceso a conversaciones, así como cobertura de las copias y borrado.
+- [ ] Confirmar en producción dónde se muestra el botón de WhatsApp y su destino; mantener diferenciada su medición del formulario y no contar un clic como lead confirmado.
 
-3. **Pantalla LED**
-   - [x] Preparados en local los textos del proyecto y la captación de interesados: ubicación/formato previstos, público orientativo, alcance del diseño por concretar, sin prometer puesta en marcha.
-   - [ ] Subir estos cambios a Arsys y revisar el recorrido de interés.
-   - [ ] Financiación, disponibilidad, fecha, tarifas y condiciones de emisión: pendientes de datos definitivos. No se ofrecen reservas ni pagos.
+## 2. ChatGPT Ads: publicar y preparar el servicio
 
-4. **Legal y privacidad**
-   - [ ] Confirmar si la constitución está finalizada y completar datos registrales. Datos facilitados: Soto Digital S.L., NIF B05897236, Polígono de Raos, Calle Galera 41, Maliaño, Cantabria. Ya figuran en los textos locales; el CP 39600 confirmado y email de derechos info@soto-digital.com.
-   - [ ] Revisar la configuración definitiva de proveedores y tratamientos, inventario de cookies y procedimiento de atención de derechos.
+Página pública `/chatgpt-ads.php` y landing `/campanas/chatgpt-ads.php` creadas. Footer, servicios relacionados y descripción de Campañas actualizados. Código subido a GitHub; publicación en Arsys aún sin confirmar.
 
-5. **Publicar ChatGPT Ads**
-   - [ ] Subir la página pública, la landing y los archivos compartidos actualizados a Arsys; revisar móvil y escritorio.
-   - [ ] Comprobar en Brevo el atributo `SERVICIO_INTERES`: si es categoría, añadir «ChatGPT Ads». Probar el registro del servicio después de publicar.
-   - [ ] Antes de activar campañas, concretar acceso a Ads Manager, permisos, presupuesto, honorarios y medición.
+- [ ] Subir los cambios a Arsys y revisar página pública, landing y enlaces en móvil y escritorio.
+- [ ] Comprobar `SERVICIO_INTERES` en Brevo: si es categoría, añadir «ChatGPT Ads». Probar una solicitud real y verificar servicio, puntuación PHP, resumen IA y correos.
+- [ ] Antes de gestionar campañas, comprobar acceso a Ads Manager, cuenta y permisos del cliente, requisitos vigentes, honorarios, presupuesto y plan de medición.
+- [ ] Concretar la oferta de prueba piloto: entregables, duración, criterios para continuar o detener y alcance del seguimiento. No hay campaña activada ni resultados propios acreditados.
+- [ ] Comprobar el sitemap publicado con 23 páginas públicas, incluida `/chatgpt-ads.php`; la landing de campañas mantiene noindex y queda fuera del sitemap. Solicitar indexación de la página pública tras publicarla.
 
-## Seguimiento, sin nuevas tareas de desarrollo
+## 3. Google Ads: campañas propias de Soto Digital
 
-- [ ] **Indexación:** entre el 3 y el 10 de diciembre de 2026, consultar el estado de las cuatro URL en Search Console. Si alguna sigue fuera del índice, revisar su motivo concreto y la prueba publicada antes de modificar nada. No repetir diariamente las solicitudes. No hay recordatorio automático creado.
-- **Mantenimiento recurrente ya organizado:** Rebeca responsable principal, Jónatan suplente. Revisar alertas/solicitudes cada día laborable, errores/rebotes/ejecuciones y descarga de copias al Mac semanalmente, consumo de IA/Brevo mensualmente.
+- [ ] Completar facturación y datos del anunciante.
+- [ ] Definir presupuesto mensual de anuncios propios, pendiente de respuesta del equipo.
+- [ ] Configurar y comprobar la conversión de solicitud válida en Google Ads. GA4 ya recibe `generate_lead` como evento clave.
+- [ ] Preparar palabras clave con el Planificador, negativas, anuncios, zonas y presupuesto por campaña.
 
-## Cerrado o pospuesto
+Preferencias confirmadas: todos los servicios, toda España, sin especialización por sector ni exclusiones comerciales. Prioridades de inversión por decidir según recursos y demanda.
 
-- [x] Integración Brevo/IA, formulario, correos y procesamiento automático en producción.
-- [x] Revisión de landings móvil/escritorio completada por el equipo.
-- [x] Revisión técnica y .htaccess comprobados en producción dentro del alcance documentado.
-- [x] Copia diaria confirmada y retención máxima de tres implementada/subida; organización de mantenimiento cerrada.
-- [x] Blog: tres artículos completos publicados, firma Soto Digital, sin fechas visibles, ilustraciones y recuadros incorporados.
-- [x] Sitemap/robots comprobados en producción; sitemap de 22 URL enviado correctamente y cuatro solicitudes de indexación realizadas por el equipo.
-- **Google Business Profile pospuesto:** servicios nacionales por videollamada y visitas locales solo como posibilidad. Reconsiderar si la atención presencial pasa a formar parte efectiva del servicio. No bloquea el SEO nacional.
+## 4. Vídeos y testimonios
 
-El detalle y los estados anteriores se conservan en [el histórico](docs/pendientes-historico-2026-11-26.md). Este documento sustituye sus casillas antiguas como lista operativa. Las ampliaciones opcionales (Dealfront, tratos CRM, conversiones offline, firma y cobros) no forman parte del cierre actual y requieren definir alcance antes de desarrollarlas.
+- [ ] Grabar vídeos explicando los servicios, preferiblemente entrevistas, y editar/subtitular.
+- [ ] Recopilar testimonios de TecniRefinish y Cantabria Kebab con permiso de publicación.
+- [ ] Incorporar resultados verificables y autorizados cuando existan. No inventar cifras ni atribuir resultados de campañas a proyectos sin evidencia.
 
-## Datos confirmados y aclaraciones pendientes
+No es necesario hacer nuevas fotos para mantener publicada la sección del equipo. El mensaje de trato directo ya está incorporado y subido a GitHub; su publicación en Arsys está pendiente de confirmar.
 
-- Publicidad: todos los servicios interesan; toda España; sin nicho ni sectores/zonas excluidos. Pendientes presupuesto para los anuncios propios de Soto Digital y facturación (respuesta 1 vacía).
-- Titular indicado nuevamente por el equipo: Soto Digital S.L., NIF B05897236. Dirección para titular y derechos: Polígono de Raos, Calle Galera 41, Maliaño, Cantabria. Falta confirmar fin de constitución, datos registrales, CP y buzón de derechos.
-- Instagram se añade a la relación de servicios utilizados. Falta concretar si solo enlaza al perfil o hay inserciones, Meta Pixel o campañas Meta Ads; no activar integraciones por esta respuesta. Falta confirmar Dealfront/Leadfeeder.
-- Finalidad declarada: asuntos de Soto Digital, sin cesión comercial a otras empresas. Falta distinguir atención de solicitudes de envíos publicitarios propios; no interpretar esto como consentimiento para newsletters. Los proveedores técnicos siguen interviniendo según configuración existente.
-- Conservación no decidida por el equipo. El texto actual y el ejemplo de configuración señalan 12 meses desde la última comunicación para solicitudes sin contratación; pendiente ratificar o ajustar de forma coherente, sin modificar plazos por inferencia.
+## 5. Pantalla LED
 
-## Últimas confirmaciones del equipo
+- [ ] Confirmar subida de los últimos textos y probar el recorrido de interés y su confirmación en producción.
+- [ ] Resolver internamente financiación, disponibilidad, fecha, tarifas y condiciones de emisión antes de comercializar.
 
-- Sociedad todavía en constitución. Datos registrales pendientes; CP 39600 confirmado.
-- Buzón de privacidad y derechos: info@soto-digital.com. Actualizados en local política de privacidad, cookies y aviso informativo del formulario, sin modificar el envío ni suscripciones. El email general del aviso legal permanece en rebeca@ por no haberse pedido cambiar ese contacto.
-- Instagram: solo enlace al perfil actualmente; campañas previstas, sin activar píxel ni nuevas integraciones. Falta confirmar estado de Dealfront/Leadfeeder.
-- Posible publicidad propia posterior: pendiente definir alta voluntaria separada y mecanismo de baja; la lectura de privacidad no autoriza newsletters. No se ha suscrito a ningún contacto.
-- Continúan sin respuesta: facturación de Ads, presupuesto mensual de anuncios propios y plazo de conservación (actualmente política/ejemplo: 12 meses desde última comunicación).
+Preparado en local y GitHub: «Proyecto en preparación», formulario de interés específico y confirmación sin reserva ni pago. La necesidad de financiación no aparece en el texto público. Diseño y adaptación se concretan por separado.
 
-## Preguntas guardadas para más adelante
+## 6. Legal y privacidad
 
-A petición del equipo, quedan aplazadas sin asumir respuestas ni activar funciones:
+- [ ] Confirmar finalización de la constitución y completar datos registrales.
+- [ ] Revisar proveedores y tratamientos definitivos, inventario de cookies y procedimiento de atención de derechos, incluyendo WhatsApp/IA y las futuras campañas.
+- [ ] Ratificar o ajustar los 12 meses desde la última comunicación previstos para solicitudes sin contratación; definir también conservación de conversaciones de WhatsApp.
+- [ ] Confirmar si Dealfront/Leadfeeder sigue desactivado.
+- [ ] Si se decide enviar publicidad propia: preparar permiso opcional separado, registro y baja. La lectura de privacidad y la consulta por WhatsApp no implican alta en newsletters.
 
-1. ¿Está configurada la facturación de Google Ads?
-2. ¿Qué presupuesto mensual se destinará a los anuncios propios de Soto Digital?
-3. ¿Se confirman 12 meses desde la última comunicación para conservar solicitudes sin contratación?
-4. ¿Dealfront/Leadfeeder sigue desactivado?
-5. ¿Se prepara una casilla opcional para novedades y publicidad propia, con registro del permiso y baja?
+Datos confirmados: Soto Digital S.L., NIF B05897236, Polígono de Raos, Calle Galera 41, 39600 Maliaño, Cantabria. Derechos y privacidad: info@soto-digital.com. Últimos cambios legales anteriores confirmados subidos por el equipo. Instagram solo enlazado actualmente; futuras integraciones publicitarias pendientes de configurar.
 
-Estado legal vigente: sociedad en constitución; domicilio confirmado Calle Galera 41, Polígono de Raos, 39600 Maliaño, Cantabria; privacidad/derechos info@soto-digital.com actualizado en local. Instagram solo enlazado por ahora. No se han habilitado newsletters ni nuevas integraciones.
+## 7. Seguimiento SEO
 
-- [x] El equipo confirma subidos a Arsys los últimos cambios legales y el contacto de privacidad info@soto-digital.com. Punto de subida cerrado por confirmación del equipo. Siguen pendientes las decisiones legales y la finalización de la constitución, no la subida de estos cambios.
+- [ ] Entre el **3 y el 10 de diciembre de 2026**, comprobar en Search Console la indexación de `/blog/` y sus tres artículos. Solicitudes de indexación ya realizadas; no repetir diariamente.
+- [ ] Comprobar después la indexación de la página pública de ChatGPT Ads cuando se publique y solicite.
 
-## Pantalla LED — preparación comercial
+No hay recordatorio automático creado. Google Business Profile sigue pospuesto: trabajo nacional por videollamada y visitas locales solo como posibilidad.
 
-- [x] Inicio y página de servicio describen un proyecto en preparación, sin mencionar financiación al cliente ni confirmar fecha o tarifas; recreación identificada. Diseño/adaptación se concreta y presupuesta por separado, sin asumir inclusión.
-- [x] Botón «Quiero información cuando esté disponible» dirige desde inicio a `/pantalla-led-raos.php#solicitud`. Formulario conserva service=pantalla-led para registro y sincronización mediante el circuito actual; no crea listas de newsletters.
-- [x] Confirmación de email y Gracias adaptadas a interés en proyecto, sin reserva/pago ni propuesta de emisión inmediata. Pruebas simuladas y render correctos; no se han enviado leads reales.
-- [ ] Subida SFTP y revisión visual pendientes. El lanzamiento comercial sigue condicionado a financiación y condiciones definitivas.
+## Ya completado; no repetir
 
-- Ajuste LED solicitado: mantener financiación solo como condición interna. Textos públicos y confirmación indican «Proyecto en preparación» y disponibilidad por confirmar. CTA al formulario específico conservada y flecha retirada del botón de la página LED.
+- Integración del formulario con Brevo e IA, correos, procesamiento periódico y `generate_lead` en GA4.
+- Revisión previa de landings, protección .htaccess, consentimiento y copias diarias de leads del formulario con retención máxima de tres.
+- Tres artículos del blog publicados; sitemap anterior de 22 URL enviado y cuatro indexaciones solicitadas. La nueva versión local tiene 23 URL.
+- Organización de mantenimiento: Rebeca responsable principal y Jónatan suplente; avisos a info@soto-digital.com y rebeca@soto-digital.com. Revisar que los nuevos procesos de WhatsApp queden cubiertos por esa organización.
 
-## ChatGPT Ads
+Los estados anteriores se conservan en [el histórico](docs/pendientes-historico-2026-11-26.md). Este documento sustituye las listas y preguntas duplicadas anteriores.
 
-- [x] Landing preparada en local: `/campanas/chatgpt-ads.php`, con propuesta de prueba piloto, alcance, preguntas frecuentes y formulario conectado al circuito de leads. El código asigna el servicio «ChatGPT Ads» a Brevo; falta verificar la configuración del atributo y el envío real. La puntuación sigue calculándose en PHP.
-- [ ] Subir los archivos modificados a Arsys y revisar la landing en móvil y escritorio.
-- [ ] Antes de gestionar campañas: comprobar acceso a Ads Manager, cuenta del cliente y permisos, condiciones vigentes, presupuesto, honorarios y plan de medición. No se ha creado ni activado ninguna campaña.
-- Landing de campañas con noindex, excluida del sitemap como las demás páginas de captación.
+## Mejora de la landing de Google Ads — 27 de noviembre
 
-- [ ] En Brevo, si `SERVICIO_INTERES` es de tipo categoría, añadir la opción exacta «ChatGPT Ads» antes de recibir solicitudes de esta landing. Si es texto no requiere cambiar el atributo. Pendiente prueba real tras la subida.
+- [x] Preparados en local los bloques de propuesta concreta, tipos de campaña y encaje, trato directo y seguimiento orientado a decisiones, conservando estilos y anchos existentes.
+- No se incluyen casos ni resultados de gestión de campañas: el equipo confirma que todavía no ha gestionado campañas para clientes. El ejemplo visual no se ha incorporado al no haberse solicitado en esta ronda.
+- [ ] Subir `includes/campaign-content.php` y `includes/campaign-page.php` a Arsys y revisar la landing en móvil y escritorio. Frecuencia de seguimiento, entregables y formatos finales se acuerdan en cada propuesta.
 
-- [x] Página pública `/chatgpt-ads.php` preparada en local, enlazada desde el footer junto a Campañas y desde los servicios relacionados. Mención incorporada en Campañas de publicidad; sitemap actualizado. La landing `/campanas/chatgpt-ads.php` mantiene noindex.
-- [ ] Subir `chatgpt-ads.php`, `campanas/chatgpt-ads.php`, `publicidad-digital.php`, `includes/footer.php`, `includes/service-page.php`, `includes/site-content.php`, `includes/campaign-services.php`, `includes/campaign-service-details.php`, `includes/campaign-brevo.php`, `sitemap.xml` y `robots.txt` a Arsys.
+## Sitemap y robots — revisión del 27 de noviembre
 
-- [x] Descripción de Campañas actualizada en home y servicio: Google, Instagram, Facebook y ChatGPT. Título y descripción SEO ajustados. Sitemap local regenerado con 23 páginas públicas; robots permite rastrear la página pública y leer el noindex de las landings. Esta actualización todavía no se ha confirmado en producción.
+- [x] Sitemap regenerado y validado: 23 URL públicas únicas; incluye Email marketing y ChatGPT Ads. Las landings de `/campanas/` mantienen noindex y no se incluyen.
+- [x] Robots revisado: permite el rastreo y referencia `https://soto-digital.com/sitemap.xml`; no bloquea la lectura de las directivas noindex.
+- [x] Email marketing ya dispone de servicio en home/footer, página pública `/email-marketing.php` y landing `/campanas/email-marketing.php`. No requiere crear otra página.
+- [ ] Subir las últimas versiones de `sitemap.xml`, `robots.txt` y los cambios de la landing de Google Ads a Arsys. Comprobar el sitemap publicado antes de reenviarlo en Search Console; no se confirma despliegue por actualizar los archivos locales.
+
+## Contenido ampliado — 27 de noviembre
+
+- [x] Recorrido multicanal explicado en Campañas y landings: descubrimiento, comprensión, contacto y seguimiento.
+- [x] Meta Ads ampliado en página y landing con formatos ilustrativos, materiales, objetivos y atención de consultas.
+- [x] Email marketing ampliado en página y landing con bienvenida, atención de solicitudes y recuperación de interés, diferenciando suscripción y consulta. No se activan automatizaciones reales por publicar estos ejemplos.
+- [x] Equipo: perspectiva de trabajo con clientes y negocios propios y atención nacional, sin inventar funciones individuales ni motivos de fundación.
+- [ ] Subir los archivos compartidos y `publicidad-digital.php`, y revisar móvil/escritorio. Si se desea una historia fundacional y funciones concretas de cada persona, falta que el equipo aporte esos datos.
+
+## ChatGPT Ads — propuesta ampliada
+
+- [x] Página pública y landing ampliadas en local: encaje, propuesta concreta, preparación de la web, responsabilidades, medición y criterios de continuidad. Aclarada independencia de respuestas y privacidad de conversaciones.
+- [ ] Subir `chatgpt-ads.php`, `includes/campaign-services.php` y `includes/service-content-blocks.php` junto a las plantillas compartidas pendientes; revisar visualmente ambas páginas. No se han activado campañas, píxeles ni nuevas integraciones.
+
+## SEO de ChatGPT Ads — 27 de noviembre
+
+- [x] H1 de la página pública centrado en agencia/publicidad/ChatGPT Ads, enlace contextual desde Campañas y artículo de apoyo con enlaces de ida y vuelta. Firma Soto Digital y sin fechas visibles, como el resto del blog. Fuentes oficiales contrastadas.
+- [x] Nuevo artículo local: `/blog/publicidad-chatgpt-antes-de-invertir.php`. Sitemap regenerado con 24 URL públicas; la landing de campañas sigue excluida por noindex.
+- [ ] Subir página, artículo, datos/plantillas compartidas y sitemap a Arsys; comprobar canonical/indexabilidad en producción y solicitar indexación de las dos URL nuevas.
+- [ ] Contrastar demanda de palabras clave en herramientas reales; no hay volúmenes ni posiciones acreditadas.

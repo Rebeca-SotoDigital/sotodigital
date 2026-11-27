@@ -64,4 +64,5 @@ return [
             ['id' => 'apartado-7', 'title' => 'Cómo combinar ambos sin dispersar la inversión', 'html' => '<p>Una base web clara sirve a ambos canales. Las preguntas que recibes de los clientes pueden orientar contenidos y páginas de servicio; los datos de las campañas pueden darte ideas que luego puedes comprobar con SEO. Eso no significa trasladar automáticamente cada palabra clave publicitaria al plan de SEO.</p><p>Además, pagar anuncios no mejora por sí mismo el posicionamiento orgánico. Google mantiene separados ambos sistemas, como explica en su <a href="https://developers.google.com/search/docs/fundamentals/do-i-need-seo?hl=es" target="_blank" rel="noopener">guía para contratar servicios de SEO</a>.</p><p>Para decidir, empieza por cuatro preguntas:</p><ul><li>¿Qué servicio quieres impulsar?</li><li>¿Qué funciona hoy?</li><li>¿Qué puedes invertir?</li><li>¿Cómo vas a medir las consultas?</li></ul><p>En Soto Digital te ayudamos a decidir por dónde empezar y a proponer los canales adecuados a tu situación.</p>'],
         ],
     ],
+    require __DIR__.'/blog-post-chatgpt.php',
 ];

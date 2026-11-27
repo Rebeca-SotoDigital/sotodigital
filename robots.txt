@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
 
-# El sitemap recoge las páginas públicas canónicas, incluido el blog y ChatGPT Ads.
+# El sitemap recoge las páginas públicas canónicas de servicios y blog.
+# Incluye los servicios de Email marketing y ChatGPT Ads y los artículos del blog.
 # Las landings /campanas/ quedan fuera del sitemap; se permite leer su noindex.
 # El rastreo también permite leer el noindex de borradores y API.
 # Apache protege las rutas privadas mediante .htaccess.
