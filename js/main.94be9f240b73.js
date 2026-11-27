@@ -57,33 +57,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Playback starts with an explicit click so sound is permitted by the browser.
+// Play presentation videos while visible; respect a manual pause.
 document.addEventListener("DOMContentLoaded", () => {
+    if (!("IntersectionObserver" in window)) return;
     document.querySelectorAll("video[data-viewport-video]").forEach(video => {
-        const button = video.parentElement.querySelector(".team-video-play");
-        if (!button) return;
-        button.hidden = false;
-        button.addEventListener("click", () => {
-            video.muted = false;
-            if (video.volume === 0) video.volume = 1;
-            if (video.ended) video.currentTime = 0;
+        let visible = false;
+        let manuallyPaused = false;
+        let automaticPause = false;
+        const pauseOutside = () => {
+            if (video.paused) return;
+            automaticPause = true;
+            video.pause();
+        };
+        const update = () => {
+            if (!visible || document.hidden) { pauseOutside(); return; }
+            if (manuallyPaused || video.ended || !video.paused) return;
             const playback = video.play();
-            if (playback) playback.catch(() => { button.hidden = false; });
+            if (playback) playback.then(() => {
+                if (!visible || document.hidden) pauseOutside();
+            }).catch(() => {});
+        };
+        video.addEventListener("pause", () => {
+            if (!automaticPause && !video.ended) manuallyPaused = true;
+            automaticPause = false;
         });
         video.addEventListener("play", () => {
-            button.hidden = true;
-            if (document.hidden) video.pause();
+            manuallyPaused = false;
+            if (!visible || document.hidden) pauseOutside();
         });
-        video.addEventListener("pause", () => { button.hidden = false; });
-        video.addEventListener("ended", () => { button.hidden = false; });
-        if ("IntersectionObserver" in window) {
-            const observer = new IntersectionObserver(([entry]) => {
-                if (!entry.isIntersecting || entry.intersectionRatio < 0.5) video.pause();
-            }, { threshold: [0, 0.5] });
-            observer.observe(video);
-        }
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) video.pause();
-        });
+        const observer = new IntersectionObserver(([entry]) => {
+            visible = entry.isIntersecting && entry.intersectionRatio >= 0.5;
+            update();
+        }, { threshold: [0, 0.5] });
+        observer.observe(video);
+        document.addEventListener("visibilitychange", update);
     });
 });
+

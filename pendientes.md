@@ -123,3 +123,10 @@ Los estados anteriores se conservan en [el histórico](docs/pendientes-historico
 - Reproductor definitivo: portada con botón «Conoce a Soto Digital ▶»; reproducción con audio mediante clic, sin autoplay. Pausa al salir de pantalla o cambiar de pestaña; el visitante puede reanudar desde los controles o el botón. Esta decisión sustituye los intentos anteriores de autoplay. Pendiente revisión visual y subida de archivos/CSS/JS/manifiesto a Arsys.
 
 - Preferencia vigente restaurada: reproducción automática silenciada al aparecer al menos un 50 % del vídeo, pausa al salir/cambiar de pestaña, controles nativos y portada aportada. Retirado el botón superpuesto; sonido activable desde controles. Sustituye las alternativas anteriores.
+
+## Vídeo: qué pasa cuando contactas
+
+- [x] Integrado en local junto al formulario de la home, con portada aportada, MP4 vertical optimizado, controles y carga bajo demanda. Se inicia al pulsar con sonido y se pausa fuera de pantalla; la presentación del equipo conserva su reproducción automática silenciada.
+- [ ] Revisar reproducción en móvil/escritorio y subir vídeo/portada, index, CSS, JS y manifiesto actualizados a Arsys.
+
+- Ajuste vigente del segundo vídeo: mismo comportamiento que la presentación, inicio automático silenciado al estar al menos un 50 % visible, pausa al salir o cambiar de pestaña y audio activable desde controles. Sustituye el inicio manual indicado anteriormente.

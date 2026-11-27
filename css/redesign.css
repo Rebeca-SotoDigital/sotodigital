@@ -497,3 +497,9 @@ header .nav-links .btn-nav:hover, #pantalla .btn-nav:hover { background: #e3f2f8
 .team-presentation h3 { margin-bottom: 8px; }
 .team-presentation video { display: block; width: auto; max-width: 100%; max-height: 680px; height: auto; margin: 20px auto 0; border-radius: 16px; background: #142b53; }
 .team-presentation figcaption { margin-top: 10px; font-size: .875rem; color: #536573; }
+
+.contact-process-video { margin: 28px 0 0; }
+.contact-process-video h3 { font-size: 1.25rem; margin-bottom: 16px; }
+.contact-process-video video { display: block; width: auto; max-width: 100%; height: auto; max-height: 480px; border-radius: 16px; background: #142b53; }
+.contact-process-video figcaption { max-width: 36ch; margin-top: 10px; color: #536573; font-size: .875rem; }
+@media(max-width: 800px) { .contact-process-video video { margin-inline: auto; } .contact-process-video figcaption { margin-inline: auto; } }

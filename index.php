@@ -52,7 +52,15 @@ include 'includes/header.php';
 </section>
 <section id="diagnostico" class="bg-soft">
     <div class="container campaign-split">
-        <div><h2>¿Qué puede mejorar en tu negocio?</h2><p>Respóndenos a unas preguntas y te enviamos una propuesta gratuita y sin compromiso.</p><p class="response-promise">Primera respuesta en un máximo de <?= $escape(campaign_response_time()) ?>.</p></div>
+        <div><h2>¿Qué puede mejorar en tu negocio?</h2><p>Respóndenos a unas preguntas y te enviamos una propuesta gratuita y sin compromiso.</p><p class="response-promise">Primera respuesta en un máximo de <?= $escape(campaign_response_time()) ?>.</p>
+        <figure class="contact-process-video">
+            <h3>¿Qué pasa cuando contactas con nosotros?</h3>
+            <video controls muted playsinline preload="none" width="720" height="1280" data-viewport-video poster="/img/videos/que-pasa-cuando-contactas-portada.jpg" aria-label="Rebeca explica qué pasa después de contactar con Soto Digital">
+                <source src="/img/videos/que-pasa-cuando-contactas.mp4" type="video/mp4">
+                Tu navegador no permite reproducir el vídeo. <a href="/img/videos/que-pasa-cuando-contactas.mp4">Ver qué pasa después de contactar</a>.
+            </video>
+            <figcaption>Rebeca te explica el siguiente paso. Activa el sonido desde los controles para escucharla.</figcaption>
+        </figure></div>
         <?php include __DIR__ . '/includes/campaign-form.php'; ?>
     </div>
 </section>
