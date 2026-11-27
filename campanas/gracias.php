@@ -33,8 +33,8 @@ include __DIR__ . '/../includes/header.php';
         <h1>¡Recibido! Gracias por tu solicitud.</h1>
         <?php if ($slug === 'pantalla-led'): ?><p>Hemos registrado tu interés en la pantalla LED de Raos. El proyecto todavía no está disponible para contratar. Te informaremos cuando podamos confirmar disponibilidad y condiciones. No implica reserva ni pago.</p><?php endif; ?>
         <?php if ($slug !== 'pantalla-led'): ?><p>Hemos recibido tu solicitud y nuestro equipo la revisará con calma para preparar una propuesta pensada para tu negocio.</p><?php endif; ?>
-        <?php if ($senderEmail !== ''): ?><p class="thanks-email">Revisa tu bandeja de entrada (y también la carpeta de spam) por si te escribimos</strong>.</p><?php else: ?><!-- TODO: confirmar CAMPAIGN_MAIL_FROM en la configuración privada para mostrar el remitente real. --><?php endif; ?>
-        <aside class="thanks-next" aria-label="Conoce nuestro trabajo"><h2>Conoce lo que hacemos</h2><p>Mientras tanto, puedes ver algunos de nuestros proyectos de web, marca y comunicación.</p><a href="<?= $thanksEscape(soto_path('/#proyectos')) ?>">Ver nuestros proyectos <span aria-hidden="true">→</span></a></aside>
+        <?php if ($senderEmail !== ''): ?><p class="thanks-email">Revisa tu bandeja de entrada (y también la carpeta de spam) por si te escribimos.</p><?php else: ?><!-- TODO: confirmar CAMPAIGN_MAIL_FROM en la configuración privada para mostrar el remitente real. --><?php endif; ?>
+        <aside class="thanks-next" aria-label="Conoce nuestro trabajo"><h2>Conoce lo que hacemos</h2><p>Mientras tanto, puedes ver algunos de nuestros proyectos de web, marca y comunicación.</p><a href="<?= $thanksEscape(soto_path('/#proyectos')) ?>">Ver nuestros proyectos</a></aside>
     </div></section>
 </main>
 <?php if ($receipt): ?><script id="soto-lead-receipt" type="application/json"><?= json_encode(['id' => $receipt['id']], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script><?php endif; ?>
