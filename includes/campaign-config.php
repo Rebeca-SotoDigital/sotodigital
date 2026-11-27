@@ -39,6 +39,3 @@ function campaign_config(string $key, $default = '') {
 }
 
 /** Approved first-response window; empty private values use the agreed default. */
-function campaign_response_time(): string {
-    return trim((string)campaign_config('CAMPAIGN_RESPONSE_TIME')) ?: '2 días laborables';
-}

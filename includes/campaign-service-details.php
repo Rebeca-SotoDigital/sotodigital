@@ -39,7 +39,7 @@ $definitions = [
 $services=(static function(){return require __DIR__.'/campaign-services.php';})();$details=[];
 foreach($definitions as $slug=>[$scope,$questions]){
  $items=[];foreach($scope as [$title,$text])$items[]=['title'=>$title,'text'=>$text];
- $faqs=[['question'=>'¿La propuesta es gratuita?','answer'=>'Sí. Revisamos los datos que nos aportas y damos una primera respuesta en un máximo de {{response_time}}. No obliga a contratar ni implica entregar un informe independiente.']];
+ $faqs=[['question'=>'¿La propuesta es gratuita?','answer'=>'Sí. Revisamos los datos que nos aportas para preparar una propuesta. No obliga a contratar ni implica entregar un informe independiente.']];
  foreach($questions as [$question,$answer])$faqs[]=['question'=>$question,'answer'=>$answer];
  $faqs[]=['question'=>'¿Cuánto cuesta el servicio?','answer'=>'Preparamos un presupuesto según objetivos, entregables y alcance. El rango del cuestionario es orientativo, no una tarifa ni un presupuesto cerrado.'];
  $details[$slug]=['heading'=>$slug==='estrategia-digital'?'Qué trabajamos en tu estrategia':'Qué trabajamos en '.mb_strtolower($services[$slug][0]),'intro'=>'Acordamos contigo las acciones y los entregables antes de empezar.','items'=>$items,'faqs'=>$faqs];

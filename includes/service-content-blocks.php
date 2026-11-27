@@ -6,7 +6,7 @@ return [
    ['title'=>'Un destino preparado', 'text'=>'El anuncio debe llevar a una página que explique la oferta y facilite el siguiente paso. Si necesita mejoras o una nueva landing, concretamos ese trabajo en la propuesta.'],
    ['title'=>'Recursos para aprender', 'text'=>'Acordamos inversión, periodo de prueba y atención de las consultas. Si no hay condiciones para medir o atenderlas, priorizamos preparar ese punto de partida.'],
   ]],
-  ['heading'=>'Qué recibirás en la propuesta', 'intro'=>'Una recomendación que puedas valorar antes de contratar. La primera respuesta llega en un máximo de 2 días laborables; el lanzamiento se acuerda después.', 'items'=>[
+  ['heading'=>'Qué recibirás en la propuesta', 'intro'=>'Una recomendación que puedas valorar antes de contratar. El lanzamiento se acuerda después.', 'items'=>[
    ['title'=>'Objetivo y alcance', 'text'=>'Qué acción queremos conseguir, qué mensajes y materiales preparar y qué tareas incluye la gestión. Comprobamos primero las opciones disponibles para tu cuenta y mercado.'],
    ['title'=>'Inversión y responsabilidades', 'text'=>'Honorarios e inversión publicitaria separados. Indicamos qué accesos, materiales y aprobaciones necesitamos y quién atenderá las solicitudes. La cuenta publicitaria será de tu empresa.'],
    ['title'=>'Criterios para decidir', 'text'=>'Definimos cuándo revisar la prueba y qué indicadores estarán disponibles. No fijamos una cifra de contactos ni un coste garantizado sin evidencia.'],

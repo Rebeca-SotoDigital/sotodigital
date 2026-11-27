@@ -37,8 +37,8 @@ assert 'Así lo revisamos en Soto Digital' in visible
 assert '[PENDIENTE:' not in hidden
 assert 'Así lo revisamos en Soto Digital' in hidden
 assert 'blog-figure blog-pending' not in hidden
-assert 'en un máximo de PLAZO DE PRUEBA.' in render(False,'PLAZO DE PRUEBA')
-print('PASS: blog editorial copy, six checks/TOC, exact closing, three illustrative images and approved process example, no broken images, shared response time and configurable paths')
+assert 'PLAZO DE PRUEBA' not in render(False,'PLAZO DE PRUEBA')
+print('PASS: blog editorial copy, six checks/TOC, exact closing, three illustrative images and approved process example, no broken images, no response deadline and configurable paths')
 
 # Second article reuses the same template, metadata, time and placeholder switch.
 import json
@@ -80,8 +80,8 @@ for value in [visible,hidden]:
    file=root/url.lstrip('/')
    assert file.is_file() or file.is_dir(),url
  assert len([url for url in links if url.startswith('https://')])==1
-assert 'en un máximo de PLAZO DE PRUEBA.' in render(False,'PLAZO DE PRUEBA')
-print('PASS: second article seven steps, explanatory conversion copy, valid links, optional blocks, shared author/time and honest structured dates')
+assert 'PLAZO DE PRUEBA' not in render(False,'PLAZO DE PRUEBA')
+print('PASS: second article seven steps, explanatory conversion copy, valid links, optional blocks, shared author and honest structured dates')
 
 for entry in ['blog/mi-web-recibe-visitas-pero-no-contactos.php','blog/antes-de-invertir-en-google-ads.php','blog/seo-o-google-ads-por-donde-empezar.php']:
  for pending in [True,False]:
@@ -128,5 +128,5 @@ for value in [visible,hidden]:
  assert 'target="_blank" rel="noopener"' in article
  assert '/mumito/' not in value
  assert article.index('id="apartado-6"')<article.index('id="apartado-guia"')<article.index('id="apartado-7"')
-assert 'en un máximo de PLAZO DE PRUEBA.' in render(False,'PLAZO DE PRUEBA')
+assert 'PLAZO DE PRUEBA' not in render(False,'PLAZO DE PRUEBA')
 print('PASS: third article summary/SEM, comparison row, decision guide, four questions, valid links and completed process/illustrations')

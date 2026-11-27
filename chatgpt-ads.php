@@ -27,6 +27,6 @@ $service = [
         ['¿Sois partners oficiales de OpenAI?', 'Soto Digital ofrece preparación y gestión de campañas. No nos presentamos como partners oficiales de OpenAI.'],
     ],
     'closing_title' => 'Valoremos si ChatGPT Ads encaja con tu negocio',
-    'closing_text' => 'Cuéntanos qué ofreces y qué quieres conseguir. Revisamos tus datos y te damos una primera respuesta en un máximo de 2 días laborables.',
+    'closing_text' => 'Cuéntanos qué ofreces y qué quieres conseguir.',
 ];
 require __DIR__ . '/includes/service-page.php';

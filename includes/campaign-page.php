@@ -24,7 +24,7 @@ include __DIR__ . '/header.php';
 <section class="campaign-hero"><div class="container campaign-split">
  <div><span class="eyebrow"><?= $escape($service[0]) ?> · SOTO DIGITAL</span><h1><?= $escape($service[1]) ?></h1><p class="campaign-lead"><?= $escape($service[2]) ?></p><a class="btn" href="#propuesta"><?= SOTO_PROPOSAL_CTA ?></a><p class="campaign-micro">Desde Cantabria. Contigo, estés donde estés.</p>
  <ul class="campaign-benefits"><?php foreach ($service[3] as $benefit): ?><li><?= $escape($benefit) ?></li><?php endforeach; ?></ul>
- <p class="campaign-response">Primera respuesta en un máximo de <?= $escape(campaign_response_time()) ?>. Sin compromiso de contratación.</p>
+ <p class="campaign-response">Sin compromiso de contratación.</p>
  </div>
  <div id="propuesta"><?php include __DIR__ . '/campaign-form.php'; ?></div>
 </div></section>
@@ -76,7 +76,7 @@ include __DIR__ . '/header.php';
 <?php endif; ?>
 <?php include __DIR__.'/team-section.php'; ?>
 <section class="faq-section"><div class="container faq-layout"><div><span class="section-subtitle">ANTES DE EMPEZAR</span><h2>Las preguntas<br>que importan.</h2></div><div class="faq-list">
-<?php if ($serviceDetails): foreach ($serviceDetails['faqs'] as $faq): ?><details><summary><?= $escape($faq['question']) ?><span aria-hidden="true">+</span></summary><p><?= $escape(str_replace('{{response_time}}', campaign_response_time(), $faq['answer'])) ?></p></details><?php endforeach; else: ?>
+<?php if ($serviceDetails): foreach ($serviceDetails['faqs'] as $faq): ?><details><summary><?= $escape($faq['question']) ?><span aria-hidden="true">+</span></summary><p><?= $escape($faq['answer']) ?></p></details><?php endforeach; else: ?>
 <details><summary>¿La propuesta es gratuita?<span aria-hidden="true">+</span></summary><p>Sí. Revisamos gratuitamente los datos que nos aportas. Según tus necesidades, te llamamos si has dejado móvil o te enviamos una propuesta por email. No obliga a contratar.</p></details>
 <details><summary>¿Necesito tener una web?<span aria-hidden="true">+</span></summary><p>No. Puedes dejar el campo de web vacío y contarnos qué necesita tu negocio. Valoraremos el punto de partida antes de recomendar canales.</p></details>
 <details><summary>¿Cuánto cuesta el servicio?<span aria-hidden="true">+</span></summary><p>Preparamos un presupuesto según el alcance y tus objetivos. La inversión que indiques en el cuestionario es orientativa, no una tarifa. En publicidad distinguimos los honorarios de la inversión en anuncios.</p></details>

@@ -65,7 +65,7 @@ include __DIR__.'/header.php';
             <?php endforeach; ?>
             <?php if (!empty($blogPost['closing_html'])): ?><?= $blogPost['closing_html'] ?><?php endif; ?>
         </div>
-        <aside class="blog-cta" aria-label="Propuesta para tu negocio"><h2>¿Lo vemos en tu negocio?</h2><p>Cuéntanos tu punto de partida. Revisaremos los datos y te responderemos en un máximo de <?= $blogEscape(campaign_response_time()) ?>.</p><a class="btn" href="/#diagnostico"><?= SOTO_PROPOSAL_CTA ?></a></aside>
+        <aside class="blog-cta" aria-label="Propuesta para tu negocio"><h2>¿Lo vemos en tu negocio?</h2><p>Cuéntanos tu punto de partida. Revisaremos los datos y nos pondremos en contacto contigo.</p><a class="btn" href="/#diagnostico"><?= SOTO_PROPOSAL_CTA ?></a></aside>
         <nav class="blog-related" aria-label="Otros artículos"><h2>Para seguir leyendo</h2><ul>
             <?php foreach ($blogPosts as $related): if (empty($related['approved']) || $related['slug'] === $blogPost['slug']) continue; ?>
             <li><a href="/blog/<?= $blogEscape($related['slug']) ?>.php"><?= $blogEscape($related['title']) ?></a></li>

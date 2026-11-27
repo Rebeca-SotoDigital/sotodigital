@@ -57,7 +57,7 @@ return [
     ['question'=>'¿Podéis revisar campañas que ya están funcionando?', 'answer'=>'Sí. Indícalo en el cuestionario y valoraremos qué información necesitamos revisar. Los accesos se acuerdan después; no envíes contraseñas ni claves en el formulario.'],
     ['question'=>'¿Necesito tener una web o una landing?', 'answer'=>'Para una campaña que dirija a tu web hace falta una página de destino adecuada. Puedes pedir la propuesta sin tenerla: valoraremos si necesitas una landing y presupuestaremos su creación o mejora según el alcance.'],
     ['question'=>'¿Cuánto cuesta y cuánto tengo que invertir en Google?', 'answer'=>'Preparamos una propuesta según tus objetivos y el alcance. Nuestros honorarios y la inversión publicitaria son conceptos separados. El rango del cuestionario es orientativo y no constituye una tarifa ni un presupuesto cerrado.'],
-    ['question'=>'¿Cuándo responderéis y cuándo empezaría la campaña?', 'answer'=>'La primera respuesta llega en un máximo de {{response_time}}. La fecha de lanzamiento se acuerda después de revisar la propuesta, preparar la página de destino y comprobar la medición; no se activa una campaña por enviar el formulario.'],
+    ['question'=>'¿Cuándo empezaría la campaña?', 'answer'=>'La fecha de lanzamiento se acuerda después de revisar la propuesta, preparar la página de destino y comprobar la medición; no se activa una campaña por enviar el formulario.'],
     ['question'=>'¿Garantizáis ventas o un coste por consulta?', 'answer'=>'No. Los resultados dependen de la demanda, la competencia, la oferta y la página de destino, entre otros factores. Las proyecciones son escenarios con supuestos, no compromisos de ventas ni costes garantizados.'],
    ],
   ],

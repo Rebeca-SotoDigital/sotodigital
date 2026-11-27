@@ -52,7 +52,7 @@ include 'includes/header.php';
 </section>
 <section id="diagnostico" class="bg-soft">
     <div class="container campaign-split">
-        <div><h2>¿Qué puede mejorar en tu negocio?</h2><p>Respóndenos a unas preguntas y te enviamos una propuesta gratuita y sin compromiso.</p><p class="response-promise">Primera respuesta en un máximo de <?= $escape(campaign_response_time()) ?>.</p>
+        <div><h2>¿Qué puede mejorar en tu negocio?</h2><p>Respóndenos a unas preguntas y te enviamos una propuesta gratuita y sin compromiso.</p>
         <figure class="contact-process-video">
             <h3>¿Qué pasa cuando contactas con nosotros?</h3>
             <video controls muted playsinline preload="none" width="720" height="1280" data-viewport-video poster="/img/videos/que-pasa-cuando-contactas-portada.jpg" aria-label="Rebeca explica qué pasa después de contactar con Soto Digital">
