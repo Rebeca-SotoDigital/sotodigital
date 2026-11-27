@@ -1,0 +1,14 @@
+body.campaign-body { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+body.campaign-body > header, body.campaign-body > footer { flex-shrink: 0; }
+.thanks-page { flex: 1 0 auto; display: grid; align-items: center; }
+.thanks-page > section { width: 100%; padding: clamp(40px, 7vw, 88px) 0; }
+.thanks-check { display: block; margin: 0 auto 24px; }
+.thanks-page h1 { font-size: clamp(2rem, 4vw, 3.8rem); margin: 0 auto 24px; }
+.thanks-page .thanks-email { max-width: 58ch; margin: 20px auto 0; overflow-wrap: anywhere; }
+.thanks-next { margin: 32px auto 0; padding: 24px; max-width: 620px; border-radius: 16px; background: #e8f3f8; }
+.thanks-page .thanks-next h2 { font-size: 1.3rem; letter-spacing: normal; }
+.thanks-next p { margin: 12px 0; }
+.thanks-next a { color: #075d7c; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.thanks-page a:focus-visible, .campaign-body .thanks-home:focus-visible { outline: 3px solid #1786af; outline-offset: 5px; }
+.campaign-body .thanks-home { background: transparent; color: #075d7c; border: 1px solid #075d7c; }
+.campaign-body .thanks-home:hover { background: #e8f3f8; }
