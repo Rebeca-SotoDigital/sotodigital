@@ -135,3 +135,9 @@ Los estados anteriores se conservan en [el histórico](docs/pendientes-historico
 
 - [x] Preparada integración local en `/campanas/google-ads.php`, después del alcance de gestión y antes de la propuesta: portada aportada, MP4 vertical optimizado, reproducción automática silenciada al aparecer y pausa fuera de pantalla. No se solicitan archivos de subtítulos inexistentes.
 - [ ] Revisar reproducción/sonido en móvil y escritorio, y subir vídeo, portada, plantillas/contenido de campañas, CSS y manifiesto a Arsys. Los vídeos de otros servicios siguen pendientes.
+
+## Vídeo 4: Instagram y Facebook Ads — 27 de noviembre
+
+- [x] Integración preparada en local en `/campanas/meta-ads.php`, con portada aportada y MP4 vertical optimizado. Reproducción automática silenciada al aparecer, pausa al salir y sonido activable desde controles.
+- [ ] Revisar reproducción/sonido en móvil y escritorio y subir `img/videos/meta-ads.mp4`, `img/videos/meta-ads-portada.jpg`, `includes/campaign-content.php` y `includes/campaign-page.php` a Arsys. No se ha hecho commit ni publicación por esta incorporación.
+- Continúa pendiente el vídeo de diseño web y los demás vídeos de servicios aún no aportados.
