@@ -27,3 +27,6 @@ dist/
 # Registros privados
 **/errores-whatsapp.txt
 *.log
+
+/deploy-whatsapp/
+/soto-whatsapp-agente.zip
