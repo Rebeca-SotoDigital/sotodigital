@@ -24,9 +24,18 @@ include 'includes/header.php';
     <div class="container">
         <div class="section-heading"><h2>¿Dónde estás? <span class="muted-heading">¿A dónde quieres llegar?</span></h2></div>
         <div class="solutions-grid">
-            <a class="solution-card solution-dark" href="<?= $escape(SOTO_SERVICES['servicio-visibilidad'][1]) ?>"><h3>Quiero que <strong>me conozcan</strong></h3><p>Una presencia cuidada en redes y en internet para que más gente sepa que existes.</p></a>
-            <a class="solution-card solution-dark" href="<?= $escape(SOTO_SERVICES['servicio-publicidad'][1]) ?>"><h3>Quiero <strong>más consultas</strong></h3><p>Una web clara y campañas que llevan a personas interesadas hasta tu puerta.</p></a>
-            <a class="solution-card solution-dark" href="<?= $escape(SOTO_SERVICES['servicio-marca'][1]) ?>"><h3>Quiero una <strong>marca</strong> que destaque</h3><p>Una imagen coherente y reconocible que transmita confianza desde el primer vistazo.</p></a>
+            <a class="solution-card solution-dark" href="<?= $escape(SOTO_SERVICES['servicio-visibilidad'][1]) ?>">
+                <h3>Quiero que<br> <strong>me conozcan</strong></h3>
+                <p>Una presencia bien cuidada<br> en redes y buscadores para<br> que más gente te encuentre.</p>
+            </a>
+            <a class="solution-card solution-dark" href="<?= $escape(SOTO_SERVICES['servicio-publicidad'][1]) ?>">
+                <h3>Quiero<br> <strong>más consultas</strong></h3>
+                <p>Una web clara y campañas<br> para llegar a quien te busca<br> y conseguir más consultas.</p>
+            </a>
+            <a class="solution-card solution-dark" href="<?= $escape(SOTO_SERVICES['servicio-marca'][1]) ?>">
+                <h3>Quiero destacar<br> con mi <strong>marca</strong></h3>
+                <p>Una identidad reconocible<br> que muestre cómo trabajas<br> y dé confianza al conocerte.</p>
+            </a>
         </div>
     </div>
 </section>

@@ -296,6 +296,15 @@ header .nav-links .btn-nav:hover, #pantalla .btn-nav:hover { background: #e3f2f8
     background: linear-gradient(145deg, #23414f, #17242e 74%);
     border: 1px solid #315365;
 }
+@media (max-width: 900px) {
+    .home-page #soluciones .solutions-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 360px), (901px <= width <= 960px) {
+    .home-page #soluciones .solution-card { padding-inline: 16px; }
+}
+@media (max-width: 360px) {
+    .home-page #soluciones .solution-card h3 { font-size: 1.5rem; }
+}
 .home-page #servicios .service-row {
     padding-inline: clamp(12px, 2vw, 24px);
 }
