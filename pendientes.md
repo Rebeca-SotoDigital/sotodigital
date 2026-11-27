@@ -108,3 +108,18 @@ Los estados anteriores se conservan en [el histórico](docs/pendientes-historico
 - [x] Nuevo artículo local: `/blog/publicidad-chatgpt-antes-de-invertir.php`. Sitemap regenerado con 24 URL públicas; la landing de campañas sigue excluida por noindex.
 - [ ] Subir página, artículo, datos/plantillas compartidas y sitemap a Arsys; comprobar canonical/indexabilidad en producción y solicitar indexación de las dos URL nuevas.
 - [ ] Contrastar demanda de palabras clave en herramientas reales; no hay volúmenes ni posiciones acreditadas.
+
+## Primer vídeo del equipo — 27 de noviembre
+
+- [x] Presentación de Rebeca integrada en local en la home, antes de las fotos del equipo. MP4 H.264/AAC vertical 720 × 1280, duración aproximada de 60 segundos, 7,4 MB frente a 86 MB del original. Se conserva el contenido visual del vídeo, incluida su portada inicial.
+- [x] Portada JPEG, controles, reproducción móvil, sin autoplay y `preload=none`. No se incorpora el vídeo general a las landings específicas.
+- [ ] Revisar reproducción, sonido y subtítulos en móvil/escritorio y subir `index.php`, `includes/team-section.php`, `includes/asset-manifest.php`, CSS generados, `img/videos/presentacion-soto-digital.mp4`, `img/videos/presentacion-soto-digital-portada.jpg` y sitemap a Arsys. El original MOV no se copia al proyecto.
+- [ ] Continúan pendientes los vídeos específicos de servicios.
+
+- Vídeo de presentación: portada sustituida por el JPG aportado por el equipo. Inicio automático silenciado al estar al menos un 50 % visible, pausa al salir de pantalla o cambiar de pestaña; se respeta la pausa manual. Controles para activar sonido. Falta comprobar el comportamiento en navegador y publicar archivos/manifiesto actualizados. Esta preferencia sustituye el anterior comportamiento sin reproducción automática.
+
+- Preferencia definitiva del vídeo: intentar inicio con sonido al entrar en pantalla, sin atributo muted ni alternativa silenciada. El navegador puede bloquear el autoplay con audio; en ese caso se requiere pulsar reproducir. Se mantienen pausa fuera de pantalla y controles de volumen. Sustituye la preferencia anterior de inicio silenciado.
+
+- Reproductor definitivo: portada con botón «Conoce a Soto Digital ▶»; reproducción con audio mediante clic, sin autoplay. Pausa al salir de pantalla o cambiar de pestaña; el visitante puede reanudar desde los controles o el botón. Esta decisión sustituye los intentos anteriores de autoplay. Pendiente revisión visual y subida de archivos/CSS/JS/manifiesto a Arsys.
+
+- Preferencia vigente restaurada: reproducción automática silenciada al aparecer al menos un 50 % del vídeo, pausa al salir/cambiar de pestaña, controles nativos y portada aportada. Retirado el botón superpuesto; sonido activable desde controles. Sustituye las alternativas anteriores.

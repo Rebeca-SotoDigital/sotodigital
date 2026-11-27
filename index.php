@@ -92,7 +92,7 @@ include 'includes/header.php';
         <a href="#diagnostico" class="btn btn-accent"><?= SOTO_PROPOSAL_CTA ?></a>
     </div>
 </section>
-<?php include __DIR__.'/includes/team-section.php'; ?>
+<?php $showTeamPresentation = true; include __DIR__.'/includes/team-section.php'; ?>
 <section id="preguntas" class="faq-section">
     <div class="container faq-layout">
         <h2>Preguntas frecuentes</h2>

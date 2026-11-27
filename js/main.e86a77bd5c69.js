@@ -56,3 +56,40 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// Play presentation videos while visible; respect a manual pause.
+document.addEventListener("DOMContentLoaded", () => {
+    if (!("IntersectionObserver" in window)) return;
+    document.querySelectorAll("video[data-viewport-video]").forEach(video => {
+        let visible = false;
+        let manuallyPaused = false;
+        let automaticPause = false;
+        const pauseOutside = () => {
+            if (video.paused) return;
+            automaticPause = true;
+            video.pause();
+        };
+        const update = () => {
+            if (!visible || document.hidden) { pauseOutside(); return; }
+            if (manuallyPaused || video.ended || !video.paused) return;
+            const playback = video.play();
+            if (playback) playback.then(() => {
+                if (!visible || document.hidden) pauseOutside();
+            }).catch(() => {});
+        };
+        video.addEventListener("pause", () => {
+            if (!automaticPause && !video.ended) manuallyPaused = true;
+            automaticPause = false;
+        });
+        video.addEventListener("play", () => {
+            manuallyPaused = false;
+            if (!visible || document.hidden) pauseOutside();
+        });
+        const observer = new IntersectionObserver(([entry]) => {
+            visible = entry.isIntersecting && entry.intersectionRatio >= 0.5;
+            update();
+        }, { threshold: [0, 0.5] });
+        observer.observe(video);
+        document.addEventListener("visibilitychange", update);
+    });
+});
