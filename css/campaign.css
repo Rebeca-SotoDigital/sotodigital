@@ -67,3 +67,5 @@
     .campaign-form-pair { grid-template-columns: 1fr; gap: 0; }
     .campaign-form-actions { gap: 8px; }
 }
+
+.campaign-body .campaign-service-video video { width: auto; max-width: 100%; max-height: 600px; height: auto; justify-self: center; }

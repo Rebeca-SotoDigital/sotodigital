@@ -130,3 +130,8 @@ Los estados anteriores se conservan en [el histórico](docs/pendientes-historico
 - [ ] Revisar reproducción en móvil/escritorio y subir vídeo/portada, index, CSS, JS y manifiesto actualizados a Arsys.
 
 - Ajuste vigente del segundo vídeo: mismo comportamiento que la presentación, inicio automático silenciado al estar al menos un 50 % visible, pausa al salir o cambiar de pestaña y audio activable desde controles. Sustituye el inicio manual indicado anteriormente.
+
+## Vídeo de Google Ads — 27 de noviembre
+
+- [x] Preparada integración local en `/campanas/google-ads.php`, después del alcance de gestión y antes de la propuesta: portada aportada, MP4 vertical optimizado, reproducción automática silenciada al aparecer y pausa fuera de pantalla. No se solicitan archivos de subtítulos inexistentes.
+- [ ] Revisar reproducción/sonido en móvil y escritorio, y subir vídeo, portada, plantillas/contenido de campañas, CSS y manifiesto a Arsys. Los vídeos de otros servicios siguen pendientes.

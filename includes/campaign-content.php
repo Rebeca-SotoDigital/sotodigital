@@ -77,7 +77,7 @@ return [
   ['name'=>'Rebeca','description'=>'CEO y cofundadora.','personal'=>'Creativa por naturaleza, inconformista por elección e incansable cuando se trata de convertir una idea en realidad.','approved'=>true,'photo'=>'img/equipo/rebeca.webp'],
   ['name'=>'Jónatan','description'=>'CCO y cofundador.','personal'=>'Los retos no me frenan, me impulsan. Creo en el esfuerzo, la constancia y el compromiso de llevar cada proyecto hasta el final.','approved'=>true,'photo'=>'img/equipo/jonatan.webp'],
  ],
- 'videos' => [],
+ 'videos' => ['google-ads' => 'img/videos/google-ads.mp4'],
  // Approved authentic quotes only; see docs/testimonios-clientes.md.
  'testimonials' => [],
 ];

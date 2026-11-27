@@ -4,7 +4,7 @@ return [
     "fonts/montserrat-latin.woff2" => "fonts/montserrat-latin.6438d7b8ea9c.woff2",
     "css/site.css" => "css/site.ee9a99a2a197.css",
     "css/site-services.css" => "css/site-services.0e0e622bbabd.css",
-    "css/campaign.css" => "css/campaign.4deff3b2c2bb.css",
+    "css/campaign.css" => "css/campaign.6b537a490b02.css",
     "js/main.js" => "js/main.e86a77bd5c69.js",
     "js/cookies.js" => "js/cookies.be26cb687e45.js",
     "js/campaign.js" => "js/campaign.fc270e0b77be.js",

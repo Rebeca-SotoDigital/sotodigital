@@ -32,6 +32,12 @@ include __DIR__ . '/header.php';
 <?php if ($serviceDetails): ?>
 <section id="servicio"><div class="container"><div class="section-heading"><div><span class="section-subtitle">QUÉ VAMOS A TRABAJAR</span><h2><?= $escape($serviceDetails['heading']) ?></h2></div><p><?= $escape($serviceDetails['intro']) ?></p></div><div class="campaign-case-grid"><?php foreach ($serviceDetails['items'] as $item): ?><article class="campaign-case"><h3><?= $escape($item['title']) ?></h3><p><?= $escape($item['text']) ?></p></article><?php endforeach; ?></div></div></section>
 <?php endif; ?>
+<?php $video = $content['videos'][$slug] ?? ''; if ($video && preg_match('~\Aimg/videos/[a-zA-Z0-9_-]+\.mp4\z~', $video) && is_file(__DIR__ . '/../' . $video)):
+ $videoPoster = substr($video, 0, -4).'-portada.jpg';
+ $videoCaptions = substr($video, 0, -4).'.vtt';
+?>
+<section class="campaign-service-video"><div class="container campaign-split"><div><span class="section-subtitle">TE LO CONTAMOS NOSOTROS</span><h2><?= $slug === 'google-ads' ? 'Google Ads, explicado por Rebeca.' : 'Una conversación con el equipo.' ?></h2><p>Conoce cómo abordamos <?= $escape(mb_strtolower($service[0])) ?> y qué necesitamos saber de tu negocio.</p><p>Activa el sonido desde los controles para escuchar el vídeo.</p></div><video controls muted playsinline preload="none" data-viewport-video width="720" height="1280"<?php if (is_file(__DIR__.'/../'.$videoPoster)): ?> poster="/<?= $escape($videoPoster) ?>"<?php endif; ?> aria-label="El equipo de Soto Digital explica <?= $escape($service[0]) ?>"><source src="/<?= $escape($video) ?>" type="video/mp4"><?php if (is_file(__DIR__.'/../'.$videoCaptions)): ?><track kind="captions" src="/<?= $escape($videoCaptions) ?>" srclang="es" label="Español" default><?php endif; ?></video></div></section>
+<?php endif; ?>
 <?php foreach (['proposal'=>'TU PROPUESTA, CONCRETADA', 'formats'=>'DÓNDE PUEDE ENCAJAR TU NEGOCIO', 'approach'=>'ASÍ TRABAJAMOS EN SOTO DIGITAL', 'reporting'=>'SEGUIMIENTO CON SENTIDO'] as $blockKey => $blockLabel):
  $detailBlock = $serviceDetails[$blockKey] ?? null;
  if (!$detailBlock) continue;
@@ -43,9 +49,7 @@ include __DIR__ . '/header.php';
 </div></section>
 <?php endforeach; ?>
 <?php $editorialDefinitions = require __DIR__.'/service-content-blocks.php'; $editorialBlocks = $editorialDefinitions[$slug] ?? []; include __DIR__.'/service-blocks-section.php'; ?>
-<?php $video = $content['videos'][$slug] ?? ''; if ($video && preg_match('~\Aimg/videos/[a-zA-Z0-9_-]+\.mp4\z~', $video) && is_file(__DIR__ . '/../' . $video)): ?>
-<section><div class="container campaign-split"><div><span class="section-subtitle">TE LO CONTAMOS NOSOTROS</span><h2>Las preguntas que importan.<br>Una conversación con el equipo.</h2><p>Conoce cómo abordamos <?= $escape(mb_strtolower($service[0])) ?> y qué necesitamos saber de tu negocio.</p></div><video controls preload="none" aria-label="Entrevista al equipo de Soto Digital sobre <?= $escape($service[0]) ?>"><source src="/<?= $escape($video) ?>" type="video/mp4"><track kind="captions" src="/<?= $escape(substr($video, 0, -4)) ?>.vtt" srclang="es" label="Español" default></video></div></section>
-<?php endif; ?>
+
 <section id="plan"><div class="container"><div class="section-heading"><div><span class="section-subtitle">DE LA PRIMERA CONVERSACIÓN AL PLAN</span><h2>Antes de hacer,<br>entendemos tu negocio.</h2></div><p>Te explicamos qué proponemos, por qué y cómo valoraremos su evolución. La revisión inicial de los datos que nos aportas es gratuita y sin compromiso. Según tus necesidades, te llamamos o te enviamos una propuesta por email.</p></div><div class="process-grid campaign-process">
 <?php if (!empty($serviceDetails['process'])): foreach ($serviceDetails['process'] as $step): ?><article><span><?= $escape($step['label']) ?></span><h3><?= $escape($step['title']) ?></h3><p><?= $escape($step['text']) ?></p></article><?php endforeach; else: ?>
 <article><span>01 / AUDITORÍA</span><h3>Tu punto de partida.</h3><p>Revisamos los datos que nos facilitas para entender tu negocio, tus objetivos y qué necesitas.</p></article>
