@@ -140,4 +140,10 @@ Los estados anteriores se conservan en [el histórico](docs/pendientes-historico
 
 - [x] Integración preparada en local en `/campanas/meta-ads.php`, con portada aportada y MP4 vertical optimizado. Reproducción automática silenciada al aparecer, pausa al salir y sonido activable desde controles.
 - [ ] Revisar reproducción/sonido en móvil y escritorio y subir `img/videos/meta-ads.mp4`, `img/videos/meta-ads-portada.jpg`, `includes/campaign-content.php` y `includes/campaign-page.php` a Arsys. No se ha hecho commit ni publicación por esta incorporación.
-- Continúa pendiente el vídeo de diseño web y los demás vídeos de servicios aún no aportados.
+- Vídeo de diseño web aportado posteriormente; siguen pendientes los demás vídeos de servicios aún no aportados.
+
+## Vídeo 5: Diseño web — 27 de noviembre
+
+- [x] Preparada integración en página pública `/diseno-web.php` y landing `/campanas/diseno-web.php`, con MP4 vertical optimizado y portada aportada. Mismo comportamiento que los otros: reproducción automática silenciada al aparecer y pausa al salir/cambiar de pestaña.
+- [ ] Revisar móvil/escritorio y subir vídeo/portada, contenido y plantillas compartidas, CSS generados y manifiesto a Arsys. Aún sin commit ni publicación de esta incorporación.
+- Los cinco vídeos iniciales ya se han aportado: presentación, proceso de contacto, Google Ads, Meta Ads y diseño web. Los vídeos de los demás servicios siguen pendientes.

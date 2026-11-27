@@ -87,6 +87,12 @@ include __DIR__ . '/header.php';
     <?php elseif ($service['slug'] === 'chatgpt-ads'): ?>
     <div class="container"><p>Antes de decidir, lee nuestra guía: <a href="/blog/publicidad-chatgpt-antes-de-invertir.php">publicidad en ChatGPT: qué valorar antes de invertir</a>.</p></div>
     <?php endif; ?>
+    <?php if ($service['slug'] === 'diseno-web' && is_file(__DIR__.'/../img/videos/diseno-web.mp4')): ?>
+    <section class="service-explainer"><div class="container campaign-split">
+        <div><span class="section-subtitle">TE LO CONTAMOS NOSOTROS</span><h2>Diseño web, explicado por Rebeca.</h2><p>Qué necesita una web para presentar tu negocio con claridad y facilitar el contacto.</p><p>Activa el sonido desde los controles para escuchar el vídeo.</p></div>
+        <video controls muted playsinline preload="none" data-viewport-video width="720" height="1280" poster="/img/videos/diseno-web-portada.jpg" aria-label="Rebeca explica el servicio de diseño web de Soto Digital"><source src="/img/videos/diseno-web.mp4" type="video/mp4">Tu navegador no permite reproducir este vídeo. <a href="/img/videos/diseno-web.mp4">Ver el vídeo de diseño web</a>.</video>
+    </div></section>
+    <?php endif; ?>
     <?php $editorialDefinitions = require __DIR__.'/service-content-blocks.php'; $editorialBlocks = $editorialDefinitions[$service['slug']] ?? []; include __DIR__.'/service-blocks-section.php'; ?>
     <?php if (!empty($service['audience'])): ?>
     <section>
