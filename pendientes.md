@@ -18,13 +18,13 @@ El código del agente, webhook y ejecutor HTTPS protegido está incorporado en `
 
 ## 2. ChatGPT Ads: publicar y preparar el servicio
 
-Página pública `/chatgpt-ads.php` y landing `/campanas/chatgpt-ads.php` creadas. Footer, servicios relacionados y descripción de Campañas actualizados. Código subido a GitHub; publicación en Arsys aún sin confirmar.
+Página pública `/chatgpt-ads.php` y landing `/campanas/chatgpt-ads.php` creadas. Footer, servicios relacionados y descripción de Campañas actualizados. Página, landing y artículo de apoyo subidos a GitHub. El equipo confirmó la subida a Arsys antes de incorporar los vídeos; falta comprobar las últimas versiones en producción.
 
-- [ ] Subir los cambios a Arsys y revisar página pública, landing y enlaces en móvil y escritorio.
+- [ ] Revisar en producción la página pública, la landing y sus enlaces en móvil y escritorio; confirmar que están subidas las últimas versiones.
 - [ ] Comprobar `SERVICIO_INTERES` en Brevo: si es categoría, añadir «ChatGPT Ads». Probar una solicitud real y verificar servicio, puntuación PHP, resumen IA y correos.
 - [ ] Antes de gestionar campañas, comprobar acceso a Ads Manager, cuenta y permisos del cliente, requisitos vigentes, honorarios, presupuesto y plan de medición.
 - [ ] Concretar la oferta de prueba piloto: entregables, duración, criterios para continuar o detener y alcance del seguimiento. No hay campaña activada ni resultados propios acreditados.
-- [ ] Comprobar el sitemap publicado con 23 páginas públicas, incluida `/chatgpt-ads.php`; la landing de campañas mantiene noindex y queda fuera del sitemap. Solicitar indexación de la página pública tras publicarla.
+- [ ] Comprobar el sitemap publicado con 24 páginas públicas, incluida `/chatgpt-ads.php`; la landing de campañas mantiene noindex y queda fuera del sitemap. Solicitar indexación de la página pública tras publicarla.
 
 ## 3. Google Ads: campañas propias de Soto Digital
 
@@ -37,7 +37,10 @@ Preferencias confirmadas: todos los servicios, toda España, sin especializació
 
 ## 4. Vídeos y testimonios
 
-- [ ] Grabar vídeos explicando los servicios, preferiblemente entrevistas, y editar/subtitular.
+- [x] Los cinco vídeos iniciales están grabados, optimizados, integrados en local y subidos a GitHub: presentación y proceso de contacto en home; Google Ads y Meta Ads en sus landings; diseño web en página pública y landing.
+- [ ] Confirmar subida de los últimos vídeos, portadas, PHP, CSS/JS generados y manifiesto a Arsys. Revisar reproducción, portadas, audio, subtítulos y formato móvil/escritorio.
+- [ ] Comprobar que los cinco vídeos se reproducen al aparecer sin sonido y se pausan al salir/cambiar de pestaña; confirmar que los controles permiten activar sonido y pausar manualmente.
+- [ ] Preparar vídeos de los demás servicios cuando haya material; ya no están pendientes los cinco iniciales.
 - [ ] Recopilar testimonios de TecniRefinish y Cantabria Kebab con permiso de publicación.
 - [ ] Incorporar resultados verificables y autorizados cuando existan. No inventar cifras ni atribuir resultados de campañas a proyectos sin evidencia.
 
@@ -71,7 +74,7 @@ No hay recordatorio automático creado. Google Business Profile sigue pospuesto:
 
 - Integración del formulario con Brevo e IA, correos, procesamiento periódico y `generate_lead` en GA4.
 - Revisión previa de landings, protección .htaccess, consentimiento y copias diarias de leads del formulario con retención máxima de tres.
-- Tres artículos del blog publicados; sitemap anterior de 22 URL enviado y cuatro indexaciones solicitadas. La nueva versión local tiene 23 URL.
+- Tres artículos del blog publicados; sitemap anterior de 22 URL enviado y cuatro indexaciones solicitadas. La versión local vigente tiene 24 URL públicas, incluido el artículo de ChatGPT Ads.
 - Organización de mantenimiento: Rebeca responsable principal y Jónatan suplente; avisos a info@soto-digital.com y rebeca@soto-digital.com. Revisar que los nuevos procesos de WhatsApp queden cubiertos por esa organización.
 
 Los estados anteriores se conservan en [el histórico](docs/pendientes-historico-2026-11-26.md). Este documento sustituye las listas y preguntas duplicadas anteriores.
@@ -147,3 +150,13 @@ Los estados anteriores se conservan en [el histórico](docs/pendientes-historico
 - [x] Preparada integración en página pública `/diseno-web.php` y landing `/campanas/diseno-web.php`, con MP4 vertical optimizado y portada aportada. Mismo comportamiento que los otros: reproducción automática silenciada al aparecer y pausa al salir/cambiar de pestaña.
 - [ ] Revisar móvil/escritorio y subir vídeo/portada, contenido y plantillas compartidas, CSS generados y manifiesto a Arsys. Aún sin commit ni publicación de esta incorporación.
 - Los cinco vídeos iniciales ya se han aportado: presentación, proceso de contacto, Google Ads, Meta Ads y diseño web. Los vídeos de los demás servicios siguen pendientes.
+
+## Estado vigente de publicación — última revisión
+
+- [x] Los cinco vídeos iniciales y sus integraciones están en GitHub. Último commit de vídeo de diseño web: `9957954`. No repetir grabación ni conversión de esos archivos.
+- [ ] Publicación y revisión en Arsys de las últimas incorporaciones audiovisuales sin confirmar. Subir siempre CSS/JS versionados y `includes/asset-manifest.php` juntos.
+- [ ] Confirmar el botón flotante de WhatsApp en producción con el número **+34 640 869 847**.
+- [x] Sitemap regenerado y validado con 24 URL públicas; robots permite su rastreo y la lectura del noindex de las landings. Los vídeos no crean páginas públicas adicionales.
+- [ ] Subir `sitemap.xml` y `robots.txt` vigentes a Arsys. Si no se ha hecho todavía, solicitar en Search Console la indexación de `/chatgpt-ads.php` y `/blog/publicidad-chatgpt-antes-de-invertir.php`; se dieron instrucciones, pero no consta confirmación de estas solicitudes.
+
+Las notas cronológicas anteriores sobre reproducción manual o grabaciones pendientes quedan sustituidas por este estado: los cinco vídeos usan reproducción automática silenciada al aparecer, con controles nativos y pausa al salir.
